@@ -1,5 +1,5 @@
 # Anika
 
-![Anika][../img/logo.png]
+![Anika][../Img/logo.png]
 
-**Anika** (Anleihen und Aktien investieren Karlsruhe) ermöglicht den Handel von Aktien und Anleihen im Rahmen des Planspiels.
+**Anika** (Anleihen und Aktien investieren Karlsruhe) ermÃ¶glicht den Handel von Aktien und Anleihen im Rahmen des Planspiels.
