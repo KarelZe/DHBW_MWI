@@ -9,7 +9,8 @@ public class Buchung {
     private long transaktionsArtId;
     private long stueckzahl;
     private long periodeWertpapierId;
-    private double wert; //beinhaltet Dividendenhöhe bzw. Ordervolumen
+    private double volumen; //beinhaltet Dividendenhöhe bzw. Ordervolumen
+    private double ordergebuehr;
     private double saldoZahlungsmittelkonto;
     private double saldoDepot;
 }
