@@ -1,4 +1,4 @@
-package respository.DAO;
+package model.DAO;
 
 import java.awt.*;
 
@@ -8,6 +8,5 @@ public class Unternehmen {
     private Color farbe;
     private boolean isAktiv;
 
-    //Liste Mitarbeiter
     //SpielID
 }
