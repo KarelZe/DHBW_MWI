@@ -1,12 +1,10 @@
-package de.dhbw.karlsruhe;
+package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.DAO.Helper.EncryptionHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.security.MessageDigest;
 
 public class LoginController {
     @FXML private TextField txt_benutzername;
@@ -18,7 +16,7 @@ public class LoginController {
         String username = txt_benutzername.getText();
         String passwortKlartext = txt_passwort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
-        //ToDo
+        System.out.println("["+ username + ","+ passwortKlartext + "," + passwortVerschluesselt+ "]");
     }
 
 
