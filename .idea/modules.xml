@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DHBW_MWI.iml" filepath="$PROJECT_DIR$/.idea/modules/DHBW_MWI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DHBW_MWI_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DHBW_MWI_main.iml" group="DHBW_MWI" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DHBW_MWI_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DHBW_MWI_test.iml" group="DHBW_MWI" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/anika.iml" filepath="$PROJECT_DIR$/.idea/modules/anika.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/anika.main.iml" filepath="$PROJECT_DIR$/.idea/modules/anika.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/anika.test.iml" filepath="$PROJECT_DIR$/.idea/modules/anika.test.iml" />
