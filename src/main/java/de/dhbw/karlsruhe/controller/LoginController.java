@@ -21,23 +21,23 @@ public class LoginController {
     @FXML
     private void doLogin(ActionEvent event)
     {
+        // lese Daten aus Textfeldern der scene_login.fxml
         String benutzername = txt_benutzername.getText();
         String passwortKlartext = txt_passwort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
-        System.out.println("["+ benutzername + ","+ passwortKlartext + "," + passwortVerschluesselt+ "]");
 
         // TODO: Beispiel um Teilnehmer anzuleg
-//        Teilnehmer teilnehmer = new Teilnehmer();
-//        teilnehmer.setNachname("Fabozzi");
-//        teilnehmer.setVorname("Frank");
-//        teilnehmer.setBenutzername(benutzername);
-//        teilnehmer.setPasswort(passwortVerschluesselt);
-//        Unternehmen unternehmen = new Unternehmen();
-//        unternehmen.setId(1);
-//        teilnehmer.setUnternehmen(unternehmen);
-//        Rolle rolle = new Rolle();
-//        rolle.setId(1);
-//        teilnehmer.setRolle(rolle);
+        /*Teilnehmer teilnehmer = new Teilnehmer();
+        teilnehmer.setNachname("Fabozzi");
+        teilnehmer.setVorname("Frank");
+        teilnehmer.setBenutzername(benutzername);
+        teilnehmer.setPasswort(passwortVerschluesselt);
+        Unternehmen unternehmen = new Unternehmen();
+        unternehmen.setId(1);
+        teilnehmer.setUnternehmen(unternehmen);
+        Rolle rolle = new Rolle();
+        rolle.setId(1);
+        teilnehmer.setRolle(rolle);*/
 
         SessionFactory factory;
 
@@ -55,17 +55,20 @@ public class LoginController {
         Transaction tx = session.beginTransaction();
 
         // TODO: Beispiel um ein Unternehmen anzulegen
-        //Unternehmen unternehmen = new Unternehmen();
-        //unternehmen.setName("test");
-        //unternehmen.setFarbe("#FF0000");
-        //session.persist(unternehmen);
-        //tx.commit();
-        //session.close();
+        /*
+        Unternehmen unternehmen = new Unternehmen();
+        unternehmen.setName("test");
+        unternehmen.setFarbe("#FF0000");
+        session.persist(unternehmen);
+        tx.commit();
+        session.close();
+        */
 
         // TODO: Beispiel Teilnehmer speichern
-        //session.persist(teilnehmer);
+        /*session.persist(teilnehmer);
         //tx.commit();
-        //session.close();
+        session.close();
+        */
 
         // TODO: Beispiel Teilnehmer abfragen valide Daten sind z. B. TheoTester und Anika
         String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND passwort =:passwort";

@@ -13,7 +13,7 @@ public class Unternehmen {
 
     private String name;
 
-    private String color;
+    private String farbe;
 
     private int ist_aktiv;
 
@@ -33,12 +33,12 @@ public class Unternehmen {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getFarbe() {
+        return farbe;
     }
 
-    public void setFarbe(String color) {
-        this.color = color;
+    public void setFarbe(String farbe) {
+        this.farbe = farbe;
     }
 
     public int getIst_aktiv() {
@@ -54,7 +54,7 @@ public class Unternehmen {
         return "Unternehmen{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", color='" + color + '\'' +
+                ", farbe='" + farbe + '\'' +
                 ", ist_aktiv=" + ist_aktiv +
                 '}';
     }
