@@ -14,7 +14,6 @@ public class Teilnehmer {
     private String nachname;
 
     @ManyToOne
-    @JoinColumn(name = "id")
     private Unternehmen unternehmen;
 
     private Berechtigungsrolle rolle;

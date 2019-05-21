@@ -2,6 +2,7 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.Teilnehmer;
+import de.dhbw.karlsruhe.model.Unternehmen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -29,12 +30,9 @@ public class LoginController {
 
         SessionFactory factory;
 
-
+        // TODO: Diese Konfiguration in XML-Datei setzen
         Configuration configuration = new Configuration()
-                .addAnnotatedClass(de.dhbw.karlsruhe.model.Teilnehmer.class)
-                //.setProperty("hibernate.connection.driver_class", "org.sqlite.JDBC")
-                //.setProperty("hibernate.connection.url", "jdbc:sqlite:../db/application.db")
-                //.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLiteDialect")
+                .addAnnotatedClass(de.dhbw.karlsruhe.model.Unternehmen.class)
                 .setProperty("hibernate.show_sql", "true")
                 .setProperty("hibernate.hdm2ddl.auto", "create-drop");
         configuration.configure();
@@ -42,7 +40,10 @@ public class LoginController {
         factory = configuration.buildSessionFactory();
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
-        session.persist(teilnehmer);
+        Unternehmen unternehmen = new Unternehmen();
+        unternehmen.setName("test");
+        unternehmen.setFarbe("#FF0000");
+        session.persist(unternehmen);
         tx.commit();
         session.close();
     }

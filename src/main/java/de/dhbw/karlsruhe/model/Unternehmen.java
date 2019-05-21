@@ -8,14 +8,14 @@ import javax.persistence.Id;
 @Entity
 public class Unternehmen {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
 
-    private String farbe;
+    private String color;
 
-    private boolean isAktiv;
+    private int ist_aktiv;
 
     public long getId() {
         return id;
@@ -33,19 +33,19 @@ public class Unternehmen {
         this.name = name;
     }
 
-    public String getFarbe() {
-        return farbe;
+    public String getColor() {
+        return color;
     }
 
-    public void setFarbe(String farbe) {
-        this.farbe = farbe;
+    public void setFarbe(String color) {
+        this.color = color;
     }
 
-    public boolean isAktiv() {
-        return isAktiv;
+    public int getIst_aktiv() {
+        return ist_aktiv;
     }
 
-    public void setAktiv(boolean aktiv) {
-        isAktiv = aktiv;
+    public void setIst_aktiv(int ist_aktiv) {
+        this.ist_aktiv = ist_aktiv;
     }
 }
