@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.Helper;
+package de.dhbw.karlsruhe.helper;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

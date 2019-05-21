@@ -1,6 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.Helper.EncryptionHelper;
+import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
