@@ -11,7 +11,7 @@ public class Rolle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String bezeichnung;
+    private String name;
 
     public long getId() {
         return id;
@@ -21,11 +21,11 @@ public class Rolle {
         this.id = id;
     }
 
-    public String getBezeichnung() {
-        return bezeichnung;
+    public String getName() {
+        return name;
     }
 
-    public void setBezeichnung(String bezeichnung) {
-        this.bezeichnung = bezeichnung;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -10,8 +10,7 @@ public class Teilnehmer {
 
     private String benutzername;
 
-    private String passwort; //ToDo: Hashen
-
+    private String passwort;
     private String vorname;
 
     private String nachname;
@@ -23,6 +22,7 @@ public class Teilnehmer {
     @ManyToOne
     @JoinColumn(name = "id")
     private Rolle rolle;
+
 
     public long getId() {
         return id;
@@ -78,5 +78,18 @@ public class Teilnehmer {
 
     public void setRolle(Rolle rolle) {
         this.rolle = rolle;
+    }
+
+    @Override
+    public String toString() {
+        return "Teilnehmer{" +
+                "id=" + id +
+                ", benutzername='" + benutzername + '\'' +
+                ", passwort='" + passwort + '\'' +
+                ", vorname='" + vorname + '\'' +
+                ", nachname='" + nachname + '\'' +
+                ", unternehmen=" + unternehmen +
+                ", rolle=" + rolle +
+                '}';
     }
 }
