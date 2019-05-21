@@ -7,4 +7,5 @@ public class Teilnehmer {
     private String vorname;
     private String nachname;
     private long unternehmenId;
+    private long rolleId;
 }
