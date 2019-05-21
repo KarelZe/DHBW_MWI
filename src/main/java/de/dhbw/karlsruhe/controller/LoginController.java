@@ -31,15 +31,15 @@ public class LoginController {
 
 
         Configuration configuration = new Configuration()
-                .addAnnotatedClass(Teilnehmer.class)
-                .setProperty("hibernate.connection.driver_class", "org.sqlite.JDBC")
-                .setProperty("hibernate.connection.url", "jdbc:sqlite:../db/application.db")
-                .setProperty("hibernate.dialect", "org.hibernate.dialect.SQLiteDialect")
+                .addAnnotatedClass(de.dhbw.karlsruhe.model.Teilnehmer.class)
+                //.setProperty("hibernate.connection.driver_class", "org.sqlite.JDBC")
+                //.setProperty("hibernate.connection.url", "jdbc:sqlite:../db/application.db")
+                //.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLiteDialect")
                 .setProperty("hibernate.show_sql", "true")
                 .setProperty("hibernate.hdm2ddl.auto", "create-drop");
         configuration.configure();
 
-        factory = new Configuration().configure().buildSessionFactory();
+        factory = configuration.buildSessionFactory();
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         session.persist(teilnehmer);
