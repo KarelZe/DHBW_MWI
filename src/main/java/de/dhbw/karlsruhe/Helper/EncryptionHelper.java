@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.model.DAO.Helper;
+package de.dhbw.karlsruhe.Helper;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
