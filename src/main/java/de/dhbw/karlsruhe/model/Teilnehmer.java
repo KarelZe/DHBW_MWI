@@ -9,10 +9,8 @@ public class Teilnehmer {
     private long id;
 
     private String benutzername;
-
     private String passwort;
     private String vorname;
-
     private String nachname;
 
     @ManyToOne
