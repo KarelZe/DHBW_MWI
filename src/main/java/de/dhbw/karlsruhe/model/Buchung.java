@@ -2,6 +2,7 @@ package de.dhbw.karlsruhe.model;
 
 import javax.persistence.*;
 
+@Entity
 public class Buchung {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

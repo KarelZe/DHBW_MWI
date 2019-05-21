@@ -17,10 +17,7 @@ public class Teilnehmer {
     @JoinColumn(name = "id")
     private Unternehmen unternehmen;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Rolle rolle;
-
+    private Berechtigungsrolle rolle;
 
     public long getId() {
         return id;
@@ -70,11 +67,11 @@ public class Teilnehmer {
         this.unternehmen = unternehmen;
     }
 
-    public Rolle getRolle() {
+    public Berechtigungsrolle getRolle() {
         return rolle;
     }
 
-    public void setRolle(Rolle rolle) {
+    public void setRolle(Berechtigungsrolle rolle) {
         this.rolle = rolle;
     }
 
