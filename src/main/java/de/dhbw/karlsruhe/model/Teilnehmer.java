@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Teilnehmer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String benutzername;
@@ -14,12 +14,31 @@ public class Teilnehmer {
     private String nachname;
 
     @ManyToOne
+    @JoinColumn(name = "unternehmen_id", referencedColumnName = "id")
     private Unternehmen unternehmen;
 
-    private Berechtigungsrolle rolle;
+    @ManyToOne
+    @JoinColumn(name = "rolle_id", referencedColumnName = "id")
+    private Rolle rolle;
 
     public long getId() {
         return id;
+    }
+
+    public Unternehmen getUnternehmen() {
+        return unternehmen;
+    }
+
+    public void setUnternehmen(Unternehmen unternehmen) {
+        this.unternehmen = unternehmen;
+    }
+
+    public Rolle getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(Rolle rolle) {
+        this.rolle = rolle;
     }
 
     public void setId(long id) {
@@ -58,21 +77,6 @@ public class Teilnehmer {
         this.nachname = nachname;
     }
 
-    public Unternehmen getUnternehmen() {
-        return unternehmen;
-    }
-
-    public void setUnternehmen(Unternehmen unternehmen) {
-        this.unternehmen = unternehmen;
-    }
-
-    public Berechtigungsrolle getRolle() {
-        return rolle;
-    }
-
-    public void setRolle(Berechtigungsrolle rolle) {
-        this.rolle = rolle;
-    }
 
     @Override
     public String toString() {
@@ -82,8 +86,6 @@ public class Teilnehmer {
                 ", passwort='" + passwort + '\'' +
                 ", vorname='" + vorname + '\'' +
                 ", nachname='" + nachname + '\'' +
-                ", unternehmen=" + unternehmen +
-                ", rolle=" + rolle +
                 '}';
     }
 }

@@ -6,22 +6,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Unternehmen {
+public class Rolle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    private int id;
     private String name;
 
-    private String color;
-
-    private int ist_aktiv;
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -33,29 +28,11 @@ public class Unternehmen {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setFarbe(String color) {
-        this.color = color;
-    }
-
-    public int getIst_aktiv() {
-        return ist_aktiv;
-    }
-
-    public void setIst_aktiv(int ist_aktiv) {
-        this.ist_aktiv = ist_aktiv;
-    }
-
     @Override
     public String toString() {
-        return "Unternehmen{" +
+        return "Rolle{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                ", ist_aktiv=" + ist_aktiv +
                 '}';
     }
 }
