@@ -1,9 +1,21 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+
+@Entity
 public class PeriodeWertpapier {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long periodeId;
-    private long wertpapierId;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Periode periode;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Wertpapier wertpapier;
+
     private double kurs;
 
     public long getId() {
@@ -14,20 +26,20 @@ public class PeriodeWertpapier {
         this.id = id;
     }
 
-    public long getPeriodeId() {
-        return periodeId;
+    public Periode getPeriode() {
+        return periode;
     }
 
-    public void setPeriodeId(long periodeId) {
-        this.periodeId = periodeId;
+    public void setPeriode(Periode periode) {
+        this.periode = periode;
     }
 
-    public long getWertpapierId() {
-        return wertpapierId;
+    public Wertpapier getWertpapier() {
+        return wertpapier;
     }
 
-    public void setWertpapierId(long wertpapierId) {
-        this.wertpapierId = wertpapierId;
+    public void setWertpapier(Wertpapier wertpapier) {
+        this.wertpapier = wertpapier;
     }
 
     public double getKurs() {

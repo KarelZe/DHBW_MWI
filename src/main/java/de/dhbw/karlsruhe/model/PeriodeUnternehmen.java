@@ -1,10 +1,23 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+
+@Entity
 public class PeriodeUnternehmen {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long periodeId;
-    private long unternehmenId;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Periode periode;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Unternehmen unternehmen;
+
     private int rating;
+
     private double aktienkurs;
 
     public long getId() {
@@ -15,20 +28,20 @@ public class PeriodeUnternehmen {
         this.id = id;
     }
 
-    public long getPeriodeId() {
-        return periodeId;
+    public Periode getPeriode() {
+        return periode;
     }
 
-    public void setPeriodeId(long periodeId) {
-        this.periodeId = periodeId;
+    public void setPeriode(Periode periode) {
+        this.periode = periode;
     }
 
-    public long getUnternehmenId() {
-        return unternehmenId;
+    public Unternehmen getUnternehmen() {
+        return unternehmen;
     }
 
-    public void setUnternehmenId(long unternehmenId) {
-        this.unternehmenId = unternehmenId;
+    public void setUnternehmen(Unternehmen unternehmen) {
+        this.unternehmen = unternehmen;
     }
 
     public int getRating() {

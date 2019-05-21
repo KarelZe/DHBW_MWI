@@ -1,8 +1,19 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class TransaktionsArt {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String beschreibung;
+
+    @OneToMany(mappedBy = "transaktionsArt")
+    private List<Buchung> buchungen = new ArrayList<Buchung>();
 
     public long getId() {
         return id;

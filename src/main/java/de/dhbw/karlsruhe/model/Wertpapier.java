@@ -1,12 +1,27 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Wertpapier {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long wertpapierArtId;
-    private long unternehmenId;
+
+    @ManyToOne
+    @JoinColumn(name="id")
+    private WertpapierArt wertpapierArt;
+
+    @ManyToOne
+    @JoinColumn(name="id")
+    private Unternehmen unternehmen;
+
     private double nennwert; //optional (Anleihen)
+
     private double emissionszins; //optional (Anleihen)
+
     private int faelligkeitsPeriode; //optional (Anleihen)
+
     private int emissionsPeriode; //optional (Anleihen)
 
     public long getId() {
@@ -17,20 +32,20 @@ public class Wertpapier {
         this.id = id;
     }
 
-    public long getWertpapierArtId() {
-        return wertpapierArtId;
+    public WertpapierArt getWertpapierArt() {
+        return wertpapierArt;
     }
 
-    public void setWertpapierArtId(long wertpapierArtId) {
-        this.wertpapierArtId = wertpapierArtId;
+    public void setWertpapierArt(WertpapierArt wertpapierArt) {
+        this.wertpapierArt = wertpapierArt;
     }
 
-    public long getUnternehmenId() {
-        return unternehmenId;
+    public Unternehmen getUnternehmen() {
+        return unternehmen;
     }
 
-    public void setUnternehmenId(long unternehmenId) {
-        this.unternehmenId = unternehmenId;
+    public void setUnternehmen(Unternehmen unternehmen) {
+        this.unternehmen = unternehmen;
     }
 
     public double getNennwert() {

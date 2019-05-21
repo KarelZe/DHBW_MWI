@@ -1,9 +1,19 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Periode {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long spielId;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Spiel spiel;
+
     private double ordergebuehrInProzent;
+
     private double kapitalmarktzinssatzInProzent;
 
     public long getId() {
@@ -14,12 +24,12 @@ public class Periode {
         this.id = id;
     }
 
-    public long getSpielId() {
-        return spielId;
+    public Spiel getSpiel() {
+        return spiel;
     }
 
-    public void setSpielId(long spielId) {
-        this.spielId = spielId;
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
     }
 
     public double getOrdergebuehrInProzent() {
@@ -35,6 +45,12 @@ public class Periode {
     }
 
     public void setKapitalmarktzinssatzInProzent(double kapitalmarktzinssatzInProzent) {
+        this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
+    }
+
+    public Periode(Spiel spiel, double ordergebuehrInProzent, double kapitalmarktzinssatzInProzent) {
+        this.spiel = spiel;
+        this.ordergebuehrInProzent = ordergebuehrInProzent;
         this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
     }
 }

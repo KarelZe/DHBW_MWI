@@ -1,16 +1,38 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+
 public class Buchung {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long periodeId;
-    private long teilnehmerId;
-    private long wertpapierId;
-    private long transaktionsArtId;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Periode periode;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Teilnehmer teilnehmer;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Wertpapier wertpapier;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private TransaktionsArt transaktionsArt;
+
     private long stueckzahl;
+
     private long periodeWertpapierId;
+
     private double volumen; //beinhaltet Dividendenhöhe bzw. Ordervolumen
+
     private double ordergebuehr;
+
     private double saldoZahlungsmittelkonto;
+
     private double saldoDepot;
 
     public long getId() {
@@ -21,36 +43,36 @@ public class Buchung {
         this.id = id;
     }
 
-    public long getPeriodeId() {
-        return periodeId;
+    public Periode getPeriode() {
+        return periode;
     }
 
-    public void setPeriodeId(long periodeId) {
-        this.periodeId = periodeId;
+    public void setPeriode(Periode periode) {
+        this.periode = periode;
     }
 
-    public long getTeilnehmerId() {
-        return teilnehmerId;
+    public Teilnehmer getTeilnehmer() {
+        return teilnehmer;
     }
 
-    public void setTeilnehmerId(long teilnehmerId) {
-        this.teilnehmerId = teilnehmerId;
+    public void setTeilnehmer(Teilnehmer teilnehmer) {
+        this.teilnehmer = teilnehmer;
     }
 
-    public long getWertpapierId() {
-        return wertpapierId;
+    public Wertpapier getWertpapier() {
+        return wertpapier;
     }
 
-    public void setWertpapierId(long wertpapierId) {
-        this.wertpapierId = wertpapierId;
+    public void setWertpapier(Wertpapier wertpapier) {
+        this.wertpapier = wertpapier;
     }
 
-    public long getTransaktionsArtId() {
-        return transaktionsArtId;
+    public TransaktionsArt getTransaktionsArt() {
+        return transaktionsArt;
     }
 
-    public void setTransaktionsArtId(long transaktionsArtId) {
-        this.transaktionsArtId = transaktionsArtId;
+    public void setTransaktionsArt(TransaktionsArt transaktionsArt) {
+        this.transaktionsArt = transaktionsArt;
     }
 
     public long getStueckzahl() {

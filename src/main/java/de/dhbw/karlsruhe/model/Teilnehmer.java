@@ -1,13 +1,28 @@
 package de.dhbw.karlsruhe.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Teilnehmer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String benutzername;
+
     private String passwort; //ToDo: Hashen
+
     private String vorname;
+
     private String nachname;
-    private long unternehmenId;
-    private long rolleId;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Unternehmen unternehmen;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Rolle rolle;
 
     public long getId() {
         return id;
@@ -49,19 +64,19 @@ public class Teilnehmer {
         this.nachname = nachname;
     }
 
-    public long getUnternehmenId() {
-        return unternehmenId;
+    public Unternehmen getUnternehmen() {
+        return unternehmen;
     }
 
-    public void setUnternehmenId(long unternehmenId) {
-        this.unternehmenId = unternehmenId;
+    public void setUnternehmen(Unternehmen unternehmen) {
+        this.unternehmen = unternehmen;
     }
 
-    public long getRolleId() {
-        return rolleId;
+    public Rolle getRolle() {
+        return rolle;
     }
 
-    public void setRolleId(long rolleId) {
-        this.rolleId = rolleId;
+    public void setRolle(Rolle rolle) {
+        this.rolle = rolle;
     }
 }
