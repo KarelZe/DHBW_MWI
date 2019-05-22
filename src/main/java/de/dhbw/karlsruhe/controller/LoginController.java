@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
-public class LoginController {
+public class LoginController implements ControlledScreen {
 
 
     @FXML
@@ -18,6 +18,7 @@ public class LoginController {
     private Label lblFehlermeldung;
 
     private LoginModel model;
+    private ScreensController controller;
 
     @FXML
     private void doLogin(ActionEvent event) {
@@ -39,8 +40,8 @@ public class LoginController {
 
     @FXML
     private void doRegistration(ActionEvent event) {
-        // TODO: Noch implementieren @ Bilz
-        System.out.println("Regsistrieren");
+        System.out.println("Zu regsistrieren wechseln");
+        controller.setScreen(ScreensFramework.SCREEN_REGISTER);
     }
 
     // Zur Erklärung https://stackoverflow.com/a/51392331
@@ -48,6 +49,12 @@ public class LoginController {
     @FXML
     private void initialize() {
         model = LoginModel.getInstanz();
+    }
+
+
+    @Override
+    public void setScreenParent(ScreensController screenPage) {
+        controller = screenPage;
     }
 }
 

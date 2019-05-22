@@ -34,4 +34,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = "de.dhbw.karlsruhe.MainApp"
+mainClassName = "de.dhbw.karlsruhe.controller.ScreensFramework"
