@@ -37,6 +37,12 @@ public class LoginController {
         }
     }
 
+    @FXML
+    private void doRegistration(ActionEvent event) {
+        // TODO: Noch implementieren @ Bilz
+        System.out.println("Regsistrieren");
+    }
+
     // Zur Erklärung https://stackoverflow.com/a/51392331
     // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
     @FXML
