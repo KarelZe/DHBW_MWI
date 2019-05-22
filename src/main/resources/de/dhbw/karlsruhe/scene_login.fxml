@@ -15,8 +15,8 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-       <TextField fx:id="txt_benutzername" promptText="Benutzername" GridPane.rowIndex="0" />
-       <PasswordField fx:id="txt_passwort"  promptText="Passwort" GridPane.rowIndex="1"/>
+       <TextField fx:id="txtBenutzername" promptText="Benutzername" GridPane.rowIndex="0"/>
+       <PasswordField fx:id="txtPasswort" promptText="Passwort" GridPane.rowIndex="1"/>
        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="612.0" text="Einloggen" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" onAction="#doLogin" />
    </children>
 </GridPane>
