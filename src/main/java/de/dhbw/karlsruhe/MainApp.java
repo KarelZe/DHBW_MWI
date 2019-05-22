@@ -13,7 +13,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Implementierung Model View Controller (View = FXML; Controller = LoginController; Model = LoginModel)
-        Parent root = FXMLLoader.load(getClass().getResource("scene_login.fxml"));
+        // Hier lädt er die Scene bisher also scene_login.fxml oder scene_register.fxml --> Scenes können leicht mit dem JavaFX Scene Builder erstellt werden
+        Parent root = FXMLLoader.load(getClass().getResource("scene_register.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.setTitle("Anika");

@@ -88,4 +88,17 @@ public class Teilnehmer {
                 ", nachname='" + nachname + '\'' +
                 '}';
     }
+    //Hibernate braucht anscheinend einen lehren Konstruktor der Klasse --> https://stackoverflow.com/questions/2935826/why-does-hibernate-require-no-argument-constructor
+    public Teilnehmer(){
+
+    }
+
+    public Teilnehmer(String benutzername, String passwort, String vorname, String nachname, Unternehmen unternehmen, Rolle rolle) {
+        this.benutzername = benutzername;
+        this.passwort = passwort;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.unternehmen = unternehmen;
+        this.rolle = rolle;
+    }
 }

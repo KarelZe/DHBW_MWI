@@ -67,4 +67,16 @@ public class LoginModel {
         }
         return teilnehmer;
     }
+    public void setTeilnehmer(String benutzername, String vorname, String nachname, String unternehmen, String passwort) {
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            //für session.save muss der Konstruktor von Teilnehmer verwendet werden. Der braucht Parameter vom Typ Unternehmen und Rolle deswegen hier übergangsmäßig gelößt
+            Unternehmen TempU = session.get(Unternehmen.class, Long.parseLong("1"));
+            Rolle  TempR = session.get(Rolle.class, Long.parseLong("1"));
+
+            Teilnehmer teilnehmer = new Teilnehmer(benutzername, passwort, vorname, nachname, TempU, TempR);
+            session.save(teilnehmer);
+        }catch (HibernateException e) {
+            e.printStackTrace();
+        }
+    }
 }
