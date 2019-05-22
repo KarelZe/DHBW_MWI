@@ -5,6 +5,7 @@ import de.dhbw.karlsruhe.model.LoginModel;
 import de.dhbw.karlsruhe.model.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
@@ -13,6 +14,8 @@ public class LoginController {
 
     @FXML
     private TextField txtBenutzername, txtPasswort;
+    @FXML
+    private Label lblFehlermeldung;
 
     private LoginModel model;
 
@@ -24,8 +27,10 @@ public class LoginController {
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
         Teilnehmer teilnehmer = model.getTeilnehmer(benutzername, passwortVerschluesselt);
-        if (teilnehmer == null)
+        if (teilnehmer == null) {
             System.out.println("Login falsch");
+            lblFehlermeldung.setText("Falscher Benutzername oder Passwort.");
+        }
         else {
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
         }
