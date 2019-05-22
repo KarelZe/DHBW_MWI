@@ -33,6 +33,7 @@ public class LoginController {
         }
         else {
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
+            lblFehlermeldung.setText("Login erfolgt.");
         }
     }
 

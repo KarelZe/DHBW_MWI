@@ -12,7 +12,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Implementierung Model View Controller (View = FXML; Controller = LoginController; View = LoginView)
+        // Implementierung Model View Controller (View = FXML; Controller = LoginController; Model = LoginModel)
         Parent root = FXMLLoader.load(getClass().getResource("scene_login.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());

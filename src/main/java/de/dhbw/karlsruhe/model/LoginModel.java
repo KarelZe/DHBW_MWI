@@ -1,11 +1,11 @@
 package de.dhbw.karlsruhe.model;
 
 
+import de.dhbw.karlsruhe.helper.HibernateHelper;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 
@@ -28,14 +28,12 @@ public class LoginModel {
             LoginModel.instanz = new LoginModel();
             // TODO: Refactoren in separate Klasse.
             // Initialisiere Factory
-            Configuration configuration = new Configuration()
+            /*Configuration configuration = new Configuration()
                     .addAnnotatedClass(de.dhbw.karlsruhe.model.Unternehmen.class)
                     .addAnnotatedClass(de.dhbw.karlsruhe.model.Teilnehmer.class)
-                    .addAnnotatedClass(de.dhbw.karlsruhe.model.Rolle.class)
-                    .setProperty("hibernate.show_sql", "true")
-                    .setProperty("hibernate.hdm2ddl.auto", "create-drop");
+                    .addAnnotatedClass(de.dhbw.karlsruhe.model.Rolle.class);
             configuration.configure();
-            factory = configuration.buildSessionFactory();
+            factory = configuration.buildSessionFactory();*/
         }
         return instanz;
     }
@@ -50,10 +48,10 @@ public class LoginModel {
      * @return Teilnehmer oder null
      */
     public Teilnehmer getTeilnehmer(String benutzername, String passwort) {
-        Session session = factory.openSession();
+        //Session session = factory.openSession();
         Transaction tx = null;
         Teilnehmer teilnehmer = null;
-        try (session) {
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND passwort =:passwort";
             Query query = session.createQuery(queryString);
@@ -63,6 +61,7 @@ public class LoginModel {
             teilnehmer = (Teilnehmer) query.uniqueResult();
 
         } catch (HibernateException e) {
+            e.printStackTrace();
             if (tx != null)
                 tx.rollback();
         }
