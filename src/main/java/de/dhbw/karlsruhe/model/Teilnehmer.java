@@ -21,6 +21,20 @@ public class Teilnehmer {
     @JoinColumn(name = "rolle_id", referencedColumnName = "id")
     private Rolle rolle;
 
+    // Hibernate benötigt leeren Konstruktor. Zur Erklärung siehe https://stackoverflow.com/a/25452112
+    public Teilnehmer() {
+
+    }
+
+    public Teilnehmer(String benutzername, String passwort, String vorname, String nachname, Unternehmen unternehmen, Rolle rolle) {
+        this.benutzername = benutzername;
+        this.passwort = passwort;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.unternehmen = unternehmen;
+        this.rolle = rolle;
+    }
+
     public long getId() {
         return id;
     }

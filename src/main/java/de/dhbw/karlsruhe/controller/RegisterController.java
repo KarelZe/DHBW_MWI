@@ -29,19 +29,12 @@ public class RegisterController implements ControlledScreen {
         // FIXME: Auswahl an Unternehmen müsste aus DB gelesen werden. Feldtyp sollte ein Dropdown sein.
         String unternehmenId = txtUnternehmen.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
-
-        Teilnehmer teilnehmer = new Teilnehmer();
-        teilnehmer.setBenutzername(benutzername);
-        teilnehmer.setPasswort(passwortVerschluesselt);
-        teilnehmer.setVorname(vorname);
-        teilnehmer.setNachname(nachname);
         Unternehmen unternehmen = new Unternehmen();
         // FIXME: Auswahl an Unternehmen msüste aus DB gelesen werden.
         unternehmen.setId(1);
-        teilnehmer.setUnternehmen(unternehmen);
         Rolle rolle = new Rolle();
         rolle.setId(1);
-        teilnehmer.setRolle(rolle);
+        Teilnehmer teilnehmer = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle);
         model.setTeilnehmer(teilnehmer);
     }
 
