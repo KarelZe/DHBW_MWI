@@ -26,14 +26,6 @@ public class LoginModel {
     public static LoginModel getInstanz() {
         if (LoginModel.instanz == null) {
             LoginModel.instanz = new LoginModel();
-            // TODO: Refactoren in separate Klasse.
-            // Initialisiere Factory
-            /*Configuration configuration = new Configuration()
-                    .addAnnotatedClass(de.dhbw.karlsruhe.model.Unternehmen.class)
-                    .addAnnotatedClass(de.dhbw.karlsruhe.model.Teilnehmer.class)
-                    .addAnnotatedClass(de.dhbw.karlsruhe.model.Rolle.class);
-            configuration.configure();
-            factory = configuration.buildSessionFactory();*/
         }
         return instanz;
     }
@@ -48,7 +40,6 @@ public class LoginModel {
      * @return Teilnehmer oder null
      */
     public Teilnehmer getTeilnehmer(String benutzername, String passwort) {
-        //Session session = factory.openSession();
         Transaction tx = null;
         Teilnehmer teilnehmer = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {

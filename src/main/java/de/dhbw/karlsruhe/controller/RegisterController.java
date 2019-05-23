@@ -38,7 +38,7 @@ public class RegisterController implements ControlledScreen {
         model.setTeilnehmer(teilnehmer);
     }
 
-    //FIXME: Muss wahrscheinlich noch ein eigenes Model für Register benutzen ? -> Ja, macht Sinn :-)
+    //FIXME: Muss wahrscheinlich noch ein eigenes Model für Register benutzen ? -> Bin ich mir unsicher.
     @FXML
     private void initialize() {
         model = LoginModel.getInstanz();
