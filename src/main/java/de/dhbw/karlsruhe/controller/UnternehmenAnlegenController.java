@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 public class UnternehmenAnlegenController implements ControlledScreen {
 
@@ -49,13 +48,12 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     @FXML
     void doHinzufuegen(ActionEvent event) {
-        if (hBoxUnternehmenDynamisch.size() < MAX_ANZAHL_UNTERNEHMEN) {
+        if (unternehmenAlle.size() < MAX_ANZAHL_UNTERNEHMEN) {
             // Unternehmen -> HBox
             HBox hBox = unternehmen2hbox(null);
             // Füge Elemente vor Speichern Button hinzu
-            int index = vboxUnternehmen.getChildren().size() - 1;
             hBoxUnternehmenDynamisch.add(hBox);
-            vboxUnternehmen.getChildren().add(index, hBox);
+            vboxUnternehmen.getChildren().add(vboxUnternehmen.getChildren().size() - 1, hBox);
             System.out.println("hinzufuegen");
         }
     }
@@ -88,6 +86,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     private void initialize() {
         model = Model.getInstanz();
         unternehmenAlle = model.getUnternehmen();
+        System.out.println(unternehmenAlle);
         if (!unternehmenAlle.isEmpty()) {
             // Füge erste Zeile als statische Zeile hinzu
             Unternehmen unternehmenStatisch = unternehmenAlle.get(0);
@@ -96,10 +95,11 @@ public class UnternehmenAnlegenController implements ControlledScreen {
             txtStartkapitalStatisch.setText("100");
             clrFarbeStatisch.setValue(ColorHelper.string2Color(unternehmenStatisch.getFarbe()));
             // Füge zusätzliche Zeilen als dynamische Zeilen hinzu
-            IntStream.range(1, unternehmenAlle.size()).mapToObj(i -> unternehmen2hbox(unternehmenAlle.get(1))).forEach(hBox -> {
+            for (int i = 1; i < unternehmenAlle.size(); i++) {
+                HBox hBox = unternehmen2hbox(unternehmenAlle.get(i));
                 hBoxUnternehmenDynamisch.add(hBox);
                 vboxUnternehmen.getChildren().add(2, hBox);
-            });
+            }
         }
     }
 
