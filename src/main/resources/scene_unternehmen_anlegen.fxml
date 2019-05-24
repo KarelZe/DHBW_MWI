@@ -18,17 +18,17 @@
         </Label>
         <HBox fx:id="hBoxUnternehmenStatisch">
             <children>
-                <TextField promptText="$unternehmensname" fx:id="txtUnternehmenName">
+                <TextField promptText="$unternehmensname" fx:id="txtUnternehmensnameStatisch">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </TextField>
-                <TextField promptText="$startkapital" fx:id="txtStartkapital">
+                <TextField promptText="$startkapital" fx:id="txtStartkapitalStatisch">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>
                 </TextField>
-                <ColorPicker promptText="Farbe" fx:id="clrUnternehmen">
+                <ColorPicker promptText="Farbe" fx:id="clrFarbeStatisch">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </HBox.margin>

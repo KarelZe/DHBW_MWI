@@ -23,7 +23,7 @@ public class Model {
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return Model
      */
     public static Model getInstanz() {
         if (Model.instanz == null) {
@@ -118,7 +118,7 @@ public class Model {
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             for (Unternehmen u : unternehmen) {
-                session.saveOrUpdate(u);
+                session.save(u);
             }
             tx.commit();
         }catch (HibernateException e) {
