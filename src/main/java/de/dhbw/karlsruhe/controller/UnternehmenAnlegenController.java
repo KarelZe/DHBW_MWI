@@ -113,6 +113,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     @FXML
     private void initialize() {
         model = Model.getInstanz();
+        ArrayList<Unternehmen> unternehmen = model.getUnternehmen();
         // TODO: Hier auch Daten laden, wenn Administration geöffnet wird
     }
 
