@@ -17,6 +17,16 @@ public class Unternehmen {
 
     private int ist_aktiv;
 
+    public Unternehmen(String name, String farbe) {
+        this.name = name;
+        this.farbe = farbe;
+        this.ist_aktiv = 1;
+    }
+
+    public Unternehmen() {
+    }
+
+
     public long getId() {
         return id;
     }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:id="vboxUnternehmenAlle" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
+      fx:id="vboxUnternehmen" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
     <fx:define>
         <String fx:id="unternehmensname" fx:value="Unternehmensname"/>
         <String fx:id="startkapital" fx:value="Startkapital"/>
@@ -16,7 +16,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </Label>
-        <HBox fx:id="hboxUnternehmenEinzel">
+        <HBox fx:id="hBoxUnternehmenStatisch">
             <children>
                 <TextField promptText="$unternehmensname" fx:id="txtUnternehmenName">
                     <HBox.margin>

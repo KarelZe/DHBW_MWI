@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,87 +15,94 @@ import java.util.ArrayList;
 
 public class UnternehmenAnlegenController implements ControlledScreen {
 
-    ArrayList<Double> startkapitale;
-    ArrayList<String> unternehmensnamen;
-    ArrayList<String> unternehmensfarben;
-
     private final int MAX_ANZAHL_UNTERNEHMEN = 10;
     private int anzahlUnternehmen = 1;
     @FXML
-    private VBox vboxUnternehmenAlle;
+    private VBox vboxUnternehmen;
 
     @FXML
-    private Label lblUnternehmen;
-
-    @FXML
-    private HBox hboxUnternehmenEinzel;
-
-    @FXML
-    private TextField txtUnternehmenName, txtStartkapital;
-
-    @FXML
-    private ColorPicker clrUnternehmen;
-
-    @FXML
-    private Button btnSpeichern;
+    private HBox hBoxUnternehmenStatisch;
 
     @FXML
     private String unternehmensname, startkapital;
 
-    private ArrayList<HBox> hboxUnternehmenDyn = new ArrayList<>();
+    private ArrayList<HBox> hBoxUnternehmenDynamisch = new ArrayList<>();
 
     private Model model;
     private ScreensController controller;
 
-    private ArrayList<Unternehmen> unternehmen;
 
     @FXML
     void doHinzufuegen(ActionEvent event) {
         if (anzahlUnternehmen < MAX_ANZAHL_UNTERNEHMEN) {
-            int index = vboxUnternehmenAlle.getChildren().size();
-            // füge Elemente vor Speichern Button hinzu
+            // Füge Elemente vor Speichern Button hinzu
+            int index = vboxUnternehmen.getChildren().size();
             index -= 1;
 
+            // Erzeuge neue HBox mit Konfiguration der statischen HBox
+            HBox hBox = new HBox();
+            TextField txtUnternehmensname = new TextField();
+            txtUnternehmensname.setPromptText(unternehmensname);
+            TextField txtStartkapital = new TextField();
+            // TODO: Eingabe Startkapital begrenzen
+            txtStartkapital.setPromptText(startkapital);
+            ColorPicker clrFarbe = new ColorPicker();
+            Button btnLoeschen = new Button("-");
 
-            HBox tmpHbox = new HBox();
-            TextField tmpUnternehmensname = new TextField();
-            tmpUnternehmensname.setPromptText(unternehmensname);
-            TextField tmpStartkapital = new TextField();
-            tmpStartkapital.setPromptText(startkapital);
-            ColorPicker tmpFarbe = new ColorPicker();
-            Button tmpLoeschen = new Button("-");
-
-            tmpLoeschen.setOnAction(e -> {
-                // TODO: Parent Node löschen
-                System.out.println("löschen");
+            btnLoeschen.setOnAction(e -> {
+                Button aufrufer = (Button) e.getSource();
+                HBox aufruferHbox = (HBox) aufrufer.getParent();
+                // Lösche HBox aus ArrayList und entferne Parent Node
+                hBoxUnternehmenDynamisch.remove(aufruferHbox);
+                anzahlUnternehmen--;
+                vboxUnternehmen.getChildren().remove(aufruferHbox);
+                System.out.println("loeschen");
             });
-
 
             int margin = 5;
             Insets inset = new Insets(margin, margin, margin, margin);
-            tmpHbox.getChildren().addAll(tmpUnternehmensname, tmpStartkapital, tmpFarbe, tmpLoeschen);
-            HBox.setMargin(tmpUnternehmensname, inset);
-            HBox.setMargin(tmpFarbe, inset);
-            HBox.setMargin(tmpStartkapital, inset);
-            HBox.setMargin(tmpLoeschen, inset);
+            hBox.getChildren().addAll(txtUnternehmensname, txtStartkapital, clrFarbe, btnLoeschen);
+            HBox.setMargin(txtUnternehmensname, inset);
+            HBox.setMargin(clrFarbe, inset);
+            HBox.setMargin(txtStartkapital, inset);
+            HBox.setMargin(btnLoeschen, inset);
 
-            hboxUnternehmenDyn.add(tmpHbox);
-            vboxUnternehmenAlle.getChildren().add(index, tmpHbox);
+            hBoxUnternehmenDynamisch.add(hBox);
+            vboxUnternehmen.getChildren().add(index, hBox);
             anzahlUnternehmen++;
 
-            System.out.println("hinzufügen");
+            System.out.println("hinzufuegen");
         }
     }
 
     @FXML
     void doSpeichern(ActionEvent event) {
 
-        // füge statische HBox und dynamische HBox zusammen
-        ArrayList<HBox> hBoxes = hboxUnternehmenDyn;
-        hBoxes.add(hboxUnternehmenEinzel);
-        // TODO: HBoxes 2 Unternehmen
+        ArrayList<Unternehmen> unternehmen = new ArrayList<>();
+
+        // Füge statische HBox und dynamische HBox zusammen
+        ArrayList<HBox> hBoxUnternehmen = hBoxUnternehmenDynamisch;
+        if (!hBoxUnternehmen.contains(hBoxUnternehmenStatisch))
+            hBoxUnternehmen.add(hBoxUnternehmenStatisch);
+
+        // HBox 2 Unternehmen
+        for (HBox h : hBoxUnternehmen) {
+            TextField txtUnternehmensname = (TextField) h.getChildren().get(0);
+            TextField txtStartkapital = (TextField) h.getChildren().get(1);
+            ColorPicker cpFarbe = (ColorPicker) h.getChildren().get(2);
+            String unternehmensname = txtUnternehmensname.getText();
+            String startkapital = txtStartkapital.getText();
+            // Gibt Farbe als RGB Repräsentation zurück
+            String farbe = cpFarbe.getValue().toString();
+            Unternehmen u = new Unternehmen(unternehmensname, farbe);
+            unternehmen.add(u);
+        }
+        //TODO: Fehlerbehandlung, dann speichern aktivieren
+
         //model.setUnternehmen(unternehmen);
-        //TODO: Fehlerbehandlung
+
+        for (Unternehmen u : unternehmen)
+            System.out.println(u);
         System.out.println("speichern");
 
 
@@ -107,6 +113,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     @FXML
     private void initialize() {
         model = Model.getInstanz();
+        // TODO: Hier auch Daten laden, wenn Administration geöffnet wird
     }
 
 
