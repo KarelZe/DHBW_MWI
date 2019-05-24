@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.LoginModel;
+import de.dhbw.karlsruhe.model.Model;
 import de.dhbw.karlsruhe.model.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ public class LoginController implements ControlledScreen {
     @FXML
     private Label lblFehlermeldung;
 
-    private LoginModel model;
+    private Model model;
     private ScreensController controller;
 
     @FXML
@@ -40,15 +40,20 @@ public class LoginController implements ControlledScreen {
 
     @FXML
     private void doRegistration(ActionEvent event) {
-        System.out.println("Zu regsistrieren wechseln");
         controller.setScreen(ScreensFramework.SCREEN_REGISTER);
+    }
+
+
+    @FXML
+    void doUnternehmenAnlegen(ActionEvent event) {
+        controller.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
     }
 
     // Zur Erklärung https://stackoverflow.com/a/51392331
     // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
     @FXML
     private void initialize() {
-        model = LoginModel.getInstanz();
+        model = Model.getInstanz();
     }
 
 

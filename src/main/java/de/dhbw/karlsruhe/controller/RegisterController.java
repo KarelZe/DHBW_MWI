@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.LoginModel;
+import de.dhbw.karlsruhe.model.Model;
 import de.dhbw.karlsruhe.model.Rolle;
 import de.dhbw.karlsruhe.model.Teilnehmer;
 import de.dhbw.karlsruhe.model.Unternehmen;
@@ -16,7 +16,7 @@ public class RegisterController implements ControlledScreen {
     @FXML
     private TextField txtBenutzername, txtPasswort, txtVorname, txtNachname, txtUnternehmen;
 
-    private LoginModel model;
+    private Model model;
     private ScreensController controller;
 
     @FXML
@@ -41,7 +41,7 @@ public class RegisterController implements ControlledScreen {
     //FIXME: Muss wahrscheinlich noch ein eigenes Model für Register benutzen ? -> Bin ich mir unsicher.
     @FXML
     private void initialize() {
-        model = LoginModel.getInstanz();
+        model = Model.getInstanz();
     }
 
 

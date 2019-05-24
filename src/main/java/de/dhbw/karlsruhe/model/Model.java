@@ -8,13 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 
-public class LoginModel {
 
-    private static LoginModel instanz;
+public class Model {
+
+    private static Model instanz;
     private static SessionFactory factory;
 
-    private LoginModel() {
+    private Model() {
     }
 
     /**
@@ -23,9 +25,9 @@ public class LoginModel {
      *
      * @return
      */
-    public static LoginModel getInstanz() {
-        if (LoginModel.instanz == null) {
-            LoginModel.instanz = new LoginModel();
+    public static Model getInstanz() {
+        if (Model.instanz == null) {
+            Model.instanz = new Model();
         }
         return instanz;
     }
@@ -68,12 +70,42 @@ public class LoginModel {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            session.save(teilnehmer);
+            session.saveOrUpdate(teilnehmer);
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    public void setUnternehmen(Unternehmen unternehmen) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.saveOrUpdate(unternehmen);
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+
+    }
+
+    public void setUnternehmen(ArrayList<Unternehmen> unternehmen) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            for (Unternehmen u : unternehmen) {
+                session.saveOrUpdate(u);
+            }
             tx.commit();
         }catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)
                 tx.rollback();
         }
+
     }
 }

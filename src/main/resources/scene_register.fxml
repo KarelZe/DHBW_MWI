@@ -34,5 +34,5 @@
   <PasswordField id="txtPasswort" fx:id="txtPasswort" promptText="Passwort" GridPane.columnIndex="1"
                  GridPane.rowIndex="6"/>
   <Button mnemonicParsing="false" onAction="#doRegister" prefHeight="25.0" prefWidth="612.0" text="Registrieren"
-          GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7"/>
+          GridPane.columnIndex="0" GridPane.columnSpan="2147483647" defaultButton="true" GridPane.rowIndex="7"/>
 </GridPane>

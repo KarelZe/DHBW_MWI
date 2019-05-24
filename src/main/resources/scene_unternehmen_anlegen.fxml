@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:id="vboxUnternehmenAlle" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
+    <children>
+        <Label fx:id="lblUnternehmen" text="Unternehmen">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Label>
+        <HBox fx:id="hboxUnternehmenEinzel" prefHeight="199.0" prefWidth="600.0">
+            <children>
+                <TextField promptText="Unternehmensname" fx:id="txtUnternehmenName">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
+                </TextField>
+                <TextField promptText="Startkapital" fx:id="txtStartkapital">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
+                </TextField>
+                <ColorPicker promptText="Farbe" fx:id="clrUnternehmen">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
+                </ColorPicker>
+                <Button mnemonicParsing="false" text="+" onAction="#doHinzufuegen">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
+                mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+    </children>
+</VBox>
