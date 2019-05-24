@@ -43,12 +43,8 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     @FXML
     private String unternehmensname, startkapital;
 
-    // Dynamische Felder
-    private HBox[] hboxUnternehmenEinzelDyn = new HBox[MAX_ANZAHL_UNTERNEHMEN];
-    private TextField[] txtUnternehmenNameDyn = new TextField[MAX_ANZAHL_UNTERNEHMEN];
-    private TextField[] txtStartkapitalDyn = new TextField[MAX_ANZAHL_UNTERNEHMEN];
-    private ColorPicker[] clrUnternehmenDyn = new ColorPicker[MAX_ANZAHL_UNTERNEHMEN];
-    private Button[] btnUnternehmenDyn = new Button[MAX_ANZAHL_UNTERNEHMEN];
+    private ArrayList<HBox> hboxUnternehmenDyn = new ArrayList<>();
+
     private Model model;
     private ScreensController controller;
 
@@ -61,22 +57,31 @@ public class UnternehmenAnlegenController implements ControlledScreen {
             // füge Elemente vor Speichern Button hinzu
             index -= 1;
 
-            hboxUnternehmenEinzelDyn[anzahlUnternehmen] = new HBox();
-            txtUnternehmenNameDyn[anzahlUnternehmen] = new TextField();
-            txtUnternehmenNameDyn[anzahlUnternehmen].setPromptText(unternehmensname);
-            txtStartkapitalDyn[anzahlUnternehmen] = new TextField();
-            txtStartkapitalDyn[anzahlUnternehmen].setPromptText(startkapital);
-            clrUnternehmenDyn[anzahlUnternehmen] = new ColorPicker();
-            btnUnternehmenDyn[anzahlUnternehmen] = new Button("-");
+
+            HBox tmpHbox = new HBox();
+            TextField tmpUnternehmensname = new TextField();
+            tmpUnternehmensname.setPromptText(unternehmensname);
+            TextField tmpStartkapital = new TextField();
+            tmpStartkapital.setPromptText(startkapital);
+            ColorPicker tmpFarbe = new ColorPicker();
+            Button tmpLoeschen = new Button("-");
+
+            tmpLoeschen.setOnAction(e -> {
+                // TODO: Parent Node löschen
+                System.out.println("löschen");
+            });
+
 
             int margin = 5;
-            hboxUnternehmenEinzelDyn[anzahlUnternehmen].getChildren().addAll(txtUnternehmenNameDyn[anzahlUnternehmen], txtStartkapitalDyn[anzahlUnternehmen], clrUnternehmenDyn[anzahlUnternehmen], btnUnternehmenDyn[anzahlUnternehmen]);
-            HBox.setMargin(txtUnternehmenNameDyn[anzahlUnternehmen], new Insets(margin, margin, margin, margin));
-            HBox.setMargin(txtStartkapitalDyn[anzahlUnternehmen], new Insets(margin, margin, margin, margin));
-            HBox.setMargin(clrUnternehmenDyn[anzahlUnternehmen], new Insets(margin, margin, margin, margin));
-            HBox.setMargin(btnUnternehmenDyn[anzahlUnternehmen], new Insets(margin, margin, margin, margin));
+            Insets inset = new Insets(margin, margin, margin, margin);
+            tmpHbox.getChildren().addAll(tmpUnternehmensname, tmpStartkapital, tmpFarbe, tmpLoeschen);
+            HBox.setMargin(tmpUnternehmensname, inset);
+            HBox.setMargin(tmpFarbe, inset);
+            HBox.setMargin(tmpStartkapital, inset);
+            HBox.setMargin(tmpLoeschen, inset);
 
-            vboxUnternehmenAlle.getChildren().add(index, hboxUnternehmenEinzelDyn[anzahlUnternehmen]);
+            hboxUnternehmenDyn.add(tmpHbox);
+            vboxUnternehmenAlle.getChildren().add(index, tmpHbox);
             anzahlUnternehmen++;
 
             System.out.println("hinzufügen");
@@ -86,7 +91,10 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     @FXML
     void doSpeichern(ActionEvent event) {
 
-
+        // füge statische HBox und dynamische HBox zusammen
+        ArrayList<HBox> hBoxes = hboxUnternehmenDyn;
+        hBoxes.add(hboxUnternehmenEinzel);
+        // TODO: HBoxes 2 Unternehmen
         //model.setUnternehmen(unternehmen);
         //TODO: Fehlerbehandlung
         System.out.println("speichern");

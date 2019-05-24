@@ -7,7 +7,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/11.0.1"
       fx:id="vboxUnternehmenAlle" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
     <fx:define>
-        <String fx:id="unternehmensname" fx:value="Startkapital"/>
+        <String fx:id="unternehmensname" fx:value="Unternehmensname"/>
         <String fx:id="startkapital" fx:value="Startkapital"/>
     </fx:define>
     <children>
