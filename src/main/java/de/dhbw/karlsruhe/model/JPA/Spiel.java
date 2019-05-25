@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.model;
+package de.dhbw.karlsruhe.model.JPA;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

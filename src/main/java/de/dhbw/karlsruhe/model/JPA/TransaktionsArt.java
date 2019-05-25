@@ -1,17 +1,19 @@
-package de.dhbw.karlsruhe.model;
+package de.dhbw.karlsruhe.model.JPA;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class WertpapierArt {
+public class TransaktionsArt {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String beschreibung;
+
+    @OneToMany(mappedBy = "transaktionsArt")
+    private List<Buchung> buchungen = new ArrayList<Buchung>();
 
     public long getId() {
         return id;

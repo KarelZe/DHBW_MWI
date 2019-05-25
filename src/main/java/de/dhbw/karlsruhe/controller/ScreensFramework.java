@@ -24,14 +24,14 @@ public class ScreensFramework extends Application {
     @Override
     public void start(Stage window) {
         // Füge Screens zum ScreensController hinzu
-        ScreensController controller = new ScreensController();
-        controller.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
-        controller.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
-        controller.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
+        ScreenController screenController = new ScreenController();
+        screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
-        controller.setScreen(ScreensFramework.SCREEN_LOGIN);
+        screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
         Group root = new Group();
-        root.getChildren().addAll(controller);
+        root.getChildren().addAll(screenController);
         Scene scene = new Scene(root);
         window.setScene(scene);
         window.setTitle("Anika");

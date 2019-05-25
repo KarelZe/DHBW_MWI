@@ -13,11 +13,11 @@ import java.util.HashMap;
 /**
  * Adaptiert von https://www.youtube.com/watch?v=5GsdaZWDcdY
  */
-public class ScreensController extends StackPane {
+public class ScreenController extends StackPane {
 
     private HashMap<String, Node> screens = new HashMap<>();
 
-    ScreensController() {
+    ScreenController() {
         super();
     }
 

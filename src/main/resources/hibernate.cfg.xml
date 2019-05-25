@@ -20,8 +20,8 @@
         <property name="current_session_context_class">
             thread
         </property>
-        <mapping class="de.dhbw.karlsruhe.model.Teilnehmer"/>
-        <mapping class="de.dhbw.karlsruhe.model.Unternehmen"/>
-        <mapping class="de.dhbw.karlsruhe.model.Rolle"/>
+        <mapping class="de.dhbw.karlsruhe.model.JPA.Teilnehmer"/>
+        <mapping class="de.dhbw.karlsruhe.model.JPA.Unternehmen"/>
+        <mapping class="de.dhbw.karlsruhe.model.JPA.Rolle"/>
     </session-factory>
 </hibernate-configuration>
