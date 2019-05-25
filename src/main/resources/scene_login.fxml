@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="de.dhbw.karlsruhe.controller.LoginController">
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
     <children>
-        <Button mnemonicParsing="false" onAction="#doRegistration" prefHeight="25.0" prefWidth="612.0"
-                text="Registrieren">
+        <Button mnemonicParsing="false" onAction="#doRegistration" prefHeight="25.0" prefWidth="612.0" text="Registrieren">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="btnUnternehmenAnlegen" layoutX="15.0" layoutY="15.0" mnemonicParsing="false"
-                onAction="#doUnternehmenAnlegen" prefHeight="25.0" prefWidth="612.0" text="Temp Unternehmen anlegen"
-                textFill="RED">
+      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="612.0" text="Temp Teilnehmer bearbeiten" textAlignment="CENTER" textFill="#ff041d">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+        <Button fx:id="btnUnternehmenAnlegen" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#doUnternehmenAnlegen" prefHeight="25.0" prefWidth="612.0" text="Temp Unternehmen anlegen" textFill="RED">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
         <TextField fx:id="txtBenutzername" promptText="Benutzername">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </TextField>
         <PasswordField fx:id="txtPasswort" promptText="Passwort">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </PasswordField>
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#doLogin" prefHeight="25.0" prefWidth="612.0"
-                text="Einloggen">
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#doLogin" prefHeight="25.0" prefWidth="612.0" text="Einloggen">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
         <Label fx:id="lblFehlermeldung">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Label>
     </children>

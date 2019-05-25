@@ -56,6 +56,10 @@ public class LoginController implements ControlledScreen {
         model = Model.getInstanz();
     }
 
+    private void doEditUser(ActionEvent event) {
+        //controller.setScreen(ScreensFramework.);
+    }
+
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
