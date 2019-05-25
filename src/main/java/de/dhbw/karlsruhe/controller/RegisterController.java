@@ -1,10 +1,11 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.Model;
-import de.dhbw.karlsruhe.model.Rolle;
-import de.dhbw.karlsruhe.model.Teilnehmer;
-import de.dhbw.karlsruhe.model.Unternehmen;
+import de.dhbw.karlsruhe.model.JPA.Rolle;
+import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.JPA.Unternehmen;
+import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,8 +27,7 @@ public class RegisterController implements ControlledScreen {
     @FXML
     private ComboBox<Unternehmen> cmbUnternehmen;
 
-    private Model model;
-    private ScreensController controller;
+    private ScreenController controller;
 
     @FXML
     private void doRegister(ActionEvent event) {
@@ -89,17 +89,15 @@ public class RegisterController implements ControlledScreen {
         }
 
         Teilnehmer teilnehmer = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle);
-        model.setTeilnehmer(teilnehmer);
+        TeilnehmerRepository.persistTeilnehmer(teilnehmer);
 
     }
 
     //FIXME: Muss wahrscheinlich noch ein eigenes Model für Register benutzen ? -> Bin ich mir unsicher.
     @FXML
     private void initialize() {
-        model = Model.getInstanz();
-
         // Initialisiere ComboBox aus Modell
-        ArrayList<Unternehmen> unternehmen = model.getUnternehmen();
+        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleUnternehmen();
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
 
@@ -125,7 +123,7 @@ public class RegisterController implements ControlledScreen {
 
 
     @Override
-    public void setScreenParent(ScreensController screenPage) {
+    public void setScreenParent(ScreenController screenPage) {
         controller = screenPage;
     }
 
@@ -135,4 +133,3 @@ public class RegisterController implements ControlledScreen {
     }
 
 }
-

@@ -1,8 +1,9 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.Model;
-import de.dhbw.karlsruhe.model.Teilnehmer;
+import de.dhbw.karlsruhe.model.CurrentUser;
+import de.dhbw.karlsruhe.model.LoginRepository;
+import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,8 +18,8 @@ public class LoginController implements ControlledScreen {
     @FXML
     private Label lblFehlermeldung;
 
-    private Model model;
-    private ScreensController controller;
+    private LoginRepository loginRepository;
+    private ScreenController screenController;
 
     @FXML
     private void doLogin(ActionEvent event) {
@@ -27,33 +28,34 @@ public class LoginController implements ControlledScreen {
         String passwortKlartext = txtPasswort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
-        Teilnehmer teilnehmer = model.getTeilnehmer(benutzername, passwortVerschluesselt);
-        if (teilnehmer == null) {
-            System.out.println("Login falsch");
-            lblFehlermeldung.setText("Falscher Benutzername oder Passwort.");
+        Teilnehmer teilnehmer = loginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
+        if (teilnehmer == null) { //Benutzername und/oder Passwort falsch
+            lblFehlermeldung.setText("Der Benutzername oder das Passwort sind falsch.");
         }
-        else {
+        else { //Login erfolgreich
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
-            lblFehlermeldung.setText("Login erfolgt.");
+            lblFehlermeldung.setText("Login erfolgreich.");
+            CurrentUser angemeldeterUser = new CurrentUser(teilnehmer);
+            //ToDo: Übersichts-Screen anzeigen
         }
     }
 
     @FXML
     private void doRegistration(ActionEvent event) {
-        controller.setScreen(ScreensFramework.SCREEN_REGISTER);
+        screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
     }
 
 
     @FXML
     void doUnternehmenAnlegen(ActionEvent event) {
-        controller.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
+        screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
     }
 
     // Zur Erklärung https://stackoverflow.com/a/51392331
     // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
     @FXML
     private void initialize() {
-        model = Model.getInstanz();
+
     }
 
     private void doEditUser(ActionEvent event) {
@@ -62,8 +64,8 @@ public class LoginController implements ControlledScreen {
 
 
     @Override
-    public void setScreenParent(ScreensController screenPage) {
-        controller = screenPage;
+    public void setScreenParent(ScreenController screenPage) {
+        screenController = screenPage;
     }
 }
 

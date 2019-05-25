@@ -1,8 +1,9 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ColorHelper;
-import de.dhbw.karlsruhe.model.Model;
-import de.dhbw.karlsruhe.model.Unternehmen;
+import de.dhbw.karlsruhe.model.LoginRepository;
+import de.dhbw.karlsruhe.model.JPA.Unternehmen;
+import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -41,8 +42,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     private ArrayList<HBox> hBoxUnternehmenDynamisch = new ArrayList<>();
 
-    private Model model;
-    private ScreensController controller;
+    private ScreenController screenController;
 
     private ArrayList<Unternehmen> unternehmenAlle;
 
@@ -75,7 +75,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
             unternehmenAlle.add(u);
         }
 
-        model.setUnternehmen(unternehmenAlle);
+        UnternehmenRepository.persistUnternehmen(unternehmenAlle);
 
         for (Unternehmen u : unternehmenAlle)
             System.out.println(u);
@@ -84,8 +84,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     @FXML
     private void initialize() {
-        model = Model.getInstanz();
-        unternehmenAlle = model.getUnternehmen();
+        unternehmenAlle = UnternehmenRepository.getAlleUnternehmen();
         System.out.println(unternehmenAlle);
         if (!unternehmenAlle.isEmpty()) {
             // Füge erste Zeile als statische Zeile hinzu
@@ -105,8 +104,8 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
 
     @Override
-    public void setScreenParent(ScreensController screenPage) {
-        controller = screenPage;
+    public void setScreenParent(ScreenController screenPage) {
+        screenController = screenPage;
     }
 
 
