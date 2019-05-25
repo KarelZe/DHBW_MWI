@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.controller;
+/*package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.Model;
@@ -83,3 +83,4 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         controller = screenPage;
     }
 }
+*/
