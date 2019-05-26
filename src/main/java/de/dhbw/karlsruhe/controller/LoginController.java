@@ -58,8 +58,9 @@ public class LoginController implements ControlledScreen {
 
     }
 
+    @FXML
     private void doEditUser(ActionEvent event) {
-        //controller.setScreen(ScreensFramework.);
+        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
     }
 
 
