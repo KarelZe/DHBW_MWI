@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
@@ -91,6 +92,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleUnternehmen();
         ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
         unternehmenComboBox.setItems(unternehmenList);
+        unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());
     }
 
 

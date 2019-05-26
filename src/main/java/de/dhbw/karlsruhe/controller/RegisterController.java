@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 
 import javafx.util.StringConverter;
 
+import javax.persistence.Convert;
 import java.util.ArrayList;
 
 
@@ -45,15 +47,14 @@ public class RegisterController implements ControlledScreen {
         rolle.setId(1);
 
         //Benutzername prüfen
-        if(benutzername.trim().length()==0){
+        if (benutzername.trim().length() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ungeeigneter Benutzername");
             alert.setContentText("Bitte geben Sie einen Benutzernamen mit mindestens einem Zeichen ein. Dies darf kein Leerzeichen sein");
             alert.showAndWait();
             return;
 
-        }
-        else if(false){ //Datenbankabfrage nach allen Benutzern einfügen
+        } else if (false) { //Datenbankabfrage nach allen Benutzern einfügen
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Benutzername bereits vergeben");
             alert.setContentText("Bitte geben Sie einen anderen Benutzernamen ein.");
@@ -62,7 +63,7 @@ public class RegisterController implements ControlledScreen {
         }
 
         //Name prüfen
-        if((vorname.trim().length()==0)||(nachname.trim().length()==0)){
+        if ((vorname.trim().length() == 0) || (nachname.trim().length() == 0)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ungeeignete Eingaben für Vor- und Nachname");
             alert.setContentText("Bitte geben Sie als Vor- und Nachnamen Namen mit mindestens einem Zeichen ein. Dies darf kein Leerzeichen sein");
@@ -71,7 +72,7 @@ public class RegisterController implements ControlledScreen {
         }
 
         //Passwortlänge prüfen
-        if (passwortKlartext.length()<5){
+        if (passwortKlartext.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Passwort zu kurz");
             alert.setContentText("Bitte geben Sie ein Passwort mit mindestens 5 Zeichen ein.");
@@ -80,7 +81,7 @@ public class RegisterController implements ControlledScreen {
         }
 
         //Passwortübereinstimmung prüfen
-        if(!passwortKlartext.equals(passwortKlartextWiederholung)){
+        if (!passwortKlartext.equals(passwortKlartextWiederholung)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Passwort korrigieren");
             alert.setContentText("Bitte geben Sie in beiden Passwortfeldern das gleiche Passwort ein.");
@@ -101,24 +102,8 @@ public class RegisterController implements ControlledScreen {
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
 
-        //ComboBox nur mit Namen der Unternehmen anzeigen
-        StringConverter<Unternehmen> converter = new StringConverter<Unternehmen>() {
-            @Override
-            public String toString(Unternehmen u1) {
-                //Nullpointer-Fehler
-                //return u1.getName();
-                return "test";
-            }
-
-            @Override
-            public Unternehmen fromString(String id) {
-                return null;
-            }
-        };
-
-        cmbUnternehmen.setConverter(converter);
-
-        // FIXME: Anzeige aufhübschen z. B. https://stackoverflow.com/a/35744640
+        // Zeige Combobox nur mit Unternehmensnamen an.
+        cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());
     }
 
 
