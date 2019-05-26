@@ -10,11 +10,11 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
-      <Button fx:id="btnTeilnehmerBearbeiten" onAction="#doEditUser" mnemonicParsing="false" prefHeight="25.0" prefWidth="612.0" text="Temp Teilnehmer bearbeiten" textAlignment="CENTER" textFill="#ff041d">
-         <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
-      </Button>
+        <Button fx:id="btnTeilnehmerBearbeiten" onAction="#doEditUser" mnemonicParsing="false" prefHeight="25.0" prefWidth="612.0" text="Temp Teilnehmer bearbeiten" textAlignment="CENTER" textFill="#ff041d">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin>
+        </Button>
         <Button fx:id="btnUnternehmenAnlegen" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#doUnternehmenAnlegen" prefHeight="25.0" prefWidth="612.0" text="Temp Unternehmen anlegen" textFill="RED">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

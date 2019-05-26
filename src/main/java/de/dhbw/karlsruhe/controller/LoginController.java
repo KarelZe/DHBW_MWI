@@ -7,6 +7,7 @@ import de.dhbw.karlsruhe.model.LoginRepository;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -28,13 +29,17 @@ public class LoginController implements ControlledScreen {
         String passwortKlartext = txtPasswort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
+        Alert alert;
+
         Teilnehmer teilnehmer = LoginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
         if (teilnehmer == null) { //Benutzername und/oder Passwort falsch
-            lblFehlermeldung.setText("Der Benutzername oder das Passwort sind falsch.");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Benutzername oder Passwort");
+            alert.setContentText("Bitte erfassen Sie Ihren Benutzername und Ihr Passwort erneut.");
+            alert.showAndWait();
         }
         else { //Login erfolgreich
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
-            lblFehlermeldung.setText("Login erfolgreich.");
             CurrentUser angemeldeterUser = new CurrentUser(teilnehmer);
             //ToDo: Übersichts-Screen anzeigen
             if(angemeldeterUser.getTeilnehmer().getRolle().getId() == Long.valueOf(Berechtigungsrolle.SEMINARLEITER.ordinal())) {
@@ -61,8 +66,9 @@ public class LoginController implements ControlledScreen {
 
     }
 
+    @FXML
     private void doEditUser(ActionEvent event) {
-        //controller.setScreen(ScreensFramework.);
+        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
     }
 
 

@@ -37,10 +37,10 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
         System.out.println(teilnehmer);
 
-       String vorname =vornameFeld.getText().trim();
-       String nachname=nachnameFeld.getText().trim();
-       String passwort1=passwortFeld.getText();
-       String passwort2=passwortBestaetigenFeld.getText();
+        String vorname =vornameFeld.getText().trim();
+        String nachname=nachnameFeld.getText().trim();
+        String passwort1=passwortFeld.getText();
+        String passwort2=passwortBestaetigenFeld.getText();
 
         //Name prüfen
         if((vorname.trim().length()==0)||(nachname.trim().length()==0)){
