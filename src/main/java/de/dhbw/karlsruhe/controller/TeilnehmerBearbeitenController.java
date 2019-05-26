@@ -1,29 +1,41 @@
-/*package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.Model;
-import de.dhbw.karlsruhe.model.Teilnehmer;
-import de.dhbw.karlsruhe.model.Unternehmen;
+import de.dhbw.karlsruhe.model.JPA.Rolle;
+import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 
 import java.util.ArrayList;
 
 public class TeilnehmerBearbeitenController implements ControlledScreen {
 
+    @FXML
     private TextField vornameFeld, nachnameFeld, passwortFeld, passwortBestaetigenFeld;
+
+    @FXML
     private ComboBox<Unternehmen> unternehmenComboBox;
-    private Teilnehmer teilnehmer;
 
-    private Model model;
-    private ScreensController controller;
+    private Teilnehmer testTeilnehmer=new Teilnehmer("test", "test", "vorTest", "nachTest", new Unternehmen(), new Rolle());
+    private Teilnehmer teilnehmer=testTeilnehmer;
 
+    private UnternehmenRepository model;
+    private ScreenController screenController;
+
+
+    @FXML
     private void aktualisieren(ActionEvent event) {
-       System.out.println("Läuft");
+
+        System.out.println(teilnehmer);
 
        String vorname =vornameFeld.getText().trim();
        String nachname=nachnameFeld.getText().trim();
@@ -67,20 +79,25 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         teilnehmer.setVorname(vorname);
         teilnehmer.setNachname(nachname);
 
+        //TeilnehmerRepository.persistTeilnehmer(teilnehmer);
+
+        System.out.println(teilnehmer);
+
     }
 
-    private void standardbelegungFuellen(){
+    @FXML
+    private void initialize(){
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
-        ArrayList<Unternehmen> unternehmen = model.getUnternehmen();
-        ObservableList<Unternehmen> unternehmenObservable = FXCollections.observableArrayList(unternehmen);
-        unternehmenComboBox.setItems(unternehmenObservable);
+        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleUnternehmen();
+        ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
+        unternehmenComboBox.setItems(unternehmenList);
+        unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());
     }
 
 
     @Override
-    public void setScreenParent(ScreensController screenPage) {
-        controller = screenPage;
+    public void setScreenParent(ScreenController screenPage) {
+        screenController = screenPage;
     }
 }
-*/
