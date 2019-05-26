@@ -3,7 +3,8 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,8 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 
 import java.util.ArrayList;
 
@@ -42,6 +41,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         String passwort1=passwortFeld.getText();
         String passwort2=passwortBestaetigenFeld.getText();
 
+        // TODO: ist redundant zur Registrierugn?
         //Name prüfen
         if((vorname.trim().length()==0)||(nachname.trim().length()==0)){
             Alert alert = new Alert(Alert.AlertType.ERROR);

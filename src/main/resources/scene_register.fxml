@@ -24,9 +24,9 @@
   <Label id="lblBenutzername" text="Benutzername" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
   <Label id="lblVorname" text="Vorname" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
   <Label id="lblNachname" text="Nachname" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-  <Label id="Unternehmen" text="Unternehmen" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-  <Label id="Passwort" text="Passwort" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-  <Label id="Passwort" text="Passwort Wiederholung" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+  <Label id="txtUnternehmen" text="Unternehmen" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+  <Label id="txtPasswort" text="Passwort" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+  <Label id="txtPasswortW" text="Passwort Wiederholung" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
   <TextField fx:id="txtBenutzername" promptText="Benutzername" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
   <TextField id="txtVorname" fx:id="txtVorname" promptText="Vorname" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
   <TextField id="txtNachname" fx:id="txtNachname" promptText="Nachname" GridPane.columnIndex="1" GridPane.rowIndex="3"/>

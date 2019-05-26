@@ -17,9 +17,9 @@ public class ScreensFramework extends Application {
     static final String SCREEN_TEILNEHMER_UEBERSICHT = "teilnehmer_uebersicht";
     private static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     private static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
-    static final String SCREEN_UNTERNEHMEN_ANLEGEN_FILE = "scene_unternehmen_anlegen.fxml";
-    static final String SCREEN_TEILNEHMER_BEARBEITEN_FILE = "scene_teilnehmer_bearbeiten.fxml";
-    static final String SCREEN_TEILNEHMER_UEBERSICHT_FILE = "scene_teilnehmer_uebersicht.fxml";
+    private static final String SCREEN_UNTERNEHMEN_ANLEGEN_FILE = "scene_unternehmen_anlegen.fxml";
+    private static final String SCREEN_TEILNEHMER_BEARBEITEN_FILE = "scene_teilnehmer_bearbeiten.fxml";
+    private static final String SCREEN_TEILNEHMER_UEBERSICHT_FILE = "scene_teilnehmer_uebersicht.fxml";
 
     public static void main(String[] args) {
         launch(args);

@@ -4,7 +4,6 @@ import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
@@ -69,6 +68,23 @@ public class TeilnehmerRepository {
             String queryString = "from Teilnehmer where id = :id";
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
+            tx.commit();
+            return (Teilnehmer) query.uniqueResult();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return null;
+    }
+
+    public static Teilnehmer getTeilnehmerByBenutzername(String benutzername) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Teilnehmer where benutzername = :benutzername";
+            Query query = session.createQuery(queryString);
+            query.setParameter("benutzername", benutzername);
             tx.commit();
             return (Teilnehmer) query.uniqueResult();
         } catch (HibernateException e) {
