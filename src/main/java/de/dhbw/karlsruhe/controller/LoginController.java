@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
+import de.dhbw.karlsruhe.model.Berechtigungsrolle;
 import de.dhbw.karlsruhe.model.CurrentUser;
 import de.dhbw.karlsruhe.model.LoginRepository;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
@@ -18,7 +19,6 @@ public class LoginController implements ControlledScreen {
     @FXML
     private Label lblFehlermeldung;
 
-    private LoginRepository loginRepository;
     private ScreenController screenController;
 
     @FXML
@@ -28,7 +28,7 @@ public class LoginController implements ControlledScreen {
         String passwortKlartext = txtPasswort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
-        Teilnehmer teilnehmer = loginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
+        Teilnehmer teilnehmer = LoginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
         if (teilnehmer == null) { //Benutzername und/oder Passwort falsch
             lblFehlermeldung.setText("Der Benutzername oder das Passwort sind falsch.");
         }
@@ -37,6 +37,9 @@ public class LoginController implements ControlledScreen {
             lblFehlermeldung.setText("Login erfolgreich.");
             CurrentUser angemeldeterUser = new CurrentUser(teilnehmer);
             //ToDo: Übersichts-Screen anzeigen
+            if(angemeldeterUser.getTeilnehmer().getRolle().getId() == Long.valueOf(Berechtigungsrolle.SEMINARLEITER.ordinal())) {
+                screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+            }
         }
     }
 
