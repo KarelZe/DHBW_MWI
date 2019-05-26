@@ -3,12 +3,11 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.Berechtigungsrolle;
 import de.dhbw.karlsruhe.model.CurrentUser;
-import de.dhbw.karlsruhe.model.LoginRepository;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.LoginRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
@@ -17,8 +16,6 @@ public class LoginController implements ControlledScreen {
 
     @FXML
     private TextField txtBenutzername, txtPasswort;
-    @FXML
-    private Label lblFehlermeldung;
 
     private ScreenController screenController;
 
@@ -42,8 +39,13 @@ public class LoginController implements ControlledScreen {
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
             CurrentUser angemeldeterUser = new CurrentUser(teilnehmer);
             //ToDo: Übersichts-Screen anzeigen
-            if(angemeldeterUser.getTeilnehmer().getRolle().getId() == Long.valueOf(Berechtigungsrolle.SEMINARLEITER.ordinal())) {
+            if (angemeldeterUser.getTeilnehmer().getRolle().getId() == (long) Berechtigungsrolle.SEMINARLEITER.ordinal()) {
                 screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+            } else {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Login");
+                alert.setContentText("Login erfolgreich.");
+                alert.showAndWait();
             }
         }
     }

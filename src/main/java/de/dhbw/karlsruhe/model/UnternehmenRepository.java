@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UnternehmenRepository {
 
@@ -16,16 +17,7 @@ public class UnternehmenRepository {
      * @param unternehmen Unternehmensobjekt
      */
     public static void persistUnternehmen(Unternehmen unternehmen) {
-        Transaction tx = null;
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            session.saveOrUpdate(unternehmen);
-            tx.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
+        persistUnternehmen(new ArrayList<>(List.of(unternehmen)));
     }
 
     /***
@@ -37,7 +29,26 @@ public class UnternehmenRepository {
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             for (Unternehmen u : unternehmen) {
-                session.save(u);
+                session.saveOrUpdate(u);
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    public static void deleteUnternehmen(Unternehmen unternehmen) {
+        deleteUnternehmen((ArrayList<Unternehmen>) List.of(unternehmen));
+    }
+
+    public static void deleteUnternehmen(ArrayList<Unternehmen> unternehmen) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            for (Unternehmen u : unternehmen) {
+                session.delete(u);
             }
             tx.commit();
         }catch (HibernateException e) {
@@ -47,7 +58,6 @@ public class UnternehmenRepository {
         }
     }
 
-    //ToDo: Javadoc
     public static ArrayList<Unternehmen> getAlleUnternehmen() {
         Transaction tx = null;
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();

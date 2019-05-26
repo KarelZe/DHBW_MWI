@@ -15,8 +15,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class TeilnehmerUebersichtController implements ControlledScreen, Initializable {
     private ScreenController screenController;
@@ -51,7 +52,7 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
         List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getAlleTeilnehmer();
         List<TeilnehmerViewModel> teilnehmerViewModel = new ArrayList<>();
         for (Teilnehmer teilnehmer : alleTeilnehmer) {
-            if (teilnehmer.getRolle().getId() == Long.valueOf(Berechtigungsrolle.TEILNEHMER.ordinal())) {//Teilnehmer ist Teilnehmer (und kein Seminarleiter)
+            if (teilnehmer.getRolle().getId() == (long) Berechtigungsrolle.TEILNEHMER.ordinal()) {//Teilnehmer ist Teilnehmer (und kein Seminarleiter)
                 teilnehmerViewModel.add(new TeilnehmerViewModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
             }
         }
@@ -59,24 +60,30 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
     }
 
     private void addPasswortZuruecksetzenButtonToTable() {
-        TableColumn<TeilnehmerViewModel, Void> colBtn = new TableColumn("");
+        TableColumn colBtn = new TableColumn("");
 
-        Callback<TableColumn<TeilnehmerViewModel, Void>, TableCell<TeilnehmerViewModel, Void>> cellFactory = new Callback<TableColumn<TeilnehmerViewModel, Void>, TableCell<TeilnehmerViewModel, Void>>() {
+        Callback<TableColumn<TeilnehmerViewModel, Void>, TableCell<TeilnehmerViewModel, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<TeilnehmerViewModel, Void> call(final TableColumn<TeilnehmerViewModel, Void> param) {
-                final TableCell<TeilnehmerViewModel, Void> cell = new TableCell<TeilnehmerViewModel, Void>() {
+                return new TableCell<>() {
 
                     private final Button btn = new Button("Passwort zur\u00fccksetzen");
 
                     {
                         btn.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-                            Teilnehmer selektierterTeilnehmer = TeilnehmerRepository.getTeilnehmerById(getTableView().getItems().get(getIndex()).getId()); //ToDo: null abfangen
-                            selektierterTeilnehmer.setPasswort(EncryptionHelper.getStringAsMD5(STANDARDPASSWORT));
-                            TeilnehmerRepository.persistTeilnehmer(selektierterTeilnehmer);
-                            Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
-                            messageBox.setHeaderText("Das Passwort wurde auf \"Anika\" zur\u00fcckgesetzt.");
-                            messageBox.showAndWait();
-
+                            Teilnehmer selektierterTeilnehmer = TeilnehmerRepository.getTeilnehmerById(getTableView().getItems().get(getIndex()).getId());
+                            Alert messageBox;
+                            if (selektierterTeilnehmer != null) {
+                                selektierterTeilnehmer.setPasswort(EncryptionHelper.getStringAsMD5(STANDARDPASSWORT));
+                                TeilnehmerRepository.persistTeilnehmer(selektierterTeilnehmer);
+                                messageBox = new Alert(Alert.AlertType.INFORMATION);
+                                messageBox.setHeaderText("Das Passwort wurde auf \"Anika\" zur\u00fcckgesetzt.");
+                                messageBox.showAndWait();
+                            } else {
+                                messageBox = new Alert(Alert.AlertType.ERROR);
+                                messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
+                                messageBox.showAndWait();
+                            }
                         });
                     }
 
@@ -90,7 +97,6 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
                         }
                     }
                 };
-                return cell;
             }
         };
         colBtn.setCellFactory(cellFactory);
