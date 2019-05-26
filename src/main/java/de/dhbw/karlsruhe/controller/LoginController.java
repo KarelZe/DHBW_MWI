@@ -2,11 +2,11 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.CurrentUser;
-import de.dhbw.karlsruhe.model.LoginRepository;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.LoginRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 
@@ -15,8 +15,6 @@ public class LoginController implements ControlledScreen {
 
     @FXML
     private TextField txtBenutzername, txtPasswort;
-    @FXML
-    private Label lblFehlermeldung;
 
     private LoginRepository loginRepository;
     private ScreenController screenController;
@@ -28,14 +26,22 @@ public class LoginController implements ControlledScreen {
         String passwortKlartext = txtPasswort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
-        Teilnehmer teilnehmer = loginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
+        Alert alert;
+
+        Teilnehmer teilnehmer = LoginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
         if (teilnehmer == null) { //Benutzername und/oder Passwort falsch
-            lblFehlermeldung.setText("Der Benutzername oder das Passwort sind falsch.");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Benutzername oder Passwort");
+            alert.setContentText("Bitte erfassen Sie Ihren Benutzername und Ihr Passwort erneut.");
+            alert.showAndWait();
         }
         else { //Login erfolgreich
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
-            lblFehlermeldung.setText("Login erfolgreich.");
             CurrentUser angemeldeterUser = new CurrentUser(teilnehmer);
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Login");
+            alert.setContentText("Login erfolgreich.");
+            alert.showAndWait();
             //ToDo: Übersichts-Screen anzeigen
         }
     }
