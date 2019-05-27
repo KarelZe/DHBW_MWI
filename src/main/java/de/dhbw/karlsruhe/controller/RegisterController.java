@@ -100,7 +100,7 @@ public class RegisterController implements ControlledScreen {
     @FXML
     private void initialize() {
         // Initialisiere ComboBox aus Modell
-        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleUnternehmen();
+        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleSpielbarenUnternehmen();
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
 

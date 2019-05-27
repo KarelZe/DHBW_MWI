@@ -89,7 +89,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     private void initialize(){
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
-        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleUnternehmen();
+        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleSpielbarenUnternehmen();
         ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
         unternehmenComboBox.setItems(unternehmenList);
         unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());

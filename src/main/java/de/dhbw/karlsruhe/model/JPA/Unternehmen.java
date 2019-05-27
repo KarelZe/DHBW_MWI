@@ -15,12 +15,15 @@ public class Unternehmen {
 
     private String farbe;
 
-    private int ist_aktiv;
+    public static final int UNTERNEHMEN_TEILNEHMER = 1;
+    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 2;
+    private int ist_spielbar;
+
 
     public Unternehmen(String name, String farbe) {
         this.name = name;
         this.farbe = farbe;
-        this.ist_aktiv = 1;
+        this.ist_spielbar = UNTERNEHMEN_TEILNEHMER;
     }
 
     public Unternehmen() {
@@ -51,12 +54,12 @@ public class Unternehmen {
         this.farbe = farbe;
     }
 
-    public int getIst_aktiv() {
-        return ist_aktiv;
+    public int getIst_spielbar() {
+        return ist_spielbar;
     }
 
-    public void setIst_aktiv(int ist_aktiv) {
-        this.ist_aktiv = ist_aktiv;
+    public void setIst_spielbar(int ist_spielbar) {
+        this.ist_spielbar = ist_spielbar;
     }
 
     @Override
@@ -65,7 +68,7 @@ public class Unternehmen {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", farbe='" + farbe + '\'' +
-                ", ist_aktiv=" + ist_aktiv +
+                ", ist_spielbar=" + ist_spielbar +
                 '}';
     }
 }
