@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 class UnternehmenHBox extends HBox {
     private Unternehmen unternehmen;
     private TextField txtUnternehmensname;
-    private TextField txtStartkapital;
     private ColorPicker clrFarbe;
     private Button btnLoeschen;
 
@@ -21,8 +20,6 @@ class UnternehmenHBox extends HBox {
         this.unternehmen = unternehmen;
         System.out.println(this.unternehmen);
         if (unternehmen != null) {
-
-            txtStartkapital.setText("100");
             txtUnternehmensname.setText(unternehmen.getName());
             clrFarbe.setValue(ColorHelper.string2Color(unternehmen.getFarbe()));
         }
@@ -32,9 +29,6 @@ class UnternehmenHBox extends HBox {
         this.txtUnternehmensname = new TextField();
         // TODO:Datennodell anpassen
         txtUnternehmensname.setPromptText("Unternehmensname");
-        this.txtStartkapital = new TextField();
-        // TODO: Eingabe Startkapital begrenzen
-        txtStartkapital.setPromptText("Startkapital");
         this.clrFarbe = new ColorPicker();
         this.btnLoeschen = new Button("-");
         this.unternehmen = new Unternehmen();
@@ -55,10 +49,9 @@ class UnternehmenHBox extends HBox {
 
         int margin = 5;
         Insets inset = new Insets(margin, margin, margin, margin);
-        this.getChildren().addAll(txtUnternehmensname, txtStartkapital, clrFarbe, btnLoeschen);
+        this.getChildren().addAll(txtUnternehmensname, clrFarbe, btnLoeschen);
         HBox.setMargin(txtUnternehmensname, inset);
         HBox.setMargin(clrFarbe, inset);
-        HBox.setMargin(txtStartkapital, inset);
         HBox.setMargin(btnLoeschen, inset);
     }
 

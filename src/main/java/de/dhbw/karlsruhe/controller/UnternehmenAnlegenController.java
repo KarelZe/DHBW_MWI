@@ -21,6 +21,8 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     private VBox vboxUnternehmen;
 
 
+    // TODO: Überarbeiten mit https://stackoverflow.com/a/19632586
+
     private ArrayList<UnternehmenHBox> hBoxUnternehmenDynamisch;
 
     private ArrayList<Unternehmen> unternehmenInitial;
