@@ -9,12 +9,14 @@ import java.util.Date;
 @Entity
 public class Spiel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private double startkapital;
 
     private Date erstellungsdatum;
+
+    private boolean isAktiv;
 
 
     public long getId() {
@@ -39,5 +41,13 @@ public class Spiel {
 
     public void setErstellungsdatum(Date erstellungsdatum) {
         this.erstellungsdatum = erstellungsdatum;
+    }
+
+    public boolean isAktiv() {
+        return isAktiv;
+    }
+
+    public void setAktiv(boolean aktiv) {
+        isAktiv = aktiv;
     }
 }
