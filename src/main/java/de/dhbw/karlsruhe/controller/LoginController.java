@@ -2,9 +2,11 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.Berechtigungsrolle;
-import de.dhbw.karlsruhe.model.CurrentUser;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.JPA.Spiel;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.LoginRepository;
+import de.dhbw.karlsruhe.model.SpielRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -37,9 +39,9 @@ public class LoginController implements ControlledScreen {
         }
         else { //Login erfolgreich
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
-            CurrentUser angemeldeterUser = new CurrentUser(teilnehmer);
+            AktuelleSpieldaten.setTeilnehmer(teilnehmer);
             //ToDo: Übersichts-Screen anzeigen
-            if (angemeldeterUser.getTeilnehmer().getRolle().getId() == (long) Berechtigungsrolle.SEMINARLEITER.ordinal()) {
+            if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == (long) Berechtigungsrolle.SEMINARLEITER.ordinal()) {
                 screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
             } else {
                 alert = new Alert(Alert.AlertType.INFORMATION);
@@ -65,7 +67,7 @@ public class LoginController implements ControlledScreen {
     // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
     @FXML
     private void initialize() {
-
+        AktuelleSpieldaten.setSpiel(SpielRepository.getAktivesSpiel());
     }
 
     @FXML
