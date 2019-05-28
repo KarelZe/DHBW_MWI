@@ -2,6 +2,7 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
@@ -24,7 +25,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     @FXML
     private ComboBox<Unternehmen> unternehmenComboBox;
 
-    private Teilnehmer testTeilnehmer=new Teilnehmer("test", "test", "vorTest", "nachTest", new Unternehmen(), new Rolle());
+    private Teilnehmer testTeilnehmer=new Teilnehmer("test", "test", "vorTest", "nachTest", new Unternehmen(), new Rolle(), AktuelleSpieldaten.getSpiel());
     private Teilnehmer teilnehmer=testTeilnehmer;
 
     private UnternehmenRepository model;

@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Teilnehmer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private String benutzername;
@@ -21,18 +21,23 @@ public class Teilnehmer {
     @JoinColumn(name = "rolle_id")
     private Rolle rolle;
 
+    @ManyToOne
+    @JoinColumn(name = "spiel_id")
+    private Spiel spiel;
+
     // Hibernate benötigt leeren Konstruktor. Zur Erklärung siehe https://stackoverflow.com/a/25452112
     public Teilnehmer() {
 
     }
 
-    public Teilnehmer(String benutzername, String passwort, String vorname, String nachname, Unternehmen unternehmen, Rolle rolle) {
+    public Teilnehmer(String benutzername, String passwort, String vorname, String nachname, Unternehmen unternehmen, Rolle rolle, Spiel spiel) {
         this.benutzername = benutzername;
         this.passwort = passwort;
         this.vorname = vorname;
         this.nachname = nachname;
         this.unternehmen = unternehmen;
         this.rolle = rolle;
+        this.spiel = spiel;
     }
 
     public long getId() {
@@ -91,6 +96,13 @@ public class Teilnehmer {
         this.nachname = nachname;
     }
 
+    public Spiel getSpiel() {
+        return spiel;
+    }
+
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
+    }
 
     @Override
     public String toString() {

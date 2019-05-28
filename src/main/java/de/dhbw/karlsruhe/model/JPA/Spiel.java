@@ -17,7 +17,7 @@ public class Spiel {
     private Date erstellungsdatum;
 
     public static final int SPIEL_AKTIV = 1;
-    public static final int SPIEL_INAKTIV = 2;
+    public static final int SPIEL_INAKTIV = 0;
     private int ist_aktiv;
 
     public long getId() {

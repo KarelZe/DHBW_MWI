@@ -1,8 +1,12 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.helper.ConstantsHelper;
+import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Spiel;
+import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.RolleRepository;
 import de.dhbw.karlsruhe.model.SpielRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,5 +47,14 @@ public class SpielController implements ControlledScreen {
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
+    }
+
+    private void insertSpielleiter() {
+        Teilnehmer spielleiter = new Teilnehmer();
+        spielleiter.setBenutzername(ConstantsHelper.ADMIN_USERNAME);
+        spielleiter.setPasswort(EncryptionHelper.getStringAsMD5(ConstantsHelper.ADMIN_PASSWORT));
+        spielleiter.setVorname("Admin");
+        spielleiter.setNachname("Admin");
+        spielleiter.setRolle(RolleRepository.getSeminarleiterRolle());
     }
 }
