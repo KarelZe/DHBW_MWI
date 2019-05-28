@@ -50,7 +50,7 @@ public class ScreenController extends StackPane {
                 getChildren().add(screens.get(name));
             }
         } else {
-            System.out.println("Keine FXML-Datei vorhanden");
+            System.out.println("Keine FXML-Datei vorhanden.");
         }
     }
 

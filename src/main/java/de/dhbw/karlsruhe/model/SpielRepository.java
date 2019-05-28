@@ -2,7 +2,6 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.JPA.Spiel;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,9 +32,9 @@ public class SpielRepository {
         Spiel spiel = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Spiel WHERE isAktiv =:isAktiv";
+            String queryString = "from Spiel WHERE ist_aktiv =:ist_aktiv";
             Query query = session.createQuery(queryString);
-            query.setParameter("isAktiv", true);
+            query.setParameter("ist_aktiv", Spiel.SPIEL_AKTIV);
             tx.commit();
             spiel = (Spiel) query.uniqueResult();
 

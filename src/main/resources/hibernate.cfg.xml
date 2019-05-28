@@ -23,5 +23,6 @@
         <mapping class="de.dhbw.karlsruhe.model.JPA.Teilnehmer"/>
         <mapping class="de.dhbw.karlsruhe.model.JPA.Unternehmen"/>
         <mapping class="de.dhbw.karlsruhe.model.JPA.Rolle"/>
+        <mapping class="de.dhbw.karlsruhe.model.JPA.Spiel"/>
     </session-factory>
 </hibernate-configuration>

@@ -32,7 +32,7 @@ public class SpielController implements ControlledScreen {
                 alert.showAndWait();
             }
             spiel.setErstellungsdatum(new Date());
-            spiel.setAktiv(false);
+            spiel.setIst_aktiv(Spiel.SPIEL_INAKTIV);
             SpielRepository.persistSpiel(spiel);
         }
         else {

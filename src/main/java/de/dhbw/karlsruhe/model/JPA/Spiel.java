@@ -16,8 +16,9 @@ public class Spiel {
 
     private Date erstellungsdatum;
 
-    private boolean isAktiv;
-
+    public static final int SPIEL_AKTIV = 1;
+    public static final int SPIEL_INAKTIV = 2;
+    private int ist_aktiv;
 
     public long getId() {
         return id;
@@ -43,11 +44,11 @@ public class Spiel {
         this.erstellungsdatum = erstellungsdatum;
     }
 
-    public boolean isAktiv() {
-        return isAktiv;
+    public int getIst_aktiv() {
+        return ist_aktiv;
     }
 
-    public void setAktiv(boolean aktiv) {
-        isAktiv = aktiv;
+    public void setIst_aktiv(int ist_aktiv) {
+        this.ist_aktiv = ist_aktiv;
     }
 }
