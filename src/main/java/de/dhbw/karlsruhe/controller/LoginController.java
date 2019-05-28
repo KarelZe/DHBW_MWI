@@ -1,9 +1,8 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.Berechtigungsrolle;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.JPA.Spiel;
+import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.LoginRepository;
 import de.dhbw.karlsruhe.model.SpielRepository;
@@ -41,7 +40,7 @@ public class LoginController implements ControlledScreen {
             System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
             AktuelleSpieldaten.setTeilnehmer(teilnehmer);
             //ToDo: Übersichts-Screen anzeigen
-            if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == (long) Berechtigungsrolle.SEMINARLEITER.ordinal()) {
+            if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
                 screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
             } else {
                 alert = new Alert(Alert.AlertType.INFORMATION);

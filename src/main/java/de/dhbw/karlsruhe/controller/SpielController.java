@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.Berechtigungsrolle;
+import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Spiel;
 import de.dhbw.karlsruhe.model.SpielRepository;
 import javafx.event.ActionEvent;
@@ -20,7 +20,7 @@ public class SpielController implements ControlledScreen {
 
     @FXML
     private void spielAnlegen(ActionEvent event) {
-        if(AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == (long)Berechtigungsrolle.SEMINARLEITER.ordinal()) {
+        if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
             Spiel spiel = new Spiel();
             try {
                 spiel.setStartkapital(Double.valueOf(txtStartkapital.getText()));

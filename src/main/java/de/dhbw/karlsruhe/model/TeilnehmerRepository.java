@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
+import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -38,17 +39,10 @@ public class TeilnehmerRepository {
         List<Teilnehmer> alleTeilnehmer = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Teilnehmer";
-            //String queryString = "from Teilnehmer inner join Rolle r with r.id = :rolle_id"; //ToDo: Einschränkung auf Teilnehmer funktioniert nicht
+            String queryString = "from Teilnehmer where rolle_id = :rolle_id";
             Query query = session.createQuery(queryString);
-            //query.setParameter("rolle_id", Long.valueOf(Berechtigungsrolle.TEILNEHMER.ordinal()));
+            query.setParameter("rolle_id", Rolle.ROLLE_TEILNEHMER);
             tx.commit();
-            /*List<Object[]> dbResult = query.getResultList();
-            Iterator it = dbResult.iterator();
-            while(it.hasNext()) {
-                Object[] zeile = (Object[]) it.next();
-                alleTeilnehmer.add((Teilnehmer) zeile[0]);;
-            }*/
             for (final Object o : query.list()) {
                 alleTeilnehmer.add((Teilnehmer) o);
             }

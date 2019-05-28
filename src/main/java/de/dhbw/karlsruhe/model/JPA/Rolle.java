@@ -12,6 +12,9 @@ public class Rolle {
     private long id;
     private String name;
 
+    public static final int ROLLE_TEILNEHMER = 1;
+    public static final int ROLLE_SPIELLEITER = 2;
+
     public long getId() {
         return id;
     }

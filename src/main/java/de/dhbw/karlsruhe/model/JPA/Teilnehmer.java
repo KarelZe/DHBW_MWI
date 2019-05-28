@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Teilnehmer {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String benutzername;
@@ -14,11 +14,11 @@ public class Teilnehmer {
     private String nachname;
 
     @ManyToOne
-    @JoinColumn(name = "unternehmenId")
+    @JoinColumn(name = "unternehmen_id")
     private Unternehmen unternehmen;
 
     @ManyToOne
-    @JoinColumn(name = "rolleId")
+    @JoinColumn(name = "rolle_id")
     private Rolle rolle;
 
     // Hibernate benötigt leeren Konstruktor. Zur Erklärung siehe https://stackoverflow.com/a/25452112

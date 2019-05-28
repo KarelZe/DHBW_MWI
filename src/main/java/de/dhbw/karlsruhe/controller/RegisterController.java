@@ -2,7 +2,6 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.Berechtigungsrolle;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
@@ -42,7 +41,7 @@ public class RegisterController implements ControlledScreen {
         System.out.println(vorname);
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
         Rolle rolle = new Rolle();
-        rolle.setId(Berechtigungsrolle.TEILNEHMER.ordinal());
+        rolle.setId(Rolle.ROLLE_TEILNEHMER);
 
         // Länge des Benutzernamens prüfen
         if (benutzername.trim().length() == 0) {

@@ -1,7 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.Berechtigungsrolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
@@ -52,9 +51,7 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
         List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getAlleTeilnehmer();
         List<TeilnehmerViewModel> teilnehmerViewModel = new ArrayList<>();
         for (Teilnehmer teilnehmer : alleTeilnehmer) {
-            if (teilnehmer.getRolle().getId() == (long) Berechtigungsrolle.TEILNEHMER.ordinal()) {//Teilnehmer ist Teilnehmer (und kein Seminarleiter)
                 teilnehmerViewModel.add(new TeilnehmerViewModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
-            }
         }
         return teilnehmerViewModel;
     }
