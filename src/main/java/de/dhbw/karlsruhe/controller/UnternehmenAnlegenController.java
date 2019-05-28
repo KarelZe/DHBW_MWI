@@ -7,9 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 
@@ -19,42 +17,34 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     public Button btnSpeichern;
     public ListView lstVwUnternehmen;
     ObservableList unternehmenObserverableList = FXCollections.observableArrayList();
-    private ArrayList<Unternehmen> unternehmenList = new ArrayList<>();
-    private ArrayList<Unternehmen> unternehmenListInitial = new ArrayList<>();
+    private ArrayList<Unternehmen> unternehmenInitial = new ArrayList<>();
 
     @FXML
     void doSpeichern(ActionEvent event) {
 
-        UnternehmenRepository.persistUnternehmen(unternehmenList);
+        ArrayList<Unternehmen> unternehmenNachAenderung = new ArrayList<Unternehmen>(unternehmenObserverableList);
+        UnternehmenRepository.persistUnternehmen(unternehmenNachAenderung);
 
         // Lösche nicht benötigte Unternehmen aus Datenbank
-        System.out.println(unternehmenList);
         ArrayList<Unternehmen> unternehmenZumLoeschen = new ArrayList<>();
-        for (Unternehmen u : unternehmenListInitial)
-            if (!unternehmenList.contains(u)) {
+        for (Unternehmen u : unternehmenInitial)
+            if (!unternehmenNachAenderung.contains(u)) {
                 unternehmenZumLoeschen.add(u);
             }
-        System.out.println(unternehmenListInitial);
-        System.out.println(unternehmenList);
-        System.out.println(unternehmenZumLoeschen);
         UnternehmenRepository.deleteUnternehmen(unternehmenZumLoeschen);
-
-        unternehmenListInitial = unternehmenList;
+        // Setze unternehmenIntial zurück
+        unternehmenInitial = unternehmenNachAenderung;
         System.out.println("Speichern");
     }
 
     @FXML
     private void initialize() {
-        setListView();
+        unternehmenInitial = UnternehmenRepository.getAlleSpielbarenUnternehmen();
+        unternehmenObserverableList.addAll(unternehmenInitial);
+        lstVwUnternehmen.setItems(unternehmenObserverableList);
+        lstVwUnternehmen.setCellFactory(studentListView -> new UnternehmenCell());
     }
 
-    private void setListView() {
-        unternehmenList = UnternehmenRepository.getAlleUnternehmen();
-        unternehmenListInitial = UnternehmenRepository.getAlleSpielbarenUnternehmen();
-        System.out.println(unternehmenList);
-        unternehmenObserverableList.setAll(unternehmenList);
-        lstVwUnternehmen.setCellFactory((Callback<ListView, ListCell<Unternehmen>>) param -> new UnternehmenCell());
-    }
 
 
     @Override
@@ -62,8 +52,8 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     }
 
     public void doHinzufuegen(ActionEvent actionEvent) {
-        lstVwUnternehmen.getItems().add(new UnternehmenCell());
-        System.out.println("Hinzufügen Unternehmen anlegen.");
+        unternehmenObserverableList.add(new Unternehmen());
+        System.out.println("Hinzufügen.");
     }
 }
 

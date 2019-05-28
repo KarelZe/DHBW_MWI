@@ -21,12 +21,15 @@ public class Unternehmen {
 
 
     public Unternehmen(String name, String farbe) {
+        this();
         this.name = name;
         this.farbe = farbe;
-        this.ist_spielbar = UNTERNEHMEN_TEILNEHMER;
     }
 
     public Unternehmen() {
+        this.farbe = "0xff0000ff";
+        this.name = "";
+        this.ist_spielbar = UNTERNEHMEN_TEILNEHMER;
     }
 
 
