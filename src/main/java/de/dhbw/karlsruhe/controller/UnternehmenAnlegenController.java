@@ -15,28 +15,34 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     @FXML
     public Button btnSpeichern;
-    public ListView lstVwUnternehmen;
-    ObservableList unternehmenObserverableList = FXCollections.observableArrayList();
+    public ListView<Unternehmen> lstVwUnternehmen;
+    private ObservableList<Unternehmen> unternehmenObserverableList = FXCollections.observableArrayList();
     private ArrayList<Unternehmen> unternehmenInitial = new ArrayList<>();
 
     @FXML
     void doSpeichern(ActionEvent event) {
 
+        // Aktualisiere alle Unternehmen und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Unternehmen> unternehmenNachAenderung = new ArrayList<Unternehmen>(unternehmenObserverableList);
         UnternehmenRepository.persistUnternehmen(unternehmenNachAenderung);
 
-        // Lösche nicht benötigte Unternehmen aus Datenbank
+        /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
+         * contains() greift für einen Vergleich auf Gleichheit auf die equals() Methode der Klasse Unternehmen zurück.*/
         ArrayList<Unternehmen> unternehmenZumLoeschen = new ArrayList<>();
         for (Unternehmen u : unternehmenInitial)
             if (!unternehmenNachAenderung.contains(u)) {
                 unternehmenZumLoeschen.add(u);
             }
         UnternehmenRepository.deleteUnternehmen(unternehmenZumLoeschen);
-        // Setze unternehmenIntial zurück
+
+        /* Setze unternehmenIntial zurück, andernfalls würde bei erneuter Speicherung versucht werden, das
+        Unternehmen erneut zu löschen.*/
         unternehmenInitial = unternehmenNachAenderung;
-        System.out.println("Speichern");
     }
 
+    /**
+     * Funktion initalisiert die ListView mit Unternehmen, sofern vorhanden.
+     */
     @FXML
     private void initialize() {
         unternehmenInitial = UnternehmenRepository.getAlleSpielbarenUnternehmen();
@@ -51,9 +57,14 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     public void setScreenParent(ScreenController screenPage) {
     }
 
+    /**
+     * Methode fügt der ObsverableList, welche die Unternehmensobjekte für die ListView enthält, weitere Unternehmen
+     * hinzu.
+     *
+     * @param actionEvent ActionEvent des aufrufenden Buttons
+     */
     public void doHinzufuegen(ActionEvent actionEvent) {
         unternehmenObserverableList.add(new Unternehmen());
-        System.out.println("Hinzufügen.");
     }
 }
 

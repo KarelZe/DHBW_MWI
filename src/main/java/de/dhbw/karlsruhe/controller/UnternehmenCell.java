@@ -24,16 +24,26 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     private Button btnLoeschen;
     private FXMLLoader loader;
 
-    // adaptiert von https://www.turais.de/how-to-custom-listview-cell-in-javafx/
+    /**
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des Unternehmens-Parameter.
+     * Sie durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
+     * Unternehmensobjekt verändert oder anderweitig das UI upgedatet werden muss.
+     * Sie soll nicht durch den Programmierer aufgerufen werden.
+     * Die Implmentierung wurde adaptiert von https://www.turais.de/how-to-custom-listview-cell-in-javafx/.
+     *
+     * @param unternehmen Unternehmen, das in der Zeile angezeigt wird.
+     * @param empty       boolean, ob Zeile leer ist.
+     */
     @Override
     protected void updateItem(Unternehmen unternehmen, boolean empty) {
         super.updateItem(unternehmen, empty);
 
+        // Setze einen leeren Text und eine leere Grafik, sofern die Zeile leer ist oder das Unternehmensobjekt null.
         if (empty || unternehmen == null) {
-            // setze einen leeren Eintrag
             setText(null);
             setGraphic(null);
         } else {
+            // Lade FXML der Zelle, sofern nicht bereits vorhanden.
             if (loader == null) {
                 loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_unternehmen.fxml"));
                 loader.setController(this);
@@ -42,9 +52,9 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
 
+            // Initialisiere UI Elemente aus FXML.
             btnLoeschen.setOnAction(e -> getListView().getItems().remove(unternehmen));
 
             txtUnternehmensname.setText(unternehmen.getName());
@@ -52,9 +62,9 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
 
             clrFarbe.setValue(ColorHelper.string2Color(unternehmen.getFarbe()));
             clrFarbe.valueProperty().addListener((observable, oldValue, newValue) -> {
-                String farbe = ColorHelper.color2String(newValue);
-                unternehmen.setFarbe(farbe);
+                unternehmen.setFarbe(ColorHelper.color2String(newValue));
             });
+            // Setze Zeileninhalt
             setText(null);
             setGraphic(grdUnternehmen);
         }
