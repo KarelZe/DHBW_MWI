@@ -28,10 +28,11 @@ public class LoginRepository {
         Teilnehmer teilnehmer = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND passwort =:passwort";
+            String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND passwort =:passwort AND spiel =: spiel";
             Query query = session.createQuery(queryString);
             query.setParameter("benutzername", benutzername);
             query.setParameter("passwort", passwort);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
             tx.commit();
             teilnehmer = (Teilnehmer) query.uniqueResult();
 

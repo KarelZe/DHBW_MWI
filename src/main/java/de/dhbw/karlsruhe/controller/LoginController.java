@@ -3,8 +3,10 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
+import de.dhbw.karlsruhe.model.JPA.Spiel;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.LoginRepository;
+import de.dhbw.karlsruhe.model.RolleRepository;
 import de.dhbw.karlsruhe.model.SpielRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,7 +43,8 @@ public class LoginController implements ControlledScreen {
             AktuelleSpieldaten.setTeilnehmer(teilnehmer);
             //ToDo: Übersichts-Screen anzeigen
             if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
-                screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+                //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+                screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
             } else {
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Login");
@@ -66,7 +69,8 @@ public class LoginController implements ControlledScreen {
     // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
     @FXML
     private void initialize() {
-        AktuelleSpieldaten.setSpiel(SpielRepository.getAktivesSpiel());
+        initializeAktuellesSpiel();
+        RolleRepository.insertRollenIfNotExists(); //legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
     }
 
     @FXML
@@ -78,6 +82,18 @@ public class LoginController implements ControlledScreen {
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
+    }
+
+    private void initializeAktuellesSpiel() {
+        Spiel aktuellesSpiel = SpielRepository.getAktivesSpiel();
+        if(aktuellesSpiel != null) {
+            AktuelleSpieldaten.setSpiel(aktuellesSpiel);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Initialisieren");
+            alert.setContentText("Es konnte kein Spiel geladen werden.");
+        }
     }
 }
 

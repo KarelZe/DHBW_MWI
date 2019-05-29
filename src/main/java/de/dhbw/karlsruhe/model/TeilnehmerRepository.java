@@ -39,9 +39,10 @@ public class TeilnehmerRepository {
         List<Teilnehmer> alleTeilnehmer = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Teilnehmer where rolle_id = :rolle_id";
+            String queryString = "from Teilnehmer where rolle_id = :rolle_id AND spiel =: spiel";
             Query query = session.createQuery(queryString);
             query.setParameter("rolle_id", Rolle.ROLLE_TEILNEHMER);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
             tx.commit();
             for (final Object o : query.list()) {
                 alleTeilnehmer.add((Teilnehmer) o);

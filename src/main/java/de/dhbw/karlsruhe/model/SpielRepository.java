@@ -2,10 +2,14 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.JPA.Spiel;
+import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpielRepository {
 
@@ -44,5 +48,25 @@ public class SpielRepository {
                 tx.rollback();
         }
         return spiel;
+    }
+
+    public static List<Spiel> getAlleSpiele() {
+        Transaction tx = null;
+        List<Spiel> alleSpiele = new ArrayList<>();
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Spiel";
+            Query query = session.createQuery(queryString);
+            tx.commit();
+            for (final Object o : query.list()) {
+                alleSpiele.add((Spiel) o);
+            }
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return alleSpiele;
     }
 }

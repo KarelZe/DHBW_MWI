@@ -17,11 +17,9 @@ public class RolleRepository {
         Transaction tx = null;
         Rolle rolle = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "from Rolle WHERE id =:id";
+            String queryString = "from Rolle WHERE id =: id";
             Query query = session.createQuery(queryString);
             query.setParameter("id", Rolle.ROLLE_SPIELLEITER);
-            tx.commit();
             rolle = (Rolle) query.uniqueResult();
 
         } catch (HibernateException e) {

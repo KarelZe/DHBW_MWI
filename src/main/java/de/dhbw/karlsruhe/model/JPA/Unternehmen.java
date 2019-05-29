@@ -1,9 +1,8 @@
 package de.dhbw.karlsruhe.model.JPA;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+
+import javax.persistence.*;
 
 @Entity
 public class Unternehmen {
@@ -16,8 +15,12 @@ public class Unternehmen {
     private String farbe;
 
     public static final int UNTERNEHMEN_TEILNEHMER = 1;
-    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 2;
+    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 0;
     private int ist_spielbar;
+
+    @ManyToOne
+    @JoinColumn(name = "spiel_id")
+    private Spiel spiel;
 
 
     public Unternehmen(String name, String farbe) {
@@ -30,6 +33,7 @@ public class Unternehmen {
         this.farbe = "0xff0000ff";
         this.name = "";
         this.ist_spielbar = UNTERNEHMEN_TEILNEHMER;
+        this.spiel = AktuelleSpieldaten.getSpiel();
     }
 
 
@@ -63,6 +67,14 @@ public class Unternehmen {
 
     public void setIst_spielbar(int ist_spielbar) {
         this.ist_spielbar = ist_spielbar;
+    }
+
+    public Spiel getSpiel() {
+        return spiel;
+    }
+
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
     }
 
     @Override
