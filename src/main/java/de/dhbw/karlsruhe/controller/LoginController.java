@@ -80,6 +80,9 @@ public class LoginController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
     }
 
+    public void doWertpapierAnlegen(ActionEvent actionEvent) {
+        screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
+    }
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
@@ -97,5 +100,6 @@ public class LoginController implements ControlledScreen {
             alert.setContentText("Es konnte kein Spiel geladen werden.");
         }
     }
+
 }
 

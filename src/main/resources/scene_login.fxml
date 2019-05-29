@@ -20,6 +20,13 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
+        <Button fx:id="btnWertpapierAnlegen" layoutX="15.0" layoutY="15.0" mnemonicParsing="false"
+                onAction="#doWertpapierAnlegen" prefHeight="25.0" prefWidth="612.0" text="Temp Wertpapier anlegen"
+                textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
         <TextField fx:id="txtBenutzername" promptText="Benutzername">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

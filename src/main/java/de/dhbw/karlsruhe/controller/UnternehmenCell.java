@@ -17,7 +17,8 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
 
     /**
      * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
-     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734.
+     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
+     * https://stackoverflow.com/a/31988574.
      */
     UnternehmenCell() {
         super();

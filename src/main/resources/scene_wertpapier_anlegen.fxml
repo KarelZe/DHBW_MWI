@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:id="vboxUnternehmen" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
+      fx:id="vboxUnternehmen" fx:controller="de.dhbw.karlsruhe.controller.WertpapierAnlegenController">
     <children>
-        <Button text="Neue Unternehmen anlegen" onAction="#doHinzufuegen">
+        <Button text="Neues Wertpaper anlegen" onAction="#doHinzufuegen">
             <HBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </HBox.margin>
         </Button>
-        <Label fx:id="lblUnternehmen" text="Unternehmen">
+        <Label fx:id="lblWertpapier" text="Wertpapier">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </Label>
-        <ListView fx:id="lstVwUnternehmen"/>
+        <ListView fx:id="lstVwWertpapier"/>
         <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
                 mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
             <VBox.margin>
