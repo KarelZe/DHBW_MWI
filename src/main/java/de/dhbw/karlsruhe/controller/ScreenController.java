@@ -41,7 +41,7 @@ public class ScreenController extends StackPane {
         }
     }
 
-    void setScreen(final String name) {
+    public void setScreen(final String name) {
         if (screens.get(name) != null) {
             if (!getChildren().isEmpty()) {
                 getChildren().remove(0);
