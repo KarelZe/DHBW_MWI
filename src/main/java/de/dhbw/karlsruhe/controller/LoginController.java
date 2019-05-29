@@ -45,11 +45,13 @@ public class LoginController implements ControlledScreen {
             if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
                 //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
                 screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
+
             } else {
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Login");
                 alert.setContentText("Login erfolgreich.");
                 alert.showAndWait();
+                screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
             }
         }
     }

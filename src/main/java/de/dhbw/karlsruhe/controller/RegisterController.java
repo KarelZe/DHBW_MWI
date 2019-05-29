@@ -59,12 +59,21 @@ public class RegisterController implements ControlledScreen {
         if (teilnehmer != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Benutzername");
-            alert.setContentText("Bitte geben Sie einen eindeutigen Benutzernamen ein.");
+            alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
             alert.showAndWait();
             return;
         }
 
-        // TODO: Zuordnung zu Unternehmen prüfen
+        //Zuordnung zu Unternehmen prüfen
+        System.out.println("U: "+unternehmen);
+        if(unternehmen==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Unternehmensauswahl");
+            alert.setContentText("Bitte legen Sie Ihr Unternehmen wie im Planspiel fest.");
+            alert.showAndWait();
+            return;
+        }
+
 
         //Name prüfen
         if ((vorname.trim().length() == 0) || (nachname.trim().length() == 0)) {
@@ -84,6 +93,7 @@ public class RegisterController implements ControlledScreen {
             return;
         }
 
+        //ToDo: Unzerstützung für Umlaute einbauen
         //Passwortlänge prüfen
         if (passwortKlartext.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
