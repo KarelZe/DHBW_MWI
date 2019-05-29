@@ -2,11 +2,15 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
+import de.dhbw.karlsruhe.helper.*;
+import de.dhbw.karlsruhe.model.*;
+import de.dhbw.karlsruhe.model.JPA.*;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +29,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     @FXML
     private ComboBox<Unternehmen> unternehmenComboBox;
 
-    private Teilnehmer testTeilnehmer=new Teilnehmer("test", "test", "vorTest", "nachTest", new Unternehmen(), new Rolle(), AktuelleSpieldaten.getSpiel());
-    private Teilnehmer teilnehmer=testTeilnehmer;
+    private Teilnehmer teilnehmer;
 
     private UnternehmenRepository model;
     private ScreenController screenController;
@@ -88,6 +91,8 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     @FXML
     private void initialize(){
+        AktuelleSpieldaten.setTeilnehmer(new Teilnehmer ("vorname1.nachname1", "passwort", "vorname1", "nachname1", null, null, null));
+        teilnehmer=AktuelleSpieldaten.getTeilnehmer();
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
         ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleSpielbarenUnternehmen();
