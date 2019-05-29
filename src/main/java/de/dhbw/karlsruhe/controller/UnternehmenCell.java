@@ -2,27 +2,40 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ColorHelper;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-import java.io.IOException;
-
 public class UnternehmenCell extends ListCell<Unternehmen> {
 
-    @FXML
-    public GridPane grdUnternehmen;
-    @FXML
-    private ColorPicker clrFarbe;
-    @FXML
-    private TextField txtUnternehmensname;
-    @FXML
     private Button btnLoeschen;
-    private FXMLLoader loader;
+    private TextField txtUnternehmensname;
+    private ColorPicker clrFarbe;
+    private GridPane pane;
+
+    /**
+     * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
+     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734.
+     */
+    UnternehmenCell() {
+        super();
+
+        btnLoeschen = new Button("-");
+        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
+
+        clrFarbe = new ColorPicker();
+        clrFarbe.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setFarbe(ColorHelper.color2String(newValue)));
+
+        txtUnternehmensname = new TextField();
+        txtUnternehmensname.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
+
+        pane = new GridPane();
+        pane.add(txtUnternehmensname, 0, 0);
+        pane.add(clrFarbe, 1, 0);
+        pane.add(btnLoeschen, 2, 0);
+    }
 
     /**
      * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des Unternehmens-Parameter.
@@ -31,43 +44,22 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
      * Sie soll nicht durch den Programmierer aufgerufen werden.
      * Die Implmentierung wurde adaptiert von https://www.turais.de/how-to-custom-listview-cell-in-javafx/.
      *
-     * @param unternehmen Unternehmen, das in der Zeile angezeigt wird.
-     * @param empty       boolean, ob Zeile leer ist.
+     * @param unternehmen  Unternehmen, das in der Zeile angezeigt wird.
+     * @param empty boolean, ob Zeile leer ist.
      */
     @Override
     protected void updateItem(Unternehmen unternehmen, boolean empty) {
         super.updateItem(unternehmen, empty);
 
-        // Setze einen leeren Text und eine leere Grafik, sofern die Zeile leer ist oder das Unternehmensobjekt null.
-        if (empty || unternehmen == null) {
+        if (unternehmen != null) {
+            txtUnternehmensname.setText(unternehmen.getName());
+            clrFarbe.setValue(ColorHelper.string2Color(unternehmen.getFarbe()));
+            setText(null);
+            setGraphic(pane);
+        } else {
             setText(null);
             setGraphic(null);
-        } else {
-            // Lade FXML der Zelle, sofern nicht bereits vorhanden.
-            if (loader == null) {
-                loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_unternehmen.fxml"));
-                loader.setController(this);
-                try {
-                    loader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // Initialisiere UI Elemente aus FXML.
-            btnLoeschen.setOnAction(e -> getListView().getItems().remove(unternehmen));
-
-            txtUnternehmensname.setText(unternehmen.getName());
-            txtUnternehmensname.textProperty().addListener((observable, oldValue, newValue) -> unternehmen.setName(newValue));
-
-            clrFarbe.setValue(ColorHelper.string2Color(unternehmen.getFarbe()));
-            clrFarbe.valueProperty().addListener((observable, oldValue, newValue) -> {
-                unternehmen.setFarbe(ColorHelper.color2String(newValue));
-            });
-            // Setze Zeileninhalt
-            setText(null);
-            setGraphic(grdUnternehmen);
         }
-
     }
+
 }
