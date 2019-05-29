@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.beans.binding.Bindings;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class RegisterController implements ControlledScreen {
 
     @FXML
     private void doRegister(ActionEvent event) {
-        // lese Daten aus Textfeldern der scene_register.fxml
+        // Lese Daten aus Textfeldern der scene_register.fxml
         String benutzername = txtBenutzername.getText().trim();
         String passwortKlartext = txtPasswort.getText();
         String passwortKlartextWiederholung = txtPasswortCheck.getText();
@@ -103,6 +104,9 @@ public class RegisterController implements ControlledScreen {
         ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleSpielbarenUnternehmen();
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
+
+        //Den Benutzernamen aus Vor- und Nachnamen generieren und in entsprechendes Feld einfügen
+        txtBenutzername.textProperty().bind(Bindings.concat(txtVorname.textProperty(),".",txtNachname.textProperty()));
 
         // Zeige Combobox nur mit Unternehmensnamen an.
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());
