@@ -9,20 +9,20 @@ public class Wertpapier {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name = "wertpapier_art_id")
     private WertpapierArt wertpapierArt;
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name = "unternehmen_id")
     private Unternehmen unternehmen;
 
     private double nennwert; //optional (Anleihen)
 
     private double emissionszins; //optional (Anleihen)
 
-    private int faelligkeitsPeriode; //optional (Anleihen)
+    private int faelligkeit_periode; //optional (Anleihen)
 
-    private int emissionsPeriode; //optional (Anleihen)
+    private int emission_periode; //optional (Anleihen)
 
     public long getId() {
         return id;
@@ -64,19 +64,19 @@ public class Wertpapier {
         this.emissionszins = emissionszins;
     }
 
-    public int getFaelligkeitsPeriode() {
-        return faelligkeitsPeriode;
+    public int getFaelligkeit_periode() {
+        return faelligkeit_periode;
     }
 
-    public void setFaelligkeitsPeriode(int faelligkeitsPeriode) {
-        this.faelligkeitsPeriode = faelligkeitsPeriode;
+    public void setFaelligkeit_periode(int faelligkeit_periode) {
+        this.faelligkeit_periode = faelligkeit_periode;
     }
 
-    public int getEmissionsPeriode() {
-        return emissionsPeriode;
+    public int getEmission_periode() {
+        return emission_periode;
     }
 
-    public void setEmissionsPeriode(int emissionsPeriode) {
-        this.emissionsPeriode = emissionsPeriode;
+    public void setEmission_periode(int emission_periode) {
+        this.emission_periode = emission_periode;
     }
 }

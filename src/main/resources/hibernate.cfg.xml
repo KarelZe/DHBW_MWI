@@ -24,5 +24,7 @@
         <mapping class="de.dhbw.karlsruhe.model.JPA.Unternehmen"/>
         <mapping class="de.dhbw.karlsruhe.model.JPA.Rolle"/>
         <mapping class="de.dhbw.karlsruhe.model.JPA.Spiel"/>
+        <mapping class="de.dhbw.karlsruhe.model.JPA.Wertpapier"/>
+        <mapping class="de.dhbw.karlsruhe.model.JPA.WertpapierArt"/>
     </session-factory>
 </hibernate-configuration>

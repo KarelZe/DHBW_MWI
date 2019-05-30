@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.JPA.Wertpapier;
+import de.dhbw.karlsruhe.model.WertpapierRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,31 +18,27 @@ public class WertpapierAnlegenController implements ControlledScreen {
     public ListView<Wertpapier> lstVwWertpapier;
     private ObservableList<Wertpapier> wertpapierObserverableList = FXCollections.observableArrayList();
     private ArrayList<Wertpapier> wertpapierInitial = new ArrayList<>();
+    private WertpapierRepository model;
 
     @FXML
     void doSpeichern(ActionEvent event) {
 
         // Aktualisiere alle Unternehmen und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Wertpapier> wertpapierNachAenderung = new ArrayList<Wertpapier>(wertpapierObserverableList);
-        // WertpapierRepository.persistWertpapier(wertpapierNachAenderung);
+        model.save(wertpapierNachAenderung);
 
         /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
          * contains() greift für einen Vergleich auf Gleichheit auf die equals() Methode der Klasse Unternehmen zurück.
          */
-
-        /*
         ArrayList<Wertpapier> wertpapierZumLoeschen = new ArrayList<>();
-        for (Wertpapier w : wertpapierInitial)
+        for (final Wertpapier w : wertpapierInitial)
             if (!wertpapierNachAenderung.contains(w)) {
                 wertpapierZumLoeschen.add(w);
             }
-        */
-
-        // WertpapierRepository.deleteWertpapier(wertpapierZumLoeschenZumLoeschen);
+        model.delete(wertpapierZumLoeschen);
 
         /* Setze unternehmenIntial zurück, andernfalls würde bei erneuter Speicherung versucht werden, das
         Unternehmen erneut zu löschen.*/
-
         wertpapierInitial = wertpapierNachAenderung;
     }
 
@@ -50,12 +47,13 @@ public class WertpapierAnlegenController implements ControlledScreen {
      */
     @FXML
     private void initialize() {
-        /*
-        wertpapierInitial = WertpapierRepository.getAlleSpielbarenUnternehmen();
+
+        model = WertpapierRepository.getInstanz();
+        wertpapierInitial = new ArrayList<>(model.findAll());
         wertpapierObserverableList.addAll(wertpapierInitial);
         lstVwWertpapier.setItems(wertpapierObserverableList);
         lstVwWertpapier.setCellFactory(studentListView -> new WertpapierCell());
-         */
+
     }
 
 
