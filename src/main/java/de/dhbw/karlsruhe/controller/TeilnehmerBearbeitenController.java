@@ -88,9 +88,15 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
         teilnehmer.setVorname(vorname);
         teilnehmer.setNachname(nachname);
+        teilnehmer.setBenutzername(vorname+"."+nachname);
         teilnehmer.setUnternehmen(unternehmenComboBox.getValue());
 
         TeilnehmerRepository.persistTeilnehmer(teilnehmer);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Aktualisieren erfolgreich");
+        alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: "+"\""+teilnehmer.getBenutzername()+"\"");
+        alert.showAndWait();
 
         //ToDo: Aktueller Teilnehmer neu setzen?
 
