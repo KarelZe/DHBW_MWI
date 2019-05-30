@@ -74,7 +74,6 @@ public class LoginController implements ControlledScreen {
     private void initialize() {
         initializeAktuellesSpiel();
         RolleRepository.insertRollenIfNotExists(); //legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
-        AktuelleSpieldaten.setTeilnehmer(new Teilnehmer ("vorname1.nachname1", "passwort", "vorname1", "nachname1", null, null, null));
     }
 
     @FXML
