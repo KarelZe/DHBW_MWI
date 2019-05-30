@@ -92,6 +92,8 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
         TeilnehmerRepository.persistTeilnehmer(teilnehmer);
 
+        //ToDo: Aktueller Teilnehmer neu setzen?
+
         System.out.println(teilnehmer);
 
     }
