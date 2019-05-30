@@ -7,6 +7,10 @@ import javax.persistence.Id;
 
 @Entity
 public class WertpapierArt {
+
+    public static final long WERTPAPIER_AKTIE = 1;
+    public static final long WERTPAPIER_ANLEIHE = 2;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -27,5 +31,13 @@ public class WertpapierArt {
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
+    }
+
+    @Override
+    public String toString() {
+        return "WertpapierArt{" +
+                "id=" + id +
+                ", beschreibung='" + beschreibung + '\'' +
+                '}';
     }
 }

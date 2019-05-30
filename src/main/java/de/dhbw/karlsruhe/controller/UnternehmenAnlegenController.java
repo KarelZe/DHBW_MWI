@@ -51,7 +51,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
         unternehmenInitial = new ArrayList<>(model.findAllSpielbar());
         unternehmenObserverableList.addAll(unternehmenInitial);
         lstVwUnternehmen.setItems(unternehmenObserverableList);
-        lstVwUnternehmen.setCellFactory(studentListView -> new UnternehmenCell());
+        lstVwUnternehmen.setCellFactory(unternehmenListView -> new UnternehmenCell());
     }
 
 

@@ -79,4 +79,33 @@ public class Wertpapier {
     public void setEmission_periode(int emission_periode) {
         this.emission_periode = emission_periode;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Wertpapier that = (Wertpapier) o;
+
+        return id == that.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Wertpapier{" +
+                "id=" + id +
+                ", wertpapierArt=" + wertpapierArt +
+                ", unternehmen=" + unternehmen +
+                ", nennwert=" + nennwert +
+                ", emissionszins=" + emissionszins +
+                ", faelligkeit_periode=" + faelligkeit_periode +
+                ", emission_periode=" + emission_periode +
+                '}';
+    }
 }
