@@ -9,22 +9,45 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class UnternehmenRepository {
+public class UnternehmenRepository implements CrudRepository<Unternehmen> {
+
+    private static UnternehmenRepository instanz;
+
+    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    private UnternehmenRepository() {
+    }
+
+    /**
+     * Methode gibt Instanz des Modells zurück.
+     * Implementierung als Singleton Pattern.
+     *
+     * @return
+     */
+    public static UnternehmenRepository getInstanz() {
+        if (UnternehmenRepository.instanz == null) {
+            UnternehmenRepository.instanz = new UnternehmenRepository();
+        }
+        return instanz;
+    }
+
 
     /***
-     * Persistiert ein Unternehmensobjekt in der Datenbank im Rahmen einer Transaktion.
+     * Speichert ein Unternehmensobjekt in der Datenbank im Rahmen einer Transaktion.
      * @param unternehmen Unternehmensobjekt
      */
-    public static void persistUnternehmen(Unternehmen unternehmen) {
-        persistUnternehmen(new ArrayList<>(List.of(unternehmen)));
+    @Override
+    public void save(Unternehmen unternehmen) {
+        save(List.of(unternehmen));
     }
 
     /***
-     * Persistiert eine Liste von Unternehmensobjekten in der Datenbank im Rahmen einer Transaktion.
+     * Speichert eine Liste von Unternehmensobjekten in der Datenbank im Rahmen einer Transaktion.
      * @param unternehmen Liste von Unternehmen
      */
-    public static void persistUnternehmen(ArrayList<Unternehmen> unternehmen) {
+    @Override
+    public void save(List<Unternehmen> unternehmen) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
@@ -39,11 +62,18 @@ public class UnternehmenRepository {
         }
     }
 
-    public static void deleteUnternehmen(Unternehmen unternehmen) {
-        deleteUnternehmen((ArrayList<Unternehmen>) List.of(unternehmen));
+    @Override
+    public long count() {
+        return 0;
     }
 
-    public static void deleteUnternehmen(ArrayList<Unternehmen> unternehmen) {
+    @Override
+    public void delete(Unternehmen unternehmen) {
+        delete(List.of(unternehmen));
+    }
+
+    @Override
+    public void delete(List<Unternehmen> unternehmen) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
@@ -58,7 +88,33 @@ public class UnternehmenRepository {
         }
     }
 
-    public static ArrayList<Unternehmen> getAlleUnternehmen() {
+    @Override
+    public boolean existsById(long id) {
+        return findById(id).isPresent();
+    }
+
+    @Override
+    public Optional<Unternehmen> findById(long id) {
+        Transaction tx = null;
+        Optional<Unternehmen> optional = Optional.empty();
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Unternehmen where id = :id";
+            Query query = session.createQuery(queryString);
+            query.setParameter("id", id);
+            tx.commit();
+            Unternehmen unternehmen = (Unternehmen) query.uniqueResult();
+            return Optional.of(unternehmen);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return optional;
+    }
+
+    @Override
+    public List<Unternehmen> findAll() {
         Transaction tx = null;
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
@@ -78,7 +134,7 @@ public class UnternehmenRepository {
         return unternehmen;
     }
 
-    public static ArrayList<Unternehmen> getAlleSpielbarenUnternehmen() {
+    public List<Unternehmen> findAllSpielbar() {
         Transaction tx = null;
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
@@ -98,5 +154,4 @@ public class UnternehmenRepository {
         }
         return unternehmen;
     }
-
 }

@@ -2,15 +2,10 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.helper.*;
-import de.dhbw.karlsruhe.model.*;
-import de.dhbw.karlsruhe.model.JPA.*;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
-import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,7 +28,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     private UnternehmenRepository model;
     private ScreenController screenController;
-
 
     @FXML
     private void aktualisieren(ActionEvent event) {
@@ -95,7 +89,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         teilnehmer=AktuelleSpieldaten.getTeilnehmer();
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
-        ArrayList<Unternehmen> unternehmen = UnternehmenRepository.getAlleSpielbarenUnternehmen();
+        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
         ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
         unternehmenComboBox.setItems(unternehmenList);
         unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());

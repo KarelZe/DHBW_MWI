@@ -50,7 +50,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         Optional<Wertpapier> optional = Optional.empty();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Teilnehmer where id = :id";
+            String queryString = "from Wertpapier where id = :id";
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();
@@ -87,11 +87,11 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
 
     // TODO: Wie werden Exceptions hochgegegeben?
     @Override
-    public void save(List<Wertpapier> entities) {
+    public void save(List<Wertpapier> wertpapier) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            for (Wertpapier e : entities) {
+            for (Wertpapier e : wertpapier) {
                 session.saveOrUpdate(e);
             }
             tx.commit();
@@ -103,16 +103,16 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     }
 
     @Override
-    public void save(Wertpapier entity) {
-        save(List.of(entity));
+    public void save(Wertpapier wertpapier) {
+        save(List.of(wertpapier));
     }
 
     @Override
-    public void delete(List<Wertpapier> entities) {
+    public void delete(List<Wertpapier> wertpapier) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            for (Wertpapier e : entities) {
+            for (Wertpapier e : wertpapier) {
                 session.delete(e);
             }
             tx.commit();

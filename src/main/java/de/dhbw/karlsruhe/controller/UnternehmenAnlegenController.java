@@ -19,12 +19,14 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     private ObservableList<Unternehmen> unternehmenObserverableList = FXCollections.observableArrayList();
     private ArrayList<Unternehmen> unternehmenInitial = new ArrayList<>();
 
+    private UnternehmenRepository model;
+
     @FXML
     void doSpeichern(ActionEvent event) {
 
         // Aktualisiere alle Unternehmen und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Unternehmen> unternehmenNachAenderung = new ArrayList<Unternehmen>(unternehmenObserverableList);
-        UnternehmenRepository.persistUnternehmen(unternehmenNachAenderung);
+        model.save(unternehmenNachAenderung);
 
         /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
          * contains() greift für einen Vergleich auf Gleichheit auf die equals() Methode der Klasse Unternehmen zurück.*/
@@ -33,7 +35,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
             if (!unternehmenNachAenderung.contains(u)) {
                 unternehmenZumLoeschen.add(u);
             }
-        UnternehmenRepository.deleteUnternehmen(unternehmenZumLoeschen);
+        model.delete(unternehmenZumLoeschen);
 
         /* Setze unternehmenIntial zurück, andernfalls würde bei erneuter Speicherung versucht werden, das
         Unternehmen erneut zu löschen.*/
@@ -45,7 +47,8 @@ public class UnternehmenAnlegenController implements ControlledScreen {
      */
     @FXML
     private void initialize() {
-        unternehmenInitial = UnternehmenRepository.getAlleSpielbarenUnternehmen();
+        model = UnternehmenRepository.getInstanz();
+        unternehmenInitial = new ArrayList<>(model.findAllSpielbar());
         unternehmenObserverableList.addAll(unternehmenInitial);
         lstVwUnternehmen.setItems(unternehmenObserverableList);
         lstVwUnternehmen.setCellFactory(studentListView -> new UnternehmenCell());

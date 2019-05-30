@@ -1,24 +1,19 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.helper.*;
+import de.dhbw.karlsruhe.helper.ColorHelper;
+import de.dhbw.karlsruhe.helper.ConstantsHelper;
+import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.*;
-import de.dhbw.karlsruhe.model.JPA.Rolle;
 import de.dhbw.karlsruhe.model.JPA.Spiel;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class SpielAnlegenController implements ControlledScreen {
 
@@ -28,7 +23,6 @@ public class SpielAnlegenController implements ControlledScreen {
     private ScreenController screenController;
 
     private Spiel neuesSpiel;
-
     @FXML
     private void initialize(){
     }
@@ -84,6 +78,6 @@ public class SpielAnlegenController implements ControlledScreen {
         unternehmen.setFarbe(ColorHelper.color2String(Color.BLACK));
         unternehmen.setName("GMAX");
         unternehmen.setIst_spielbar(Unternehmen.UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT);
-        UnternehmenRepository.persistUnternehmen(unternehmen);
+        UnternehmenRepository.getInstanz().save(unternehmen);
     }
 }
