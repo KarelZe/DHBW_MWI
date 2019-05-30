@@ -51,6 +51,7 @@ public class LoginController implements ControlledScreen {
                 alert.setTitle("Login");
                 alert.setContentText("Login erfolgreich.");
                 alert.showAndWait();
+                screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
                 screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
             }
         }
@@ -73,6 +74,7 @@ public class LoginController implements ControlledScreen {
     private void initialize() {
         initializeAktuellesSpiel();
         RolleRepository.insertRollenIfNotExists(); //legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+        AktuelleSpieldaten.setTeilnehmer(new Teilnehmer ("vorname1.nachname1", "passwort", "vorname1", "nachname1", null, null, null));
     }
 
     @FXML

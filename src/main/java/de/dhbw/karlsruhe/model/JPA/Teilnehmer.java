@@ -112,6 +112,7 @@ public class Teilnehmer {
                 ", passwort='" + passwort + '\'' +
                 ", vorname='" + vorname + '\'' +
                 ", nachname='" + nachname + '\'' +
+                ", unternehmen'" + unternehmen + '\'' +
                 '}';
     }
 
