@@ -51,6 +51,7 @@ public class LoginController implements ControlledScreen {
                 alert.setTitle("Login");
                 alert.setContentText("Login erfolgreich.");
                 alert.showAndWait();
+                screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
                 screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
             }
         }

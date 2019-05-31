@@ -18,7 +18,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="21.0" layoutY="18.0" text="Teilnehmername" />
+                  <Label layoutX="21.0" layoutY="18.0" fx:id="lblBenutzername" text="Benutzername"/>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>

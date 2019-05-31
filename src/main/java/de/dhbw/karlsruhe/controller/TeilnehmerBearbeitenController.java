@@ -6,6 +6,7 @@ import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
@@ -24,9 +26,14 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     @FXML
     private ComboBox<Unternehmen> unternehmenComboBox;
 
+    @FXML
+    private Label lblBenutzername;
+
     private Teilnehmer teilnehmer;
 
     private UnternehmenRepository model;
+    private ScreenController screenController;
+
 
     @FXML
     private void aktualisieren(ActionEvent event) {
@@ -71,30 +78,49 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             teilnehmer.setPasswort(EncryptionHelper.getStringAsMD5(passwort1));
         }
 
+        if(unternehmenComboBox.getValue()==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Unternehmen auswählen");
+            alert.setContentText("Bitte wählen Sie ihr zugehöriges Unternehmen aus.");
+            alert.showAndWait();
+            return;
+        }
 
         teilnehmer.setVorname(vorname);
         teilnehmer.setNachname(nachname);
+        teilnehmer.setBenutzername(vorname+"."+nachname);
+        teilnehmer.setUnternehmen(unternehmenComboBox.getValue());
 
-        //TeilnehmerRepository.persistTeilnehmer(teilnehmer);
+        TeilnehmerRepository.persistTeilnehmer(teilnehmer);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Aktualisieren erfolgreich");
+        alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: "+"\""+teilnehmer.getBenutzername()+"\"");
+        alert.showAndWait();
+
+        //ToDo: Aktueller Teilnehmer neu setzen?
 
         System.out.println(teilnehmer);
 
     }
 
+
     @FXML
     private void initialize(){
-        AktuelleSpieldaten.setTeilnehmer(new Teilnehmer ("vorname1.nachname1", "passwort", "vorname1", "nachname1", null, null, null));
         teilnehmer=AktuelleSpieldaten.getTeilnehmer();
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
         ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
         unternehmenComboBox.setItems(unternehmenList);
+        unternehmenComboBox.setValue(teilnehmer.getUnternehmen());
         unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());
+        lblBenutzername.setText(teilnehmer.getBenutzername());
     }
 
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
+        screenController = screenPage;
     }
 }
