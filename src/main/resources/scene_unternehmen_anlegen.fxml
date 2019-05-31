@@ -5,10 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:id="vboxUnternehmen" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxUnternehmen" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
     <children>
-        <Button text="Neue Unternehmen anlegen" onAction="#doHinzufuegen"/>
+        <Button onAction="#doHinzufuegen" text="Neue Unternehmen anlegen"/>
         <Label fx:id="lblUnternehmen" text="Unternehmen">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

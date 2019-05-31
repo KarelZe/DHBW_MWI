@@ -56,9 +56,8 @@ public class ScreensFramework extends Application {
         Scene scene = new Scene(root);
         window.setScene(scene);
         window.setTitle("Anika");
+        window.setMaximized(true);
         window.show();
-
-
     }
 
 

@@ -8,8 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
@@ -28,7 +28,8 @@ public class WertpapierCell extends ListCell<Wertpapier> {
         Button btnLoeschen = new Button("-");
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
 
-        Label lblName = new Label();
+        TextField txtName = new TextField();
+        txtName.setPromptText("Bezeichnung des Wertpapiers");
 
         ComboBox<Unternehmen> cmbUnternehmen = new ComboBox<>();
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
@@ -44,7 +45,7 @@ public class WertpapierCell extends ListCell<Wertpapier> {
         cmbUnternehmen.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setUnternehmen(newValue));
 
         pane = new GridPane();
-        pane.add(lblName, 0, 0);
+        pane.add(txtName, 0, 0);
         pane.add(cmbUnternehmen, 1, 0);
         pane.add(btnLoeschen, 2, 0);
     }
