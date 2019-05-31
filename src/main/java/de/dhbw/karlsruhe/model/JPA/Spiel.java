@@ -8,16 +8,13 @@ import java.util.Date;
 
 @Entity
 public class Spiel {
+    public static final int SPIEL_AKTIV = 1;
+    public static final int SPIEL_INAKTIV = 0;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-
     private double startkapital;
-
     private Date erstellungsdatum;
-
-    public static final int SPIEL_AKTIV = 1;
-    public static final int SPIEL_INAKTIV = 0;
     private int ist_aktiv;
 
     public long getId() {

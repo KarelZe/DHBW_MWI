@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 
 public class UnternehmenCell extends ListCell<Unternehmen> {
 
-    private Button btnLoeschen;
     private TextField txtUnternehmensname;
     private ColorPicker clrFarbe;
     private GridPane pane;
@@ -23,7 +22,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     UnternehmenCell() {
         super();
 
-        btnLoeschen = new Button("-");
+        Button btnLoeschen = new Button("-");
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
 
         clrFarbe = new ColorPicker();
@@ -45,8 +44,8 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
      * Sie soll nicht durch den Programmierer aufgerufen werden.
      * Die Implmentierung wurde adaptiert von https://www.turais.de/how-to-custom-listview-cell-in-javafx/.
      *
-     * @param unternehmen  Unternehmen, das in der Zeile angezeigt wird.
-     * @param empty boolean, ob Zeile leer ist.
+     * @param unternehmen Unternehmen, das in der Zeile angezeigt wird.
+     * @param empty       boolean, ob Zeile leer ist.
      */
     @Override
     protected void updateItem(Unternehmen unternehmen, boolean empty) {

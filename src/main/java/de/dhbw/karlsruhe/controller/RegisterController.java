@@ -65,8 +65,8 @@ public class RegisterController implements ControlledScreen {
         }
 
         //Zuordnung zu Unternehmen prüfen
-        System.out.println("U: "+unternehmen);
-        if(unternehmen==null){
+        System.out.println("U: " + unternehmen);
+        if (unternehmen == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Unternehmensauswahl");
             alert.setContentText("Bitte legen Sie Ihr Unternehmen wie im Planspiel fest.");
@@ -116,7 +116,7 @@ public class RegisterController implements ControlledScreen {
         cmbUnternehmen.setItems(unternehmenComboBox);
 
         //Den Benutzernamen aus Vor- und Nachnamen generieren und in entsprechendes Feld einfügen
-        txtBenutzername.textProperty().bind(Bindings.concat(txtVorname.textProperty(),".",txtNachname.textProperty()));
+        txtBenutzername.textProperty().bind(Bindings.concat(txtVorname.textProperty(), ".", txtNachname.textProperty()));
 
         // Zeige Combobox nur mit Unternehmensnamen an.
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());

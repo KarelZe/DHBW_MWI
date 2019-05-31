@@ -25,7 +25,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     void doSpeichern(ActionEvent event) {
 
         // Aktualisiere alle Unternehmen und füge sofern notwendig neue der Datenbank hinzu
-        ArrayList<Unternehmen> unternehmenNachAenderung = new ArrayList<Unternehmen>(unternehmenObserverableList);
+        ArrayList<Unternehmen> unternehmenNachAenderung = new ArrayList<>(unternehmenObserverableList);
         model.save(unternehmenNachAenderung);
 
         /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
@@ -55,7 +55,6 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     }
 
 
-
     @Override
     public void setScreenParent(ScreenController screenPage) {
     }
@@ -64,9 +63,8 @@ public class UnternehmenAnlegenController implements ControlledScreen {
      * Methode fügt der ObsverableList, welche die Unternehmensobjekte für die ListView enthält, weitere Unternehmen
      * hinzu.
      *
-     * @param actionEvent ActionEvent des aufrufenden Buttons
      */
-    public void doHinzufuegen(ActionEvent actionEvent) {
+    public void doHinzufuegen() {
         unternehmenObserverableList.add(new Unternehmen());
     }
 }

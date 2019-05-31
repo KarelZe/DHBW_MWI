@@ -27,7 +27,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     private Teilnehmer teilnehmer;
 
     private UnternehmenRepository model;
-    private ScreenController screenController;
 
     @FXML
     private void aktualisieren(ActionEvent event) {
@@ -73,7 +72,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         }
 
 
-
         teilnehmer.setVorname(vorname);
         teilnehmer.setNachname(nachname);
 
@@ -98,6 +96,5 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
-        screenController = screenPage;
     }
 }

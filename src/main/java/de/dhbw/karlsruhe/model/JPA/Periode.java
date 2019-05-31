@@ -16,6 +16,12 @@ public class Periode {
 
     private double kapitalmarktzinssatzInProzent;
 
+    public Periode(Spiel spiel, double ordergebuehrInProzent, double kapitalmarktzinssatzInProzent) {
+        this.spiel = spiel;
+        this.ordergebuehrInProzent = ordergebuehrInProzent;
+        this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
+    }
+
     public long getId() {
         return id;
     }
@@ -45,12 +51,6 @@ public class Periode {
     }
 
     public void setKapitalmarktzinssatzInProzent(double kapitalmarktzinssatzInProzent) {
-        this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
-    }
-
-    public Periode(Spiel spiel, double ordergebuehrInProzent, double kapitalmarktzinssatzInProzent) {
-        this.spiel = spiel;
-        this.ordergebuehrInProzent = ordergebuehrInProzent;
         this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
     }
 }

@@ -17,9 +17,7 @@ import java.util.ArrayList;
 public class WertpapierCell extends ListCell<Wertpapier> {
 
     private GridPane pane;
-    private Label lblName;
-    private ComboBox<Unternehmen> cmbUnternehmen;
-    private Button btnLoeschen;
+
     /**
      * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
      * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
@@ -27,12 +25,12 @@ public class WertpapierCell extends ListCell<Wertpapier> {
      */
     WertpapierCell() {
         super();
-        btnLoeschen = new Button("-");
+        Button btnLoeschen = new Button("-");
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
 
-        lblName = new Label();
+        Label lblName = new Label();
 
-        cmbUnternehmen = new ComboBox<>();
+        ComboBox<Unternehmen> cmbUnternehmen = new ComboBox<>();
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);

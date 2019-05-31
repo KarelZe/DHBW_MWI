@@ -81,7 +81,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
                 session.delete(u);
             }
             tx.commit();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)
                 tx.rollback();

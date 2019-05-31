@@ -34,9 +34,9 @@ public class WertpapierAnlegenController implements ControlledScreen {
     void doSpeichern(ActionEvent event) {
 
         // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
-        ArrayList<Wertpapier> aktieNachAenderung = new ArrayList<Wertpapier>(aktieObserverableList);
+        ArrayList<Wertpapier> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
         model.save(aktieNachAenderung);
-        ArrayList<Wertpapier> anleiheNachAenderung = new ArrayList<Wertpapier>(aktieObserverableList);
+        ArrayList<Wertpapier> anleiheNachAenderung = new ArrayList<>(aktieObserverableList);
         model.save(anleiheNachAenderung);
 
         /* Lösche nicht benötigte Wertpapiere aus Datenbank. Durchlaufe hierfür wertpapierNachAenderung.

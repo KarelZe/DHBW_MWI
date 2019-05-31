@@ -20,22 +20,12 @@ public class ConverterHelper {
             return null;
         }
     };
-
-    public StringConverter<Unternehmen> getUnternehmensConverter() {
-        return unternehmensConverter;
-    }
-
-    public void setUnternehmensConverter(StringConverter<Unternehmen> unternehmensConverter) {
-        this.unternehmensConverter = unternehmensConverter;
-    }
-
-
     //+++++++++++++++SPIELE++++++++++++++++++++++
     private StringConverter<Spiel> spieleConverter = new StringConverter<Spiel>() {
         @Override
         public String toString(Spiel spiel) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            if(spiel != null) {
+            if (spiel != null) {
                 StringBuilder sbAnzeige = new StringBuilder("Spiel " + spiel.getId());
                 if (spiel.getErstellungsdatum() != null) {
                     sbAnzeige.append(" (erstellt am " + simpleDateFormat.format(spiel.getErstellungsdatum()) + ")");
@@ -44,8 +34,7 @@ public class ConverterHelper {
                     sbAnzeige.append(" (AKTIV)");
                 }
                 return sbAnzeige.toString();
-            }
-            else {
+            } else {
                 return "NULL";
             }
         }
@@ -55,6 +44,14 @@ public class ConverterHelper {
             return null;
         }
     };
+
+    public StringConverter<Unternehmen> getUnternehmensConverter() {
+        return unternehmensConverter;
+    }
+
+    public void setUnternehmensConverter(StringConverter<Unternehmen> unternehmensConverter) {
+        this.unternehmensConverter = unternehmensConverter;
+    }
 
     public StringConverter<Spiel> getSpieleConverter() {
         return spieleConverter;

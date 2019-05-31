@@ -23,9 +23,6 @@ public class SpielAnlegenController implements ControlledScreen {
     private ScreenController screenController;
 
     private Spiel neuesSpiel;
-    @FXML
-    private void initialize(){
-    }
 
     @FXML
     private void doSpielAnlegen(ActionEvent event) {
@@ -41,7 +38,7 @@ public class SpielAnlegenController implements ControlledScreen {
             alert.showAndWait();
         }
         this.neuesSpiel.setErstellungsdatum(new Date());
-        if(AktuelleSpieldaten.getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
+        if (AktuelleSpieldaten.getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
             this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
             isNeuanlage = true;
         } else {
@@ -51,7 +48,7 @@ public class SpielAnlegenController implements ControlledScreen {
         AktuelleSpieldaten.setSpiel(this.neuesSpiel);
         insertSpielleiterInDB();
         insertGMAXInDB();
-        if(isNeuanlage) {
+        if (isNeuanlage) {
             screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN, ScreensFramework.SCREEN_SPIEL_VERWALTEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
         }

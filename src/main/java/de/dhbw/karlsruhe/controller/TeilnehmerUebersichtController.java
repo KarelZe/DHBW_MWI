@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class TeilnehmerUebersichtController implements ControlledScreen, Initializable {
-    private ScreenController screenController;
+    private static final String STANDARDPASSWORT = "Anika";
     @FXML
     TableView<TeilnehmerViewModel> TV_Teilnehmeruebersicht;
     @FXML
@@ -28,12 +28,10 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
     TableColumn<TeilnehmerViewModel, String> TV_COL_Nachname;
     @FXML
     TableColumn<TeilnehmerViewModel, Long> TV_COL_ID;
-
-    private static final String STANDARDPASSWORT = "Anika";
+    private ObservableList<TeilnehmerViewModel> teilnehmerViewModel = FXCollections.observableArrayList(getAlleTeilnehmerViewModel());
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
-        screenController = screenPage;
     }
 
     @Override
@@ -45,13 +43,11 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
         TV_Teilnehmeruebersicht.setItems(teilnehmerViewModel);
     }
 
-    private ObservableList<TeilnehmerViewModel> teilnehmerViewModel = FXCollections.observableArrayList(getAlleTeilnehmerViewModel());
-
     private List<TeilnehmerViewModel> getAlleTeilnehmerViewModel() {
         List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getAlleTeilnehmer();
         List<TeilnehmerViewModel> teilnehmerViewModel = new ArrayList<>();
         for (Teilnehmer teilnehmer : alleTeilnehmer) {
-                teilnehmerViewModel.add(new TeilnehmerViewModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
+            teilnehmerViewModel.add(new TeilnehmerViewModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
         }
         return teilnehmerViewModel;
     }

@@ -8,12 +8,13 @@ public class EncryptionHelper {
 
     /**
      * Gibt den MD5-Wert einer Zeichenkette zurück.
+     *
      * @param input Wert im Klartext
      * @return Wert im MD5-Format
      */
     public static String getStringAsMD5(String input) {
         String md5 = null;
-        if(null == input) return null;
+        if (null == input) return null;
         try {
             //Create MessageDigest object for MD5
             MessageDigest digest = MessageDigest.getInstance("MD5");

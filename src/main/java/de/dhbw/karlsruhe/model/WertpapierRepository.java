@@ -44,6 +44,15 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         return findById(id).isPresent();
     }
 
+
+    /**
+     * Diese Methode stellt ein Wertpapierobjekt anhand der id des Wertpapiers.
+     * Es handelt sich dabei um eine Variante des NUll-Objekt-Patterns.
+     * Dadurch können Prüfungen auf Null-Werte vereinfaht werden.
+     *
+     * @param id ID des Wertpapiers.
+     * @return Optional ist ein Container für Wertpapier, um vereinfacht das Vorhandensein des Wertpapiers zu prüfen.
+     */
     @Override
     public Optional<Wertpapier> findById(long id) {
         Transaction tx = null;
@@ -102,6 +111,11 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         }
     }
 
+    /**
+     * Implementierung des Patterns Bequemlichkeits Methode.
+     *
+     * @param wertpapier Wertpapierobjekt zur Speicherung.
+     */
     @Override
     public void save(Wertpapier wertpapier) {
         save(List.of(wertpapier));
@@ -123,9 +137,13 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         }
     }
 
+    /**
+     * Implementierung des Patterns Bequemlichkeits Methode.
+     * @param wertpapier Wertpapier zur Löschung.
+     */
     @Override
-    public void delete(Wertpapier entity) {
-        delete(List.of(entity));
+    public void delete(Wertpapier wertpapier) {
+        delete(List.of(wertpapier));
     }
 
 }

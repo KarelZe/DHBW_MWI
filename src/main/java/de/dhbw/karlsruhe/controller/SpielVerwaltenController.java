@@ -1,8 +1,10 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.helper.*;
-import de.dhbw.karlsruhe.model.*;
+import de.dhbw.karlsruhe.helper.ConverterHelper;
+import de.dhbw.karlsruhe.helper.LogoutHelper;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.JPA.Spiel;
+import de.dhbw.karlsruhe.model.SpielRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +27,7 @@ public class SpielVerwaltenController implements ControlledScreen {
     private Spiel neuesSpiel;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         List<Spiel> alleSpiele = SpielRepository.getAlleSpiele();
         ObservableList<Spiel> spieleListe = FXCollections.observableArrayList(alleSpiele);
         CB_Spiele.setItems(spieleListe);
@@ -37,7 +39,7 @@ public class SpielVerwaltenController implements ControlledScreen {
     private void doSelektiertesSpielSpeichern(ActionEvent event) {
         Spiel altesSpiel = AktuelleSpieldaten.getSpiel();
         Spiel neuesSpiel = CB_Spiele.getSelectionModel().getSelectedItem();
-        if(altesSpiel.getId() != neuesSpiel.getId()) { //Selektierung hat sich verändert
+        if (altesSpiel.getId() != neuesSpiel.getId()) { //Selektierung hat sich verändert
             altesSpiel.setIst_aktiv(Spiel.SPIEL_INAKTIV);
             neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
             SpielRepository.persistSpiel(altesSpiel);

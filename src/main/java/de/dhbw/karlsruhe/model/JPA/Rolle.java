@@ -7,13 +7,12 @@ import javax.persistence.Id;
 
 @Entity
 public class Rolle {
+    public static final long ROLLE_TEILNEHMER = 1;
+    public static final long ROLLE_SPIELLEITER = 2;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String name;
-
-    public static final long ROLLE_TEILNEHMER = 1;
-    public static final long ROLLE_SPIELLEITER = 2;
 
     public long getId() {
         return id;

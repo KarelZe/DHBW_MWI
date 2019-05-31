@@ -6,16 +6,13 @@ import javax.persistence.*;
 
 @Entity
 public class Unternehmen {
+    public static final int UNTERNEHMEN_TEILNEHMER = 1;
+    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 0;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-
     private String name;
-
     private String farbe;
-
-    public static final int UNTERNEHMEN_TEILNEHMER = 1;
-    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 0;
     private int ist_spielbar;
 
     @ManyToOne

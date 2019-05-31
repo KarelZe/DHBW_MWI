@@ -2,8 +2,6 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.JPA.Rolle;
-import de.dhbw.karlsruhe.model.JPA.Spiel;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -38,11 +36,11 @@ public class RolleRepository {
             String queryString = "select count(id) from Rolle";
             Query query = session.createQuery(queryString);
             Iterator it = query.iterate();
-            if(it.hasNext()) {
+            if (it.hasNext()) {
                 long anzahlZeilen = (Long) it.next();
                 tx.commit();
 
-                if(anzahlZeilen == 0) {
+                if (anzahlZeilen == 0) {
                     Rolle teilnehmerRolle = new Rolle();
                     teilnehmerRolle.setName("Teilnehmer");
                     RolleRepository.persistRolle(teilnehmerRolle);

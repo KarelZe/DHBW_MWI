@@ -44,6 +44,10 @@ public class Teilnehmer {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Unternehmen getUnternehmen() {
         return unternehmen;
     }
@@ -58,10 +62,6 @@ public class Teilnehmer {
 
     public void setRolle(Rolle rolle) {
         this.rolle = rolle;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getBenutzername() {
