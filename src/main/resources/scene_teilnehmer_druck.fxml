@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.dhbw.karlsruhe.controller.PrintController">
+  <children>
+    <TableView fx:id="TV_Teilnehmerdruckansicht" editable="true" prefHeight="200.0" prefWidth="200.0">
+      <columns>
+        <TableColumn prefWidth="75.0" text="ID" fx:id="TV_COL_ID" />
+        <TableColumn prefWidth="75.0" text="Vorname" fx:id="TV_COL_Vorname" />
+        <TableColumn prefWidth="75.0" text="Nachname" fx:id="TV_COL_Nachname" />
+        <TableColumn prefWidth="75.0" text="Barwert" fx:id="TV_COL_Barwert" />
+      </columns>
+    </TableView>
+    <Button fx:id="BtnPrint" mnemonicParsing="false" onAction="#doPrint" text="Drucken" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints />
+  </rowConstraints>
+</GridPane>

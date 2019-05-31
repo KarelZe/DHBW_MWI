@@ -65,6 +65,10 @@ public class LoginController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
     }
 
+    @FXML
+    private void doPrint(ActionEvent event) {
+        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN);
+    }
 
     @FXML
     void doUnternehmenAnlegen(ActionEvent event) {
