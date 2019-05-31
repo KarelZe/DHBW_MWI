@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
-import de.dhbw.karlsruhe.model.JPA.Wertpapier;
+import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -56,7 +56,6 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     @Override
     public Optional<Wertpapier> findById(long id) {
         Transaction tx = null;
-        Optional<Wertpapier> optional = Optional.empty();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             String queryString = "from Wertpapier where id = :id";
@@ -64,13 +63,14 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
             query.setParameter("id", id);
             tx.commit();
             Wertpapier wertpapier = (Wertpapier) query.uniqueResult();
-            return Optional.of(wertpapier);
+            if (wertpapier != null)
+                return Optional.of(wertpapier);
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)
                 tx.rollback();
         }
-        return optional;
+        return Optional.empty();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
-import de.dhbw.karlsruhe.model.JPA.Rolle;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,18 +10,83 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class TeilnehmerRepository {
+public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
+
+    private static TeilnehmerRepository instanz;
+
+    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    private TeilnehmerRepository() {
+    }
+
     /**
-     * Persistiert ein Teilnehmerobjekt in der Datenbank im Rahmen einer Transaktion.
+     * Methode gibt Instanz des Modells zurück.
+     * Implementierung als Singleton Pattern.
+     *
+     * @return instanz
+     */
+    public static TeilnehmerRepository getInstanz() {
+        if (TeilnehmerRepository.instanz == null) {
+            TeilnehmerRepository.instanz = new TeilnehmerRepository();
+        }
+        return instanz;
+    }
+
+
+    /**
+     * Methode zur Abfrage von Teilnehmer aus Datenbank. Hierbei werden Transaktionen zur Abfrage benutzt.
+     * Ist eine Abfrage nicht vollständig möglich, erfolgt ein Rollback.
+     * Mögliche Testdaten umfassen benutzername = TheoTester und Passwort = Anika
+     *
+     * @param benutzername Benutzername des Teilnehmers
+     * @param passwort     Passwort des Teilnehmers
+     * @return Teilnehmer oder null
+     */
+    public static Teilnehmer getTeilnehmerByBenutzernameAndPasswort(String benutzername, String passwort) {
+        Transaction tx = null;
+        Teilnehmer teilnehmer = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND passwort =:passwort AND spiel =: spiel";
+            Query query = session.createQuery(queryString);
+            query.setParameter("benutzername", benutzername);
+            query.setParameter("passwort", passwort);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            tx.commit();
+            teilnehmer = (Teilnehmer) query.uniqueResult();
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return teilnehmer;
+    }
+
+    /**
+     * Speichert ein Teilnehmerobjekt in der Datenbank im Rahmen einer Transaktion.
+     * Implmementierung des Musters Bequemlichkeitsmethode.
      *
      * @param teilnehmer Teilnehmer
      */
-    public static void persistTeilnehmer(Teilnehmer teilnehmer) {
+    @Override
+    public void save(Teilnehmer teilnehmer) {
+        save(List.of(teilnehmer));
+    }
+
+    /***
+     * Speichert eine Liste von Unternehmensobjekten in der Datenbank im Rahmen einer Transaktion.
+     * @param teilnehmer Liste von Unternehmen
+     */
+    @Override
+    public void save(List<Teilnehmer> teilnehmer) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            session.saveOrUpdate(teilnehmer);
+            for (Teilnehmer t : teilnehmer) {
+                session.saveOrUpdate(t);
+            }
             tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -30,11 +95,119 @@ public class TeilnehmerRepository {
         }
     }
 
+    @Override
+    public long count() {
+        return findAll().size();
+    }
+
+    /**
+     * Implementierung des Patterns Bequemlichkeits Methode.
+     *
+     * @param teilnehmer Teilnehmer zur Löschung.
+     */
+    @Override
+    public void delete(Teilnehmer teilnehmer) {
+        delete(List.of(teilnehmer));
+    }
+
+    @Override
+    public void delete(List<Teilnehmer> teilnehmer) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            for (Teilnehmer t : teilnehmer) {
+                session.delete(t);
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        return findById(id).isPresent();
+    }
+
+    @Override
+    public Optional<Teilnehmer> findById(long id) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Teilnehmer where id = :id";
+            Query query = session.createQuery(queryString);
+            query.setParameter("id", id);
+            tx.commit();
+            Teilnehmer teilnehmer = (Teilnehmer) query.uniqueResult();
+            if (teilnehmer != null)
+                return Optional.of(teilnehmer);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Methode zur Abfrage von Teilnehmer aus Datenbank. Hierbei werden Transaktionen zur Abfrage benutzt.
+     * Ist eine Abfrage nicht vollständig möglich, erfolgt ein Rollback.
+     * Mögliche Testdaten umfassen benutzername = TheoTester und Passwort = Anika
+     *
+     * @param benutzername Benutzername des Teilnehmers
+     * @param passwort     Passwort des Teilnehmers
+     * @return Teilnehmer oder null
+     */
+    public Optional<Teilnehmer> findByBenutzernameAndPasswort(String benutzername, String passwort) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND passwort =:passwort AND spiel =: spiel";
+            Query query = session.createQuery(queryString);
+            query.setParameter("benutzername", benutzername);
+            query.setParameter("passwort", passwort);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            tx.commit();
+            Teilnehmer teilnehmer = (Teilnehmer) query.uniqueResult();
+            if (teilnehmer != null)
+                return Optional.of(teilnehmer);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Teilnehmer> findByBenutzername(String benutzername) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND spiel =: spiel";
+            Query query = session.createQuery(queryString);
+            query.setParameter("benutzername", benutzername);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            tx.commit();
+            Teilnehmer teilnehmer = (Teilnehmer) query.uniqueResult();
+            if (teilnehmer != null)
+                return Optional.of(teilnehmer);
+
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
+    }
+
     /***
      * Gibt eine Liste aller Teilnehmer (mit Seminarleiter!) aus der Datenbank zurück.
      * @return Liste aller Teilnehmer
      */
-    public static List<Teilnehmer> getAlleTeilnehmer() {
+    @Override
+    public List<Teilnehmer> findAll() {
         Transaction tx = null;
         List<Teilnehmer> alleTeilnehmer = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
@@ -54,39 +227,5 @@ public class TeilnehmerRepository {
                 tx.rollback();
         }
         return alleTeilnehmer;
-    }
-
-    public static Teilnehmer getTeilnehmerById(long id) {
-        Transaction tx = null;
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "from Teilnehmer where id = :id";
-            Query query = session.createQuery(queryString);
-            query.setParameter("id", id);
-            tx.commit();
-            return (Teilnehmer) query.uniqueResult();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-        return null;
-    }
-
-    public static Teilnehmer getTeilnehmerByBenutzername(String benutzername) {
-        Transaction tx = null;
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "from Teilnehmer where benutzername = :benutzername";
-            Query query = session.createQuery(queryString);
-            query.setParameter("benutzername", benutzername);
-            tx.commit();
-            return (Teilnehmer) query.uniqueResult();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-        return null;
     }
 }

@@ -3,11 +3,11 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.JPA.Rolle;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.jpa.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class RegisterController implements ControlledScreen {
@@ -55,14 +56,15 @@ public class RegisterController implements ControlledScreen {
         }
 
         // Eindeutigkeit des Benutzernamens prüfen
-        Teilnehmer teilnehmer = TeilnehmerRepository.getTeilnehmerByBenutzername(benutzername);
-        if (teilnehmer != null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Benutzername");
-            alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
-            alert.showAndWait();
-            return;
-        }
+        Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findByBenutzername(benutzername);
+        teilnehmer.ifPresent(t -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
+                    alert.setTitle("Benutzername");
+                    alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
+                    alert.showAndWait();
+                }
+        );
+
 
         //Zuordnung zu Unternehmen prüfen
         System.out.println("U: " + unternehmen);
@@ -93,7 +95,7 @@ public class RegisterController implements ControlledScreen {
             return;
         }
 
-        //ToDo: Unzerstützung für Umlaute einbauen
+        //ToDo: Unterstützung für Umlaute einbauen
         //Passwortlänge prüfen
         if (passwortKlartext.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -104,7 +106,7 @@ public class RegisterController implements ControlledScreen {
         }
 
         Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getSpiel());
-        TeilnehmerRepository.persistTeilnehmer(teilnehmerZurSpeicherung);
+        TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
 
     }
 

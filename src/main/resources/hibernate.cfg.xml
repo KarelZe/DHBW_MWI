@@ -20,11 +20,11 @@
         <property name="current_session_context_class">
             thread
         </property>
-        <mapping class="de.dhbw.karlsruhe.model.JPA.Teilnehmer"/>
-        <mapping class="de.dhbw.karlsruhe.model.JPA.Unternehmen"/>
-        <mapping class="de.dhbw.karlsruhe.model.JPA.Rolle"/>
-        <mapping class="de.dhbw.karlsruhe.model.JPA.Spiel"/>
-        <mapping class="de.dhbw.karlsruhe.model.JPA.Wertpapier"/>
-        <mapping class="de.dhbw.karlsruhe.model.JPA.WertpapierArt"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Teilnehmer"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Unternehmen"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Rolle"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Spiel"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Wertpapier"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.WertpapierArt"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.model.JPA;
+package de.dhbw.karlsruhe.model.jpa;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 

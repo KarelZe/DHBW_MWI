@@ -3,18 +3,19 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
-import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.CrudRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     private Teilnehmer teilnehmer;
 
-    private UnternehmenRepository model;
+    private CrudRepository<Unternehmen> model;
     private ScreenController screenController;
 
 
@@ -91,7 +92,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         teilnehmer.setBenutzername(vorname+"."+nachname);
         teilnehmer.setUnternehmen(unternehmenComboBox.getValue());
 
-        TeilnehmerRepository.persistTeilnehmer(teilnehmer);
+        TeilnehmerRepository.getInstanz().save(teilnehmer);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Aktualisieren erfolgreich");

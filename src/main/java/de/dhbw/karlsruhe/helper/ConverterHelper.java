@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.helper;
 
-import de.dhbw.karlsruhe.model.JPA.Spiel;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.util.StringConverter;
 
 import java.text.SimpleDateFormat;

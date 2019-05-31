@@ -2,16 +2,18 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.JPA.Rolle;
-import de.dhbw.karlsruhe.model.JPA.Spiel;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
-import de.dhbw.karlsruhe.model.LoginRepository;
 import de.dhbw.karlsruhe.model.RolleRepository;
 import de.dhbw.karlsruhe.model.SpielRepository;
+import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.jpa.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
+import java.util.Optional;
 
 
 public class LoginController implements ControlledScreen {
@@ -29,32 +31,33 @@ public class LoginController implements ControlledScreen {
         String passwortKlartext = txtPasswort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
-        Alert alert;
+        Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
+        teilnehmer.ifPresentOrElse(t -> {
+                    System.out.println(t + " @ " + t.getUnternehmen() + " $ " + t.getRolle());
+                    AktuelleSpieldaten.setTeilnehmer(t);
+                    //ToDo: Übersichts-Screen anzeigen
+                    // TODO: @ Bilz Ersetzen durch Filter oder Map? https://www.callicoder.com/java-8-optional-tutorial/
+                    if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+                        //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+                        screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
 
-        Teilnehmer teilnehmer = LoginRepository.getTeilnehmerByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
-        if (teilnehmer == null) { //Benutzername und/oder Passwort falsch
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Benutzername oder Passwort");
-            alert.setContentText("Bitte erfassen Sie Ihren Benutzername und Ihr Passwort erneut.");
-            alert.showAndWait();
-        }
-        else { //Login erfolgreich
-            System.out.println(teilnehmer + " @ " + teilnehmer.getUnternehmen() + " $ " + teilnehmer.getRolle());
-            AktuelleSpieldaten.setTeilnehmer(teilnehmer);
-            //ToDo: Übersichts-Screen anzeigen
-            if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
-                //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
-                screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
-
-            } else {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login");
-                alert.setContentText("Login erfolgreich.");
-                alert.showAndWait();
-                screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
-                screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
-            }
-        }
+                    } else {
+                        Alert alert;
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Login");
+                        alert.setContentText("Login erfolgreich.");
+                        alert.showAndWait();
+                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
+                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
+                    }
+                },
+                () -> {
+                    Alert alert;
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Benutzername oder Passwort");
+                    alert.setContentText("Bitte erfassen Sie Ihren Benutzername und Ihr Passwort erneut.");
+                    alert.showAndWait();
+                });
     }
 
     @FXML
@@ -92,10 +95,9 @@ public class LoginController implements ControlledScreen {
 
     private void initializeAktuellesSpiel() {
         Spiel aktuellesSpiel = SpielRepository.getAktivesSpiel();
-        if(aktuellesSpiel != null) {
+        if (aktuellesSpiel != null) {
             AktuelleSpieldaten.setSpiel(aktuellesSpiel);
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Initialisieren");
             alert.setContentText("Es konnte kein Spiel geladen werden.");

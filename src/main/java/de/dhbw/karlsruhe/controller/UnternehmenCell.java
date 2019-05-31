@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ColorHelper;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListCell;

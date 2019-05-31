@@ -4,9 +4,9 @@ import de.dhbw.karlsruhe.helper.ColorHelper;
 import de.dhbw.karlsruhe.helper.ConstantsHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.*;
-import de.dhbw.karlsruhe.model.JPA.Spiel;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -67,7 +67,7 @@ public class SpielAnlegenController implements ControlledScreen {
         spielleiter.setNachname("Admin");
         spielleiter.setRolle(RolleRepository.getSeminarleiterRolle());
         spielleiter.setSpiel(this.neuesSpiel);
-        TeilnehmerRepository.persistTeilnehmer(spielleiter);
+        TeilnehmerRepository.getInstanz().save(spielleiter);
     }
 
     private void insertGMAXInDB() {

@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
-import de.dhbw.karlsruhe.model.JPA.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Rolle;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
-import de.dhbw.karlsruhe.model.JPA.Spiel;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 
 public class AktuelleSpieldaten {
     private static Teilnehmer teilnehmer;

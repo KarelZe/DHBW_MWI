@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -35,6 +35,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
 
     /***
      * Speichert ein Unternehmensobjekt in der Datenbank im Rahmen einer Transaktion.
+     * Implementierung des Musters Bequemlichkeitsmethode
      * @param unternehmen Unternehmensobjekt
      */
     @Override
@@ -64,9 +65,14 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
 
     @Override
     public long count() {
-        return 0;
+        return findAll().size();
     }
 
+    /**
+     * Implementierung des Patterns Bequemlichkeits Methode.
+     *
+     * @param unternehmen Unternehmen zur Löschung.
+     */
     @Override
     public void delete(Unternehmen unternehmen) {
         delete(List.of(unternehmen));
@@ -96,7 +102,6 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
     @Override
     public Optional<Unternehmen> findById(long id) {
         Transaction tx = null;
-        Optional<Unternehmen> optional = Optional.empty();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             String queryString = "from Unternehmen where id = :id";
@@ -104,13 +109,14 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
             query.setParameter("id", id);
             tx.commit();
             Unternehmen unternehmen = (Unternehmen) query.uniqueResult();
-            return Optional.of(unternehmen);
+            if (unternehmen != null)
+                return Optional.of(unternehmen);
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)
                 tx.rollback();
         }
-        return optional;
+        return Optional.empty();
     }
 
     @Override

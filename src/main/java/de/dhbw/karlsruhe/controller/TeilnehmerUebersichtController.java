@@ -1,9 +1,9 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.JPA.Teilnehmer;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +16,7 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TeilnehmerUebersichtController implements ControlledScreen, Initializable {
@@ -44,7 +45,7 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
     }
 
     private List<TeilnehmerViewModel> getAlleTeilnehmerViewModel() {
-        List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getAlleTeilnehmer();
+        List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getInstanz().findAll();
         List<TeilnehmerViewModel> teilnehmerViewModel = new ArrayList<>();
         for (Teilnehmer teilnehmer : alleTeilnehmer) {
             teilnehmerViewModel.add(new TeilnehmerViewModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
@@ -64,19 +65,20 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
 
                     {
                         btn.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-                            Teilnehmer selektierterTeilnehmer = TeilnehmerRepository.getTeilnehmerById(getTableView().getItems().get(getIndex()).getId());
-                            Alert messageBox;
-                            if (selektierterTeilnehmer != null) {
-                                selektierterTeilnehmer.setPasswort(EncryptionHelper.getStringAsMD5(STANDARDPASSWORT));
-                                TeilnehmerRepository.persistTeilnehmer(selektierterTeilnehmer);
-                                messageBox = new Alert(Alert.AlertType.INFORMATION);
-                                messageBox.setHeaderText("Das Passwort wurde auf \"Anika\" zur\u00fcckgesetzt.");
-                                messageBox.showAndWait();
-                            } else {
-                                messageBox = new Alert(Alert.AlertType.ERROR);
-                                messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
-                                messageBox.showAndWait();
-                            }
+                            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
+                            teilnehmer.ifPresentOrElse(t -> {
+                                        t.setPasswort(EncryptionHelper.getStringAsMD5(STANDARDPASSWORT));
+                                        TeilnehmerRepository.getInstanz().save(t);
+                                        Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
+                                        messageBox.setHeaderText("Das Passwort wurde auf \"Anika\" zur\u00fcckgesetzt.");
+                                        messageBox.showAndWait();
+                                    },
+                                    () -> {
+                                        Alert messageBox = new Alert(Alert.AlertType.ERROR);
+                                        messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
+                                        messageBox.showAndWait();
+                                    }
+                            );
                         });
                     }
 
@@ -89,11 +91,15 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
                             setGraphic(btn);
                         }
                     }
-                };
+                }
+
+                        ;
             }
         };
         colBtn.setCellFactory(cellFactory);
-        TV_Teilnehmeruebersicht.getColumns().add(colBtn);
+        TV_Teilnehmeruebersicht.getColumns().
+
+                add(colBtn);
 
     }
 }

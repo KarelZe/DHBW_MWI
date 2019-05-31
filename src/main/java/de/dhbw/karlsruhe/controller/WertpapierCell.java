@@ -1,9 +1,9 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
-import de.dhbw.karlsruhe.model.JPA.Unternehmen;
-import de.dhbw.karlsruhe.model.JPA.Wertpapier;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
