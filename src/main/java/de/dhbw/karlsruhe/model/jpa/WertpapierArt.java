@@ -22,6 +22,10 @@ public class WertpapierArt {
         this.name = name;
     }
 
+    public WertpapierArt() {
+
+    }
+
     public long getId() {
         return id;
     }

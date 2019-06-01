@@ -39,11 +39,6 @@ public class WertpapierCell extends ListCell<Wertpapier> {
         cmbUnternehmen.setItems(unternehmenComboBox);
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());
 
-        //String bezeichnung = getItem().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE ? "Aktie " : "Anleihe";
-
-        String bezeichnung = "Aktie";
-        //lblName.textProperty().bind(Bindings.concat(bezeichnung,cmbUnternehmen.valueProperty()));
-
         cmbUnternehmen.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setUnternehmen(newValue));
 
         pane = new GridPane();
@@ -57,7 +52,7 @@ public class WertpapierCell extends ListCell<Wertpapier> {
         super.updateItem(wertpapier, empty);
 
         if (wertpapier != null) {
-            cmbUnternehmen.getSelectionModel().select(1);
+            cmbUnternehmen.getSelectionModel().select(wertpapier.getUnternehmen());
             txtName.setText(wertpapier.getName());
             setText(null);
             setGraphic(pane);

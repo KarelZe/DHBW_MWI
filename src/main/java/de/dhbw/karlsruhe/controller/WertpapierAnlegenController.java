@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class WertpapierAnlegenController implements ControlledScreen {
 
@@ -41,19 +42,9 @@ public class WertpapierAnlegenController implements ControlledScreen {
         /* Lösche nicht benötigte Wertpapiere aus Datenbank. Durchlaufe hierfür wertpapierNachAenderung.
          * contains() greift für einen Vergleich auf Gleichheit auf die equals() Methode der Klasse Wertpapier zurück.
          */
-        ArrayList<Wertpapier> aktieZumLoeschen = new ArrayList<>();
-        for (final Wertpapier w : aktieInitial)
-            if (!aktieNachAenderung.contains(w)) {
-                aktieZumLoeschen.add(w);
-            }
+        ArrayList<Wertpapier> aktieZumLoeschen = aktieInitial.stream().filter(w -> !aktieNachAenderung.contains(w)).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Wertpapier> anleiheZumLoeschen = anleiheInitial.stream().filter(w -> !anleiheNachAenderung.contains(w)).collect(Collectors.toCollection(ArrayList::new));
         model.delete(aktieZumLoeschen);
-
-        ArrayList<Wertpapier> anleiheZumLoeschen = new ArrayList<>();
-        for (Wertpapier w : anleiheInitial) {
-            if (!anleiheNachAenderung.contains(w)) {
-                anleiheZumLoeschen.add(w);
-            }
-        }
         model.delete(anleiheZumLoeschen);
 
         /* Setze wertpapierIntial zurück, andernfalls würde bei erneuter Speicherung versucht werden, das
@@ -68,9 +59,14 @@ public class WertpapierAnlegenController implements ControlledScreen {
     @FXML
     private void initialize() {
 
+
+        // Frage alle Wertpapiere in DB ab und filtere nach Typ
         model = WertpapierRepository.getInstanz();
+        ArrayList<Wertpapier> wertpapiere = new ArrayList<>(model.findAll());
         aktieInitial = new ArrayList<>();
         anleiheInitial = new ArrayList<>();
+        wertpapiere.stream().filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).forEach(w -> aktieInitial.add(w));
+        wertpapiere.stream().filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).forEach(w -> anleiheInitial.add(w));
 
         aktieObserverableList.addAll(aktieInitial);
         lstVwAktie.setItems(aktieObserverableList);
@@ -86,7 +82,6 @@ public class WertpapierAnlegenController implements ControlledScreen {
     public void setScreenParent(ScreenController screenPage) {
     }
 
-    // TODO: Typ festlegen
     public void doHinzufuegenAnleihe(ActionEvent actionEvent) {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_ANLEIHE, WertpapierArt.WERTPAPIER_ANLEIHE_NAME);
         Wertpapier wp = new Wertpapier();

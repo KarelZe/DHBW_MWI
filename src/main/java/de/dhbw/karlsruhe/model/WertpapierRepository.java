@@ -94,28 +94,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         return wertpapiere;
     }
 
-    /*
-    public List<Wertpapier> findAllByArt() {
-        Transaction tx = null;
-        ArrayList<Wertpapier> wertpapier = new ArrayList<>();
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "from Wertpapier where ist_spielbar = :ist_spielbar";
-            Query query = session.createQuery(queryString);
-            query.setParameter("ist_spielbar", Unternehmen.UNTERNEHMEN_TEILNEHMER);
-            tx.commit();
-            // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
-            for (final Object o : query.list()) {
-                unternehmen.add((Unternehmen) o);
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-        return unternehmen;
-    }
-    */
+
     // TODO: Wie werden Exceptions hochgegegeben?
     @Override
     public void save(List<Wertpapier> wertpapier) {
