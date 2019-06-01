@@ -14,17 +14,20 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
-public class WertpapierCell extends ListCell<Wertpapier> {
+public class AktienCell extends ListCell<Wertpapier> {
 
     private GridPane pane;
     private ComboBox<Unternehmen> cmbUnternehmen;
     private TextField txtName;
+
+    // TODO: Error handling
+
     /**
      * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
      * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
      * https://stackoverflow.com/a/31988574.
      */
-    WertpapierCell() {
+    AktienCell() {
         super();
         Button btnLoeschen = new Button("-");
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
@@ -48,7 +51,7 @@ public class WertpapierCell extends ListCell<Wertpapier> {
     }
 
     @Override
-    protected void updateItem(Wertpapier wertpapier, boolean empty) {
+    public void updateItem(Wertpapier wertpapier, boolean empty) {
         super.updateItem(wertpapier, empty);
 
         if (wertpapier != null) {
