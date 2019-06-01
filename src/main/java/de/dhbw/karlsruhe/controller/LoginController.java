@@ -92,6 +92,10 @@ public class LoginController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
     }
 
+    public void doTeilnehmerUebersicht(ActionEvent actionEvent) {
+        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+    }
+
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
@@ -107,6 +111,5 @@ public class LoginController implements ControlledScreen {
             alert.setContentText("Es konnte kein Spiel geladen werden.");
         }
     }
-
 }
 

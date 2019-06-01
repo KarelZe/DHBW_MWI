@@ -1,35 +1,31 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class TeilnehmerUebersichtController implements ControlledScreen, Initializable {
-    private static final String STANDARDPASSWORT = "Anika";
     @FXML
-    TableView<TeilnehmerViewModel> TV_Teilnehmeruebersicht;
+    TableView<TeilnehmerViewModel> tvTeilnehmer;
     @FXML
-    TableColumn<TeilnehmerViewModel, String> TV_COL_Vorname;
+    TableColumn<TeilnehmerViewModel, String> tlColVorname;
     @FXML
-    TableColumn<TeilnehmerViewModel, String> TV_COL_Nachname;
+    TableColumn<TeilnehmerViewModel, String> tlColNachname;
     @FXML
-    TableColumn<TeilnehmerViewModel, Long> TV_COL_ID;
-    private ObservableList<TeilnehmerViewModel> teilnehmerViewModel = FXCollections.observableArrayList(getAlleTeilnehmerViewModel());
+    TableColumn<TeilnehmerViewModel, Long> tlColId;
+    @FXML
+    TableColumn<TeilnehmerViewModel, Long> tlColPasswort;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
@@ -37,69 +33,11 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TV_COL_ID.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        TV_COL_Vorname.setCellValueFactory(new PropertyValueFactory<>("Vorname"));
-        TV_COL_Nachname.setCellValueFactory(new PropertyValueFactory<>("Nachname"));
-        addPasswortZuruecksetzenButtonToTable();
-        TV_Teilnehmeruebersicht.setItems(teilnehmerViewModel);
+
+        List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
+        List<TeilnehmerViewModel> teilnehmerViewModel = teilnehmer.stream().map(TeilnehmerViewModel::new).collect(Collectors.toList());
+        ObservableList<TeilnehmerViewModel> observableList = FXCollections.observableArrayList(teilnehmerViewModel);
+        tvTeilnehmer.setItems(observableList);
     }
 
-    private List<TeilnehmerViewModel> getAlleTeilnehmerViewModel() {
-        List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getInstanz().findAll();
-        List<TeilnehmerViewModel> teilnehmerViewModel = new ArrayList<>();
-        for (Teilnehmer teilnehmer : alleTeilnehmer) {
-            teilnehmerViewModel.add(new TeilnehmerViewModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
-        }
-        return teilnehmerViewModel;
-    }
-
-    private void addPasswortZuruecksetzenButtonToTable() {
-        TableColumn colBtn = new TableColumn("");
-
-        Callback<TableColumn<TeilnehmerViewModel, Void>, TableCell<TeilnehmerViewModel, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<TeilnehmerViewModel, Void> call(final TableColumn<TeilnehmerViewModel, Void> param) {
-                return new TableCell<>() {
-
-                    private final Button btn = new Button("Passwort zur\u00fccksetzen");
-
-                    {
-                        btn.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-                            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
-                            teilnehmer.ifPresentOrElse(t -> {
-                                        t.setPasswort(EncryptionHelper.getStringAsMD5(STANDARDPASSWORT));
-                                        TeilnehmerRepository.getInstanz().save(t);
-                                        Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
-                                        messageBox.setHeaderText("Das Passwort wurde auf \"Anika\" zur\u00fcckgesetzt.");
-                                        messageBox.showAndWait();
-                                    },
-                                    () -> {
-                                        Alert messageBox = new Alert(Alert.AlertType.ERROR);
-                                        messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
-                                        messageBox.showAndWait();
-                                    }
-                            );
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(btn);
-                        }
-                    }
-                }
-
-                        ;
-            }
-        };
-        colBtn.setCellFactory(cellFactory);
-        TV_Teilnehmeruebersicht.getColumns().
-
-                add(colBtn);
-
-    }
 }
