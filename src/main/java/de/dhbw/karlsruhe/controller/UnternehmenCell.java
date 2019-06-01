@@ -2,17 +2,20 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ColorHelper;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+
+import java.io.IOException;
 
 public class UnternehmenCell extends ListCell<Unternehmen> {
 
-    private TextField txtUnternehmensname;
+    @FXML
+    private TextField txtName;
+    @FXML
     private ColorPicker clrFarbe;
-    private GridPane pane;
+    @FXML
+    private Button btnLoeschen;
 
     /**
      * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
@@ -21,20 +24,15 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
      */
     UnternehmenCell() {
         super();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_unternehmen.fxml"));
+            loader.setRoot(this);
+            loader.setController(this);
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Button btnLoeschen = new Button("-");
-        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
-
-        clrFarbe = new ColorPicker();
-        clrFarbe.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setFarbe(ColorHelper.color2String(newValue)));
-
-        txtUnternehmensname = new TextField();
-        txtUnternehmensname.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
-
-        pane = new GridPane();
-        pane.add(txtUnternehmensname, 0, 0);
-        pane.add(clrFarbe, 1, 0);
-        pane.add(btnLoeschen, 2, 0);
     }
 
     /**
@@ -52,14 +50,20 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
         super.updateItem(unternehmen, empty);
 
         if (unternehmen != null) {
-            txtUnternehmensname.setText(unternehmen.getName());
+            txtName.setText(unternehmen.getName());
             clrFarbe.setValue(ColorHelper.string2Color(unternehmen.getFarbe()));
             setText(null);
-            setGraphic(pane);
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
             setText(null);
-            setGraphic(null);
+            setContentDisplay(ContentDisplay.TEXT_ONLY);
         }
     }
 
+    @FXML
+    private void initialize() {
+        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
+        clrFarbe.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setFarbe(ColorHelper.color2String(newValue)));
+        txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
+    }
 }
