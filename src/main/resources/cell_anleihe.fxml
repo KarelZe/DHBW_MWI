@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx">
+    <graphic>
+        <HBox>
+            <children>
+                <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cmbUnternehmen" prefWidth="150.0" GridPane.columnIndex="2"
+                          GridPane.rowIndex="1"/>
+                <TextField fx:id="txtEmissionsspread" promptText="Emissionsspread"
+                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="4"
+                        GridPane.rowIndex="1"/>
+            </children>
+        </HBox>
+    </graphic>
+</fx:root>

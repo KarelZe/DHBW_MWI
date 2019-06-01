@@ -70,11 +70,11 @@ public class WertpapierAnlegenController implements ControlledScreen {
 
         aktieObserverableList.addAll(aktieInitial);
         lstVwAktie.setItems(aktieObserverableList);
-        lstVwAktie.setCellFactory(aktieListView -> new AktienCell());
+        lstVwAktie.setCellFactory(new AktienCellFactory());
 
         anleiheObserverableList.addAll(anleiheInitial);
         lstVwAnleihe.setItems(anleiheObserverableList);
-        lstVwAnleihe.setCellFactory(anleiheListView -> new AnleiheCell());
+        lstVwAnleihe.setCellFactory(new AnleiheCellFactory());
     }
 
 

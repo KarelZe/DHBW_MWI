@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.dhbw.karlsruhe.controller.AnleiheCellFactory?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
@@ -19,7 +20,11 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </Label>
-        <ListView fx:id="lstVwAnleihe"/>
+        <ListView fx:id="lstVwAnleihe">
+            <cellFactory>
+                <AnleiheCellFactory/>
+            </cellFactory>
+        </ListView>
         <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
                 mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
         </Button>
