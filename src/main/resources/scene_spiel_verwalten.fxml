@@ -5,13 +5,21 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.SpielVerwaltenController">
+<VBox prefHeight="144.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.SpielVerwaltenController">
     <children>
-        <ComboBox fx:id="CB_Spiele" layoutX="22.0" layoutY="130.0" prefWidth="150.0" />
+        <ComboBox fx:id="CB_Spiele" layoutX="22.0" layoutY="130.0" prefWidth="150.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin></ComboBox>
         <Button defaultButton="false" mnemonicParsing="false" onAction="#doSelektiertesSpielSpeichern" prefHeight="25.0" prefWidth="612.0" text="Spiel laden">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Button>
+      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="619.0" text="Ausgewähltes Spiel löschen" textAlignment="CENTER" textFill="RED">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Button>
     </children>
 </VBox>

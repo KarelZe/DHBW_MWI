@@ -8,6 +8,7 @@ import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
+import de.dhbw.karlsruhe.helper.LogoutHelper;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -116,7 +117,7 @@ public class RegisterController implements ControlledScreen {
         alert.showAndWait();
 
         //Registrierung abschließen und zu Login wechseln
-        controller.setScreen(ScreensFramework.SCREEN_LOGIN);
+        LogoutHelper.logout(controller);
 
     }
 
