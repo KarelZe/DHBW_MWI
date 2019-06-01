@@ -49,6 +49,12 @@ public class SpielVerwaltenController implements ControlledScreen {
         }
     }
 
+    @FXML
+    private void doSelektiertesSpielLoeschen(){
+        Spiel aktuellesSpiel=CB_Spiele.getValue();
+        System.out.println(aktuellesSpiel);
+    }
+
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;

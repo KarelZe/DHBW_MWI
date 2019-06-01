@@ -30,6 +30,19 @@ public class SpielRepository {
         }
     }
 
+    public static void deleteSpiel (Spiel spiel) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            session.delete(spiel);
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+    }
+
     public static Spiel getAktivesSpiel() {
         Transaction tx = null;
         Spiel spiel = null;

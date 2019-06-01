@@ -48,4 +48,14 @@ public class Spiel {
     public void setIst_aktiv(int ist_aktiv) {
         this.ist_aktiv = ist_aktiv;
     }
+
+    @Override
+    public String toString(){
+        return "Spiel{" +
+                "Id=" + id +
+                ", Startkapital= " + startkapital +
+                ", Erstellungsdatum=" + erstellungsdatum +
+                ", Ist aktiv=" + ist_aktiv +
+                '}';
+    }
 }
