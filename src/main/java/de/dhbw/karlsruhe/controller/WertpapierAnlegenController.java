@@ -1,7 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.WertpapierRepository;
-import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import javafx.collections.FXCollections;
@@ -36,14 +35,14 @@ public class WertpapierAnlegenController implements ControlledScreen {
         // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Wertpapier> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
         model.save(aktieNachAenderung);
-        ArrayList<Wertpapier> anleiheNachAenderung = new ArrayList<>(aktieObserverableList);
+        ArrayList<Wertpapier> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
         model.save(anleiheNachAenderung);
 
         /* Lösche nicht benötigte Wertpapiere aus Datenbank. Durchlaufe hierfür wertpapierNachAenderung.
          * contains() greift für einen Vergleich auf Gleichheit auf die equals() Methode der Klasse Wertpapier zurück.
          */
         ArrayList<Wertpapier> aktieZumLoeschen = new ArrayList<>();
-        for (final Wertpapier w : anleiheInitial)
+        for (final Wertpapier w : aktieInitial)
             if (!aktieNachAenderung.contains(w)) {
                 aktieZumLoeschen.add(w);
             }
@@ -89,19 +88,15 @@ public class WertpapierAnlegenController implements ControlledScreen {
 
     // TODO: Typ festlegen
     public void doHinzufuegenAnleihe(ActionEvent actionEvent) {
-        WertpapierArt wpA = new WertpapierArt();
-        Unternehmen u = new Unternehmen();
+        WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_ANLEIHE, WertpapierArt.WERTPAPIER_ANLEIHE_NAME);
         Wertpapier wp = new Wertpapier();
-        //wp.setUnternehmen(u);
         wp.setWertpapierArt(wpA);
         anleiheObserverableList.add(wp);
     }
 
     public void doHinzufuegenAktie(ActionEvent actionEvent) {
-        WertpapierArt wpA = new WertpapierArt();
-        Unternehmen u = new Unternehmen();
+        WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_AKTIE, WertpapierArt.WERTPAPIER_AKTIE_NAME);
         Wertpapier wp = new Wertpapier();
-        //wp.setUnternehmen(u);
         wp.setWertpapierArt(wpA);
         System.out.println(wp);
         aktieObserverableList.add(wp);

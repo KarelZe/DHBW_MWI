@@ -8,13 +8,15 @@ public class Wertpapier {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "wertpapier_art_id")
     private WertpapierArt wertpapierArt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "unternehmen_id")
     private Unternehmen unternehmen;
+
+    private String name;
 
     private double nennwert; //optional (Anleihen)
 
@@ -80,6 +82,14 @@ public class Wertpapier {
         this.emission_periode = emission_periode;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,4 +118,5 @@ public class Wertpapier {
                 ", emission_periode=" + emission_periode +
                 '}';
     }
+
 }
