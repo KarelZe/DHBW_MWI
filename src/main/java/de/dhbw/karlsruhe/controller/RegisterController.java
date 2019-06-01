@@ -62,6 +62,7 @@ public class RegisterController implements ControlledScreen {
                     alert.setTitle("Benutzername");
                     alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
                     alert.showAndWait();
+                    return;
                 }
         );
 
@@ -107,6 +108,15 @@ public class RegisterController implements ControlledScreen {
 
         Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getSpiel());
         TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
+
+        //Teilnehmer über erfolgreiche Registrierung informieren
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erfolgreich registiriert");
+        alert.setContentText("Sie wurden erfolgreich mit dem Benutzernamen "+"\""+teilnehmerZurSpeicherung.getBenutzername()+"\""+" registriert!");
+        alert.showAndWait();
+
+        //Registrierung abschließen und zu Login wechseln
+        controller.setScreen(ScreensFramework.SCREEN_LOGIN);
 
     }
 
