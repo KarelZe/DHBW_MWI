@@ -19,13 +19,13 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
     @FXML
     TableView<TeilnehmerViewModel> tvTeilnehmer;
     @FXML
-    TableColumn<TeilnehmerViewModel, String> tlColVorname;
+    TableColumn<TeilnehmerViewModel, String> tblColVorname;
     @FXML
-    TableColumn<TeilnehmerViewModel, String> tlColNachname;
+    TableColumn<TeilnehmerViewModel, String> tblColNachname;
     @FXML
-    TableColumn<TeilnehmerViewModel, Long> tlColId;
+    TableColumn<TeilnehmerViewModel, Long> tblColId;
     @FXML
-    TableColumn<TeilnehmerViewModel, Long> tlColPasswort;
+    TableColumn<TeilnehmerViewModel, Long> tblColPasswort;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
