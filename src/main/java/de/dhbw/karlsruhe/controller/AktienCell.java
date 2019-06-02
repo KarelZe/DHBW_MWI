@@ -59,7 +59,6 @@ public class AktienCell extends ListCell<Wertpapier> {
     @FXML
     private void initialize() {
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
-        txtName.setPromptText("Bezeichnung des Wertpapiers");
         txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
 
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());

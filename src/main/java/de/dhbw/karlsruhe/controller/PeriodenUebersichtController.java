@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class PeriodeVerwaltenController implements ControlledScreen {
+public class PeriodenUebersichtController implements ControlledScreen {
 
 
     public TextField txtAnzahlPerioden;

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="144.0" prefWidth="622.0" spacing="5.0"
       xmlns="http://javafx.com/javafx/8.0.172-ea"
-      fx:controller="de.dhbw.karlsruhe.controller.PeriodeVerwaltenController">
+      fx:controller="de.dhbw.karlsruhe.controller.PeriodenUebersichtController">
     <children>
         <Label fx:id="lblAnzahlPerioden" text="Anzahl Perioden"/>
         <TextField fx:id="txtAnzahlPerioden" promptText="Perioden"/>

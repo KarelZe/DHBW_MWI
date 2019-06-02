@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<fx:root xmlns:fx="http://javafx.com/fxml" type="javafx.scene.control.Tab" xmlns="http://javafx.com/javafx">
+    <graphic>
+        <VBox>
+            <children>
+                <Label fx:id="lblAktie" text="Aktie">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </VBox.margin>
+                </Label>
+                <ListView fx:id="lstVwAktie" prefWidth="500.0"/>
+                <Label fx:id="lblAnleihe" text="Anleihe">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </VBox.margin>
+                </Label>
+                <ListView fx:id="lstVwAnleihe">
+                </ListView>
+                <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
+                        mnemonicParsing="false" text="Speichern">
+                </Button>
+            </children>
+        </VBox>
+    </graphic>
+</fx:root>

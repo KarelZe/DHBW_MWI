@@ -3,17 +3,18 @@ package de.dhbw.karlsruhe.model.jpa;
 import javax.persistence.*;
 
 @Entity
-public class PeriodeWertpapier {
+@Table(name = "Periode_Wertpapier")
+public class Kurs {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "periode_id")
     private Periode periode;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "wertpapier_id")
     private Wertpapier wertpapier;
 
     private double kurs;
