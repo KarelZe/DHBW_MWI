@@ -32,6 +32,8 @@ public class PeriodenDetailController implements ControlledScreen {
         periodenModel = PeriodenRepository.getInstanz();
         kurseModel = KursRepository.getInstanz();
         perioden = new ArrayList<>(periodenModel.findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()));
-        IntStream.rangeClosed(0, perioden.size()).forEach(p -> tbPerioden.getTabs().add(new PeriodeTab()));
+        IntStream.rangeClosed(1, perioden.size()).forEach(p -> {
+            tbPerioden.getTabs().add(new PeriodeTab("Periode " + p));
+        });
     }
 }

@@ -3,9 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<fx:root xmlns:fx="http://javafx.com/fxml" type="javafx.scene.control.Tab" xmlns="http://javafx.com/javafx">
-    <graphic>
-        <VBox>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab"
+         xmlns="http://javafx.com/javafx/8.0.172-ea">
+    <content>
+        <VBox fx:id="vboxPeriode">
             <children>
                 <Label fx:id="lblAktie" text="Aktie">
                     <VBox.margin>
@@ -25,5 +26,5 @@
                 </Button>
             </children>
         </VBox>
-    </graphic>
+    </content>
 </fx:root>
