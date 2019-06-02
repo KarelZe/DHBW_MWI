@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.Random;
+
 public class TeilnehmerPrintModel {
     private SimpleLongProperty id;
     private SimpleStringProperty vorname;
@@ -15,7 +17,8 @@ public class TeilnehmerPrintModel {
         this.id = new SimpleLongProperty(id);
         this.vorname = new SimpleStringProperty(vorname);
         this.nachname = new SimpleStringProperty(nachname);
-        this.portfoliowert = new SimpleDoubleProperty(10000);
+        // TODO: @ Carlos hier muss später noch tatsächlicher Wert erfasst werden.
+        this.portfoliowert = new SimpleDoubleProperty(new Random().nextDouble() * 1000);
     }
 
     public TeilnehmerPrintModel(Teilnehmer teilnehmer) {

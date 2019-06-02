@@ -6,14 +6,17 @@ import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.print.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 public class PrintController implements ControlledScreen {
+    public GridPane grdTeilnehmer;
     @FXML
     TableView<TeilnehmerPrintModel> tvDruckansicht;
     @FXML
@@ -36,22 +39,27 @@ public class PrintController implements ControlledScreen {
     private void initialize() {
         List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
         List<TeilnehmerPrintModel> teilnehmerPrintModel = teilnehmer.stream().map(TeilnehmerPrintModel::new).collect(Collectors.toList());
+        // TODO: Überdenken, ob ArrayList wirklich sinnvoll, wegen Notwendigkeit zur sortierten Ausgabe.
         ObservableList<TeilnehmerPrintModel> observableList = FXCollections.observableArrayList(teilnehmerPrintModel);
         tvDruckansicht.setItems(observableList);
     }
 
+    /**
+     * Methode ermöglicht einen Druck der Tabelle, welche die Teilnehmerergebnisse enthält.
+     * Die Ausgabe erfolgt auf einem DIN-A4 Blatt, im Querformat mit einem Standard-Seitenrand.
+     * Implementierung ist adaptiert von https://dzone.com/articles/introduction-example-javafx-8
+     */
     public void doPrint(){
+        Printer drucker = Printer.getDefaultPrinter();
+        PageLayout pageLayout = drucker.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
 
+        // FIXME: Für Skalierung muss eine tiefe Kopie der entsprechenden Node erzeugt werden, da andernfalls die Node zur Ausgabe mit verändert wird.
+        // double scaleX = tvDruckansicht.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
+        // double scaleY = tvDruckansicht.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
 
-        /*
-        PrinterJob pJ = PrinterJob.createPrinterJob();
-
-        if (pJ != null) {
-            boolean success = pJ.showPrintDialog(screenController.getScreen("SCREEN_TEILNEHMER_DRUCKEN)").getScene().getWindow());
-            if (success) {
-                pJ.endJob();
-            }
-        }
-        */
+        PrinterJob job = PrinterJob.createPrinterJob();
+        job.getJobSettings().setPageLayout(pageLayout);
+        boolean success = job.printPage(tvDruckansicht);
+        if (success) job.endJob();
     }
 }
