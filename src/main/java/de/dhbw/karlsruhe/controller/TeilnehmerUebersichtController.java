@@ -6,16 +6,13 @@ import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class TeilnehmerUebersichtController implements ControlledScreen, Initializable {
+public class TeilnehmerUebersichtController implements ControlledScreen {
     @FXML
     TableView<TeilnehmerViewModel> tvTeilnehmer;
     @FXML
@@ -31,9 +28,8 @@ public class TeilnehmerUebersichtController implements ControlledScreen, Initial
     public void setScreenParent(ScreenController screenPage) {
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    @FXML
+    private void initialize() {
         List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
         List<TeilnehmerViewModel> teilnehmerViewModel = teilnehmer.stream().map(TeilnehmerViewModel::new).collect(Collectors.toList());
         ObservableList<TeilnehmerViewModel> observableList = FXCollections.observableArrayList(teilnehmerViewModel);

@@ -41,6 +41,8 @@ public class PrintController implements ControlledScreen {
     }
 
     public void doPrint(){
+
+
         /*
         PrinterJob pJ = PrinterJob.createPrinterJob();
 

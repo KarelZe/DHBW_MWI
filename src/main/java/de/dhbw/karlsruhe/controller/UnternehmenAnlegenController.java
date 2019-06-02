@@ -10,14 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class UnternehmenAnlegenController implements ControlledScreen {
 
     @FXML
     public Button btnSpeichern;
     public ListView<Unternehmen> lstVwUnternehmen;
-    private ObservableList<Unternehmen> unternehmenObserverableList = FXCollections.observableArrayList();
-    private ArrayList<Unternehmen> unternehmenInitial = new ArrayList<>();
+    private ObservableList<Unternehmen> unternehmenObserverableList;
+    private ArrayList<Unternehmen> unternehmenInitial;
 
     private UnternehmenRepository model;
 
@@ -30,11 +31,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
         /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
          * contains() greift für einen Vergleich auf Gleichheit auf die equals() Methode der Klasse Unternehmen zurück.*/
-        ArrayList<Unternehmen> unternehmenZumLoeschen = new ArrayList<>();
-        for (Unternehmen u : unternehmenInitial)
-            if (!unternehmenNachAenderung.contains(u)) {
-                unternehmenZumLoeschen.add(u);
-            }
+        ArrayList<Unternehmen> unternehmenZumLoeschen = unternehmenInitial.stream().filter(u -> !unternehmenNachAenderung.contains(u)).collect(Collectors.toCollection(ArrayList::new));
         model.delete(unternehmenZumLoeschen);
 
         /* Setze unternehmenIntial zurück, andernfalls würde bei erneuter Speicherung versucht werden, das
@@ -49,7 +46,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     private void initialize() {
         model = UnternehmenRepository.getInstanz();
         unternehmenInitial = new ArrayList<>(model.findAllSpielbar());
-        unternehmenObserverableList.addAll(unternehmenInitial);
+        unternehmenObserverableList = FXCollections.observableArrayList(unternehmenInitial);
         lstVwUnternehmen.setItems(unternehmenObserverableList);
         lstVwUnternehmen.setCellFactory(new UnternehmenCellFactory());
     }
