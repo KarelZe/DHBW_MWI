@@ -26,5 +26,6 @@
         <mapping class="de.dhbw.karlsruhe.model.jpa.Spiel"/>
         <mapping class="de.dhbw.karlsruhe.model.jpa.Wertpapier"/>
         <mapping class="de.dhbw.karlsruhe.model.jpa.WertpapierArt"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Periode"/>
     </session-factory>
 </hibernate-configuration>

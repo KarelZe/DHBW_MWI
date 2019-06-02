@@ -111,5 +111,9 @@ public class LoginController implements ControlledScreen {
             alert.setContentText("Es konnte kein Spiel geladen werden.");
         }
     }
+
+    public void doPeriodenPflegen(ActionEvent event) {
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
+    }
 }
 

@@ -8,18 +8,22 @@ public class Periode {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "spiel_id")
     private Spiel spiel;
 
-    private double ordergebuehrInProzent;
+    @Column(name = "ordergebuehr_in_prozent")
+    private double ordergebuehr;
+    @Column(name = "kapitalmarktzins_in_prozent")
+    private double kapitalmarktzinssatz;
 
-    private double kapitalmarktzinssatzInProzent;
-
-    public Periode(Spiel spiel, double ordergebuehrInProzent, double kapitalmarktzinssatzInProzent) {
+    public Periode(Spiel spiel, double ordergebuehr, double kapitalmarktzinssatz) {
         this.spiel = spiel;
-        this.ordergebuehrInProzent = ordergebuehrInProzent;
-        this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
+        this.ordergebuehr = ordergebuehr;
+        this.kapitalmarktzinssatz = kapitalmarktzinssatz;
+    }
+
+    public Periode() {
     }
 
     public long getId() {
@@ -38,19 +42,19 @@ public class Periode {
         this.spiel = spiel;
     }
 
-    public double getOrdergebuehrInProzent() {
-        return ordergebuehrInProzent;
+    public double getOrdergebuehr() {
+        return ordergebuehr;
     }
 
-    public void setOrdergebuehrInProzent(double ordergebuehrInProzent) {
-        this.ordergebuehrInProzent = ordergebuehrInProzent;
+    public void setOrdergebuehr(double ordergebuehr) {
+        this.ordergebuehr = ordergebuehr;
     }
 
-    public double getKapitalmarktzinssatzInProzent() {
-        return kapitalmarktzinssatzInProzent;
+    public double getKapitalmarktzinssatz() {
+        return kapitalmarktzinssatz;
     }
 
-    public void setKapitalmarktzinssatzInProzent(double kapitalmarktzinssatzInProzent) {
-        this.kapitalmarktzinssatzInProzent = kapitalmarktzinssatzInProzent;
+    public void setKapitalmarktzinssatz(double kapitalmarktzinssatzInProzent) {
+        this.kapitalmarktzinssatz = kapitalmarktzinssatzInProzent;
     }
 }

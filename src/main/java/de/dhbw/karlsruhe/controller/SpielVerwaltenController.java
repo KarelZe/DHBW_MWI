@@ -49,14 +49,19 @@ public class SpielVerwaltenController implements ControlledScreen {
         }
     }
 
+    public void doPeriodenVerwalten(ActionEvent actionEvent) {
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_UEBERSICHT);
+    }
+
+    // TODO: Implementierung noch vorzunehmen
     @FXML
     private void doSelektiertesSpielLoeschen(){
-        Spiel aktuellesSpiel=CB_Spiele.getValue();
-        System.out.println(aktuellesSpiel);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
     }
+
 }
