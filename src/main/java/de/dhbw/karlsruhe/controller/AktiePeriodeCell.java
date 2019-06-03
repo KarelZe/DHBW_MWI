@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.helper.NumberHelper;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,16 +55,8 @@ public class AktiePeriodeCell extends ListCell<Kurs> {
     @FXML
     private void initialize() {
         txtKurs.textProperty().addListener((observable, oldValue, newValue) -> {
-                    // TODO: verbessertes Fehlerhandling
-                    double kurs = 0;
-                    try {
-                        kurs = Double.valueOf(newValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-                    getItem().setKurs(kurs);
+            getItem().setKurs(NumberHelper.parseDouble(newValue, 0));
                 }
         );
-        //lblName.setText(getItem().getWertpapier().getName());
     }
 }
