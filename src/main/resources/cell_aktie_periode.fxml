@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListCell?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
@@ -8,8 +9,8 @@
     <graphic>
         <HBox>
             <children>
-                <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1"
-                           GridPane.rowIndex="1"/>
+                <Label fx:id="lblName" text="Bezeichnung" GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
                 <TextField fx:id="txtKurs" promptText="Kurs"/>
             </children>
         </HBox>

@@ -1,20 +1,41 @@
 package de.dhbw.karlsruhe.controller;
 
-import javafx.event.ActionEvent;
+import de.dhbw.karlsruhe.model.KursRepository;
+import de.dhbw.karlsruhe.model.jpa.Kurs;
+import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PeriodeTab extends Tab {
 
     @FXML
-    private VBox vboxPeriode;
+    public VBox vboxPeriode;
+    @FXML
+    public ListView<Kurs> lstVwAktie;
+    @FXML
+    public ListView<Kurs> lstVwAnleihe;
+    @FXML
+    private Button btnSpeichern;
+    private ObservableList<Kurs> anleiheObserverableList = FXCollections.observableArrayList();
+    private ArrayList<Kurs> anleiheInitial = new ArrayList<>();
+    private ObservableList<Kurs> aktieObserverableList = FXCollections.observableArrayList();
+    private ArrayList<Kurs> aktieInitial = new ArrayList<>();
+    private KursRepository model;
+    private long periodenId;
 
-    PeriodeTab(String text) {
+
+    PeriodeTab(String text, long periodenId) {
         super();
+        this.periodenId = periodenId;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("tab_periode.fxml"));
             loader.setRoot(this);
@@ -29,8 +50,35 @@ public class PeriodeTab extends Tab {
     @FXML
     private void initialize() {
         setContent(vboxPeriode);
+        btnSpeichern.setOnAction(event -> doSpeichern());
+
+        // Frage alle Wertpapiere in DB ab und filtere nach Typ
+        model = KursRepository.getInstanz();
+        ArrayList<Kurs> kurs = new ArrayList<>(model.findByPeriodenId(periodenId));
+        aktieInitial = new ArrayList<>();
+        anleiheInitial = new ArrayList<>();
+        kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).forEach(k -> aktieInitial.add(k));
+        kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).forEach(k -> anleiheInitial.add(k));
+
+        System.out.println(aktieInitial);
+        System.out.println(anleiheInitial);
+
+        aktieObserverableList.addAll(aktieInitial);
+        lstVwAktie.setItems(aktieObserverableList);
+        lstVwAktie.setCellFactory(new AktienPeriodeCellFactory());
+
+        anleiheObserverableList.addAll(anleiheInitial);
+        lstVwAnleihe.setItems(anleiheObserverableList);
+        lstVwAnleihe.setCellFactory(new AnleihePeriodeCellFactory());
     }
 
-    public void doSpeichern(ActionEvent event) {
+    private void doSpeichern() {
+        // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
+        ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
+        System.out.println("zur Speicherung" + aktieObserverableList);
+        model.save(aktieNachAenderung);
+        ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
+        System.out.println("zur Speicherung" + anleiheObserverableList);
+        model.save(anleiheNachAenderung);
     }
 }

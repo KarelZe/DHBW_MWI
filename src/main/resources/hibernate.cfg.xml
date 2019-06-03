@@ -27,5 +27,6 @@
         <mapping class="de.dhbw.karlsruhe.model.jpa.Wertpapier"/>
         <mapping class="de.dhbw.karlsruhe.model.jpa.WertpapierArt"/>
         <mapping class="de.dhbw.karlsruhe.model.jpa.Periode"/>
+        <mapping class="de.dhbw.karlsruhe.model.jpa.Kurs"/>
     </session-factory>
 </hibernate-configuration>

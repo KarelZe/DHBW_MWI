@@ -1,7 +1,13 @@
 package de.dhbw.karlsruhe.model;
 
+import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +40,18 @@ public class KursRepository implements CrudRepository<Kurs> {
 
     @Override
     public void save(List<Kurs> kurse) {
-        throw new UnsupportedOperationException();
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            for (Kurs k : kurse) {
+                session.saveOrUpdate(k);
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
     }
 
     @Override
@@ -49,7 +66,18 @@ public class KursRepository implements CrudRepository<Kurs> {
 
     @Override
     public void delete(List<Kurs> kurse) {
-
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            for (Kurs k : kurse) {
+                session.delete(k);
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
     }
 
     @Override
@@ -62,8 +90,23 @@ public class KursRepository implements CrudRepository<Kurs> {
         throw new UnsupportedOperationException();
     }
 
-    public List<Kurs> findByPeriodenId(long periodenId) {
-        throw new UnsupportedOperationException();
+    public List<Kurs> findByPeriodenId(long periodeId) {
+        Transaction tx = null;
+        ArrayList<Kurs> kurse = new ArrayList<>();
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Kurs where periode_id = :periode_id";
+            Query query = session.createQuery(queryString);
+            query.setParameter("periode_id", periodeId);
+            tx.commit();
+            // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
+            for (final Object o : query.list()) kurse.add((Kurs) o);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return kurse;
     }
 
     @Override
