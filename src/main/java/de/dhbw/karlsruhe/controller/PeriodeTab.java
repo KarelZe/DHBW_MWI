@@ -24,7 +24,8 @@ public class PeriodeTab extends Tab {
     @FXML
     public ListView<Kurs> lstVwAnleihe;
     @FXML
-    private Button btnSpeichern;
+    public Button btnSpeichern;
+
     private ObservableList<Kurs> anleiheObserverableList = FXCollections.observableArrayList();
     private ArrayList<Kurs> anleiheInitial = new ArrayList<>();
     private ObservableList<Kurs> aktieObserverableList = FXCollections.observableArrayList();
@@ -60,9 +61,6 @@ public class PeriodeTab extends Tab {
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).forEach(k -> aktieInitial.add(k));
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).forEach(k -> anleiheInitial.add(k));
 
-        System.out.println(aktieInitial);
-        System.out.println(anleiheInitial);
-
         aktieObserverableList.addAll(aktieInitial);
         lstVwAktie.setItems(aktieObserverableList);
         lstVwAktie.setCellFactory(new AktienPeriodeCellFactory());
@@ -75,10 +73,8 @@ public class PeriodeTab extends Tab {
     private void doSpeichern() {
         // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
-        System.out.println("zur Speicherung" + aktieObserverableList);
         model.save(aktieNachAenderung);
         ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
-        System.out.println("zur Speicherung" + anleiheObserverableList);
         model.save(anleiheNachAenderung);
     }
 }

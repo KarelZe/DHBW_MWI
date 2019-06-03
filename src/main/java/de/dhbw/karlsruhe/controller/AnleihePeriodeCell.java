@@ -18,9 +18,10 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
     @FXML
     private Label lblName;
     @FXML
-    private TextField txtKurs;
+    private TextField txtSpread;
     @FXML
-    private TextField txtInsolvenzKurs;
+    private TextField txtSpreadInsolvenz;
+
 
     // TODO: Error handling?
 
@@ -48,8 +49,8 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
 
         if (kurs != null) {
             lblName.setText(kurs.getWertpapier().getName());
-            txtKurs.setText(String.valueOf(kurs.getKurs()));
-            txtInsolvenzKurs.setText(String.valueOf(kurs.getKurs()));
+            txtSpread.setText(kurs.getSpread() == null ? "" : kurs.getSpread().toString());
+            txtSpreadInsolvenz.setText(String.valueOf(kurs.getKurs()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -60,7 +61,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
 
     @FXML
     private void initialize() {
-        txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(Double.valueOf(newValue)));
-        txtInsolvenzKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(Double.valueOf(newValue)));
+        txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(Double.valueOf(newValue)));
+        txtSpreadInsolvenz.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(Double.valueOf(newValue)));
     }
 }

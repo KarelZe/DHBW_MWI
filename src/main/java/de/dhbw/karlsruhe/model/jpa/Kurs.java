@@ -19,6 +19,9 @@ public class Kurs {
 
     private double kurs;
 
+    // Double, da null. Siehe https://stackoverflow.com/questions/3154582/why-do-i-get-a-null-value-was-assigned-to-a-property-of-primitive-type-setter-o/13906763
+    private Double spread;
+
     public long getId() {
         return id;
     }
@@ -49,5 +52,13 @@ public class Kurs {
 
     public void setKurs(double kurs) {
         this.kurs = kurs;
+    }
+
+    public Double getSpread() {
+        return spread;
+    }
+
+    public void setSpread(Double spread) {
+        this.spread = spread;
     }
 }
