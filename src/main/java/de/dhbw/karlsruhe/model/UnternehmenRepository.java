@@ -125,8 +125,9 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Unternehmen";
+            String queryString = "from Unternehmen WHERE spiel =: spiel";
             Query query = session.createQuery(queryString);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
             for (final Object o : query.list()) {

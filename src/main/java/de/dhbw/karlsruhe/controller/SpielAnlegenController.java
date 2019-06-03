@@ -4,6 +4,7 @@ import de.dhbw.karlsruhe.helper.ColorHelper;
 import de.dhbw.karlsruhe.helper.ConstantsHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.*;
+import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
@@ -23,6 +24,8 @@ public class SpielAnlegenController implements ControlledScreen {
     private ScreenController screenController;
 
     private Spiel neuesSpiel;
+
+    private PeriodenRepository periodenRepository = PeriodenRepository.getInstanz();
 
     @FXML
     private void doSpielAnlegen(ActionEvent event) {

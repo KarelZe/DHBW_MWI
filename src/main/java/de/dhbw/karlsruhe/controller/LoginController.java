@@ -113,8 +113,12 @@ public class LoginController implements ControlledScreen {
     }
 
     public void doPeriodenPflegen(ActionEvent event) {
-        screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_UEBERSICHT);
+        //screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_UEBERSICHT);
     }
+    public void doPeriodeAnlegen(ActionEvent event) {
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
+    }
+
 
     public void doPeriodenPflegenDetail(ActionEvent event) {
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
