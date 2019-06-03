@@ -11,14 +11,16 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </Label>
-        <ListView fx:id="lstVwAktie" prefWidth="500.0"/>
+        <ListView fx:id="lstVwAktie" style="-fx-control-inner-background-alt: -fx-control-inner-background"
+                  prefWidth="500"/>
         <Button onAction="#doHinzufuegenAnleihe" text="Neue Anleihe anlegen"/>
         <Label fx:id="lblAnleihe" text="Anleihe">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </Label>
-        <ListView fx:id="lstVwAnleihe" prefWidth="500.0"/>
+        <ListView fx:id="lstVwAnleihe" style="-fx-control-inner-background-alt: -fx-control-inner-background"
+                  prefWidth="500"/>
         <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
                 mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
         </Button>
