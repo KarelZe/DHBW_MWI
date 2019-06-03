@@ -9,19 +9,19 @@ public class Buchung {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "periode_id")
     private Periode periode;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "teilnehmer_id")
     private Teilnehmer teilnehmer;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "wertpapier_id")
     private Wertpapier wertpapier;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "transaktionsart_id")
     private TransaktionsArt transaktionsArt;
 
     private long stueckzahl;
