@@ -49,10 +49,6 @@ public class SpielVerwaltenController implements ControlledScreen {
         }
     }
 
-    public void doPeriodenVerwalten(ActionEvent actionEvent) {
-        screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_UEBERSICHT);
-    }
-
     // TODO: Implementierung noch vorzunehmen
     @FXML
     private void doSelektiertesSpielLoeschen(){
