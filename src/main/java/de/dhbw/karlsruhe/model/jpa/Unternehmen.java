@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-
+import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +18,9 @@ public class Unternehmen {
     @ManyToOne
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
+
+    @OneToMany(mappedBy = "spiel_id", orphanRemoval = true, cascade = CascadeType.ALL)
+    private ArrayList<Teilnehmer> teilnehmer = new ArrayList<Teilnehmer>();
 
 
     public Unternehmen(String name, String farbe) {
