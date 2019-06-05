@@ -21,7 +21,7 @@ public class Teilnehmer {
     @JoinColumn(name = "rolle_id")
     private Rolle rolle;
 
-    @ManyToOne
+    @ManyToOne ( cascade = CascadeType.ALL)
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
 
