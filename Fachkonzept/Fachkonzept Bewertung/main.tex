@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage[titles]{tocloft}
+\usepackage{xpatch}
+\usepackage{etoolbox}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{hyphenat} % manuelle Trennung z. B.  Ma-Risk -> MaRisk
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[hyphens]{url}
+\usepackage{geometry}
+\usepackage{calc}	
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{setspace}
+% deaktiviere bunte Boxen, vergebe pdf meta informationen
+\usepackage[hidelinks, pdfauthor={Markus Bilz, Christian Fix},
+pdftitle={Fachkonzept für die Bewertung von Wertpapieren},
+pdfkeywords={Anleihebewertung, Aktienbewertung}
+]{hyperref}
+\usepackage[raggedright]{titlesec} % Vorgabe für Titelformatierung
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{acronym}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{csquotes} % Behebt Fehler bei Zitaten in Babel
+\usepackage{layout} 
+\usepackage[all]{nowidow} % vermeidet Witten und Waisen
+\usepackage{amsmath}
+\usepackage[ngerman, num]{isodate} % wird für Datumsformatierung gebraucht
+\usepackage{fncychap}
+\usepackage[hang,flushmargin]{footmisc} % Formatierung der Fußnoten
+\captionsetup[table]{position=bottom} 
+\usepackage{lmodern} 
+\usepackage[backend=biber,style=apa,citestyle=apa]{biblatex} % apa-stil für bibliography in biblatex
+\DeclareLanguageMapping{german}{german-apa}
+\usepackage[toc,section=section]{glossaries} % packet für Glossar ggf. auch für Abkürzungsverzeichnis
+\usepackage{booktabs, tabularx, threeparttable}
+\usepackage{ragged2e, array}
+\usepackage{listings}% Aufzählungen
+
+\usepackage{pgfplots}% pgf plots 
+\pgfplotsset{compat=1.15}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{dateplot}
+
+\geometry{a4paper,
+    left=35mm,
+    right=25mm,
+    top= 25mm, 
+    bottom=20mm,
+    headsep=12.5mm,
+    headheight=12.5mm,
+    footskip=12.5mm,
+    voffset = 0pt,
+    hoffset = 0pt,
+}
+
+
+
+% Absatzeinstellungen
+\setlength{\parindent}{0em}
+\setlength{\parskip}{6pt}
+\linespread{1.3} % Einfacher Zeilenabstand
+
+% wichtig für Bilder
+\graphicspath{{img/}}
+
+
+% Kopf- und Fußzeilen einbinden
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
+\renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
+\newcommand{\sectionbreak}{\clearpage} % section auf neuer Seite
+
+% Erhöhe Zeilenabstand bei Tabellen
+\renewcommand{\arraystretch}{1.3}
+
+% Einstellungen für underfull und overfull badness
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\widowpenalty=10000
+\vfuzz=20pt 
+\hfuzz=20pt
+
+\title{Fachkonzept für die Bewertung von Wertpapieren}
+\author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsuhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsuhe.de}}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Überblick}
+Dieses Fachkonzept beschreibt die Bewertung von Wertpapieren in der zu erstellenden Software \textit{Anika}. 
+Dabei werden die verwendeten Bewertungsmodelle und notwendige Prämissen eingeführt.
+
+Eine Bewertung von Wertpapieren ist für die
+
+Die Buchung von Transaktionen, die im Zusammenhang mit Wertpapieren stehen, werden als Teils des Fachkonzepts Buchung beschrieben.
+% Kauf und Verkauf welcher Kurs?
+
+\section{Prämissen}
+Für die Bewertung von Wertpapieren 
+
+
+
+
+
+\section{Zeitpunkt und Durchführung der Bewertung}
+\label{sec:zeitpunkt_und_durchfuehrung_der_bewertung}
+
+\begin{figure}[htb]
+	\centering
+	\begin{tikzpicture} 
+		\draw[thick, ->] (0,0) -- (12cm,0);
+		\foreach \x in {2,4,6,8,10}
+		\draw (\x cm,3pt) -- (\x cm,-3pt);
+		\draw[thick] (4,0) node[below=3pt,thick] {$t_0$} node[above=3pt] {};
+		\draw[thick] (6,0) node[below=3pt,thick] {$\dots$} node[above=3pt] {};
+		\draw[thick] (8,0) node[below=3pt, thick] {$t_h$} node[above=3pt] {};
+		\draw[thick] (10,0) node[below=3pt] {$T$} node[above=3pt] {};
+		\draw [black, thick ,decorate,decoration={brace,amplitude=5pt}] (4,0.5)  -- (8,0.5) 
+			   node [black,midway,above=4pt,font=\scriptsize] {$h$};
+		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (10,-0.5) -- (8,-0.5)
+			   node [black,midway,below=4pt,font=\scriptsize] {$T-t_h$};
+		\end{tikzpicture}
+	\caption{Optionsbewertung in der historischen Simulation}
+	\label{img:zeitstrahl_var}
+	(Eigene Darstellung)
+\end{figure}
+
+\section{Bewertung von Aktien}
+Die Unternehmen des Planspiels firmieren als Aktiengesellschaft.
+Ein rechnerischer Aktienkurs wird daher durch die Anwendung \textit{TOPSIM} auf Grundlage des Eigenkapitals und des Jahresüberschusses der vergangenen Periode nebst anderen Einflussfaktoren berechnet (\dots). 
+Eine Gewichtung der Faktoren mit Einfluss auf den Aktienkurs ist in der Anwendung \textit{TOPSIM} konfigurierbar. 
+
+Aktienkurse der Planspielunternehmen werden \textit{ex post} je Planspielunternehmen und Periode ermittelt. Die durch die Software \textit{TOPSIM} ermittelten Aktienkurse sind um Dividendenausschüttungen bereingt. Kapitalmaßnahmen mit Einfluss auf den Aktienkurs erfolgen darüber hinaus nicht, womit eine unmittelbare Verwendung in der Software \textit{Anika} möglich ist. Nachfolgend wird beschrieben, wie eine Erfassung der Aktienkurse erfolgen soll.
+
+\subsection{Erfassung von Aktienkursen}
+
+
+Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
+Zugleich ist ein Kauf und Verkauf zu diesem Kurs möglich -- bleiben Ordergebühren und eine Geld-/ und Briefspanne außer Acht. 
+
+\subsection{Speicherung von Aktienkursen}
+
+\subsection{Bewertung von Portfoliopositionen}
+
+
+
+
+
+\section{Bewertung von Anleihen}
+
+Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
+Hierbei ist insbesondere eine Bewertung der An
+
+Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Periode Null angenommen.
+
+\section{Bewertung des Aktien Exchange Traded Funds}
+
+Für die Bewertung des ETFs wird dabei eine vollständige Replizierung des Indizes unterstellt.
+Der \textit{Tracking Error} und die \textit{Total Expense Ration} werden dabei mit Null angenommen.
+Dies bedeutet, dass der ETF der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
+
+Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Indizes durch die Anwendung erforderlich.
+
+\subsection{Berechnung des \textit{GMAX} Index}
+
+\subsection{Speicherung von ETF Kursen}
+
+\subsection{Bewertung von Portfoliopositionen}
+Siehe \dots
+
+% https://en.wikipedia.org/wiki/Stock_market_index
+% \section{Ausblick}
+% Das Grundsätzlich ist auch eine Bewert
+% Weiterhin ist . Die propagierten Modelle sind dabei geeignet, um eine 
+
+\end{document}
