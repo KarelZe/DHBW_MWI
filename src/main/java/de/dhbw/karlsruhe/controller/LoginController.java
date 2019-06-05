@@ -80,7 +80,6 @@ public class LoginController implements ControlledScreen {
     @FXML
     private void initialize() {
         initializeAktuellesSpiel();
-        RolleRepository.insertRollenIfNotExists(); //legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
     }
 
     @FXML
@@ -94,6 +93,10 @@ public class LoginController implements ControlledScreen {
 
     public void doTeilnehmerUebersicht(ActionEvent actionEvent) {
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+    }
+
+    public void doSpielAnlegen(ActionEvent actionEvent) {
+        screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
     }
 
     @Override

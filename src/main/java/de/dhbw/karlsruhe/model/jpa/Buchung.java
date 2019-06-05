@@ -36,6 +36,8 @@ public class Buchung {
 
     private double saldoDepot;
 
+    private double saldoFestgeld;
+
     public long getId() {
         return id;
     }
@@ -122,5 +124,13 @@ public class Buchung {
 
     public void setSaldoDepot(double saldoDepot) {
         this.saldoDepot = saldoDepot;
+    }
+
+    public double getSaldoFestgeld() {
+        return saldoFestgeld;
+    }
+
+    public void setSaldoFestgeld(double saldoFestgeld) {
+        this.saldoFestgeld = saldoFestgeld;
     }
 }

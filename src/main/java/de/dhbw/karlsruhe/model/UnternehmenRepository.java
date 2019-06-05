@@ -119,6 +119,26 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         return Optional.empty();
     }
 
+    public Optional<Unternehmen> findByUnternehmenArt(int unternehmenArt) {
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Unternehmen where unternehmenArt =: unternehmenArt AND spiel =: spiel";
+            Query query = session.createQuery(queryString);
+            query.setParameter("unternehmenArt", unternehmenArt);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            tx.commit();
+            Unternehmen unternehmen = (Unternehmen) query.uniqueResult();
+            if (unternehmen != null)
+                return Optional.of(unternehmen);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
+    }
+
     @Override
     public List<Unternehmen> findAll() {
         Transaction tx = null;
@@ -146,7 +166,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Unternehmen where ist_spielbar = :ist_spielbar";
+            String queryString = "from Unternehmen where unternehmenArt = :ist_spielbar";
             Query query = session.createQuery(queryString);
             query.setParameter("ist_spielbar", Unternehmen.UNTERNEHMEN_TEILNEHMER);
             tx.commit();

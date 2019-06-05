@@ -1,19 +1,20 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import java.util.ArrayList;
+
 import javax.persistence.*;
 
 @Entity
 public class Unternehmen {
     public static final int UNTERNEHMEN_TEILNEHMER = 1;
-    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 0;
+    public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 2;
+    public static final int UNTERNEHMEN_BANK = 3;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String name;
     private String farbe;
-    private int ist_spielbar;
+    private int unternehmenArt;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "spiel_id")
@@ -29,7 +30,7 @@ public class Unternehmen {
     public Unternehmen() {
         this.farbe = "0xff0000ff";
         this.name = "";
-        this.ist_spielbar = UNTERNEHMEN_TEILNEHMER;
+        this.unternehmenArt = UNTERNEHMEN_TEILNEHMER;
         this.spiel = AktuelleSpieldaten.getSpiel();
     }
 
@@ -58,12 +59,12 @@ public class Unternehmen {
         this.farbe = farbe;
     }
 
-    public int getIst_spielbar() {
-        return ist_spielbar;
+    public int getUnternehmenArt() {
+        return unternehmenArt;
     }
 
-    public void setIst_spielbar(int ist_spielbar) {
-        this.ist_spielbar = ist_spielbar;
+    public void setUnternehmenArt(int ist_spielbar) {
+        this.unternehmenArt = ist_spielbar;
     }
 
     public Spiel getSpiel() {
@@ -80,7 +81,7 @@ public class Unternehmen {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", farbe='" + farbe + '\'' +
-                ", ist_spielbar=" + ist_spielbar +
+                ", ist_spielbar=" + unternehmenArt +
                 '}';
     }
 }

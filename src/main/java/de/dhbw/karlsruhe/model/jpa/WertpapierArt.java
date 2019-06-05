@@ -9,12 +9,16 @@ public class WertpapierArt {
 
     public static final long WERTPAPIER_AKTIE = 1;
     public static final long WERTPAPIER_ANLEIHE = 2;
+    public static final long WERTPAPIER_FESTGELD = 3;
+    public static final long WERTPAPIER_ETF = 4;
     public static final String WERTPAPIER_AKTIE_NAME = "Aktie";
     public static final String WERTPAPIER_ANLEIHE_NAME = "Anleihe";
+    public static final String WERTPAPIER_FESTGELD_NAME = "Festgeld";
+    public static final String WERTPAPIER_ETF_NAME = "ETF";
+
     private String name;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     public WertpapierArt(long id, String name) {

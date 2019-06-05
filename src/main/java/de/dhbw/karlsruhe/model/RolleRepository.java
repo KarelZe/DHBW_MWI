@@ -11,13 +11,13 @@ import java.util.Iterator;
 
 public class RolleRepository {
 
-    public static Rolle getSeminarleiterRolle() {
+    public static Rolle findById(long id) {
         Transaction tx = null;
         Rolle rolle = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             String queryString = "from Rolle WHERE id =: id";
             Query query = session.createQuery(queryString);
-            query.setParameter("id", Rolle.ROLLE_SPIELLEITER);
+            query.setParameter("id", id);
             rolle = (Rolle) query.uniqueResult();
 
         } catch (HibernateException e) {
@@ -26,37 +26,6 @@ public class RolleRepository {
                 tx.rollback();
         }
         return rolle;
-    }
-
-    public static void insertRollenIfNotExists() {
-        Transaction tx = null;
-        Rolle rolle = null;
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "select count(id) from Rolle";
-            Query query = session.createQuery(queryString);
-            Iterator it = query.iterate();
-            if (it.hasNext()) {
-                long anzahlZeilen = (Long) it.next();
-                tx.commit();
-
-                if (anzahlZeilen == 0) {
-                    Rolle teilnehmerRolle = new Rolle();
-                    teilnehmerRolle.setName("Teilnehmer");
-                    RolleRepository.persistRolle(teilnehmerRolle);
-
-                    Rolle seminarleiterRolle = new Rolle();
-                    seminarleiterRolle.setName("Seminarleiter");
-                    RolleRepository.persistRolle(seminarleiterRolle);
-                }
-            }
-
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-
     }
 
     /**
