@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.model;
 
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -7,6 +8,10 @@ public class TeilnehmerViewModel {
     private SimpleLongProperty id;
     private SimpleStringProperty vorname;
     private SimpleStringProperty nachname;
+
+    public TeilnehmerViewModel(Teilnehmer teilnehmer) {
+        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname());
+    }
 
     public TeilnehmerViewModel(long id, String vorname, String nachname) {
         this.id = new SimpleLongProperty(id);

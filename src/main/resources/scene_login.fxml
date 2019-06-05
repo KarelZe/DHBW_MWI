@@ -1,51 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
-  <children>
-    <Button mnemonicParsing="false" onAction="#doRegistration" prefHeight="25.0" prefWidth="612.0" text="Registrieren">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </Button>
-    <Button fx:id="btnTeilnehmerBearbeiten" mnemonicParsing="false" onAction="#doEditUser" prefHeight="25.0" prefWidth="612.0" text="Temp Teilnehmer bearbeiten" textAlignment="CENTER" textFill="#ff041d">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </Button>
-    <Button fx:id="btnUnternehmenAnlegen" mnemonicParsing="false" onAction="#doUnternehmenAnlegen" prefHeight="25.0" prefWidth="612.0" text="Temp Unternehmen anlegen" textFill="RED">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </Button>
-    <Button fx:id="btnWertpapierAnlegen" mnemonicParsing="false" onAction="#doWertpapierAnlegen" prefHeight="25.0" prefWidth="612.0" text="Temp Wertpapier anlegen" textFill="RED">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </Button>
-    <Button fx:id="btnTeilnehmerDrucken" mnemonicParsing="false" onAction="#doPrint" prefHeight="25.0" prefWidth="612.0" text="Temp Teilnehmer Drucken" textAlignment="LEFT" textFill="RED">
-      <VBox.margin>
-          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </Button>
-    <TextField fx:id="txtBenutzername" promptText="Benutzername">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </TextField>
-    <PasswordField fx:id="txtPasswort" promptText="Passwort">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </PasswordField>
-    <Button defaultButton="true" mnemonicParsing="false" onAction="#doLogin" prefHeight="25.0" prefWidth="612.0" text="Einloggen">
-      <VBox.margin>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </VBox.margin>
-    </Button>
-  </children>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+      fx:controller="de.dhbw.karlsruhe.controller.LoginController">
+    <children>
+        <Button mnemonicParsing="false" onAction="#doRegistration" prefHeight="25.0" prefWidth="612.0"
+                text="Registrieren">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnTeilnehmerBearbeiten" mnemonicParsing="false" onAction="#doEditUser" prefHeight="25.0"
+                prefWidth="612.0" text="Temp Teilnehmer bearbeiten" textAlignment="CENTER" textFill="#ff041d">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnUnternehmenAnlegen" mnemonicParsing="false" onAction="#doUnternehmenAnlegen" prefHeight="25.0"
+                prefWidth="612.0" text="Temp Unternehmen anlegen" textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnWertpapierAnlegen" mnemonicParsing="false" onAction="#doWertpapierAnlegen" prefHeight="25.0"
+                prefWidth="612.0" text="Temp Wertpapier anlegen" textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnTeilnehmerUebersicht" mnemonicParsing="false" onAction="#doTeilnehmerUebersicht"
+                prefHeight="25.0" prefWidth="612.0" text="Temp Teilnehmer Zurücksetzen" textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnTeilnehmerDrucken" mnemonicParsing="false" onAction="#doPrint" prefHeight="25.0"
+                prefWidth="612.0" text="Temp Teilnehmer Drucken"
+                textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnPeriodenPflegenDetail" mnemonicParsing="false" onAction="#doPeriodenPflegenDetail"
+                prefHeight="25.0"
+                prefWidth="612.0" text="Temp Perioden pflegen"
+                textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <Button fx:id="btnPeriodeAnlegen" mnemonicParsing="false" onAction="#doPeriodeAnlegen"
+                prefHeight="25.0"
+                prefWidth="612.0" text="Temp Neue Periode anlegen"
+                textFill="RED">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+        <TextField fx:id="txtBenutzername" promptText="Benutzername">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </TextField>
+        <PasswordField fx:id="txtPasswort" promptText="Passwort">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </PasswordField>
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#doLogin" prefHeight="25.0" prefWidth="612.0"
+                text="Einloggen">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Button>
+    </children>
 </VBox>

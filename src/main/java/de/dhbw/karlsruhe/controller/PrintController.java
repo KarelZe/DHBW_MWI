@@ -6,64 +6,60 @@ import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.print.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 
-public class PrintController implements ControlledScreen, Initializable {
-    private static final String STANDARDPASSWORT = "Anika";
-    public Node printNode;
-    private ScreenController screenController;
+public class PrintController implements ControlledScreen {
+    public GridPane grdTeilnehmer;
     @FXML
-    TableView<TeilnehmerPrintModel> TV_Teilnehmerdruckansicht;
+    TableView<TeilnehmerPrintModel> tvDruckansicht;
     @FXML
-    TableColumn<TeilnehmerPrintModel, String> TV_COL_Vorname;
+    TableColumn<TeilnehmerPrintModel, String> tblColVorname;
     @FXML
-    TableColumn<TeilnehmerPrintModel, String> TV_COL_Nachname;
+    TableColumn<TeilnehmerPrintModel, String> tblColNachname;
     @FXML
-    TableColumn<TeilnehmerPrintModel, Long> TV_COL_ID;
+    TableColumn<TeilnehmerPrintModel, Long> tblColId;
     @FXML
-    TableColumn<TeilnehmerPrintModel, Double> TV_COL_Barwert;
-    private ObservableList<TeilnehmerPrintModel> teilnehmerPrintModel = FXCollections.observableArrayList(getAlleTeilnehmerPrintModel());
+    TableColumn<TeilnehmerPrintModel, Double> tblColPortfoliowert;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        TV_COL_ID.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        TV_COL_Vorname.setCellValueFactory(new PropertyValueFactory<>("Vorname"));
-        TV_COL_Nachname.setCellValueFactory(new PropertyValueFactory<>("Nachname"));
-        TV_COL_Barwert.setCellValueFactory(new PropertyValueFactory<>("Barwert"));
-        TV_Teilnehmerdruckansicht.setItems(teilnehmerPrintModel);
+    /**
+     * Initialize Methode von JavaFX. Siehe hierzu https://stackoverflow.com/a/51392331
+     */
+    @FXML
+    private void initialize() {
+        List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
+        List<TeilnehmerPrintModel> teilnehmerPrintModel = teilnehmer.stream().map(TeilnehmerPrintModel::new).collect(Collectors.toList());
+        // TODO: Überdenken, ob ArrayList wirklich sinnvoll, wegen Notwendigkeit zur sortierten Ausgabe.
+        ObservableList<TeilnehmerPrintModel> observableList = FXCollections.observableArrayList(teilnehmerPrintModel);
+        tvDruckansicht.setItems(observableList);
     }
 
-    private List<TeilnehmerPrintModel> getAlleTeilnehmerPrintModel() {
-        List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getInstanz().findAll();
-        List<TeilnehmerPrintModel> teilnehmerPrintModel = new ArrayList<>();
-        for (Teilnehmer teilnehmer : alleTeilnehmer) {
-            teilnehmerPrintModel.add(new TeilnehmerPrintModel(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname()));
-        }
-        return teilnehmerPrintModel;
-    }
+    /**
+     * Methode ermöglicht einen Druck der Tabelle, welche die Teilnehmerergebnisse enthält.
+     * Die Ausgabe erfolgt auf einem DIN-A4 Blatt, im Querformat mit einem Standard-Seitenrand.
+     * Implementierung ist adaptiert von https://dzone.com/articles/introduction-example-javafx-8
+     */
     public void doPrint(){
-       /* PrinterJob pJ = PrinterJob.createPrinterJob();
+        Printer drucker = Printer.getDefaultPrinter();
+        PageLayout pageLayout = drucker.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
 
-        if (pJ != null) {
-            boolean success = pJ.showPrintDialog(screenController.getScreen("SCREEN_TEILNEHMER_DRUCKEN)").getScene().getWindow());
-            if (success) {
-                pJ.endJob();
-            }
-        }
-        */
+        // FIXME: Für Skalierung muss eine tiefe Kopie der entsprechenden Node erzeugt werden, da andernfalls die Node zur Ausgabe mit verändert wird.
+        // double scaleX = tvDruckansicht.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
+        // double scaleY = tvDruckansicht.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        job.getJobSettings().setPageLayout(pageLayout);
+        boolean success = job.printPage(tvDruckansicht);
+        if (success) job.endJob();
     }
 }

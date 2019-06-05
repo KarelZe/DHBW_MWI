@@ -3,20 +3,32 @@ package de.dhbw.karlsruhe.model.jpa;
 import javax.persistence.*;
 
 @Entity
-public class PeriodeWertpapier {
+@Table(name = "Periode_Wertpapier")
+public class Kurs {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "periode_id")
     private Periode periode;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "wertpapier_id")
     private Wertpapier wertpapier;
 
     private double kurs;
+
+    // Double, da null. Siehe https://stackoverflow.com/questions/3154582/why-do-i-get-a-null-value-was-assigned-to-a-property-of-primitive-type-setter-o/13906763
+    private Double spread;
+
+    public Kurs(Periode periode, Wertpapier wertpapier) {
+        this.periode = periode;
+        this.wertpapier = wertpapier;
+    }
+
+    public Kurs() {
+    }
 
     public long getId() {
         return id;
@@ -48,5 +60,13 @@ public class PeriodeWertpapier {
 
     public void setKurs(double kurs) {
         this.kurs = kurs;
+    }
+
+    public Double getSpread() {
+        return spread;
+    }
+
+    public void setSpread(Double spread) {
+        this.spread = spread;
     }
 }

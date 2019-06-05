@@ -92,6 +92,10 @@ public class LoginController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
     }
 
+    public void doTeilnehmerUebersicht(ActionEvent actionEvent) {
+        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+    }
+
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
@@ -108,5 +112,13 @@ public class LoginController implements ControlledScreen {
         }
     }
 
+    public void doPeriodeAnlegen(ActionEvent event) {
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
+    }
+
+
+    public void doPeriodenPflegenDetail(ActionEvent event) {
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
+    }
 }
 

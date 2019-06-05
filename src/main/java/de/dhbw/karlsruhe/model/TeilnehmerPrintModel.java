@@ -1,20 +1,28 @@
 package de.dhbw.karlsruhe.model;
 
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.util.Random;
 
 public class TeilnehmerPrintModel {
     private SimpleLongProperty id;
     private SimpleStringProperty vorname;
     private SimpleStringProperty nachname;
-    private SimpleDoubleProperty barwert;
+    private SimpleDoubleProperty portfoliowert;
 
     public TeilnehmerPrintModel(long id, String vorname, String nachname) {
         this.id = new SimpleLongProperty(id);
         this.vorname = new SimpleStringProperty(vorname);
         this.nachname = new SimpleStringProperty(nachname);
-        this.barwert = new SimpleDoubleProperty(10000);
+        // TODO: @ Carlos hier muss später noch tatsächlicher Wert erfasst werden.
+        this.portfoliowert = new SimpleDoubleProperty(new Random().nextDouble() * 1000);
+    }
+
+    public TeilnehmerPrintModel(Teilnehmer teilnehmer) {
+        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname());
     }
 
     public long getId() {
@@ -53,11 +61,15 @@ public class TeilnehmerPrintModel {
         return nachname;
     }
 
-    public Double getBarwert() {return barwert.get(); }
+    public Double getPortfoliowert() {
+        return portfoliowert.get();
+    }
 
-    public void setBarwert(Double barwert) { this.barwert.set(barwert);}
+    public void setPortfoliowert(Double portfoliowert) {
+        this.portfoliowert.set(portfoliowert);
+    }
 
-    public SimpleDoubleProperty barwertProperty() {
-        return barwert;
+    public SimpleDoubleProperty portfoliowertProperty() {
+        return portfoliowert;
     }
 }

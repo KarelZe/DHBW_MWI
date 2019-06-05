@@ -41,14 +41,14 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
         System.out.println(teilnehmer);
 
-        String vorname =vornameFeld.getText().trim();
-        String nachname=nachnameFeld.getText().trim();
-        String passwort1=passwortFeld.getText();
-        String passwort2=passwortBestaetigenFeld.getText();
+        String vorname = vornameFeld.getText().trim();
+        String nachname = nachnameFeld.getText().trim();
+        String passwort1 = passwortFeld.getText();
+        String passwort2 = passwortBestaetigenFeld.getText();
 
         // TODO: ist redundant zur Registrierugn?
         //Name prüfen
-        if((vorname.trim().length()==0)||(nachname.trim().length()==0)){
+        if ((vorname.length() == 0) || (nachname.length() == 0)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ungeeignete Eingaben für Vor- und Nachname");
             alert.setContentText("Bitte geben Sie als Vor- und Nachnamen Namen mit mindestens einem Zeichen ein. Dies darf kein Leerzeichen sein");
@@ -56,10 +56,10 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             return;
         }
 
-        if((passwort1.length()>0)||(passwort2.length()>0)){
+        if ((passwort1.length() > 0) || (passwort2.length() > 0)) {
 
             //Passwortlänge prüfen
-            if (passwort1.length()<5){
+            if (passwort1.length() < 5) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Passwort zu kurz");
                 alert.setContentText("Bitte geben Sie ein Passwort mit mindestens 5 Zeichen ein.");
@@ -68,7 +68,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             }
 
             //Passwortübereinstimmung prüfen
-            if(!passwort1.equals(passwort2)){
+            if (!passwort1.equals(passwort2)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Passwort korrigieren");
                 alert.setContentText("Bitte geben Sie in beiden Passwortfeldern das gleiche Passwort ein.");
@@ -79,7 +79,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             teilnehmer.setPasswort(EncryptionHelper.getStringAsMD5(passwort1));
         }
 
-        if(unternehmenComboBox.getValue()==null){
+        if (unternehmenComboBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Unternehmen auswählen");
             alert.setContentText("Bitte wählen Sie ihr zugehöriges Unternehmen aus.");
@@ -89,14 +89,14 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
         teilnehmer.setVorname(vorname);
         teilnehmer.setNachname(nachname);
-        teilnehmer.setBenutzername(vorname+"."+nachname);
+        teilnehmer.setBenutzername(vorname + "." + nachname);
         teilnehmer.setUnternehmen(unternehmenComboBox.getValue());
 
         TeilnehmerRepository.getInstanz().save(teilnehmer);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Aktualisieren erfolgreich");
-        alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: "+"\""+teilnehmer.getBenutzername()+"\"");
+        alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: " + "\"" + teilnehmer.getBenutzername() + "\"");
         alert.showAndWait();
 
         //ToDo: Aktueller Teilnehmer neu setzen?
@@ -107,8 +107,8 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
 
     @FXML
-    private void initialize(){
-        teilnehmer=AktuelleSpieldaten.getTeilnehmer();
+    private void initialize() {
+        teilnehmer = AktuelleSpieldaten.getTeilnehmer();
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());

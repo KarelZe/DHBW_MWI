@@ -93,9 +93,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_AKTIE, WertpapierArt.WERTPAPIER_AKTIE_NAME);
         Wertpapier wp = new Wertpapier();
         wp.setWertpapierArt(wpA);
-        System.out.println(wp);
         aktieObserverableList.add(wp);
-        System.out.println(aktieObserverableList);
     }
 }
 
