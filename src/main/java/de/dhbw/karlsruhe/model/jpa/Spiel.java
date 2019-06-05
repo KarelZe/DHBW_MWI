@@ -1,10 +1,8 @@
 package de.dhbw.karlsruhe.model.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.ArrayList;
 
 @Entity
 public class Spiel {
@@ -16,6 +14,10 @@ public class Spiel {
     private double startkapital;
     private Date erstellungsdatum;
     private int ist_aktiv;
+
+    //ToDo: Fix
+    //@OneToMany(mappedBy = "spiel_id", orphanRemoval = true, cascade = CascadeType.ALL)
+    //private ArrayList<Teilnehmer> teilnehmer = new ArrayList<Teilnehmer>();
 
     public long getId() {
         return id;
