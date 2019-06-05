@@ -51,8 +51,9 @@ public class SpielVerwaltenController implements ControlledScreen {
 
     @FXML
     private void doSelektiertesSpielLoeschen(){
-        Spiel aktuellesSpiel=CB_Spiele.getValue();
-        System.out.println(aktuellesSpiel);
+        Spiel ausgewaehltesSpiel=CB_Spiele.getValue();
+        System.out.println(ausgewaehltesSpiel);
+        SpielRepository.loescheSpielUeberall(ausgewaehltesSpiel);
     }
 
     @Override
