@@ -15,12 +15,9 @@ public class Unternehmen {
     private String farbe;
     private int ist_spielbar;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
-
-    @OneToMany(mappedBy = "spiel_id", orphanRemoval = true, cascade = CascadeType.ALL)
-    private ArrayList<Teilnehmer> teilnehmer = new ArrayList<Teilnehmer>();
 
 
     public Unternehmen(String name, String farbe) {

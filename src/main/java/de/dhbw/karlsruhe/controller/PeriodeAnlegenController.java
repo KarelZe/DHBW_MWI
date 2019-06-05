@@ -53,8 +53,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
         List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
         List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
         kursRepository.save(kurse);
-        //Klappt nicht richtig... Im screen Perioden detail sollten die Kurswerte der Periode eingetragen werden können. Der screen lässt sich jedoch nicht wechseln
-        screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, "scene_perioden_detail.fxml");
+
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
     }
 
