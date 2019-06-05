@@ -17,6 +17,8 @@ public class Spiel {
     private Date erstellungsdatum;
     private int ist_aktiv;
 
+    //ToDo: OneToMany definieren
+
     public long getId() {
         return id;
     }
