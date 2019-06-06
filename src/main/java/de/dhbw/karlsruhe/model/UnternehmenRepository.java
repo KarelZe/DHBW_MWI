@@ -119,34 +119,14 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         return Optional.empty();
     }
 
-    public Optional<Unternehmen> findByUnternehmenArt(int unternehmenArt) {
+    public List<Unternehmen> findByUnternehmenArt(int unternehmenArt) {
         Transaction tx = null;
+        ArrayList<Unternehmen> unternehmen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             String queryString = "from Unternehmen where unternehmenArt =: unternehmenArt AND spiel =: spiel";
             Query query = session.createQuery(queryString);
             query.setParameter("unternehmenArt", unternehmenArt);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
-            tx.commit();
-            Unternehmen unternehmen = (Unternehmen) query.uniqueResult();
-            if (unternehmen != null)
-                return Optional.of(unternehmen);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Unternehmen> findAll() {
-        Transaction tx = null;
-        ArrayList<Unternehmen> unternehmen = new ArrayList<>();
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "from Unternehmen WHERE spiel =: spiel";
-            Query query = session.createQuery(queryString);
             query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
@@ -161,14 +141,15 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         return unternehmen;
     }
 
-    public List<Unternehmen> findAllSpielbar() {
+    @Override
+    public List<Unternehmen> findAll() {
         Transaction tx = null;
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Unternehmen where unternehmenArt = :ist_spielbar";
+            String queryString = "from Unternehmen WHERE spiel =: spiel";
             Query query = session.createQuery(queryString);
-            query.setParameter("ist_spielbar", Unternehmen.UNTERNEHMEN_TEILNEHMER);
+            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
             for (final Object o : query.list()) {

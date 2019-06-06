@@ -45,7 +45,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     @FXML
     private void initialize() {
         model = UnternehmenRepository.getInstanz();
-        unternehmenInitial = new ArrayList<>(model.findAllSpielbar());
+        unternehmenInitial = new ArrayList<>(model.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         unternehmenObserverableList = FXCollections.observableArrayList(unternehmenInitial);
         lstVwUnternehmen.setItems(unternehmenObserverableList);
         lstVwUnternehmen.setCellFactory(new UnternehmenCellFactory());

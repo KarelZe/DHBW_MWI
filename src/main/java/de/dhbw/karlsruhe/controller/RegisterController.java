@@ -2,13 +2,13 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
+import de.dhbw.karlsruhe.helper.LogoutHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
-import de.dhbw.karlsruhe.helper.LogoutHelper;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -124,7 +124,7 @@ public class RegisterController implements ControlledScreen {
     @FXML
     private void initialize() {
         // Initialisiere ComboBox aus Modell
-        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
+        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
 

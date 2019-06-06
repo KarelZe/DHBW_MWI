@@ -111,7 +111,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         teilnehmer = AktuelleSpieldaten.getTeilnehmer();
         vornameFeld.setText(teilnehmer.getVorname());
         nachnameFeld.setText(teilnehmer.getNachname());
-        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
+        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
         unternehmenComboBox.setItems(unternehmenList);
         unternehmenComboBox.setValue(teilnehmer.getUnternehmen());

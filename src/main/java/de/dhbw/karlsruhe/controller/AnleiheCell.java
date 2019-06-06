@@ -69,7 +69,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
         txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
         txtEmissionsspread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setEmissionszins(Double.valueOf(newValue)));
 
-        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findAllSpielbar());
+        ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());

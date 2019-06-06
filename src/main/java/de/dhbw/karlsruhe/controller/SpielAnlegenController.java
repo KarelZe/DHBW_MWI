@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class SpielAnlegenController implements ControlledScreen {
@@ -74,7 +75,7 @@ public class SpielAnlegenController implements ControlledScreen {
         insertTransaktionsArtenInDBIfNotExists();
         insertAdminInDB();
         insertUnternehmenInDB();
-        insertWertpapiereInDb();
+        insertWertpapiereInDB();
 
     }
     /**
@@ -99,7 +100,7 @@ public class SpielAnlegenController implements ControlledScreen {
         Optional<WertpapierArt> optional;
         //Aktie
         optional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_AKTIE);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             WertpapierArt aktie = new WertpapierArt();
             aktie.setId(WertpapierArt.WERTPAPIER_AKTIE);
             aktie.setName(WertpapierArt.WERTPAPIER_AKTIE_NAME);
@@ -108,7 +109,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
         //Anleihe
         optional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_ANLEIHE);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             WertpapierArt anleihe = new WertpapierArt();
             anleihe.setId(WertpapierArt.WERTPAPIER_ANLEIHE);
             anleihe.setName(WertpapierArt.WERTPAPIER_ANLEIHE_NAME);
@@ -117,7 +118,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
         //Festgeld
         optional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_FESTGELD);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             WertpapierArt festgeld = new WertpapierArt();
             festgeld.setId(WertpapierArt.WERTPAPIER_FESTGELD);
             festgeld.setName(WertpapierArt.WERTPAPIER_FESTGELD_NAME);
@@ -126,7 +127,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
         //ETF (auf GMAX)
         optional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_ETF);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             WertpapierArt etf = new WertpapierArt();
             etf.setId(WertpapierArt.WERTPAPIER_ETF);
             etf.setName(WertpapierArt.WERTPAPIER_ETF_NAME);
@@ -138,7 +139,7 @@ public class SpielAnlegenController implements ControlledScreen {
         Optional<TransaktionsArt> optional;
         //Kaufen
         optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             TransaktionsArt kaufen = new TransaktionsArt();
             kaufen.setId(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
             kaufen.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_KAUFEN_NAME);
@@ -147,7 +148,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
         //Verkaufen
         optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_VERKAUFEN);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             TransaktionsArt verkaufen = new TransaktionsArt();
             verkaufen.setId(TransaktionsArt.TRANSAKTIONSART_VERKAUFEN);
             verkaufen.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_VERKAUFEN_NAME);
@@ -156,7 +157,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
         //Zinsgutschrift
         optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
-        if(!optional.isPresent()) {
+        if (optional.isEmpty()) {
             TransaktionsArt zinsgutschrift = new TransaktionsArt();
             zinsgutschrift.setId(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
             zinsgutschrift.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_NAME);
@@ -182,54 +183,41 @@ public class SpielAnlegenController implements ControlledScreen {
         gmax.setName("GMAX");
         gmax.setUnternehmenArt(Unternehmen.UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT);
         gmax.setSpiel(AktuelleSpieldaten.getSpiel());
-        unternehmenRepository.getInstanz().save(gmax);
+        unternehmenRepository.save(gmax);
 
         //Bank (für Festgeld)
         Unternehmen bank = new Unternehmen();
         bank.setFarbe(ColorHelper.color2String(Color.BLACK));
         bank.setName("Bank");
-        bank.setUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER);
+        bank.setUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
         bank.setSpiel(AktuelleSpieldaten.getSpiel());
         unternehmenRepository.save(bank);
     }
 
-    private void insertWertpapiereInDb() {
+    private void insertWertpapiereInDB() {
         //ETF auf GMAX
         Wertpapier etf = new Wertpapier();
-        etf.setEmission_periode(0);
-        etf.setName("ETF auf GMAX");
+        etf.setName("ETF");
         Optional<WertpapierArt> etfOptional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_ETF);
-        if(etfOptional.isPresent()) {
-            etf.setWertpapierArt(etfOptional.get());
-        } else { //die WertpapierArt konnte nicht aus Datenbank gelesen werden
-            //ToDo: Exception?
-        }
-        Optional<Unternehmen> gmaxOptional = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT);
-        if(gmaxOptional.isPresent()) {
-            etf.setUnternehmen(gmaxOptional.get());
-        }
-        else { //das Unternehmen konnte nicht aus Datenbank gelesen werden
-            //ToDo: Exception?
-        }
-        wertpapierRepository.save(etf);
+        etfOptional.ifPresent(etf::setWertpapierArt);
+
+        List<Unternehmen> etfUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT);
+        if (etfUnternehmen.size() >= 1)
+            etf.setUnternehmen(etfUnternehmen.get(0));
 
         //Festgeld
         Wertpapier festgeld = new Wertpapier();
         festgeld.setEmission_periode(0);
         festgeld.setName("Festgeld");
-        Optional<WertpapierArt> festgeldOptional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_FESTGELD);
-        if(festgeldOptional.isPresent()) {
-            etf.setWertpapierArt(festgeldOptional.get());
-        } else { //die WertpapierArt konnte nicht aus Datenbank gelesen werden
-            //ToDo: Exception?
-        }
-        Optional<Unternehmen> bankOptional = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
-        if(bankOptional.isPresent()) {
-            etf.setUnternehmen(bankOptional.get());
-        }
-        else { //das Unternehmen konnte nicht aus Datenbank gelesen werden
-            //ToDo: Exception?
-        }
 
+        Optional<WertpapierArt> festgeldWpArt = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_FESTGELD);
+        festgeldWpArt.ifPresent(etf::setWertpapierArt);
+
+        List<Unternehmen> festgeldUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
+        if (festgeldUnternehmen.size() >= 1)
+            etf.setUnternehmen(festgeldUnternehmen.get(0));
+
+        // Speichere GMAX und Festgeld ab.
+        wertpapierRepository.save(List.of(etf, festgeld));
     }
 }

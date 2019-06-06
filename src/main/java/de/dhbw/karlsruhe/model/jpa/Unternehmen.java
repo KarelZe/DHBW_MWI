@@ -35,6 +35,7 @@ public class Unternehmen {
     }
 
 
+
     public long getId() {
         return id;
     }
@@ -63,8 +64,8 @@ public class Unternehmen {
         return unternehmenArt;
     }
 
-    public void setUnternehmenArt(int ist_spielbar) {
-        this.unternehmenArt = ist_spielbar;
+    public void setUnternehmenArt(int unternehmensArt) {
+        this.unternehmenArt = unternehmensArt;
     }
 
     public Spiel getSpiel() {
@@ -81,7 +82,8 @@ public class Unternehmen {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", farbe='" + farbe + '\'' +
-                ", ist_spielbar=" + unternehmenArt +
+                ", unternehmenArt=" + unternehmenArt +
+                ", spiel=" + spiel +
                 '}';
     }
 }
