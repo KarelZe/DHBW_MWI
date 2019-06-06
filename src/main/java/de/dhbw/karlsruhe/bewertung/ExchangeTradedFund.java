@@ -1,8 +1,12 @@
 package de.dhbw.karlsruhe.bewertung;
 
-public class ExchangeTradedFund implements Portfolioposition {
+import de.dhbw.karlsruhe.model.jpa.Kurs;
+import de.dhbw.karlsruhe.model.jpa.Periode;
+import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+
+public class ExchangeTradedFund implements Bewertungsmodell {
     @Override
-    public double getPreis() {
-        return 0;
+    public Kurs bewerte(Periode periode, Wertpapier wertpapier) {
+        return null;
     }
 }
