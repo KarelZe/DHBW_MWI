@@ -4,7 +4,7 @@ import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
-public class Festgeld implements Bewertungsmodell {
+public class Aktienmodell implements Bewertungsmodell {
     @Override
     public Kurs bewerte(Periode periode, Wertpapier wertpapier) {
         return null;
