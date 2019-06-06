@@ -7,14 +7,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.Iterator;
-
 public class RolleRepository {
 
     public static Rolle findById(long id) {
         Transaction tx = null;
         Rolle rolle = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
             String queryString = "from Rolle WHERE id =: id";
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);

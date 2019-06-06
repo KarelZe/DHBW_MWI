@@ -7,17 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxUnternehmen" xmlns="http://javafx.com/javafx/8.0.172-ea"
       fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
-    <children>
-        <Button onAction="#doHinzufuegen" text="Neue Unternehmen anlegen"/>
-        <Label fx:id="lblUnternehmen" text="Unternehmen">
-            <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </VBox.margin>
-        </Label>
-        <ListView fx:id="lstVwUnternehmen" style="-fx-control-inner-background-alt: -fx-control-inner-background"
-                  prefWidth="500"/>
-        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-                mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
-        </Button>
-    </children>
+    <Button onAction="#doHinzufuegen" text="Neue Unternehmen anlegen"/>
+    <Label fx:id="lblUnternehmen" text="Unternehmen">
+        <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </VBox.margin>
+    </Label>
+    <ListView fx:id="lstVwUnternehmen" style="-fx-control-inner-background-alt: -fx-control-inner-background"
+              prefWidth="500"/>
+    <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
+            mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
+    </Button>
 </VBox>

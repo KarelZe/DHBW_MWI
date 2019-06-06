@@ -43,6 +43,7 @@ public class SpielRepository {
         }
     }
 
+    @Deprecated
     public static void loescheSpielUeberall(Spiel spiel){
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {

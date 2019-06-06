@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.controller.factory.UnternehmenCellFactory;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.collections.FXCollections;

@@ -33,7 +33,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     private Teilnehmer teilnehmer;
 
     private CrudRepository<Unternehmen> model;
-    private ScreenController screenController;
 
 
     @FXML
@@ -122,6 +121,5 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
-        screenController = screenPage;
     }
 }

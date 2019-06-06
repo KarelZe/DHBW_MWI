@@ -1,5 +1,7 @@
-package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller.fragments;
 
+import de.dhbw.karlsruhe.controller.factory.AktienPeriodeCellFactory;
+import de.dhbw.karlsruhe.controller.factory.AnleihePeriodeCellFactory;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
@@ -34,7 +36,7 @@ public class PeriodeTab extends Tab {
     private long periodenId;
 
 
-    PeriodeTab(String text, long periodenId) {
+    public PeriodeTab(String text, long periodenId) {
         super();
         this.periodenId = periodenId;
         try {

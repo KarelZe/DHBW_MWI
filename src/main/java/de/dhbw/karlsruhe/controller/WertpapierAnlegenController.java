@@ -1,5 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.controller.factory.AktienCellFactory;
+import de.dhbw.karlsruhe.controller.factory.AnleiheCellFactory;
 import de.dhbw.karlsruhe.model.WertpapierRepository;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
@@ -82,14 +84,14 @@ public class WertpapierAnlegenController implements ControlledScreen {
     public void setScreenParent(ScreenController screenPage) {
     }
 
-    public void doHinzufuegenAnleihe(ActionEvent actionEvent) {
+    public void doHinzufuegenAnleihe() {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_ANLEIHE, WertpapierArt.WERTPAPIER_ANLEIHE_NAME);
         Wertpapier wp = new Wertpapier();
         wp.setWertpapierArt(wpA);
         anleiheObserverableList.add(wp);
     }
 
-    public void doHinzufuegenAktie(ActionEvent actionEvent) {
+    public void doHinzufuegenAktie() {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_AKTIE, WertpapierArt.WERTPAPIER_AKTIE_NAME);
         Wertpapier wp = new Wertpapier();
         wp.setWertpapierArt(wpA);

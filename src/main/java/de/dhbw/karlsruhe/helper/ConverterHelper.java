@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 public class ConverterHelper {
 
     //+++++++++++++++UNTERNEHMEN++++++++++++++++++++++
-    private StringConverter<Unternehmen> unternehmensConverter = new StringConverter<Unternehmen>() {
+    private StringConverter<Unternehmen> unternehmensConverter = new StringConverter<>() {
         @Override
         public String toString(Unternehmen unternehmen) {
             return unternehmen != null ? unternehmen.getName() + " [id: " + unternehmen.getId() + "]" : "";
@@ -21,14 +21,14 @@ public class ConverterHelper {
         }
     };
     //+++++++++++++++SPIELE++++++++++++++++++++++
-    private StringConverter<Spiel> spieleConverter = new StringConverter<Spiel>() {
+    private StringConverter<Spiel> spieleConverter = new StringConverter<>() {
         @Override
         public String toString(Spiel spiel) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
             if (spiel != null) {
                 StringBuilder sbAnzeige = new StringBuilder("Spiel " + spiel.getId());
                 if (spiel.getErstellungsdatum() != null) {
-                    sbAnzeige.append(" (erstellt am " + simpleDateFormat.format(spiel.getErstellungsdatum()) + ")");
+                    sbAnzeige.append(" (erstellt am ").append(simpleDateFormat.format(spiel.getErstellungsdatum())).append(")");
                 }
                 if (spiel.getIst_aktiv() == Spiel.SPIEL_AKTIV) {
                     sbAnzeige.append(" (AKTIV)");

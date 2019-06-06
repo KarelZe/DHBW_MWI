@@ -35,10 +35,10 @@ public class PeriodeAnlegenController implements ControlledScreen {
 
     @FXML
     private void doPeriodeAnlegen(ActionEvent event) {
-        Double ordergebuehr, kapitalzins;
+        double ordergebuehr, kapitalzins;
         try {
-            ordergebuehr = Double.valueOf(txtOrder.getText());
-            kapitalzins = Double.valueOf(txtZins.getText());
+            ordergebuehr = Double.parseDouble(txtOrder.getText());
+            kapitalzins = Double.parseDouble(txtZins.getText());
         }catch (NumberFormatException e){
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);

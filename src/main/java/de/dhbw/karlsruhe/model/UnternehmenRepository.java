@@ -23,7 +23,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return instanz von UnternehmensRespository
      */
     public static UnternehmenRepository getInstanz() {
         if (UnternehmenRepository.instanz == null) {

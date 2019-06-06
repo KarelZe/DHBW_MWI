@@ -2,7 +2,6 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
-import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,7 +23,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return instanz von TransfaktionsArtRepository
      */
     public static TransaktionsArtRepository getInstanz() {
         if (TransaktionsArtRepository.instanz == null) {

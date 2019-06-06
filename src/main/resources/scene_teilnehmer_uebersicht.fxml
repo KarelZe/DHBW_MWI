@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.dhbw.karlsruhe.controller.PasswortCellFactory?>
+<?import de.dhbw.karlsruhe.controller.factory.PasswortCellFactory?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,33 +17,31 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
         <RowConstraints/>
     </rowConstraints>
-    <children>
-        <TableView fx:id="tvTeilnehmer" editable="true" prefHeight="200.0" prefWidth="200.0">
-            <columns>
-                <TableColumn fx:id="tblColId" prefWidth="75.0" text="Id">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="Id"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="tblColVorname" prefWidth="75.0" text="Vorname">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="Vorname"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="tblColNachname" prefWidth="75.0" text="Nachname">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="Nachname"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="tblColPasswort" prefWidth="163.0" text="Passwort">
-                    <cellFactory>
-                        <PasswortCellFactory/>
-                    </cellFactory>
-                </TableColumn>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
-    </children>
+    <TableView fx:id="tvTeilnehmer" editable="true" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+            <TableColumn fx:id="tblColId" prefWidth="75.0" text="Id">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Id"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="tblColVorname" prefWidth="75.0" text="Vorname">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Vorname"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="tblColNachname" prefWidth="75.0" text="Nachname">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Nachname"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="tblColPasswort" prefWidth="163.0" text="Passwort">
+                <cellFactory>
+                    <PasswortCellFactory/>
+                </cellFactory>
+            </TableColumn>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
 </GridPane>

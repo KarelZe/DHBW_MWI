@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller.fragments;
 
 import de.dhbw.karlsruhe.helper.ColorHelper;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
@@ -22,7 +22,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
      * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
      * https://stackoverflow.com/a/31988574.
      */
-    UnternehmenCell() {
+    public UnternehmenCell() {
         super();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_unternehmen.fxml"));

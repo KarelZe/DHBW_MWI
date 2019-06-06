@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller.fragments;
 
 import de.dhbw.karlsruhe.helper.ConstantsHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;

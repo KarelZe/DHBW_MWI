@@ -1,4 +1,4 @@
-package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller.fragments;
 
 import de.dhbw.karlsruhe.helper.NumberHelper;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
@@ -11,24 +11,31 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class AktiePeriodeCell extends ListCell<Kurs> {
+/**
+ * Implementierung der Klasse orientiert sich an // https://stackoverflow.com/questions/47511132/javafx-custom-listview
+ */
+public class AnleihePeriodeCell extends ListCell<Kurs> {
 
     @FXML
     private Label lblName;
     @FXML
-    private TextField txtKurs;
+    private TextField txtSpread;
+    @FXML
+    private TextField txtKursInsolvenz;
 
+
+    // TODO: Error handling?
 
     /**
      * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
      * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
      * https://stackoverflow.com/a/31988574.
      */
-    AktiePeriodeCell() {
+    public AnleihePeriodeCell() {
         super();
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_aktie_periode.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_anleihe_periode.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -43,7 +50,9 @@ public class AktiePeriodeCell extends ListCell<Kurs> {
 
         if (kurs != null) {
             lblName.setText(kurs.getWertpapier().getName());
-            txtKurs.setText(String.valueOf(kurs.getKurs()));
+            // Spread ist nullable in DB
+            txtSpread.setText(kurs.getSpread() == null ? "0" : kurs.getSpread().toString());
+            txtKursInsolvenz.setText(String.valueOf(kurs.getKurs()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -54,9 +63,7 @@ public class AktiePeriodeCell extends ListCell<Kurs> {
 
     @FXML
     private void initialize() {
-        txtKurs.textProperty().addListener((observable, oldValue, newValue) -> {
-            getItem().setKurs(NumberHelper.parseDouble(newValue, 0));
-                }
-        );
+        txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(NumberHelper.parseDouble(newValue, 0)));
+        txtKursInsolvenz.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(NumberHelper.parseDouble(newValue, 0)));
     }
 }

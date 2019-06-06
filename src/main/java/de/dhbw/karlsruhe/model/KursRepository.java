@@ -23,7 +23,7 @@ public class KursRepository implements CrudRepository<Kurs> {
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return Instanz von Kurs
      */
     public static KursRepository getInstanz() {
         if (KursRepository.instanz == null) {

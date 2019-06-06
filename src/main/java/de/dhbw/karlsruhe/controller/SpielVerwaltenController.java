@@ -49,15 +49,9 @@ public class SpielVerwaltenController implements ControlledScreen {
         }
     }
 
-    // TODO: Implementierung noch vorzunehmen
     @FXML
-    private void doSelektiertesSpielLoeschen() throws  UnsupportedOperationException{
-        try {
-            SpielRepository.deleteSpiel(cmbSpiele.getValue());
-        }
-        catch (Exception e){
-
-        }
+    private void doSelektiertesSpielLoeschen() {
+        SpielRepository.deleteSpiel(cmbSpiele.getValue());
     }
 
     @Override

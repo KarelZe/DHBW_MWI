@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.controller.fragments.PeriodeTab;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
 import de.dhbw.karlsruhe.model.jpa.Periode;
@@ -13,12 +14,10 @@ public class PeriodenDetailController implements ControlledScreen {
 
 
     public TabPane tbPerioden;
-    private ScreenController screenController;
     private ArrayList<Periode> perioden;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
-        screenController = screenPage;
     }
 
 

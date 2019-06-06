@@ -20,9 +20,7 @@ public class HibernateHelper {
 
         SessionFactoryBuilder sessionFactoryBuilder = metadata.getSessionFactoryBuilder();
 
-        SessionFactory sessionFactory = sessionFactoryBuilder.build();
-
-        return sessionFactory;
+        return sessionFactoryBuilder.build();
     }
 
     public static SessionFactory getSessionFactory() {

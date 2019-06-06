@@ -63,7 +63,6 @@ public class RegisterController implements ControlledScreen {
                     alert.setTitle("Benutzername");
                     alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
                     alert.showAndWait();
-                    return;
                 }
         );
 

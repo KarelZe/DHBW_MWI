@@ -5,14 +5,12 @@
 <fx:root xmlns:fx="http://javafx.com/fxml" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx">
     <graphic>
         <HBox>
-            <children>
-                <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1"
-                           GridPane.rowIndex="1"/>
-                <ComboBox fx:id="cmbUnternehmen" prefWidth="150.0" GridPane.columnIndex="2"
-                          GridPane.rowIndex="1"/>
-                <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="3"
-                        GridPane.rowIndex="1"/>
-            </children>
+            <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
+            <ComboBox fx:id="cmbUnternehmen" prefWidth="150.0" GridPane.columnIndex="2"
+                      GridPane.rowIndex="1"/>
+            <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="3"
+                    GridPane.rowIndex="1"/>
         </HBox>
     </graphic>
 </fx:root>

@@ -7,11 +7,9 @@
 <fx:root xmlns:fx="http://javafx.com/fxml" type="javafx.scene.control.TableCell" xmlns="http://javafx.com/javafx">
     <graphic>
         <HBox>
-            <children>
-                <Button fx:id="btnPasswort" mnemonicParsing="false" text="Passwort zurücksetzen"
-                        GridPane.columnIndex="3"
-                        GridPane.rowIndex="1"/>
-            </children>
+            <Button fx:id="btnPasswort" mnemonicParsing="false" text="Passwort zurücksetzen"
+                    GridPane.columnIndex="3"
+                    GridPane.rowIndex="1"/>
         </HBox>
     </graphic>
 </fx:root>

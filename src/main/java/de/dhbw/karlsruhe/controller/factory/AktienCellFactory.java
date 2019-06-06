@@ -1,5 +1,6 @@
-package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller.factory;
 
+import de.dhbw.karlsruhe.controller.fragments.AktienCell;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

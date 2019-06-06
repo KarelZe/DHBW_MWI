@@ -23,7 +23,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return instanz von Periode
      */
     public static PeriodenRepository getInstanz() {
         if (PeriodenRepository.instanz == null) {

@@ -1,5 +1,6 @@
-package de.dhbw.karlsruhe.controller;
+package de.dhbw.karlsruhe.controller.factory;
 
+import de.dhbw.karlsruhe.controller.fragments.PasswortCell;
 import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;

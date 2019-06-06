@@ -23,7 +23,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return instanz von WertpapierRepository
      */
     public static WertpapierRepository getInstanz() {
         if (WertpapierRepository.instanz == null) {

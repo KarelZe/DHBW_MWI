@@ -5,26 +5,22 @@
 <?import javafx.scene.layout.VBox?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab"
          xmlns="http://javafx.com/javafx/8.0.172-ea">
-    <content>
-        <VBox fx:id="vboxPeriode">
-            <children>
-                <Label fx:id="lblAktie" text="Aktie">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </VBox.margin>
-                </Label>
-                <ListView fx:id="lstVwAktie" style="-fx-control-inner-background-alt: -fx-control-inner-background"/>
-                <Label fx:id="lblAnleihe" text="Anleihe">
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </VBox.margin>
-                </Label>
-                <ListView fx:id="lstVwAnleihe" style="-fx-control-inner-background-alt: -fx-control-inner-background">
-                </ListView>
-                <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-                        mnemonicParsing="false" text="Speichern">
-                </Button>
-            </children>
-        </VBox>
-    </content>
+    <VBox fx:id="vboxPeriode">
+        <Label fx:id="lblAktie" text="Aktie">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Label>
+        <ListView fx:id="lstVwAktie" style="-fx-control-inner-background-alt: -fx-control-inner-background"/>
+        <Label fx:id="lblAnleihe" text="Anleihe">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </Label>
+        <ListView fx:id="lstVwAnleihe" style="-fx-control-inner-background-alt: -fx-control-inner-background">
+        </ListView>
+        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
+                mnemonicParsing="false" text="Speichern">
+        </Button>
+    </VBox>
 </fx:root>

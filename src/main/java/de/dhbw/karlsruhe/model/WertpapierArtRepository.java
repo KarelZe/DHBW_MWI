@@ -1,7 +1,6 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -24,7 +23,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
      * Methode gibt Instanz des Modells zurück.
      * Implementierung als Singleton Pattern.
      *
-     * @return
+     * @return Instanz von WertpapierArtRepository
      */
     public static WertpapierArtRepository getInstanz() {
         if (WertpapierArtRepository.instanz == null) {

@@ -2,7 +2,6 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.RolleRepository;
 import de.dhbw.karlsruhe.model.SpielRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
@@ -11,6 +10,7 @@ import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.util.Optional;
@@ -19,6 +19,7 @@ import java.util.Optional;
 public class LoginController implements ControlledScreen {
 
 
+    public Button btnTeilnehmerBearbeiten;
     @FXML
     private TextField txtBenutzername, txtPasswort;
 
@@ -87,15 +88,15 @@ public class LoginController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
     }
 
-    public void doWertpapierAnlegen(ActionEvent actionEvent) {
+    public void doWertpapierAnlegen() {
         screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
     }
 
-    public void doTeilnehmerUebersicht(ActionEvent actionEvent) {
+    public void doTeilnehmerUebersicht() {
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
     }
 
-    public void doSpielAnlegen(ActionEvent actionEvent) {
+    public void doSpielAnlegen() {
         screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
     }
 
@@ -115,12 +116,12 @@ public class LoginController implements ControlledScreen {
         }
     }
 
-    public void doPeriodeAnlegen(ActionEvent event) {
+    public void doPeriodeAnlegen() {
         screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
     }
 
 
-    public void doPeriodenPflegenDetail(ActionEvent event) {
+    public void doPeriodenPflegenDetail() {
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
     }
 }
