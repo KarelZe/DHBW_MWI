@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt, a4paper]{article}
 \usepackage[titles]{tocloft}
 \usepackage{xpatch}
 \usepackage{etoolbox}
@@ -20,7 +20,7 @@
 pdftitle={Fachkonzept für die Bewertung von Wertpapieren},
 pdfkeywords={Anleihebewertung, Aktienbewertung}
 ]{hyperref}
-\usepackage[raggedright]{titlesec} % Vorgabe für Titelformatierung
+% \usepackage[raggedright]{titlesec} % Vorgabe für Titelformatierung
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{acronym}
@@ -99,21 +99,23 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 
 \maketitle
 
-\section{Überblick}
+\section{Überblick*}
 Dieses Fachkonzept beschreibt die Bewertung von Wertpapieren in der zu erstellenden Software \textit{Anika}. 
 Dabei werden die verwendeten Bewertungsmodelle und notwendige Prämissen eingeführt.
 
-Eine Bewertung von Wertpapieren ist für die
+Da die Software \textit{Anika} kein dediziertes Handelssystem implementiert, das Handelsaktivitäten einzelner Marktteilnehmer beispielsweise Kauforders der Planspielteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden anwendungsweit rechnerische Kurswerte verwendet. 
 
-Die Buchung von Transaktionen, die im Zusammenhang mit Wertpapieren stehen, werden als Teils des Fachkonzepts Buchung beschrieben.
-% Kauf und Verkauf welcher Kurs?
+Die Bewertung als auch der Handel von Finanzanlagen erfolgt deshalb zu einem rechnerischen Kurs, der auf Grundlage finanzmathematischer Modelle ermittelt wird. Insofern ist die Modellierung des rechnerischen Werts einer Finanzanlage eine zentrale Funktionalität der Software.
 
-\section{Prämissen}
-Für die Bewertung von Wertpapieren 
+Die Software \textit{Anika} unterstützt dabei die Bepreisung folgender Finanzanlagen:
+\begin{enumerate}
+	\item Aktien
+	\item Floating Rate Notes
+	\item Exchange Traded Funds
+	\item Tagesgeld
+\end{enumerate}
 
-
-
-
+Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
 
 \section{Zeitpunkt und Durchführung der Bewertung}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung}
@@ -145,6 +147,8 @@ Eine Gewichtung der Faktoren mit Einfluss auf den Aktienkurs ist in der Anwendun
 
 Aktienkurse der Planspielunternehmen werden \textit{ex post} je Planspielunternehmen und Periode ermittelt. Die durch die Software \textit{TOPSIM} ermittelten Aktienkurse sind um Dividendenausschüttungen bereingt. Kapitalmaßnahmen mit Einfluss auf den Aktienkurs erfolgen darüber hinaus nicht, womit eine unmittelbare Verwendung in der Software \textit{Anika} möglich ist. Nachfolgend wird beschrieben, wie eine Erfassung der Aktienkurse erfolgen soll.
 
+\subsection{Prämisse}
+
 \subsection{Erfassung von Aktienkursen}
 
 
@@ -166,6 +170,10 @@ Hierbei ist insbesondere eine Bewertung der An
 
 Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Periode Null angenommen.
 
+Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
+
+\subsection{Berechnung von Forward Rates}
+
 \section{Bewertung des Aktien Exchange Traded Funds}
 
 Für die Bewertung des ETFs wird dabei eine vollständige Replizierung des Indizes unterstellt.
@@ -174,7 +182,7 @@ Dies bedeutet, dass der ETF der Entwicklung des zugrundeliegenden Indizes 1:1 fo
 
 Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Indizes durch die Anwendung erforderlich.
 
-\subsection{Berechnung des \textit{GMAX} Index}
+\subsection{Berechnung des {GMAX} Index}
 
 \subsection{Speicherung von ETF Kursen}
 
@@ -186,4 +194,14 @@ Siehe \dots
 % Das Grundsätzlich ist auch eine Bewert
 % Weiterhin ist . Die propagierten Modelle sind dabei geeignet, um eine 
 
+% Kurz beschreiben
+
+\section{Bewertung von Festgeldern}
+
+% Verfügung über Festgelder @ Raphaels Fachkonzept. Ist es nicht sinnvoller, das Festgeld als Tagesgeld zu bezeichnen, wegen der jederzeitigen Verfügung? -> Auf Konsistenz zu Code achten. Faktisch wird aber verzinst zu Periodenabhängigem Kapitalmarktzins.
+
+
+Festgelder werden zum Nennbetrag bewertet.
+
+% TODO: Insolvenzfall für alle Assets betrachten.
 \end{document}
