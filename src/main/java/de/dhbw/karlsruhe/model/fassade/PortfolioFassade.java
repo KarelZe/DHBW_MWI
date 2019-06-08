@@ -4,6 +4,7 @@ import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,16 @@ public class PortfolioFassade {
     }
 
     public List<Portfolioposition> getPortfoliopositionen(long teilnehmerId, long periodenId) {
+        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
+        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+
         // TODO: Muss noch implementiert werden.
-        return null;
+        // https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-
+        // Map<Integer,Portfolioposition> ergebnis = buchungen.stream().collect(groupingBy(w));
+        // filtere auf Periode
+        // gruppiere buchungen
+        // buchungen.stream();
+        ArrayList<Portfolioposition> portfoliopositionen = new ArrayList<>();
+        return portfoliopositionen;
     }
 }
