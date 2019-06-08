@@ -11,8 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.Alert;
+import java.util.Optional;
 import java.util.List;
+import javafx.scene.control.ButtonType;
 
 public class SpielVerwaltenController implements ControlledScreen {
 
@@ -49,9 +51,28 @@ public class SpielVerwaltenController implements ControlledScreen {
         }
     }
 
+    //ToDo: Nach Löschvorgang aktivies Spiel automatisch neu setzen?
     @FXML
     private void doSelektiertesSpielLoeschen() {
-        SpielRepository.deleteSpiel(cmbSpiele.getValue());
+        Spiel zuLoeschendesSpiel=cmbSpiele.getValue();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Spiel löschen?");
+        alert.setContentText("Soll das Spiel mit der ID "+zuLoeschendesSpiel.getId()+" unwiderruflich gelöscht werden?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            SpielRepository.deleteSpiel(zuLoeschendesSpiel);
+
+            List<Spiel> alleSpiele = SpielRepository.getAlleSpiele();
+            ObservableList<Spiel> spieleListe = FXCollections.observableArrayList(alleSpiele);
+            cmbSpiele.setItems(spieleListe);
+
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Spiel löschen erfolgreich");
+            alert.setContentText("Das Spiel mit der ID "+zuLoeschendesSpiel.getId()+" wurde gelöscht.");
+            alert.showAndWait();
+        }
+
     }
 
     @Override
