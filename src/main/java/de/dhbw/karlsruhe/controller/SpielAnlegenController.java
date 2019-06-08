@@ -211,7 +211,7 @@ public class SpielAnlegenController implements ControlledScreen {
         festgeld.setName("Festgeld");
 
         Optional<WertpapierArt> festgeldWpArt = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_FESTGELD);
-        festgeldWpArt.ifPresent(etf::setWertpapierArt);
+        festgeldWpArt.ifPresent(festgeld::setWertpapierArt);
 
         List<Unternehmen> festgeldUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
         if (festgeldUnternehmen.size() >= 1)

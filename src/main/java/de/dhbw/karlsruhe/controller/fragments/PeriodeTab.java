@@ -1,9 +1,11 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
+import de.dhbw.karlsruhe.bewertung.Periodenabschluss;
 import de.dhbw.karlsruhe.controller.factory.AktienPeriodeCellFactory;
 import de.dhbw.karlsruhe.controller.factory.AnleihePeriodeCellFactory;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
+import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,18 +29,20 @@ public class PeriodeTab extends Tab {
     public ListView<Kurs> lstVwAnleihe;
     @FXML
     public Button btnSpeichern;
+    @FXML
+    public Button btnAbschliessen;
 
     private ObservableList<Kurs> anleiheObserverableList = FXCollections.observableArrayList();
     private ArrayList<Kurs> anleiheInitial = new ArrayList<>();
     private ObservableList<Kurs> aktieObserverableList = FXCollections.observableArrayList();
     private ArrayList<Kurs> aktieInitial = new ArrayList<>();
     private KursRepository model;
-    private long periodenId;
+    private Periode periode;
 
 
-    public PeriodeTab(String text, long periodenId) {
+    public PeriodeTab(String text, Periode periode) {
         super();
-        this.periodenId = periodenId;
+        this.periode = periode;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("tab_periode.fxml"));
             loader.setRoot(this);
@@ -54,10 +58,11 @@ public class PeriodeTab extends Tab {
     private void initialize() {
         setContent(vboxPeriode);
         btnSpeichern.setOnAction(event -> doSpeichern());
+        btnAbschliessen.setOnAction(event -> doAbschliessen());
 
         // Frage alle Wertpapiere in DB ab und filtere nach Typ
         model = KursRepository.getInstanz();
-        ArrayList<Kurs> kurs = new ArrayList<>(model.findByPeriodenId(periodenId));
+        ArrayList<Kurs> kurs = new ArrayList<>(model.findByPeriodenId(periode.getId()));
         aktieInitial = new ArrayList<>();
         anleiheInitial = new ArrayList<>();
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).forEach(k -> aktieInitial.add(k));
@@ -78,5 +83,13 @@ public class PeriodeTab extends Tab {
         model.save(aktieNachAenderung);
         ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
         model.save(anleiheNachAenderung);
+    }
+
+    private void doAbschliessen() {
+
+        Periodenabschluss periodenabschluss = new Periodenabschluss();
+        periodenabschluss.bewertePeriode(periode);
+
+        // TODO: Führe Buchungen durch.
     }
 }
