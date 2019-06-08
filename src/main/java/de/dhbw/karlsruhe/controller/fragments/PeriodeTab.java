@@ -88,7 +88,7 @@ public class PeriodeTab extends Tab {
     private void doAbschliessen() {
 
         Periodenabschluss periodenabschluss = new Periodenabschluss();
-        periodenabschluss.bewertePeriode(periode);
+        periodenabschluss.periodeAbschliessen(periode);
 
         // TODO: Führe Buchungen durch.
     }
