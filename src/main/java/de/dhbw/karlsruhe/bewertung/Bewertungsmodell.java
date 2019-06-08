@@ -1,6 +1,5 @@
 package de.dhbw.karlsruhe.bewertung;
 
-import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
@@ -13,7 +12,7 @@ public interface Bewertungsmodell {
      * @param wertpapier Wertpapier, das zu bewerten ist.
      * @return berechneter Kurs oder null.
      */
-    Kurs bewerte(Periode periode, Wertpapier wertpapier);
+    double bewerte(Periode periode, Wertpapier wertpapier);
 
 
 }

@@ -19,8 +19,9 @@
         </Label>
         <ListView fx:id="lstVwAnleihe" style="-fx-control-inner-background-alt: -fx-control-inner-background">
         </ListView>
-        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-                mnemonicParsing="false" text="Speichern">
-        </Button>
+        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER"
+                mnemonicParsing="false" text="Speichern"/>
+        <Button fx:id="btnAbschliessen" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
+                mnemonicParsing="false" text="Periode abschließen"/>
     </VBox>
 </fx:root>

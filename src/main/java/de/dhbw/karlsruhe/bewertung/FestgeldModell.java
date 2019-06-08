@@ -1,6 +1,5 @@
 package de.dhbw.karlsruhe.bewertung;
 
-import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
@@ -14,9 +13,7 @@ public class FestgeldModell implements Bewertungsmodell {
      * @return Kurs des Festgelds
      */
     @Override
-    public Kurs bewerte(Periode periode, Wertpapier wertpapier) {
-        Kurs kurs = new Kurs(periode, wertpapier);
-        kurs.setKurs(100.00d);
-        return kurs;
+    public double bewerte(Periode periode, Wertpapier wertpapier) {
+        return 100.00d;
     }
 }

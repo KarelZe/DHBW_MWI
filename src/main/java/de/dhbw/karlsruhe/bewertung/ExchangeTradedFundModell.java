@@ -22,13 +22,10 @@ public class ExchangeTradedFundModell implements Bewertungsmodell {
      * @return Kurs des ETFs
      */
     @Override
-    public Kurs bewerte(Periode periode, Wertpapier wertpapier) {
+    public double bewerte(Periode periode, Wertpapier wertpapier) {
         List<Kurs> kurseInPeriode = KursRepository.getInstanz().findByPeriodenId(periode.getId());
         List<Kurs> kurseInIndex = kurseInPeriode.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).collect(Collectors.toList());
         OptionalDouble indexkurs = kurseInIndex.stream().mapToDouble(Kurs::getKurs).average();
-        Kurs kurs = new Kurs(periode, wertpapier);
-        indexkurs.ifPresent(kurs::setKurs);
-
-        return kurs;
+        return indexkurs.orElse(100.00d);
     }
 }

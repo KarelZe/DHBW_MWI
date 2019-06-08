@@ -69,4 +69,15 @@ public class Kurs {
     public void setSpread(Double spread) {
         this.spread = spread;
     }
+
+    @Override
+    public String toString() {
+        return "Kurs{" +
+                "id=" + id +
+                ", periode=" + periode +
+                ", wertpapier=" + wertpapier +
+                ", kurs=" + kurs +
+                ", spread=" + spread +
+                '}';
+    }
 }
