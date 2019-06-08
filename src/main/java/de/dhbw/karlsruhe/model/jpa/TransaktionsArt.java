@@ -13,11 +13,12 @@ public class TransaktionsArt {
 
     public static final long TRANSAKTIONSART_KAUFEN = 1;
     public static final long TRANSAKTIONSART_VERKAUFEN = 2;
-    public static final long TRANSAKTIONSART_ZINSGUTSCHRIFT = 3;
+    public static final long TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER = 3;
+    public static final long TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD = 4;
     public static final String TRANSAKTIONSART_KAUFEN_NAME = "Kaufen";
     public static final String TRANSAKTIONSART_VERKAUFEN_NAME = "Verkaufen";
-    public static final String TRANSAKTIONSART_ZINSGUTSCHRIFT_NAME = "Zinsgutschrift";
-
+    public static final String TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER_NAME = "Zinsgutschrift Wertpapier";
+    public static final String TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD_NAME = "Zinsgutschrift Festgeld";
     @Id
     private long id;
 

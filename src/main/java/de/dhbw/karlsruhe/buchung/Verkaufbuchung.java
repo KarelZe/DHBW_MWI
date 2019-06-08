@@ -8,6 +8,7 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 public class Verkaufbuchung implements Buchungsart {
     @Override
     public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier) {
+        // TODO: Jan & Raphael implementieren
         return null;
     }
 }

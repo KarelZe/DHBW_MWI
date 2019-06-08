@@ -2,9 +2,11 @@ package de.dhbw.karlsruhe.bewertung;
 
 import de.dhbw.karlsruhe.buchung.BuchungsFactory;
 import de.dhbw.karlsruhe.buchung.Buchungsart;
+import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.jpa.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,14 @@ public class Periodenabschluss {
 
         // TODO: Buchung für alle Teilnehmer durchführen
         BuchungsFactory buchungsFactory = new BuchungsFactory();
-        Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
+        ArrayList<Buchung> buchungen = new ArrayList<>();
+        // TODO: filtere relevante WPs -> festgeld & Anleihe
+        // for alle Teilnehmer
+        // for alle Wertpapiere
+        Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
+        Buchung buchung = buchungsart.create(periode, new Teilnehmer(), new Wertpapier());
+        buchungen.add(buchung);
+        BuchungRepository.getInstanz().save(buchungen);
     }
 
 

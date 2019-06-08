@@ -5,10 +5,9 @@ import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
-public class Kaufbuchung implements Buchungsart {
+public class ZinsbuchungFestgeld implements Buchungsart {
     @Override
     public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier) {
-        // TODO: Jan & Raphael implementieren.
         return null;
     }
 }
