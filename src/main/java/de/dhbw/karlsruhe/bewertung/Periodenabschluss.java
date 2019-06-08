@@ -22,28 +22,24 @@ public class Periodenabschluss {
     }
 
     /**
-     * Diese Methode bewertet die Wertpapiere einer Periode. Die Bewertung der Wertpapiere muss in einer stringenten
-     * Reihenfolge erfolgen, um zu gewährleisten, dass Indizes nach darin enthaltenen Wertpapieren (insbesondere ETF) bewertet werden.
-     * Es wird daher eine Bewertung in folgender Reihenfolge vorgenommen Aktie, Anleihe, Festgeld dann ETF.
+     * Diese Methode bewertet die Wertpapiere einer Periode. Es werden ausschließlich Wertpapierarten, die eine Bewertung
+     * erfordern, bewertet. Das heißt, kein Festgeld und auch keine Aktien.
      * Implementierung des Factory Patterns.
      * @param periode zu bewertende Periode
      */
     private void periodeBewerten(Periode periode){
-        // Frage Wertpapiere ab und vertausche abhängige und unabhängige Anlagen, so dass unabhängige Anlagen zuerst bewertet werden.
         KursRepository kursRepository = KursRepository.getInstanz();
         List<Kurs> kurse = kursRepository.findByPeriodenId(periode.getId());
-        List<Kurs> kurseUnabhaenging = kurse.stream().filter(kurs -> kurs.getWertpapier().getWertpapierArt().getId() != WertpapierArt.WERTPAPIER_ETF).collect(Collectors.toList());
-        kurse.removeAll(kurseUnabhaenging);
-        kurseUnabhaenging.addAll(kurse);
+        List<Kurs> kurseZuBewerten = kurse.stream().filter(kurs -> kurs.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF || kurs.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).collect(Collectors.toList());
 
         BewertungsmodellFactory bewertungsmodellFactory = new BewertungsmodellFactory();
-        for (Kurs kurs : kurse) {
+        for (Kurs kurs : kurseZuBewerten) {
             Wertpapier wertpapier = kurs.getWertpapier();
             Bewertungsmodell bewertungsmodell = bewertungsmodellFactory.create(wertpapier.getWertpapierArt().getId());
             double bewertungskurs = bewertungsmodell.bewerte(periode, wertpapier);
             kurs.setKurs(bewertungskurs);
         }
-        kursRepository.save(kurse);
+        kursRepository.save(kurseZuBewerten);
     }
 
     /**
