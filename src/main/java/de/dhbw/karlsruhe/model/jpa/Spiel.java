@@ -19,6 +19,12 @@ public class Spiel {
     @OneToMany(mappedBy = "spiel", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Teilnehmer> teilnehmerSet;
 
+    @OneToMany(mappedBy = "spiel", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Periode> periodeSet;
+
+    @OneToMany(mappedBy = "spiel", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Unternehmen> unternehmenSet;
+
     public long getId() {
         return id;
     }

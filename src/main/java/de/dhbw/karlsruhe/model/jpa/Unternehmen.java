@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +20,8 @@ public class Unternehmen {
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
 
+    @OneToMany(mappedBy = "unternehmen", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Wertpapier> wertpapierSet;
 
     public Unternehmen(String name, String farbe) {
         this();

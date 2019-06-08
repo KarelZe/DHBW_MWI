@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Teilnehmer {
@@ -24,6 +25,9 @@ public class Teilnehmer {
     @ManyToOne //( cascade = CascadeType.ALL)
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
+
+    @OneToMany(mappedBy = "teilnehmer", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Buchung> buchungSet;
 
     // Hibernate benötigt leeren Konstruktor. Zur Erklärung siehe https://stackoverflow.com/a/25452112
     public Teilnehmer() {
