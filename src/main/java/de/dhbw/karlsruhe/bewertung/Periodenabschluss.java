@@ -1,10 +1,9 @@
 package de.dhbw.karlsruhe.bewertung;
 
+import de.dhbw.karlsruhe.buchung.BuchungsFactory;
+import de.dhbw.karlsruhe.buchung.Buchungsart;
 import de.dhbw.karlsruhe.model.KursRepository;
-import de.dhbw.karlsruhe.model.jpa.Kurs;
-import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
-import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
+import de.dhbw.karlsruhe.model.jpa.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,9 +53,10 @@ public class Periodenabschluss {
      * @param periode zu verbuchende Periode
      */
     private void verbuchePeriode(Periode periode) {
-        // TODO: Hier noch Buchungsfabrik anlegen.
 
-
+        // TODO: Buchung für alle Teilnehmer durchführen
+        BuchungsFactory buchungsFactory = new BuchungsFactory();
+        Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
     }
 
 
