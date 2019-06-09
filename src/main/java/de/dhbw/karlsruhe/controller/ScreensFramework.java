@@ -78,8 +78,9 @@ public class ScreensFramework extends Application {
         buttonMenu.getItems().add(teilnehmer_hinz);
         //Event hinzufügen
         teilnehmer_hinz.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE));
-
-
+        //Menü zur Menübar hinzufügen
+        menuBar.getMenus().add(buttonMenu);
+        //css laden
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         window.setScene(scene);
         window.setTitle("Anika");
