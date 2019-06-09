@@ -64,6 +64,7 @@ public class ScreensFramework extends Application {
         Group root = new Group();
         root.getChildren().addAll(screenController);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("styles.css");
         window.setScene(scene);
         window.setTitle("Anika");
         window.setMaximized(true);
