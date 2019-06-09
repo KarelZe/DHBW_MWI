@@ -5,10 +5,10 @@ import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 // FIXME: @ Bilz Sauber dokumentieren
 public class ScreensFramework extends Application {
@@ -81,7 +81,7 @@ public class ScreensFramework extends Application {
         //Menü zur Menübar hinzufügen
         menuBar.getMenus().add(buttonMenu);
         //css laden
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("styles.css").toExternalForm());
         window.setScene(scene);
         window.setTitle("Anika");
         window.setMaximized(true);
