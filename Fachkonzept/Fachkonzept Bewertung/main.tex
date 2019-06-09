@@ -35,7 +35,6 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \usepackage[ngerman, num]{isodate} % wird für Datumsformatierung gebraucht
 \usepackage{fncychap}
 \usepackage[hang,flushmargin]{footmisc} % Formatierung der Fußnoten
-\captionsetup[table]{position=bottom} 
 \usepackage{lmodern} 
 \usepackage[backend=biber,style=apa,citestyle=apa]{biblatex} % apa-stil für bibliography in biblatex
 \DeclareLanguageMapping{german}{german-apa}
@@ -94,6 +93,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \title{Fachkonzept für die Bewertung von Wertpapieren}
 \author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsuhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsuhe.de}}
 
+\addbibresource{bib.bib}
 
 \begin{document}
 
@@ -172,6 +172,27 @@ Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Period
 
 Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
 
+Was sind Floating Rate Notes? Siehe \autocite[][]{fabozzi_fixed_2007}.
+
+Die Bewertung orientert sich an \autocite[][]{veronesi_fixed_2010}.
+
+Der Wert eines Floaters mit einem Spread von $s=0$ entspricht der der Wert des Floater dem Nennwert des Floaters ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
+
+Es handelt sich dabei um einen Spezialfall, der die Anforderungen von \textit{Anika} nicht vollständig abdeckt, da zwar eine Bepreisung zum Zinszahlungstermin erfolgt, der Spread aber auch andere Werte annehmen kann.
+
+Für einen Floater mit einem Spread lässt sich der Cashflow in eine fixe und eine veränderliche Komponente aufspalten.
+
+Damit teilt sich die Bewertung in die Bewetung einer Floating Rate Note mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
+
+
+\begin{align}
+	V(t)=\sum_{i=1}^{n} F_{i} \tau_{i} P e^{-\left(r_{i}+s\right) T_{i}}+P e^{-\left(r_{n}+s\right) T_{n}}
+\end{align}
+
+% https://www.finpricing.com/lib/FiFrn.pdf
+
+Ei
+
 \subsection{Berechnung von Forward Rates}
 
 \section{Bewertung des Aktien Exchange Traded Funds}
@@ -184,7 +205,7 @@ Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Ind
 
 \subsection{Berechnung des {GMAX} Index}
 
-\subsection{Speicherung von ETF Kursen}
+\subsection{Speicherung von {ETF} Kursen}
 
 \subsection{Bewertung von Portfoliopositionen}
 Siehe \dots
@@ -204,4 +225,6 @@ Siehe \dots
 Festgelder werden zum Nennbetrag bewertet.
 
 % TODO: Insolvenzfall für alle Assets betrachten.
+
+\printbibliography[title={Literatur}]
 \end{document}
