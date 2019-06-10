@@ -179,5 +179,11 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         }
         return buchungen;
     }
+
+    public Buchung findLastBuchungFromTeilnehmerByTeilnehmerId(long teilnehmerId) {
+        List<Buchung> buchungenVonTeilnehmer = findByTeilnehmerId(teilnehmerId);
+        return buchungenVonTeilnehmer.stream().reduce((a, b) -> b).get(); //siehe https://stackoverflow.com/questions/21426843/get-last-element-of-stream-list-in-a-one-liner
+
+    }
 }
 

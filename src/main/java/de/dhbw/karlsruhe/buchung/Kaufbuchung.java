@@ -50,8 +50,6 @@ public class Kaufbuchung implements Buchungsart {
 
     private double getSaldoZahlungsmittelkontoFromTeilnehmer(Teilnehmer teilnehmer) {
         BuchungRepository buchungRepository = BuchungRepository.getInstanz();
-        List<Buchung> buchungenVonTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmer.getId());
-        Buchung lastBuchungFromTeilnehmer = buchungenVonTeilnehmer.stream().reduce((a, b) -> b).get(); //siehe https://stackoverflow.com/questions/21426843/get-last-element-of-stream-list-in-a-one-liner
-        return lastBuchungFromTeilnehmer.getSaldoZahlungsmittelkonto();
+        return buchungRepository.findLastBuchungFromTeilnehmerByTeilnehmerId(teilnehmer.getId()).getSaldoZahlungsmittelkonto();
     }
 }
