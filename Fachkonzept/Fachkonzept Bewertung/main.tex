@@ -117,25 +117,27 @@ Die Software \textit{Anika} unterstützt dabei die Bepreisung folgender Finanzan
 
 Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
 
-\section{Erfassung der Wertpapiere}
-\label{sec:erfassung_der_wertpapiere}
+\section{Anlage und Pflege von Wertpapieren}
+\label{sec:anlage_und_pflege_der_wertpapiere}
 
-Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. Hinsichtlich dem Vorgehen ist nach Finanzanlage zu differenzieren.
+Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. Hinsichtlich dem Vorgehen ist nach Art der Finanzanlage zu differenzieren.
 \begin{itemize}
 	\item Die Anlage von {ETFs} und des Tagesgelds erfolgt durch das System mit Anlage eines Spiels automatisch. 
-	\item Die Anlage von Aktien und Floating Rate Notes der Planspielunternehmen erfolgt manuell zu Spielbeginn durch den Spielleiter. Eine Anlage von Aktien und Floating Rate Notes ist nur für Planspielunternehmen möglich. Die Software ermöglicht dabei, je Planspielunternehmen $\geq 0$ Aktien und Floating Rate Notes eines Unternehmens anzulegen. 
+	\item Die Anlage von Aktien und Floating Rate Notes der Planspielunternehmen erfolgt manuell mit Anlage des Spiels durch den Spielleiter. Eine Anlage von Aktien und Floating Rate Notes ist nur für Planspielunternehmen möglich. Die Software ermöglicht dabei, je Planspielunternehmen $\geq 0$ Aktien und Floating Rate Notes eines Unternehmens anzulegen. 
 \end{itemize}
-Die Pflege der für die Bewertung notwendigen Geschäftsdaten erfolgt einmalig je Periode durch den Spielleiter. Dies betrifft sowohl Geschäfte, die manuell als auch automatisch durch das System angelegt werden. Detailiert ist dies in Abbildung \ref{fig:erfassung_pflege_von_wertpapieren} Detailliert wird darauf in den Folgekapiteln eingegangen.
-\begin{figure}[h]
-	\centering
-	\includegraphics[height=8cm]{example-image}
-	\caption{Erfassung und Pflege von Wertpapieren}
-	\label{fig:erfassung_pflege_von_wertpapieren}
-\end{figure}
+Die Pflege der für die Bewertung notwendigen Geschäftsdaten erfolgt einmalig je Periode durch den Spielleiter. Dies betrifft sowohl Geschäfte, die manuell als auch automatisch durch das System angelegt werden. Detailliert wird darauf in den Folgekapiteln eingegangen.
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[height=8cm]{example-image}
+% 	\caption{Anlage und Pflege von Wertpapieren}
+% 	\label{fig:anlage_pflege_von_wertpapieren}
+% \end{figure}
 
 \section{Zeitpunkt und Durchführung der Bewertung}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung}
 
+
+Die rechnerischen Kurswerte gelten damit jeweils für die Folgeperiode.
 
 \begin{figure}[htb]
 	\centering
@@ -181,18 +183,24 @@ Zugleich ist ein Kauf und Verkauf zu diesem Kurs möglich -- bleiben Ordergebüh
 
 
 
-\section{Bewertung von Anleihen}
+\section{Bewertung von Floating Rate Notes}
+\label{sec:bewertung_von_floating_rate_notes}
+Floating Rate Notes sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen vom Emittenten abhängigen Aufschlag zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
 Hierbei ist insbesondere eine Bewertung der An
 
 Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Periode Null angenommen.
+Die Floating Rate Note verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
+Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
 Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
 
-Was sind Floating Rate Notes? Siehe \autocite[][]{fabozzi_fixed_2007}.
+Was sind Floating Rate Notes? Siehe \autocite[][]{fabozzi_handbook_2005}.
 
 Die Bewertung orientert sich an \autocite[][]{veronesi_fixed_2010}.
+
+Alternativ ist auch \autocite[][]{fabozzi_handbook_2005} möglich.
 
 Der Wert eines Floaters mit einem Spread von $s=0$ entspricht der der Wert des Floater dem Nennwert des Floaters ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
 

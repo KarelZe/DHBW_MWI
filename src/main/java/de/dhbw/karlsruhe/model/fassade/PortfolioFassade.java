@@ -59,6 +59,7 @@ public class PortfolioFassade {
         BuchungRepository buchungRepository = BuchungRepository.getInstanz();
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
 
+
         // TODO: Muss noch implementiert werden.
         // https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-
         // Map<Integer,Portfolioposition> ergebnis = buchungen.stream().collect(groupingBy(w));
