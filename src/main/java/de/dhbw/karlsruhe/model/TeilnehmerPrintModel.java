@@ -1,11 +1,10 @@
 package de.dhbw.karlsruhe.model;
 
+import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
-
-import java.util.Random;
 
 public class TeilnehmerPrintModel {
     private SimpleLongProperty id;
@@ -21,7 +20,11 @@ public class TeilnehmerPrintModel {
     }
 
     public TeilnehmerPrintModel(Teilnehmer teilnehmer) {
-        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname(), teilnehmer.getGesamtSaldo());
+        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname(), 0.0d);
+        // Überschreibe Wert mit tatsächlichem Saldo
+        PortfolioFassade portfolioFassade = new PortfolioFassade();
+        double gesamtSaldo = portfolioFassade.getGesamtSaldo(teilnehmer.getId());
+        this.portfoliowert = new SimpleDoubleProperty(gesamtSaldo);
     }
 
     public long getId() {

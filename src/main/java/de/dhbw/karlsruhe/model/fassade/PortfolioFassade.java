@@ -35,6 +35,16 @@ public class PortfolioFassade {
         return buchungenTeilnehmer.stream().mapToDouble(Buchung::getSaldoFestgeld).sum();
     }
 
+    /**
+     * Gibt den Gesamtsaldo eines Teilnehmers bestehend aus Zahlungsmittelkonto-, Festgeld- und Depotguthaben zurück.
+     *
+     * @param teilnehmerId Id des Teilnehmers
+     * @return Gesamtsaldo des Teilnehmer Engagements
+     */
+    public double getGesamtSaldo(long teilnehmerId) {
+        return getZahlungsmittelkontoSaldo(teilnehmerId) + getFestgeldSaldo(teilnehmerId) + getZahlungsmittelkontoSaldo(teilnehmerId);
+    }
+
     public List<Portfolioposition> getAnleihePositionen(long teilnehmerId, long periodenId) {
         List<Portfolioposition> portfoliopositionen = getPortfoliopositionen(teilnehmerId, periodenId);
         return portfoliopositionen.stream().filter(p -> p.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).collect(Collectors.toList());

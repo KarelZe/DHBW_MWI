@@ -164,7 +164,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         ArrayList<Buchung> buchungen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Buchung where teilnehmer = :teilnehmer_id";
+            String queryString = "from Buchung where teilnehmer_id = :teilnehmer_id";
             Query query = session.createQuery(queryString);
             query.setParameter("teilnehmer_id", teilnehmerId);
             tx.commit();

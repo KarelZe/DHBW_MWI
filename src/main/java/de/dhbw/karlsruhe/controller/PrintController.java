@@ -2,7 +2,6 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.TeilnehmerPrintModel;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +37,6 @@ public class PrintController implements ControlledScreen {
      */
     @FXML
     private void initialize() {
-        //System.out.println(AktuelleSpieldaten.getSpiel());
         List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
         List<TeilnehmerPrintModel> teilnehmerPrintModel = teilnehmer.stream().map(TeilnehmerPrintModel::new).collect(Collectors.toList());
         // TODO: Überdenken, ob ArrayList wirklich sinnvoll, wegen Notwendigkeit zur sortierten Ausgabe.
