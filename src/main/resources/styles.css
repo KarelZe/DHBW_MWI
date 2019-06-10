@@ -4,9 +4,16 @@
 
 #logo {
     -fx-background-color: black;
+    -fx-border-image-insets: 50px;
 }
 
 .root {
     -fx-background-color: black;
+}
+
+.menu-bar {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
 }
 

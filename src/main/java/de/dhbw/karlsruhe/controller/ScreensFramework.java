@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 
 // FIXME: @ Bilz Sauber dokumentieren
 public class ScreensFramework extends Application {
@@ -71,21 +74,43 @@ public class ScreensFramework extends Application {
         //MenüBar erstellen
         MenuBar menuBar = new MenuBar();
         //Menü erstelleb
-        Menu buttonMenu = new Menu("Menü");
+        Menu buttonMenu = new Menu("Navigation");
         //Menüpunkte erstellen
-        MenuItem teilnehmer_hinz = new MenuItem("Teilnehmer hinzufügen");
+        MenuItem home = new MenuItem("Login");
+        MenuItem teilnehmer_hinz = new MenuItem("Teilnehmer hinzufuegen");
+        MenuItem unternehmen_anl = new MenuItem("Unternehmen anlegen");
+        MenuItem wertpapier_anl = new MenuItem("Wertpapier anlegen");
+        MenuItem teilnehmer_zur = new MenuItem("Teilnehmer zuruegradcksetzen");
+        MenuItem teilnehmer_dru = new MenuItem("Teilnehmer Drucken");
+        MenuItem periode_pfl = new MenuItem("Periode pflegen");
+        MenuItem periode_anl = new MenuItem("Periode anlegen");
+        MenuItem spiel_anl = new MenuItem("Spiel anlegen");
+
         //Menüpunkt zum Menü hinzufügen
-        buttonMenu.getItems().add(teilnehmer_hinz);
+        buttonMenu.getItems().addAll(home, teilnehmer_hinz, unternehmen_anl, wertpapier_anl, teilnehmer_zur, teilnehmer_dru, periode_anl, periode_pfl, spiel_anl);
         //Event hinzufügen
-        teilnehmer_hinz.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE));
+        home.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_LOGIN));
+        teilnehmer_hinz.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN));
+        unternehmen_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN));
+        wertpapier_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN));
+        teilnehmer_zur.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT));
+        teilnehmer_dru.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN));
+        periode_pfl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL));
+        periode_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN));
+        spiel_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN));
+
         //Menü zur Menübar hinzufügen
         menuBar.getMenus().add(buttonMenu);
         //css laden
         scene.getStylesheets().add(getClass().getClassLoader().getResource("styles.css").toExternalForm());
+        root.getChildren().addAll(menuBar);
         window.setScene(scene);
         window.setTitle("Anika");
+        window.getIcons().add(new Image("logo.png"));
         window.setMaximized(true);
         window.show();
+
+
     }
 
 
