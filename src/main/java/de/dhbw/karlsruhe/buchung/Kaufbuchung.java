@@ -1,21 +1,38 @@
 package de.dhbw.karlsruhe.buchung;
 
-import de.dhbw.karlsruhe.model.jpa.Buchung;
-import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+import de.dhbw.karlsruhe.model.KursRepository;
+import de.dhbw.karlsruhe.model.jpa.*;
+
+import java.util.List;
+import java.util.Optional;
 
 public class Kaufbuchung implements Buchungsart {
     /**
      * @param periode      Periode in der die Transaktion erfolgt
      * @param teilnehmer   Teilnehmer auf dessen Namen die Buchung erfolgt
      * @param wertpapier   Wertpapier, das in Buchung involviert ist.
-     * @param bezugsgrosse Bezugsgroesse z. B. Nominalvolumen oder Saldo
+     * @param bezugsgroesse Bezugsgroesse z. B. Nominalvolumen oder Saldo
      * @return
      */
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgrosse) {
-        // TODO: Jan & Raphael implementieren.
-        return null;
+    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
+        Buchung buchung = new Buchung();
+        buchung.setPeriode(periode);
+        buchung.setTeilnehmer(teilnehmer);
+        buchung.setWertpapier(wertpapier);
+        TransaktionsArt transaktionsArt = new TransaktionsArt();
+        transaktionsArt.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_KAUFEN_NAME);
+        buchung.setTransaktionsArt(transaktionsArt);
+
+
+        List<Kurs> kurseInPeriode = KursRepository.getInstanz().findByPeriodenId(periode.getId());
+        Optional<Kurs> wertPapierKurs = kurseInPeriode.stream().filter(k -> k.getWertpapier().getId() == wertpapier.getId()).findFirst(); //Annahme ist, dass es nur ein Wertpapier gibt, das auf dieses Kriterium zutrifft.
+        double kurs = wertPapierKurs.get().getKurs();
+        buchung.setOrdergebuehr(periode.getOrdergebuehr());
+        buchung.setStueckzahl((long) bezugsgroesse);
+
+
+        return buchung;
+
     }
 }

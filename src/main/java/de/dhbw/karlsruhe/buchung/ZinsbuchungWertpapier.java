@@ -12,16 +12,16 @@ public class ZinsbuchungWertpapier implements Buchungsart {
      * @param periode      Periode in der die Transaktion erfolgt
      * @param teilnehmer   Teilnehmer auf dessen Namen die Buchung erfolgt
      * @param wertpapier   Wertpapier, das in Buchung involviert ist.
-     * @param bezugsgrosse Bezugsgroesse z. B. Nominalvolumen oder Saldo
+     * @param bezugsgroesse Bezugsgroesse z. B. Nominalvolumen oder Saldo
      * @return Zinsbuchung
      */
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgrosse) {
+    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
         Buchung buchung = new Buchung();
         buchung.setPeriode(periode);
         buchung.setTeilnehmer(teilnehmer);
         buchung.setWertpapier(wertpapier);
-        double betrag = bezugsgrosse * wertpapier.getEmissionszins();
+        double betrag = bezugsgroesse * wertpapier.getEmissionszins();
         buchung.setVolumen(betrag);
         buchung.setSaldoZahlungsmittelkonto(betrag);
         return buchung;
