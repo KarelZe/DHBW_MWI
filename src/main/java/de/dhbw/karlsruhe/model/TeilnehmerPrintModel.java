@@ -13,16 +13,15 @@ public class TeilnehmerPrintModel {
     private SimpleStringProperty nachname;
     private SimpleDoubleProperty portfoliowert;
 
-    public TeilnehmerPrintModel(long id, String vorname, String nachname) {
+    public TeilnehmerPrintModel(long id, String vorname, String nachname, Double gesamtSaldo) {
         this.id = new SimpleLongProperty(id);
         this.vorname = new SimpleStringProperty(vorname);
         this.nachname = new SimpleStringProperty(nachname);
-        // TODO: @ Carlos hier muss später noch tatsächlicher Wert erfasst werden.
-        this.portfoliowert = new SimpleDoubleProperty(new Random().nextDouble() * 1000);
+        this.portfoliowert = new SimpleDoubleProperty(gesamtSaldo);
     }
 
     public TeilnehmerPrintModel(Teilnehmer teilnehmer) {
-        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname());
+        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname(), teilnehmer.getGesamtSaldo());
     }
 
     public long getId() {

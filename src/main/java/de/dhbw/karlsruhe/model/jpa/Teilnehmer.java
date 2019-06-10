@@ -2,6 +2,13 @@ package de.dhbw.karlsruhe.model.jpa;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.List;
+import de.dhbw.karlsruhe.helper.HibernateHelper;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 @Entity
 public class Teilnehmer {
@@ -118,6 +125,39 @@ public class Teilnehmer {
                 ", nachname='" + nachname + '\'' +
                 ", unternehmen'" + unternehmen + '\'' +
                 '}';
+    }
+
+    //ToDo: Tatsächlich neuste Salden abfragen, nicht die Salden mit der höchsten Perioden-ID
+    public double getGesamtSaldo(){
+        Transaction tx = null;
+        double gesamtsaldo = -999;
+        System.out.println("Saldo-Query gestartet");
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            System.out.println("Saldo-Query gestartet (Try)");
+            tx = session.beginTransaction();
+            //"SELECT saldoDepot, saldoFestgeld, saldoZahlungsmittelkonto from Buchung WHERE teilnehmer_id =:t_id ORDER BY perioden_id DESC"
+            String queryString = "SELECT saldoDepot FROM Buchung WHERE teilnehmer_id =:t_id ORDER BY perioden_id DESC";
+            Query query = session.createQuery(queryString);
+            query.setParameter("t_id", id);
+            query.setMaxResults(1);
+
+
+            /*List<Object[]> salden= (List<Object[]>) query.list();
+            for(Object[] saldo: salden) {
+                double depot = (double) saldo[0];
+                double festgeld = (double) saldo[1];
+                double zahlungsmittel = (double) saldo[2];
+            }*/
+            tx.commit();
+            query.uniqueResult();
+
+        } catch (HibernateException e) {
+            System.out.println("Saldo-Query gestartet (Catch)");
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return gesamtsaldo;
     }
 
 }
