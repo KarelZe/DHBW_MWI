@@ -155,12 +155,21 @@ public class SpielAnlegenController implements ControlledScreen {
             transaktionsArtRepository.save(verkaufen);
         }
 
-        //Zinsgutschrift
-        optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
+        //Zinsgutschrift Wertpapier
+        optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
         if (optional.isEmpty()) {
             TransaktionsArt zinsgutschrift = new TransaktionsArt();
-            zinsgutschrift.setId(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
-            zinsgutschrift.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_NAME);
+            zinsgutschrift.setId(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
+            zinsgutschrift.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER_NAME);
+            transaktionsArtRepository.save(zinsgutschrift);
+        }
+
+        //Zinsgutschrift Festgeld
+        optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
+        if (optional.isEmpty()) {
+            TransaktionsArt zinsgutschrift = new TransaktionsArt();
+            zinsgutschrift.setId(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
+            zinsgutschrift.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD_NAME);
             transaktionsArtRepository.save(zinsgutschrift);
         }
     }

@@ -159,26 +159,25 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         delete(List.of(buchung));
     }
 
-
-    // Implementierung weiterer Methoden
-
-    public Optional<Buchung> findByTeilnehmerId(long teilnehmerId) {
+    public List<Buchung> findByTeilnehmerId(long teilnehmerId) {
         Transaction tx = null;
+        ArrayList<Buchung> buchungen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             String queryString = "from Buchung where teilnehmer = :teilnehmer_id";
             Query query = session.createQuery(queryString);
             query.setParameter("teilnehmer_id", teilnehmerId);
             tx.commit();
-            Buchung buchung = (Buchung) query.uniqueResult();
-            if (buchung != null)
-                return Optional.of(buchung);
+            // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
+            for (final Object o : query.list()) {
+                buchungen.add((Buchung) o);
+            }
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)
                 tx.rollback();
         }
-        return Optional.empty();
+        return buchungen;
     }
 }
 

@@ -32,11 +32,11 @@ public class Buchung {
 
     private double ordergebuehr;
 
-    private double saldoZahlungsmittelkonto;
+    private double saldoZahlungsmittelkonto; // entspricht dem verursachten Delta
 
-    private double saldoDepot;
+    private double saldoDepot; // entspricht dem Delta
 
-    private double saldoFestgeld;
+    private double saldoFestgeld; // entspricht dme Delta
 
     public long getId() {
         return id;

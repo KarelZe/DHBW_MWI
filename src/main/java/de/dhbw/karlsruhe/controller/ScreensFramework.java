@@ -5,6 +5,9 @@ import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 // FIXME: @ Bilz Sauber dokumentieren
@@ -64,6 +67,21 @@ public class ScreensFramework extends Application {
         Group root = new Group();
         root.getChildren().addAll(screenController);
         Scene scene = new Scene(root);
+
+        //MenüBar erstellen
+        MenuBar menuBar = new MenuBar();
+        //Menü erstelleb
+        Menu buttonMenu = new Menu("Menü");
+        //Menüpunkte erstellen
+        MenuItem teilnehmer_hinz = new MenuItem("Teilnehmer hinzufügen");
+        //Menüpunkt zum Menü hinzufügen
+        buttonMenu.getItems().add(teilnehmer_hinz);
+        //Event hinzufügen
+        teilnehmer_hinz.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE));
+        //Menü zur Menübar hinzufügen
+        menuBar.getMenus().add(buttonMenu);
+        //css laden
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("styles.css").toExternalForm());
         window.setScene(scene);
         window.setTitle("Anika");
         window.setMaximized(true);

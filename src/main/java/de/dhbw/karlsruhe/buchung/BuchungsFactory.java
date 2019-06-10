@@ -15,8 +15,10 @@ public class BuchungsFactory {
      */
     public Buchungsart create(final long transaktionsArt) throws NoSuchElementException {
 
-        if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT)
-            return new Zinsbuchung();
+        if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER)
+            return new ZinsbuchungWertpapier();
+        if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD)
+            return new ZinsbuchungFestgeld();
         else if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_KAUFEN)
             return new Kaufbuchung();
         else if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN)

@@ -2,9 +2,14 @@ package de.dhbw.karlsruhe.bewertung;
 
 import de.dhbw.karlsruhe.buchung.BuchungsFactory;
 import de.dhbw.karlsruhe.buchung.Buchungsart;
+import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.KursRepository;
+import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
+import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
 import de.dhbw.karlsruhe.model.jpa.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +30,10 @@ public class Periodenabschluss {
      * Diese Methode bewertet die Wertpapiere einer Periode. Es werden ausschließlich Wertpapierarten, die eine Bewertung
      * erfordern, bewertet. Das heißt, kein Festgeld und auch keine Aktien.
      * Implementierung des Factory Patterns.
+     *
      * @param periode zu bewertende Periode
      */
-    private void periodeBewerten(Periode periode){
+    private void periodeBewerten(Periode periode) {
         KursRepository kursRepository = KursRepository.getInstanz();
         List<Kurs> kurse = kursRepository.findByPeriodenId(periode.getId());
         List<Kurs> kurseZuBewerten = kurse.stream().filter(kurs -> kurs.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF || kurs.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).collect(Collectors.toList());
@@ -50,11 +56,32 @@ public class Periodenabschluss {
      */
     private void verbuchePeriode(Periode periode) {
 
-        // TODO: Buchung für alle Teilnehmer durchführen
-        BuchungsFactory buchungsFactory = new BuchungsFactory();
-        Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT);
-    }
+        List<Teilnehmer> teilnehmerAlle = TeilnehmerRepository.getInstanz().findAll();
 
+        PortfolioFassade portfolioFassade = new PortfolioFassade();
+
+        BuchungsFactory buchungsFactory = new BuchungsFactory();
+
+        ArrayList<Buchung> buchungen = new ArrayList<>();
+
+        for (Teilnehmer teilnehmer : teilnehmerAlle) {
+
+            List<Portfolioposition> festgeldPositionen = portfolioFassade.getFestgeldPositionen(periode.getId(), teilnehmer.getId());
+            Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
+            for (Portfolioposition portfolioposition : festgeldPositionen) {
+                Buchung buchung = buchungsart.create(periode, teilnehmer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
+                buchungen.add(buchung);
+            }
+
+            List<Portfolioposition> anleihenPositionen = portfolioFassade.getAnleihePositionen(periode.getId(), teilnehmer.getId());
+            buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
+            for (Portfolioposition portfolioposition : anleihenPositionen) {
+                Buchung buchung = buchungsart.create(periode, teilnehmer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
+                buchungen.add(buchung);
+            }
+        }
+        BuchungRepository.getInstanz().save(buchungen);
+    }
 
 
 }
