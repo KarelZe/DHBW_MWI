@@ -90,7 +90,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \vfuzz=20pt 
 \hfuzz=20pt
 
-\title{Fachkonzept für die Bewertung von Wertpapieren}
+\title{Fachkonzept für die Bewertung von Wertpapieren und die Ermittlung von Wertpapiererträgen}
 \author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsuhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsuhe.de}}
 
 \addbibresource{bib.bib}
@@ -117,8 +117,25 @@ Die Software \textit{Anika} unterstützt dabei die Bepreisung folgender Finanzan
 
 Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
 
+\section{Erfassung der Wertpapiere}
+\label{sec:erfassung_der_wertpapiere}
+
+Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. Hinsichtlich dem Vorgehen ist nach Finanzanlage zu differenzieren.
+\begin{itemize}
+	\item Die Anlage von {ETFs} und des Tagesgelds erfolgt durch das System mit Anlage eines Spiels automatisch. 
+	\item Die Anlage von Aktien und Floating Rate Notes der Planspielunternehmen erfolgt manuell zu Spielbeginn durch den Spielleiter. Eine Anlage von Aktien und Floating Rate Notes ist nur für Planspielunternehmen möglich. Die Software ermöglicht dabei, je Planspielunternehmen $\geq 0$ Aktien und Floating Rate Notes eines Unternehmens anzulegen. 
+\end{itemize}
+Die Pflege der für die Bewertung notwendigen Geschäftsdaten erfolgt einmalig je Periode durch den Spielleiter. Dies betrifft sowohl Geschäfte, die manuell als auch automatisch durch das System angelegt werden. Detailiert ist dies in Abbildung \ref{fig:erfassung_pflege_von_wertpapieren} Detailliert wird darauf in den Folgekapiteln eingegangen.
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=8cm]{example-image}
+	\caption{Erfassung und Pflege von Wertpapieren}
+	\label{fig:erfassung_pflege_von_wertpapieren}
+\end{figure}
+
 \section{Zeitpunkt und Durchführung der Bewertung}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung}
+
 
 \begin{figure}[htb]
 	\centering
@@ -141,6 +158,7 @@ Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein.
 \end{figure}
 
 \section{Bewertung von Aktien}
+\label{sec:bewertung_von_aktien}
 Die Unternehmen des Planspiels firmieren als Aktiengesellschaft.
 Ein rechnerischer Aktienkurs wird daher durch die Anwendung \textit{TOPSIM} auf Grundlage des Eigenkapitals und des Jahresüberschusses der vergangenen Periode nebst anderen Einflussfaktoren berechnet (\dots). 
 Eine Gewichtung der Faktoren mit Einfluss auf den Aktienkurs ist in der Anwendung \textit{TOPSIM} konfigurierbar. 
@@ -195,11 +213,18 @@ Ei
 
 \subsection{Berechnung von Forward Rates}
 
-\section{Bewertung des Aktien Exchange Traded Funds}
+\section{Bewertung eines Exchange Traded Funds}
+\label{sec:bewertung_eines_exchange_traded_funds}
+
+Bei ETFs handelt es sich um eine Variante des In
+
+
 
 Für die Bewertung des ETFs wird dabei eine vollständige Replizierung des Indizes unterstellt.
-Der \textit{Tracking Error} und die \textit{Total Expense Ration} werden dabei mit Null angenommen.
+Der \textit{Tracking Error} und die \textit{Total Expense Ratio} werden dabei mit Null angenommen.
 Dies bedeutet, dass der ETF der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
+
+Thesaurierender ETF.
 
 Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Indizes durch die Anwendung erforderlich.
 
@@ -217,14 +242,38 @@ Siehe \dots
 
 % Kurz beschreiben
 
-\section{Bewertung von Festgeldern}
+\section{Bewertung von Tagesgeld}
+\label{sec:bewertung_von_festgeldern}
+
+Die
+
+% Wer kann Festgelder begeben?
 
 % Verfügung über Festgelder @ Raphaels Fachkonzept. Ist es nicht sinnvoller, das Festgeld als Tagesgeld zu bezeichnen, wegen der jederzeitigen Verfügung? -> Auf Konsistenz zu Code achten. Faktisch wird aber verzinst zu Periodenabhängigem Kapitalmarktzins.
 
 
 Festgelder werden zum Nennbetrag bewertet.
 
-% TODO: Insolvenzfall für alle Assets betrachten.
+% TODO: Insolvenzfall für alle Assets betrachten. -> Vorzeitige Ausbuchung von Wertpapieren
+
+\section{Ermittlung von Wertpapiererträgen}
+\label{sec:ermittlung_von_wertpapierertraegen}
+
+\subsection{Ausschüttungen aus Aktie}
+\label{sec:ausschuettung_aus_aktie}
+Da der verwendete Aktienkurs um Dividendenausschüttungen bereinigt ist und deshalb gezahlte Dividenden im Kurs berücksichtigt, erfolgt keine zusätzliche Ausschüttung von Dividenden (siehe Kapitel \ref{sec:bewertung_von_aktien}).
+
+\subsection{Ausschüttungen aus ETF}
+\label{sec:ausschuettungen_aus_etf}
+Ausschüttungen aus dem ETF erfolgen nicht, da der {ETF} als thesaurierender {ETF} aufgelegt ist (siehe Kapitel \ref{sec:bewertung_eines_exchange_traded_funds}).
+
+\subsection{Zinserträge auf Festgelder}
+\label{sec:zinsertraege_auf_festgelder}
+
+
+
+\subsection{Zinserträge auf Floating Rate Notes}
+\label{sec:zinsertraege_auf_floating_rate_notes}
 
 \printbibliography[title={Literatur}]
 \end{document}
