@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Wertpapier {
@@ -15,6 +16,10 @@ public class Wertpapier {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "unternehmen_id")
     private Unternehmen unternehmen;
+
+    //ToDo: Möglicherweise Mapping fixen
+    //@OneToMany(mappedBy = "wertpapier", orphanRemoval = true, cascade = CascadeType.ALL)
+    //private Set<Kurs> kursSet;
 
     private String name;
 
