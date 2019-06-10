@@ -1,9 +1,11 @@
 package de.dhbw.karlsruhe.buchung;
 
+import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.jpa.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class Kaufbuchung implements Buchungsart {
@@ -31,8 +33,25 @@ public class Kaufbuchung implements Buchungsart {
         buchung.setOrdergebuehr(periode.getOrdergebuehr());
         buchung.setStueckzahl((long) bezugsgroesse);
 
+        long wertpapierArtId = wertpapier.getWertpapierArt().getId();
+        if (wertpapierArtId == WertpapierArt.WERTPAPIER_AKTIE) {
+            //do Kaufbuchung für Aktie
 
+        } else if (wertpapierArtId == WertpapierArt.WERTPAPIER_ANLEIHE) {
+            //do Kaufbuchung für Anleihe
+        } else if (wertpapierArtId == WertpapierArt.WERTPAPIER_ETF) {
+            //do Kaufbuchung für ETF
+        } else if (wertpapierArtId == WertpapierArt.WERTPAPIER_FESTGELD) {
+            //do Kaufbuchung für Festgeld
+        } else
+            throw new NoSuchElementException("Für diese Wertpapier-Art ist keine Buchung möglich.");
         return buchung;
+    }
 
+    private double getSaldoZahlungsmittelkontoFromTeilnehmer(Teilnehmer teilnehmer) {
+        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
+        List<Buchung> buchungenVonTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmer.getId());
+        Buchung lastBuchungFromTeilnehmer = buchungenVonTeilnehmer.stream().reduce((a, b) -> b).get(); //siehe https://stackoverflow.com/questions/21426843/get-last-element-of-stream-list-in-a-one-liner
+        return lastBuchungFromTeilnehmer.getSaldoZahlungsmittelkonto();
     }
 }
