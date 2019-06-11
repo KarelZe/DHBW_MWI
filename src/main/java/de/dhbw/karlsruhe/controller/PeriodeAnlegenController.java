@@ -54,7 +54,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
         List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
         kursRepository.save(kurse);
 
-        //Hier wechselt das Programm in den Detailscreen zum anpassen der Aktienwerte. Komischerweise werden die neu angelegten Perioden erst nach einem Neustart angezeigt.
+        //Hier wechselt das Programm in den Detailscreen zum anpassen der Aktienwerte. Komischerweise werden die neu angelegten Perioden erst nach einem Neustart angezeigt..
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
     }
 
