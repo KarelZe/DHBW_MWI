@@ -159,6 +159,12 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         delete(List.of(buchung));
     }
 
+    /**
+     * @param teilnehmerId teilnehmer ID
+     * @return Buchungen oder leere Liste
+     * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}
+     */
+    @Deprecated
     public List<Buchung> findByTeilnehmerId(long teilnehmerId) {
         Transaction tx = null;
         ArrayList<Buchung> buchungen = new ArrayList<>();
@@ -180,6 +186,11 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         return buchungen;
     }
 
+    /**
+     * @param teilnehmerId teilnehmer ID
+     * @return Buchungen oder leere Liste
+     * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}
+     */
     public Buchung findLastBuchungFromTeilnehmerByTeilnehmerId(long teilnehmerId) {
         List<Buchung> buchungenVonTeilnehmer = findByTeilnehmerId(teilnehmerId);
         return buchungenVonTeilnehmer.stream().reduce((a, b) -> b).get(); //siehe https://stackoverflow.com/questions/21426843/get-last-element-of-stream-list-in-a-one-liner
