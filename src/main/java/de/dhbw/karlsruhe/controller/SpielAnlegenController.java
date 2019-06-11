@@ -224,7 +224,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
         List<Unternehmen> festgeldUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
         if (festgeldUnternehmen.size() >= 1)
-            etf.setUnternehmen(festgeldUnternehmen.get(0));
+            festgeld.setUnternehmen(festgeldUnternehmen.get(0));
 
         // Speichere GMAX und Festgeld ab.
         wertpapierRepository.save(List.of(etf, festgeld));

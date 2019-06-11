@@ -17,8 +17,8 @@ public class RolleRepository {
             String queryString = "from Rolle WHERE id =: id";
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
+            tx.commit();
             rolle = (Rolle) query.uniqueResult();
-
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)

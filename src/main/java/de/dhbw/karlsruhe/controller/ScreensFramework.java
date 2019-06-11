@@ -9,9 +9,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
 
 // FIXME: @ Bilz Sauber dokumentieren
 public class ScreensFramework extends Application {
@@ -32,18 +30,18 @@ public class ScreensFramework extends Application {
 
     public static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     public static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
-    static final String SCREEN_TEILNEHMER_BEARBEITEN_FILE = "scene_teilnehmer_bearbeiten.fxml";
-    static final String SCREEN_SPIEL_VERWALTEN_FILE = "scene_spiel_verwalten.fxml";
-    private static final String SCREEN_UNTERNEHMEN_ANLEGEN_FILE = "scene_unternehmen_anlegen.fxml";
-    private static final String SCREEN_WERTPAPIER_ANLEGEN_FILE = "scene_wertpapier_anlegen.fxml";
-    private static final String SCREEN_TEILNEHMER_UEBERSICHT_FILE = "scene_teilnehmer_uebersicht.fxml";
-    private static final String SCREEN_SPIEL_ANLEGEN_FILE = "scene_spiel_anlegen.fxml";
-    private static final String SCREEN_PERIODE_ANLEGEN_FILE = "scene_periode_anlegen.fxml";
-    private static final String SCREEN_PERIODEN_DETAIL_FILE = "scene_perioden_detail.fxml";
-    static final String SCREEN_TEILNEHMER_DRUCKEN_FILE = "scene_teilnehmer_druck.fxml";
-    private static final String SCREEN_INVESTMENT_UEBERSICHT_FILE="scene_investment_uebersicht.fxml";
+    public static final String SCREEN_TEILNEHMER_BEARBEITEN_FILE = "scene_teilnehmer_bearbeiten.fxml";
+    public static final String SCREEN_SPIEL_VERWALTEN_FILE = "scene_spiel_verwalten.fxml";
+    public static final String SCREEN_UNTERNEHMEN_ANLEGEN_FILE = "scene_unternehmen_anlegen.fxml";
+    public static final String SCREEN_WERTPAPIER_ANLEGEN_FILE = "scene_wertpapier_anlegen.fxml";
+    public static final String SCREEN_TEILNEHMER_UEBERSICHT_FILE = "scene_teilnehmer_uebersicht.fxml";
+    public static final String SCREEN_SPIEL_ANLEGEN_FILE = "scene_spiel_anlegen.fxml";
+    public static final String SCREEN_PERIODE_ANLEGEN_FILE = "scene_periode_anlegen.fxml";
+    public static final String SCREEN_PERIODEN_DETAIL_FILE = "scene_perioden_detail.fxml";
+    public static final String SCREEN_TEILNEHMER_DRUCKEN_FILE = "scene_teilnehmer_druck.fxml";
+    public static final String SCREEN_INVESTMENT_UEBERSICHT_FILE = "scene_investment_uebersicht.fxml";
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 
