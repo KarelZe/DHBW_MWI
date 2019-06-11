@@ -39,7 +39,7 @@ public class ScreensFramework extends Application {
     private static final String SCREEN_SPIEL_ANLEGEN_FILE = "scene_spiel_anlegen.fxml";
     private static final String SCREEN_PERIODE_ANLEGEN_FILE = "scene_periode_anlegen.fxml";
     private static final String SCREEN_PERIODEN_DETAIL_FILE = "scene_perioden_detail.fxml";
-    private static final String SCREEN_TEILNEHMER_DRUCKEN_FILE = "scene_teilnehmer_druck.fxml";
+    static final String SCREEN_TEILNEHMER_DRUCKEN_FILE = "scene_teilnehmer_druck.fxml";
 
     private static void main(String[] args) {
         launch(args);
