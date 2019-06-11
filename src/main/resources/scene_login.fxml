@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
+<VBox prefHeight="557.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
     <ImageView fx:id="logo" fitHeight="150.0" fitWidth="232.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@logo.png" />
@@ -59,6 +59,11 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </VBox.margin>
     </Button>
+   <Button mnemonicParsing="false" onAction="#doUebersichtAnzeigen" prefHeight="25.0" prefWidth="617.0" text="Temp Investmentübersicht" textAlignment="CENTER" textFill="RED">
+      <VBox.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </VBox.margin>
+   </Button>
     <TextField fx:id="txtBenutzername" promptText="Benutzername">
         <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

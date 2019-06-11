@@ -101,6 +101,11 @@ public class LoginController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
     }
 
+    @FXML
+    private void doUebersichtAnzeigen (ActionEvent event) {
+        screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
+    }
+
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;

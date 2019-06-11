@@ -28,6 +28,7 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_PERIODEN_DETAIL = "perioden_detail";
     public static final String SCREEN_PERIODE_ANLEGEN = "periode_anlegen";
     public static final String SCREEN_TEILNEHMER_DRUCKEN = "teilnehmer_drucken";
+    public static final String SCREEN_INVESTMENT_UEBERSICHT= "investment_uebersicht";
 
     public static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     public static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
@@ -40,6 +41,7 @@ public class ScreensFramework extends Application {
     private static final String SCREEN_PERIODE_ANLEGEN_FILE = "scene_periode_anlegen.fxml";
     private static final String SCREEN_PERIODEN_DETAIL_FILE = "scene_perioden_detail.fxml";
     static final String SCREEN_TEILNEHMER_DRUCKEN_FILE = "scene_teilnehmer_druck.fxml";
+    private static final String SCREEN_INVESTMENT_UEBERSICHT_FILE="scene_investment_uebersicht.fxml";
 
     private static void main(String[] args) {
         launch(args);
@@ -60,6 +62,7 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN, ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if(AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
