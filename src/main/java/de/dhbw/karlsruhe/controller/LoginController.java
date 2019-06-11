@@ -103,7 +103,7 @@ public class LoginController implements ControlledScreen {
     }
 
     public void doSpielAnlegen() {
-        screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE); 
         screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
     }
 
