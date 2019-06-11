@@ -90,7 +90,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \vfuzz=20pt 
 \hfuzz=20pt
 
-\title{Fachkonzept für die Bewertung von Wertpapieren und die Ermittlung von Wertpapiererträgen}
+\title{Fachkonzept für die Bewertung von Finanzanlagen und die Verbuchung von Kapitalerträgen}
 \author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsuhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsuhe.de}}
 
 \addbibresource{bib.bib}
@@ -107,23 +107,23 @@ Da die Software \textit{Anika} kein dediziertes Handelssystem implementiert, das
 
 Die Bewertung als auch der Handel von Finanzanlagen erfolgt deshalb zu einem rechnerischen Kurs, der auf Grundlage finanzmathematischer Modelle ermittelt wird. Insofern ist die Modellierung des rechnerischen Werts einer Finanzanlage eine zentrale Funktionalität der Software.
 
-Die Software \textit{Anika} unterstützt dabei die Bepreisung folgender Finanzanlagen:
+Die Software \textit{Anika} unterstützt dabei die Bewertung folgender Finanzanlagen:
 \begin{enumerate}
 	\item Aktien
 	\item Floating Rate Notes
 	\item Exchange Traded Funds
-	\item Tagesgeld
+	\item Festgeld
 \end{enumerate}
 
 Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
 
-\section{Anlage und Pflege von Wertpapieren}
+\section{Anlage und Pflege von Wertpapieren $\ast$}
 \label{sec:anlage_und_pflege_der_wertpapiere}
 
 Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. Hinsichtlich dem Vorgehen ist nach Art der Finanzanlage zu differenzieren.
 \begin{itemize}
-	\item Die Anlage von {ETFs} und des Tagesgelds erfolgt durch das System mit Anlage eines Spiels automatisch. 
-	\item Die Anlage von Aktien und Floating Rate Notes der Planspielunternehmen erfolgt manuell mit Anlage des Spiels durch den Spielleiter. Eine Anlage von Aktien und Floating Rate Notes ist nur für Planspielunternehmen möglich. Die Software ermöglicht dabei, je Planspielunternehmen $\geq 0$ Aktien und Floating Rate Notes eines Unternehmens anzulegen. 
+	\item Die Anlage von {ETFs} und des Festgelds erfolgt durch das System mit Anlage eines Spiels automatisch. 
+	\item Die Anlage von Aktien und Floating Rate Notes der Planspielunternehmen erfolgt manuell mit Anlage des Spiels durch den Spielleiter. Eine Anlage von Aktien und Floating Rate Notes ist nur für Planspielunternehmen möglich. Die Software ermöglicht dabei, je Planspielunternehmen$\geq 0$ Aktien und Floating Rate Notes eines Unternehmens anzulegen. 
 \end{itemize}
 Die Pflege der für die Bewertung notwendigen Geschäftsdaten erfolgt einmalig je Periode durch den Spielleiter. Dies betrifft sowohl Geschäfte, die manuell als auch automatisch durch das System angelegt werden. Detailliert wird darauf in den Folgekapiteln eingegangen.
 % \begin{figure}[h]
@@ -133,7 +133,7 @@ Die Pflege der für die Bewertung notwendigen Geschäftsdaten erfolgt einmalig j
 % 	\label{fig:anlage_pflege_von_wertpapieren}
 % \end{figure}
 
-\section{Zeitpunkt und Durchführung der Bewertung}
+\section{Zeitpunkt und Durchführung der Bewertung $\ast$}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung}
 
 
@@ -154,12 +154,12 @@ Die rechnerischen Kurswerte gelten damit jeweils für die Folgeperiode.
 		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (10,-0.5) -- (8,-0.5)
 			   node [black,midway,below=4pt,font=\scriptsize] {$T-t_h$};
 		\end{tikzpicture}
-	\caption{Optionsbewertung in der historischen Simulation}
+	\caption{Bewertungszeitpunkt}
 	\label{img:zeitstrahl_var}
 	(Eigene Darstellung)
 \end{figure}
 
-\section{Bewertung von Aktien}
+\section{Bewertung von Aktien $\ast$}
 \label{sec:bewertung_von_aktien}
 Die Unternehmen des Planspiels firmieren als Aktiengesellschaft.
 Ein rechnerischer Aktienkurs wird daher durch die Anwendung \textit{TOPSIM} auf Grundlage des Eigenkapitals und des Jahresüberschusses der vergangenen Periode nebst anderen Einflussfaktoren berechnet (\dots). 
@@ -167,23 +167,18 @@ Eine Gewichtung der Faktoren mit Einfluss auf den Aktienkurs ist in der Anwendun
 
 Aktienkurse der Planspielunternehmen werden \textit{ex post} je Planspielunternehmen und Periode ermittelt. Die durch die Software \textit{TOPSIM} ermittelten Aktienkurse sind um Dividendenausschüttungen bereingt. Kapitalmaßnahmen mit Einfluss auf den Aktienkurs erfolgen darüber hinaus nicht, womit eine unmittelbare Verwendung in der Software \textit{Anika} möglich ist. Nachfolgend wird beschrieben, wie eine Erfassung der Aktienkurse erfolgen soll.
 
-\subsection{Prämisse}
+\section{Bewertung von Finanzanlagen $\dagger$}
+\label{sec:bewertung_von_finanzanlagen}
 
-\subsection{Erfassung von Aktienkursen}
-
+\subsection{Erfassung von Aktienkursen $\dagger$}
+\label{sec:erfassung_von_aktienkursen}
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
 Zugleich ist ein Kauf und Verkauf zu diesem Kurs möglich -- bleiben Ordergebühren und eine Geld-/ und Briefspanne außer Acht. 
 
-\subsection{Speicherung von Aktienkursen}
+% TODO: Ausformulieren. Pflege von Kursen siehe Kapitel 2. Ordergebühren in %. Zuordnung sinnvoll zu Handel von Wertpapieren?
 
-\subsection{Bewertung von Portfoliopositionen}
-
-
-
-
-
-\section{Bewertung von Floating Rate Notes}
+\subsection{Bewertung von Floating Rate Notes $\ast$}
 \label{sec:bewertung_von_floating_rate_notes}
 Floating Rate Notes sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen vom Emittenten abhängigen Aufschlag zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
@@ -195,8 +190,6 @@ Die Floating Rate Note verfügt über keinen Cap, Floor oder Collar, der die Hö
 Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
 Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
-
-Was sind Floating Rate Notes? Siehe \autocite[][]{fabozzi_handbook_2005}.
 
 Die Bewertung orientert sich an \autocite[][]{veronesi_fixed_2010}.
 
@@ -210,38 +203,24 @@ Für einen Floater mit einem Spread lässt sich der Cashflow in eine fixe und ei
 
 Damit teilt sich die Bewertung in die Bewetung einer Floating Rate Note mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
 
-
-\begin{align}
-	V(t)=\sum_{i=1}^{n} F_{i} \tau_{i} P e^{-\left(r_{i}+s\right) T_{i}}+P e^{-\left(r_{n}+s\right) T_{n}}
-\end{align}
-
 % https://www.finpricing.com/lib/FiFrn.pdf
 
-Ei
-
-\subsection{Berechnung von Forward Rates}
-
-\section{Bewertung eines Exchange Traded Funds}
+\subsection{Bewertung eines Exchange Traded Funds $\dagger$}
 \label{sec:bewertung_eines_exchange_traded_funds}
-
-Bei ETFs handelt es sich um eine Variante des In
-
-
+Bei {ETFs} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, welche einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. 
 
 Für die Bewertung des ETFs wird dabei eine vollständige Replizierung des Indizes unterstellt.
-Der \textit{Tracking Error} und die \textit{Total Expense Ratio} werden dabei mit Null angenommen.
+Der \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem ETF und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei mit Null angenommen.
 Dies bedeutet, dass der ETF der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
 
-Thesaurierender ETF.
+% TODO: ETF bezieht sich hier auf Aktien der Planspielunternehmen
+% TODO: Thesaurierender ETF.
 
-Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Indizes durch die Anwendung erforderlich.
+Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Indizes durch die Anwendung erforderlich. So ist die Berechnung des Indizes erst nach Pflege aller im Index enthaltenen Aktien möglich.
 
-\subsection{Berechnung des {GMAX} Index}
+\subsection{Berechnung des {GMAX} Index $\dagger$}
 
-\subsection{Speicherung von {ETF} Kursen}
-
-\subsection{Bewertung von Portfoliopositionen}
-Siehe \dots
+Es bestehen temporale Abhängigkeiten bei der Berechnung des Index. Die 
 
 % https://en.wikipedia.org/wiki/Stock_market_index
 % \section{Ausblick}
@@ -250,37 +229,34 @@ Siehe \dots
 
 % Kurz beschreiben
 
-\section{Bewertung von Tagesgeld}
+\section{Bewertung von Festgeld $\ast$}
 \label{sec:bewertung_von_festgeldern}
 
-Die
-
 % Wer kann Festgelder begeben?
+% Festgeld prolongierend zum aktuellen Kapitalmarktzins, Zinsgutschrift auf Zahlungsmittelkonto periodisch und jederzeitige, vorzeitige Verfügung im vollem Umfang oder teilweise ohne Vorfälligkeitsentschädigung.
 
-% Verfügung über Festgelder @ Raphaels Fachkonzept. Ist es nicht sinnvoller, das Festgeld als Tagesgeld zu bezeichnen, wegen der jederzeitigen Verfügung? -> Auf Konsistenz zu Code achten. Faktisch wird aber verzinst zu Periodenabhängigem Kapitalmarktzins.
-
-
-Festgelder werden zum Nennbetrag bewertet.
+Festgelder werden zum Kapitalsaldo nach Durchführung aller Kauf- und Verkaufbuchungen bewertet.
 
 % TODO: Insolvenzfall für alle Assets betrachten. -> Vorzeitige Ausbuchung von Wertpapieren
 
-\section{Ermittlung von Wertpapiererträgen}
+\section{Ermittlung von Kapitalerträgen $\dagger$}
 \label{sec:ermittlung_von_wertpapierertraegen}
 
-\subsection{Ausschüttungen aus Aktie}
+\subsection{Ausschüttungen aus Aktie $\ast$}
 \label{sec:ausschuettung_aus_aktie}
+% TODO: Gibt es eine klarere Bezeichnung als um Dividendenausschüttungen bereinigt?
 Da der verwendete Aktienkurs um Dividendenausschüttungen bereinigt ist und deshalb gezahlte Dividenden im Kurs berücksichtigt, erfolgt keine zusätzliche Ausschüttung von Dividenden (siehe Kapitel \ref{sec:bewertung_von_aktien}).
 
-\subsection{Ausschüttungen aus ETF}
+\subsection{Ausschüttungen aus ETF $\ast$}
 \label{sec:ausschuettungen_aus_etf}
 Ausschüttungen aus dem ETF erfolgen nicht, da der {ETF} als thesaurierender {ETF} aufgelegt ist (siehe Kapitel \ref{sec:bewertung_eines_exchange_traded_funds}).
 
-\subsection{Zinserträge auf Festgelder}
+\subsection{Zinserträge auf Festgelder $\dagger$}
 \label{sec:zinsertraege_auf_festgelder}
 
 
 
-\subsection{Zinserträge auf Floating Rate Notes}
+\subsection{Zinserträge auf Floating Rate Notes $\ast$}
 \label{sec:zinsertraege_auf_floating_rate_notes}
 
 \printbibliography[title={Literatur}]
