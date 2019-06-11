@@ -3,12 +3,12 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 // FIXME: @ Bilz Sauber dokumentieren
@@ -26,7 +26,7 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_PERIODEN_DETAIL = "perioden_detail";
     public static final String SCREEN_PERIODE_ANLEGEN = "periode_anlegen";
     public static final String SCREEN_TEILNEHMER_DRUCKEN = "teilnehmer_drucken";
-    public static final String SCREEN_INVESTMENT_UEBERSICHT= "investment_uebersicht";
+    public static final String SCREEN_INVESTMENT_UEBERSICHT = "investment_uebersicht";
 
     public static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     public static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
@@ -46,7 +46,7 @@ public class ScreensFramework extends Application {
     }
 
     @Override
-    public void start(Stage window) {
+    public void start(Stage primaryStage) {
         // Füge Screens zum ScreensController hinzu
         ScreenController screenController = new ScreenController();
         screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
@@ -62,54 +62,84 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
-        if(AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
+        if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
-        }
-        else { //es konnte kein Spiel geladen werden
+        } else { //es konnte kein Spiel geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
         }
-        Group root = new Group();
+
+        //MenüBar erstellen
+        MenuBar mbHaupt = new MenuBar();
+        //Menü erstelleb
+        Menu mTeilnehmer = new Menu("Teilnehmer");
+        //Menüpunkte erstellen
+        MenuItem mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
+        MenuItem mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
+        //Menüpunkt zum Menü hinzufügen
+        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren);
+
+        Menu mAdministration = new Menu("Administration");
+        MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
+        MenuItem mIperiodeAnlegen = new MenuItem("Periode anlegen");
+        MenuItem mIunternehmenAnlegen = new MenuItem("Unternehmen anlegen");
+        MenuItem mIwertpapierAnlegen = new MenuItem("Wertpapier anlegen");
+        MenuItem mIperiodePflegen = new MenuItem("Periode pflegen");
+        MenuItem mIteilnehmerUebersicht = new MenuItem("Teilnehmer zur\u00fccksetzen");
+        mAdministration.getItems().addAll(mIspielAnlegen, mIperiodeAnlegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIperiodePflegen, mIteilnehmerUebersicht);
+
+        Menu mAuswertung = new Menu("Auswertung");
+        MenuItem mIteilnehmerDrucken = new MenuItem("Bestenliste drucken");
+        mAuswertung.getItems().addAll(mIteilnehmerDrucken);
+
+        //Menü zur Menübar hinzufügen
+        mbHaupt.getMenus().addAll(mTeilnehmer, mAdministration, mAuswertung);
+
+        VBox root = new VBox(mbHaupt);
         root.getChildren().addAll(screenController);
         Scene scene = new Scene(root);
 
-        //MenüBar erstellen
-        MenuBar menuBar = new MenuBar();
-        //Menü erstelleb
-        Menu buttonMenu = new Menu("Navigation");
-        //Menüpunkte erstellen
-        MenuItem home = new MenuItem("Login");
-        MenuItem teilnehmer_hinz = new MenuItem("Teilnehmer hinzufuegen");
-        MenuItem unternehmen_anl = new MenuItem("Unternehmen anlegen");
-        MenuItem wertpapier_anl = new MenuItem("Wertpapier anlegen");
-        MenuItem teilnehmer_zur = new MenuItem("Teilnehmer zuruegradcksetzen");
-        MenuItem teilnehmer_dru = new MenuItem("Teilnehmer Drucken");
-        MenuItem periode_pfl = new MenuItem("Periode pflegen");
-        MenuItem periode_anl = new MenuItem("Periode anlegen");
-        MenuItem spiel_anl = new MenuItem("Spiel anlegen");
-
-        //Menüpunkt zum Menü hinzufügen
-        buttonMenu.getItems().addAll(home, teilnehmer_hinz, unternehmen_anl, wertpapier_anl, teilnehmer_zur, teilnehmer_dru, periode_anl, periode_pfl, spiel_anl);
         //Event hinzufügen
-        home.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_LOGIN));
-        teilnehmer_hinz.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN));
-        unternehmen_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN));
-        wertpapier_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN));
-        teilnehmer_zur.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT));
-        teilnehmer_dru.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN));
-        periode_pfl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL));
-        periode_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN));
-        spiel_anl.setOnAction(e ->screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN));
+        mIteilnehmerLogin.setOnAction(event ->
+                screenController.setScreen(ScreensFramework.SCREEN_LOGIN));
+        mIteilnehmerRegistrieren.setOnAction(e -> screenController.setScreen(ScreensFramework.SCREEN_REGISTER));
+        mIunternehmenAnlegen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
+        });
+        mIwertpapierAnlegen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN, ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
+        });
+        mIteilnehmerUebersicht.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, SCREEN_TEILNEHMER_UEBERSICHT_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+        });
+        mIteilnehmerDrucken.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN, ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN);
+        });
+        mIperiodePflegen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
+        });
+        mIperiodeAnlegen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
+        });
+        mIspielAnlegen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
+        });
 
-        //Menü zur Menübar hinzufügen
-        menuBar.getMenus().add(buttonMenu);
+
         //css laden
         scene.getStylesheets().add(getClass().getClassLoader().getResource("styles.css").toExternalForm());
-        root.getChildren().addAll(menuBar);
-        window.setScene(scene);
-        window.setTitle("Anika");
-        window.getIcons().add(new Image("logo.png"));
-        window.setMaximized(true);
-        window.show();
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Anika");
+        primaryStage.getIcons().add(new Image("logo.png"));
+        primaryStage.setMaximized(true);
+        primaryStage.show();
 
 
     }

@@ -141,9 +141,4 @@ public class RegisterController implements ControlledScreen {
         controller = screenPage;
     }
 
-    @FXML
-    private void doLogin(ActionEvent event) {
-        controller.setScreen(ScreensFramework.SCREEN_LOGIN);
-    }
-
 }

@@ -2,13 +2,8 @@
     -fx-font-weight: bold;
 }
 
-#logo {
-    -fx-background-color: black;
-    -fx-border-image-insets: 50px;
-}
-
 .root {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 .menu-bar {
