@@ -98,7 +98,7 @@ public class LoginController implements ControlledScreen {
     }
 
     public void doTeilnehmerUebersicht() {
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
     }
 
@@ -109,7 +109,7 @@ public class LoginController implements ControlledScreen {
 
     @FXML
     private void doUebersichtAnzeigen (ActionEvent event) {
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
     }
 
@@ -130,7 +130,7 @@ public class LoginController implements ControlledScreen {
     }
 
     public void doPeriodeAnlegen() {
-        screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
     }
 
