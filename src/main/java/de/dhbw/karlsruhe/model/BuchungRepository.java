@@ -162,7 +162,9 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     /**
      * @param teilnehmerId teilnehmer ID
      * @return Buchungen oder leere Liste
-     * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}
+     * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}.
+     * Die PortfolioFassade bietet einen einfacheren Zugriff auf Salden des Teilnehmers, weshalb die Fassade bevorzugt
+     * zu verwenden ist, sofern nicht zwingend Buchungen benötigt werden.
      */
     @Deprecated
     public List<Buchung> findByTeilnehmerId(long teilnehmerId) {
@@ -184,17 +186,6 @@ public class BuchungRepository implements CrudRepository<Buchung> {
                 tx.rollback();
         }
         return buchungen;
-    }
-
-    /**
-     * @param teilnehmerId teilnehmer ID
-     * @return Buchungen oder leere Liste
-     * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}
-     */
-    public Buchung findLastBuchungFromTeilnehmerByTeilnehmerId(long teilnehmerId) {
-        List<Buchung> buchungenVonTeilnehmer = findByTeilnehmerId(teilnehmerId);
-        return buchungenVonTeilnehmer.stream().reduce((a, b) -> b).get(); //siehe https://stackoverflow.com/questions/21426843/get-last-element-of-stream-list-in-a-one-liner
-
     }
 }
 

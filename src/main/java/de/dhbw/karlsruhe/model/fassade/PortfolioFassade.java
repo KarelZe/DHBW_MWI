@@ -22,17 +22,17 @@ public class PortfolioFassade {
 
     public double getZahlungsmittelkontoSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getSaldoZahlungsmittelkonto).sum();
+        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungZahlungsmittelkonto).sum();
     }
 
     public double getDepotSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getSaldoDepot).sum();
+        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungDepot).sum();
     }
 
     public double getFestgeldSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getSaldoFestgeld).sum();
+        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungZahlungsmittelkonto).sum();
     }
 
     /**
@@ -42,7 +42,8 @@ public class PortfolioFassade {
      * @return Gesamtsaldo des Teilnehmer Engagements
      */
     public double getGesamtSaldo(long teilnehmerId) {
-        return getZahlungsmittelkontoSaldo(teilnehmerId) + getFestgeldSaldo(teilnehmerId) + getZahlungsmittelkontoSaldo(teilnehmerId);
+        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        return buchungenTeilnehmer.stream().mapToDouble(b -> b.getVeraenderungZahlungsmittelkonto() + b.getVeraenderungDepot() + b.getVeraenderungFestgeld()).sum();
     }
 
     public List<Portfolioposition> getAnleihePositionen(long teilnehmerId, long periodenId) {
@@ -72,6 +73,7 @@ public class PortfolioFassade {
 
         // TODO: Muss noch implementiert werden.
         // https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-
+        // Prima als reduction darstellbar -> https://stackoverflow.com/a/40568972
         // Map<Integer,Portfolioposition> ergebnis = buchungen.stream().collect(groupingBy(w));
         // filtere auf Periode
         // gruppiere buchungen

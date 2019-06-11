@@ -109,6 +109,35 @@ public class KursRepository implements CrudRepository<Kurs> {
         return kurse;
     }
 
+    /**
+     * Diese Methode gibt den Kurs eines Wertpapiers für eine Periode zurück.
+     *
+     * @param periodeId    Id der abzufragenden Periode
+     * @param wertpapierId Id des abzufragenden Wertpapiers
+     * @return Optional mit Kurs oder Platzhalter
+     */
+
+    public Optional<Kurs> findByPeriodenIdAndWertpapierId(long periodeId, long wertpapierId) {
+        Transaction tx = null;
+        ArrayList<Kurs> kurse = new ArrayList<>();
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Kurs where periode_id = :periode_id and wertpapier_id = :wertpapier_id";
+            Query query = session.createQuery(queryString);
+            query.setParameter("periode_id", periodeId);
+            query.setParameter("wertpapier_id", wertpapierId);
+            tx.commit();
+            Kurs kurs = (Kurs) query.uniqueResult();
+            if (kurs != null)
+                return Optional.of(kurs);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
+    }
+
     @Override
     public List<Kurs> findAll() {
         throw new UnsupportedOperationException();

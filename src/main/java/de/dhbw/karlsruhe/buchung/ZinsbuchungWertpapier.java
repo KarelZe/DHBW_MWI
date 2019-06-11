@@ -23,7 +23,7 @@ public class ZinsbuchungWertpapier implements Buchungsart {
         buchung.setWertpapier(wertpapier);
         double betrag = bezugsgroesse * wertpapier.getEmissionszins();
         buchung.setVolumen(betrag);
-        buchung.setSaldoZahlungsmittelkonto(betrag);
+        buchung.setVeraenderungZahlungsmittelkonto(+betrag);
         return buchung;
     }
 }

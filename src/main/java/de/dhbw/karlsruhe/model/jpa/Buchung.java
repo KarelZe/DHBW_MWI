@@ -26,17 +26,15 @@ public class Buchung {
 
     private long stueckzahl;
 
-    private long periodeWertpapierId;
-
     private double volumen; //beinhaltet Dividendenhöhe bzw. Ordervolumen
 
     private double ordergebuehr;
 
-    private double saldoZahlungsmittelkonto; // entspricht dem verursachten Delta
+    private double veraenderungZahlungsmittelkonto;
 
-    private double saldoDepot; // entspricht dem Delta
+    private double veraenderungDepot;
 
-    private double saldoFestgeld; // entspricht dme Delta
+    private double veraenderungFestgeld;
 
     public long getId() {
         return id;
@@ -86,14 +84,6 @@ public class Buchung {
         this.stueckzahl = stueckzahl;
     }
 
-    public long getPeriodeWertpapierId() {
-        return periodeWertpapierId;
-    }
-
-    public void setPeriodeWertpapierId(long periodeWertpapierId) {
-        this.periodeWertpapierId = periodeWertpapierId;
-    }
-
     public double getVolumen() {
         return volumen;
     }
@@ -110,27 +100,27 @@ public class Buchung {
         this.ordergebuehr = ordergebuehr;
     }
 
-    public double getSaldoZahlungsmittelkonto() {
-        return saldoZahlungsmittelkonto;
+    public double getVeraenderungZahlungsmittelkonto() {
+        return veraenderungZahlungsmittelkonto;
     }
 
-    public void setSaldoZahlungsmittelkonto(double saldoZahlungsmittelkonto) {
-        this.saldoZahlungsmittelkonto = saldoZahlungsmittelkonto;
+    public void setVeraenderungZahlungsmittelkonto(double veraenderungZahlungsmittelkonto) {
+        this.veraenderungZahlungsmittelkonto = veraenderungZahlungsmittelkonto;
     }
 
-    public double getSaldoDepot() {
-        return saldoDepot;
+    public double getVeraenderungDepot() {
+        return veraenderungDepot;
     }
 
-    public void setSaldoDepot(double saldoDepot) {
-        this.saldoDepot = saldoDepot;
+    public void setVeraenderungDepot(double veraenderungDepot) {
+        this.veraenderungDepot = veraenderungDepot;
     }
 
-    public double getSaldoFestgeld() {
-        return saldoFestgeld;
+    public double getVeraenderungFestgeld() {
+        return veraenderungFestgeld;
     }
 
-    public void setSaldoFestgeld(double saldoFestgeld) {
-        this.saldoFestgeld = saldoFestgeld;
+    public void setVeraenderungFestgeld(double veraenderungFestgeld) {
+        this.veraenderungFestgeld = veraenderungFestgeld;
     }
 }

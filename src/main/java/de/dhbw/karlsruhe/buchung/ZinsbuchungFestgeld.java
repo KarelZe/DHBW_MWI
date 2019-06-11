@@ -23,7 +23,7 @@ public class ZinsbuchungFestgeld implements Buchungsart {
         buchung.setWertpapier(wertpapier);
         double betrag = bezugsgroesse * periode.getKapitalmarktzinssatz();
         buchung.setVolumen(betrag);
-        buchung.setSaldoZahlungsmittelkonto(betrag);
+        buchung.setVeraenderungZahlungsmittelkonto(+betrag);
         return buchung;
     }
 }

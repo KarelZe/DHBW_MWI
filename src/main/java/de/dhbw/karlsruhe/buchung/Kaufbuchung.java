@@ -1,11 +1,9 @@
 package de.dhbw.karlsruhe.buchung;
 
-import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.KursRepository;
+import de.dhbw.karlsruhe.model.TransaktionsArtRepository;
 import de.dhbw.karlsruhe.model.jpa.*;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class Kaufbuchung implements Buchungsart {
@@ -14,7 +12,7 @@ public class Kaufbuchung implements Buchungsart {
      * @param teilnehmer   Teilnehmer auf dessen Namen die Buchung erfolgt
      * @param wertpapier   Wertpapier, das in Buchung involviert ist.
      * @param bezugsgroesse Bezugsgroesse z. B. Nominalvolumen oder Saldo
-     * @return
+     * @return buchung mit Umsatzdaten oder leere Buchung
      */
     @Override
     public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
@@ -22,34 +20,22 @@ public class Kaufbuchung implements Buchungsart {
         buchung.setPeriode(periode);
         buchung.setTeilnehmer(teilnehmer);
         buchung.setWertpapier(wertpapier);
-        TransaktionsArt transaktionsArt = new TransaktionsArt();
-        transaktionsArt.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_KAUFEN_NAME);
-        buchung.setTransaktionsArt(transaktionsArt);
-
-
-        List<Kurs> kurseInPeriode = KursRepository.getInstanz().findByPeriodenId(periode.getId());
-        Optional<Kurs> wertPapierKurs = kurseInPeriode.stream().filter(k -> k.getWertpapier().getId() == wertpapier.getId()).findFirst(); //Annahme ist, dass es nur ein Wertpapier gibt, das auf dieses Kriterium zutrifft.
-        double kurs = wertPapierKurs.get().getKurs();
-        buchung.setOrdergebuehr(periode.getOrdergebuehr());
         buchung.setStueckzahl((long) bezugsgroesse);
+        buchung.setOrdergebuehr(periode.getOrdergebuehr());
 
-        long wertpapierArtId = wertpapier.getWertpapierArt().getId();
-        if (wertpapierArtId == WertpapierArt.WERTPAPIER_AKTIE) {
-            //do Kaufbuchung für Aktie
+        // Frage Transaktions Art ab. Wird bei Spielanlage initialisiert.
+        Optional<TransaktionsArt> transaktionsArt = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
+        transaktionsArt.ifPresent(buchung::setTransaktionsArt);
 
-        } else if (wertpapierArtId == WertpapierArt.WERTPAPIER_ANLEIHE) {
-            //do Kaufbuchung für Anleihe
-        } else if (wertpapierArtId == WertpapierArt.WERTPAPIER_ETF) {
-            //do Kaufbuchung für ETF
-        } else if (wertpapierArtId == WertpapierArt.WERTPAPIER_FESTGELD) {
-            //do Kaufbuchung für Festgeld
-        } else
-            throw new NoSuchElementException("Für diese Wertpapier-Art ist keine Buchung möglich.");
+        // Abfrage des Kurses aus Datenbank. Kurs ist einzigartig. Wird Kurs nicht gefunden ist er 0.
+        Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
+        kursOptional.ifPresent(k -> buchung.setVolumen(k.getKurs() * bezugsgroesse));
+
+        // Erfassung der Saldenveränderung auf Konto. Auf Depot wird Gegenwert ex Gebühren gutgeschrieben.
+        buchung.setVeraenderungDepot(+buchung.getVolumen());
+
+        // Auf Zahlungsmittelkonto werden Gebühren als auch der Gegenwert aus der Buchung belastet.
+        buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() + buchung.getOrdergebuehr()));
         return buchung;
-    }
-
-    private double getSaldoZahlungsmittelkontoFromTeilnehmer(Teilnehmer teilnehmer) {
-        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
-        return buchungRepository.findLastBuchungFromTeilnehmerByTeilnehmerId(teilnehmer.getId()).getSaldoZahlungsmittelkonto();
     }
 }
