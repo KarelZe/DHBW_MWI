@@ -3,12 +3,8 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.helper.LogoutHelper;
-import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.UnternehmenRepository;
-import de.dhbw.karlsruhe.model.jpa.Rolle;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
-import de.dhbw.karlsruhe.model.jpa.Unternehmen;
+import de.dhbw.karlsruhe.model.*;
+import de.dhbw.karlsruhe.model.jpa.*;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -109,6 +105,23 @@ public class RegisterController implements ControlledScreen {
 
         Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getSpiel());
         TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
+
+        //Startkapital zuweisen
+        Buchung startkapital = new Buchung();
+        startkapital.setOrdergebuehr(0);
+        startkapital.setPeriode(null);
+        startkapital.setStueckzahl(1);
+        startkapital.setTeilnehmer(teilnehmerZurSpeicherung);
+        Optional<TransaktionsArt> optional = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
+        if(optional.isPresent()) {
+            startkapital.setTransaktionsArt(optional.get());
+        }
+        startkapital.setVeraenderungDepot(0);
+        startkapital.setVeraenderungFestgeld(0);
+        startkapital.setVeraenderungZahlungsmittelkonto(AktuelleSpieldaten.getSpiel().getStartkapital());
+        startkapital.setVolumen(AktuelleSpieldaten.getSpiel().getStartkapital());
+        startkapital.setWertpapier(null);
+        BuchungRepository.getInstanz().save(startkapital);
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

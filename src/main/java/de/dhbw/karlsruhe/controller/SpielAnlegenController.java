@@ -171,6 +171,15 @@ public class SpielAnlegenController implements ControlledScreen {
             zinsgutschrift.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD_NAME);
             transaktionsArtRepository.save(zinsgutschrift);
         }
+
+        //Startkapital
+        optional = transaktionsArtRepository.findById(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
+        if (optional.isEmpty()) {
+            TransaktionsArt startkapital = new TransaktionsArt();
+            startkapital.setId(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
+            startkapital.setBeschreibung(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL_NAME);
+            transaktionsArtRepository.save(startkapital);
+        }
     }
 
     private void insertAdminInDB() {
