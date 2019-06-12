@@ -97,12 +97,12 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
 
     // TODO: Wie werden Exceptions hochgegegeben?
     @Override
-    public void save(List<Wertpapier> wertpapier) {
+    public void save(List<Wertpapier> wertpapiere) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            for (Wertpapier e : wertpapier) {
-                session.saveOrUpdate(e);
+            for (Wertpapier w : wertpapiere) {
+                session.saveOrUpdate(w);
             }
             tx.commit();
         } catch (HibernateException e) {

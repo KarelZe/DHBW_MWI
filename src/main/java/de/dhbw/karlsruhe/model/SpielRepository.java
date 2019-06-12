@@ -43,27 +43,6 @@ public class SpielRepository {
         }
     }
 
-    @Deprecated
-    public static void loescheSpielUeberall(Spiel spiel){
-        Transaction tx = null;
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            Query query=session.createQuery("DELETE FROM Teilnehmer WHERE spiel_id IS :s_id");
-            query.setParameter("s_id", spiel.getId());
-            int ergebnis=query.executeUpdate();
-            if(ergebnis>0){
-                System.out.println(ergebnis+" gelöscht");
-                SpielRepository.deleteSpiel(spiel);
-            }
-            //session.delete(spiel);
-            //tx.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-    }
-
     public static Spiel getAktivesSpiel() {
         Transaction tx = null;
         Spiel spiel = null;

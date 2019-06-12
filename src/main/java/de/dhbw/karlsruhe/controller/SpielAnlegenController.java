@@ -76,7 +76,6 @@ public class SpielAnlegenController implements ControlledScreen {
         insertAdminInDB();
         insertUnternehmenInDB();
         insertWertpapiereInDB();
-
     }
     /**
      * Legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
@@ -213,21 +212,19 @@ public class SpielAnlegenController implements ControlledScreen {
         List<Unternehmen> etfUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT);
         if (etfUnternehmen.size() >= 1)
             etf.setUnternehmen(etfUnternehmen.get(0));
+        wertpapierRepository.save(etf);
 
         //Festgeld
         Wertpapier festgeld = new Wertpapier();
         festgeld.setEmission_periode(0);
         festgeld.setName("Festgeld");
 
-        Optional<WertpapierArt> festgeldWpArt = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_FESTGELD);
-        festgeldWpArt.ifPresent(festgeld::setWertpapierArt);
+        Optional<WertpapierArt> festgeldOptional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_FESTGELD);
+        festgeldOptional.ifPresent(festgeld::setWertpapierArt);
 
         List<Unternehmen> festgeldUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
         if (festgeldUnternehmen.size() >= 1)
             festgeld.setUnternehmen(festgeldUnternehmen.get(0));
-
-        System.out.println(List.of(etf, festgeld));
-        // Speichere GMAX und Festgeld ab.
-        wertpapierRepository.save(List.of(etf, festgeld));
+        wertpapierRepository.save(festgeld);
     }
 }
