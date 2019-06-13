@@ -8,7 +8,6 @@
 \usepackage{hyphenat} % manuelle Trennung z. B.  Ma-Risk -> MaRisk
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
-\usepackage{float}
 \usepackage[hyphens]{url}
 \usepackage{geometry}
 \usepackage{calc}	
@@ -93,6 +92,13 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 
 \addbibresource{bib.bib}
 
+\newacronym{ETF}{ETF}{Exchange Traded Fund}
+\newacronym{FRN}{FRN}{Floating Rate Note}
+
+\makeatletter
+\let\@fnsymbol\@arabic
+\makeatother
+
 \begin{document}
 
 \maketitle
@@ -104,8 +110,8 @@ Um sicherzustellen, dass diese Wertpapiere möglichst realistisch und fair bewer
 Die Software \textit{Anika} unterstützt dabei den Handel folgender Finanzanlagen:
 \begin{enumerate}
 	\item Aktien
-	\item Floating Rate Notes (ETF)
-	\item Exchange Traded Funds
+	\item \gls{FRN}
+	\item \gls{ETF}
 	\item Festgeld
 \end{enumerate}
 
@@ -121,8 +127,8 @@ Insofern ist die Modellierung des rechnerischen Werts einer Finanzanlage eine ze
 Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. 
 Im Folgenden wird beschrieben, wie die Finanzanlagen angelegt und gepflegt werden:
 \begin{itemize}
-	\item Der ETF und das Festgeld wird automatisch bei der Anlage eines Spiels erstellt.
-	\item Aktien und Floating Rate Notes können von den Planspielunternehmen emittiert werden, indem der Spielleiter dies bei der Anlage des Spiels manuell durchführt. Die Software ermöglicht dabei, dass je Planspielunternehmen $\geq 0$ Aktien und Floating Rate Notes emittiert werden können. 
+	\item Der \gls{ETF} und das Festgeld wird automatisch bei der Anlage eines Spiels erstellt.
+	\item Aktien und \glspl{FRN} können von den Planspielunternehmen emittiert werden, indem der Spielleiter dies bei der Anlage des Spiels manuell durchführt. Die Software ermöglicht dabei, dass je Planspielunternehmen $\geq 0$ Aktien und \glspl{FRN} emittiert werden können. 
 \end{itemize}
 
 Die Pflege der für die Bewertung notwendigen Daten wie beispielsweise die Erfassung des Kapitalmarktzinssatzes, des Risikoaufschlages oder des Aktienkurses erfolgt dabei einmalig vor dem Start einer Planspielperiode durch den Spielleiter.
@@ -182,13 +188,13 @@ Zugleich ist ein Kauf und Verkauf zu diesem Kurs möglich -- bleiben Ordergebüh
 
 \subsection{Bewertung von Floating Rate Notes $\ast$}
 \label{sec:bewertung_von_floating_rate_notes}
-Floating Rate Notes sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen vom Emittenten abhängigen Aufschlag zusammen \autocite[][374]{fabozzi_handbook_2005}.
+\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen vom Emittenten abhängigen Aufschlag zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
 Hierbei ist insbesondere eine Bewertung der An
 
 Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Periode Null angenommen.
-Die Floating Rate Note verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
+Die \gls{FRN} verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
 Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
 Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
@@ -197,23 +203,23 @@ Die Bewertung orientert sich an \autocite[][]{veronesi_fixed_2010}.
 
 Alternativ ist auch \autocite[][]{fabozzi_handbook_2005} möglich.
 
-Der Wert eines Floaters mit einem Spread von $s=0$ entspricht der der Wert des Floater dem Nennwert des Floaters ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
+Der Wert einer \gls{FRN} mit einem Spread von $s=0$ entspricht der der Wert der \gls{FRN} dem Nennwert der \gls{FRN} ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
 
 Es handelt sich dabei um einen Spezialfall, der die Anforderungen von \textit{Anika} nicht vollständig abdeckt, da zwar eine Bepreisung zum Zinszahlungstermin erfolgt, der Spread aber auch andere Werte annehmen kann.
 
-Für einen Floater mit einem Spread lässt sich der Cashflow in eine fixe und eine veränderliche Komponente aufspalten.
+Für einer \gls{FRN} mit einem Spread lässt sich der Cashflow in eine fixe und eine veränderliche Komponente aufspalten.
 
-Damit teilt sich die Bewertung in die Bewetung einer Floating Rate Note mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
+Damit teilt sich die Bewertung in die Bewetung einer \gls{FRN} mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
 
 % https://www.finpricing.com/lib/FiFrn.pdf
 
 \subsection{Bewertung eines Exchange Traded Funds $\dagger$}
 \label{sec:bewertung_eines_exchange_traded_funds}
-Bei {ETFs} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, welche einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. 
+Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, welche einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. 
 
-Für die Bewertung des ETFs wird dabei eine vollständige Replizierung des Indizes unterstellt.
-Der \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem ETF und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei mit Null angenommen.
-Dies bedeutet, dass der ETF der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
+Für die Bewertung des \glspl{ETF} wird dabei eine vollständige Replizierung des Indizes unterstellt.
+Der \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei mit Null angenommen.
+Dies bedeutet, dass der \gls{ETF} der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
 
 % TODO: ETF bezieht sich hier auf Aktien der Planspielunternehmen
 % TODO: Thesaurierender ETF.
@@ -251,9 +257,9 @@ Festgelder werden zum Kapitalsaldo bewertet.
 % TODO: Gibt es eine klarere Bezeichnung als um Dividendenausschüttungen bereinigt?
 Da der verwendete Aktienkurs um Dividendenausschüttungen bereinigt ist und deshalb gezahlte Dividenden im Kurs berücksichtigt, erfolgt keine zusätzliche Ausschüttung von Dividenden (siehe Kapitel \ref{sec:bewertung_von_aktien}).
 
-\subsection{Ausschüttungen aus ETF $\ast$}
+\subsection{Ausschüttungen aus \gls{ETF} $\ast$}
 \label{sec:ausschuettungen_aus_etf}
-Ausschüttungen aus dem ETF erfolgen nicht, da der {ETF} als thesaurierender {ETF} aufgelegt ist (siehe Kapitel \ref{sec:bewertung_eines_exchange_traded_funds}).
+Ausschüttungen aus dem \gls{ETF} erfolgen nicht, da der \gls{ETF} als thesaurierender \gls{ETF} aufgelegt ist (siehe Kapitel \ref{sec:bewertung_eines_exchange_traded_funds}).
 
 \subsection{Zinserträge auf Festgelder $\ast$}
 \label{sec:zinsertraege_auf_festgelder}
