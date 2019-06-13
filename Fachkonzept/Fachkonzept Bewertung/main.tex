@@ -138,35 +138,40 @@ Die Pflege der für die Bewertung notwendigen Daten wie beispielsweise die Erfas
 
 Dieses Kapitel beschreibt den Zeitpunkt der Bewertung und der Verbuchung von Kapitelerträgen.
 
-Das Planspiel \textit{TOPSIM} nutzt ein  
+Die Software \textit{TOPSIM} unterteilt ein Planspiel in $n$ Perioden $P$.
+Eine feingranulare Unterteilung einer Periode ist nicht möglich, weshalb die Dauer einer Periode mit einer Zeiteinheit angenommen wird. 
+Infolge entspricht der Periodenbeginn von $P_1$ dem Ultimo der Vorperiode $P_0$. 
 
-Die rechnerischen Kurswerte gelten damit jeweils für die Folgeperiode.
-
-
-Da die Dauer einer Periode umfasst einen Tag. 
+Demnach ergibt sich folgender Zusammmenhang:
 
 \begin{figure}[htb]
 	\centering
 	\begin{tikzpicture} 
 		\draw[thick, ->] (0,0) -- (12cm,0);
-		\foreach \x in {2,4,6,8,10}
+		\foreach \x in {0,4,8}
 		\draw (\x cm,3pt) -- (\x cm,-3pt);
-		\draw[thick] (4,0) node[below=3pt,thick] {$31.12.$} node[above=3pt] {};
-		\draw[thick] (6,0) node[below=3pt, thick] {$t_h$} node[above=3pt] {};
-		\draw[thick] (10,0) node[below=3pt] {$T$} node[above=3pt] {};
-		\draw [black, thick ,decorate,decoration={brace,amplitude=5pt}] (4,0.5)  -- (8,0.5) 
-			   node [black,midway,above=4pt,font=\scriptsize] {Gültigkeit};
-		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (10,-0.5) -- (8,-0.5)
-			   node [black,midway,below=4pt,font=\scriptsize] {$T-t_h$};
-		\end{tikzpicture}
-	\caption{Bewertungszeitpunkt}
+		\draw[thick] (4,0) node[below=3pt,thick] {Ultimo $P_0$} node[above=3pt] {};
+		\draw[thick] (8,0) node[below=3pt, thick] {Ultimo $P_1$} node[above=3pt] {};
+		\draw [thick ] (4,0.5) node [above=4pt,font=\scriptsize, align=left] {
+		Verbuchung $P_0$\\ \parindent=1em \indent Bewertung $P_1$\\ \parindent=2em \indent Kauf/Verkauf $P_1$};
+		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (8,-0.5) -- (4,-0.5)
+			   node [black,midway,below=4pt,font=\scriptsize] {Dauer Verzinsung};
+		\draw [thick ] (8,0.5) node [above=4pt,font=\scriptsize, align=left] {Verbuchung $P_1$\\ \parindent=1em \indent Bewertung $P_2$\\ \parindent=2em \indent Kauf/Verkauf $P_2$};
+	\end{tikzpicture}
+	\caption{Bewertungs-/ Buchungszeitpunkt}
 	\label{img:zeitstrahl_pewertung}
 	(Eigene Darstellung)
 \end{figure}
 
-Damit lässt sich zusammenfassen, dass Aktienkurse und rechnerische Anleihekurse -- festgestellt am Jahresultimo -- die für die Folgeperiode relevanten Kurse für die Bewertung und den Handel darstellen. Die Verbuchung der Kapitalerträge erfolgt jeweils am Jahresultimo der Periode.
+Damit lässt sich zusammenfassen, dass Aktienkurse und rechnerische Anleihekurse -- festgestellt am Ultimo der Vorperiode -- die für die Folgeperiode relevanten Kurse für die Bewertung und den Handel darstellen.
 
-Die Bewertung der Finanzanlagen kann in einer beliebigen Reihenfolge efolgen. Ausschließlich für die Bewertung des ETFs bestehen temporale Abhängigkeiten zu anderen Anlagen. Kapitel \ref{sec:bewertung_eines_exchange_traded_funds} thematisiert dies detailliert.
+Die Bewertung der Finanzanlagen kann in einer beliebigen Reihenfolge efolgen. 
+Ausschließlich für die Bewertung des \glspl{ETF} bestehen temporale Abhängigkeiten zu anderen Anlagen. Kapitel \ref{sec:bewertung_eines_exchange_traded_funds} thematisiert dies detailliert.
+
+Ein Kauf und Verkauf von Finanzanlagen ist erst möglich, nachdem die Finanzanlagen bewertet wurden.
+
+Die Verbuchung der Kapitalerträge erfolgt jeweils am Ultimo der Periode nach Durchführung aller Kauf- und Verkaufbuchungen. 
+Die Dauer der Verzinsung beträgt damit ein Tag.
 
 \section{Bewertung von Finanzanlagen}
 \label{sec:bewertung_von_finanzanlagen}
@@ -193,7 +198,7 @@ Zugleich ist ein Kauf und Verkauf zu diesem Kurs möglich -- bleiben Ordergebüh
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
 Hierbei ist insbesondere eine Bewertung der An
 
-Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Periode Null angenommen.
+Für die Implementierung wird eine Laufzeit von zehn Perioden, beginnend in Periode Null angenommen.
 Die \gls{FRN} verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
 Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
@@ -263,9 +268,8 @@ Ausschüttungen aus dem \gls{ETF} erfolgen nicht, da der \gls{ETF} als thesaurie
 
 \subsection{Zinserträge auf Festgelder $\ast$}
 \label{sec:zinsertraege_auf_festgelder}
-Die Dauer der Priode beträgt 1 Tag (siehe Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung}).
-Maßgeblich für die Bewertung ist der Tagesendsaldo 
-
+Die Dauer der Priode beträgt einen Tag (siehe Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung}).
+Maßgeblich für die Bewertung ist der Tagesendsaldo.
 
 \subsection{Zinserträge auf Floating Rate Notes $\ast$}
 \label{sec:zinsertraege_auf_floating_rate_notes}
