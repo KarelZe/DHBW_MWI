@@ -170,25 +170,24 @@ Die Bewertung der Finanzanlagen kann in einer beliebigen Reihenfolge efolgen. Au
 
 \section{Bewertung von Finanzanlagen}
 \label{sec:bewertung_von_finanzanlagen}
+Im Folgenden wird beschrieben, wie die Finanzanlagen in der Software \textit{Anika} bewertet werden sollen. 
 
-Nachfolgende Unterkapitel beschreiben die Bewertung der in der Software \textit{Anika} handelbaren Finanzanlagen.
-
-\section{Bewertung von Aktien $\ast$}
+\subsection{Bewertung von Aktien $\ast$}
 \label{sec:bewertung_von_aktien}
-Die Unternehmen des Planspiels firmieren als Aktiengesellschaft.
-Ein rechnerischer Aktienkurs wird daher durch die Anwendung \textit{TOPSIM} auf Grundlage des Eigenkapitals und des Jahresüberschusses der vergangenen Periode nebst anderen Einflussfaktoren berechnet (\dots). 
-Eine Gewichtung der Faktoren mit Einfluss auf den Aktienkurs ist in der Anwendung \textit{TOPSIM} konfigurierbar. 
+Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den Teilnehmern gehandelt werden können. 
+Auf der Basis einiger Einflussfaktoren berechnet die Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode einen rechnerischer Aktienkurs. 
+Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar. 
 
-Aktienkurse der Planspielunternehmen werden \textit{ex post} je Planspielunternehmen und Periode ermittelt. Die durch die Software \textit{TOPSIM} ermittelten Aktienkurse sind um Dividendenausschüttungen bereingt. Kapitalmaßnahmen mit Einfluss auf den Aktienkurs erfolgen darüber hinaus nicht, womit eine unmittelbare Verwendung in der Software \textit{Anika} möglich ist. Nachfolgend wird beschrieben, wie eine Erfassung der Aktienkurse erfolgen soll.
+Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Seminarleiter in einer Übersicht dargestellt. Der darauf abgebildete Kurs beinhaltet die vergangenen Dividendenauszahlungen, wodurch der Inhaber der Aktie keine Dividende ausgezahlt bekommt, statdessen erhöht sich der Kurs der Aktie. 
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
-Zugleich ist ein Kauf und Verkauf zu diesem Kurs möglich -- bleiben Ordergebühren und eine Geld-/ und Briefspanne außer Acht. 
+Bei dem Handel mit Aktien wird eine vom Seminarleiter eingestellte Ordergebührt fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
 
 % TODO: Ausformulieren. Pflege von Kursen siehe Kapitel 2. Ordergebühren in %. Zuordnung sinnvoll zu Handel von Wertpapieren?
 
 \subsection{Bewertung von Floating Rate Notes $\ast$}
 \label{sec:bewertung_von_floating_rate_notes}
-\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen vom Emittenten abhängigen Aufschlag zusammen \autocite[][374]{fabozzi_handbook_2005}.
+\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlages zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
 Hierbei ist insbesondere eine Bewertung der An
@@ -215,60 +214,44 @@ Damit teilt sich die Bewertung in die Bewetung einer \gls{FRN} mit einem Spread 
 
 \subsection{Bewertung eines Exchange Traded Funds $\dagger$}
 \label{sec:bewertung_eines_exchange_traded_funds}
-Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, welche einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. 
+Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. 
 
-Für die Bewertung des \glspl{ETF} wird dabei eine vollständige Replizierung des Indizes unterstellt.
-Der \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei mit Null angenommen.
-Dies bedeutet, dass der \gls{ETF} der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
+Die Software \textit{Anika} soll jedem Teilnehmer die Möglichkeit bieten, einen ETF zu handeln, der die Wertentwicklung des GMAX\footnote{Der Performanceindex GMAX bildet die gleichgewichteten Aktienkurse aller Planspielunternehmen ab.} abbildet. 
+Deshalb ist eine Bewertung des ETF erst dann möglich, wenn alle im GMAX enthaltenenen Aktienkurse vorliegen. 
 
-% TODO: ETF bezieht sich hier auf Aktien der Planspielunternehmen
-% TODO: Thesaurierender ETF.
+Für die Bewertung eines \glspl{ETF} wird dabei eine vollständige Replizierung des Indizes unterstellt. Außerdem wird angenommen, dass die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei nicht berücksichtigt.
+Dies führt dazu, dass der \gls{ETF} der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
 
-Für die rechnerische Bewertung ist deshalb die Berechnung des \textit{GMAX} Indizes durch die Anwendung erforderlich. So ist die Berechnung des Indizes erst nach Pflege aller im Index enthaltenen Aktien möglich.
-
-\subsection{Berechnung des {GMAX} Index $\dagger$}
-
-Es bestehen temporale Abhängigkeiten bei der Berechnung des Index. Die 
-
-% https://en.wikipedia.org/wiki/Stock_market_index
-% \section{Ausblick}
-% Das Grundsätzlich ist auch eine Bewert
-% Weiterhin ist . Die propagierten Modelle sind dabei geeignet, um eine 
-
-% Kurz beschreiben
-
-\section{Bewertung von Festgeld $\ast$}
+\subsection{Bewertung von Festgeld $\ast$}
 \label{sec:bewertung_von_festgeldern}
 
-Ein Festgeld ist eine Variante der Termineinlage, dessen Kapital für eine vertraglich vereinbarte Anlagedauer fixiert ist.
+Als ein Festgeld wird eine Variante der Termineinlage bezeichnet, dessen Kapital für eine vertraglich vereinbarte Anlagedauer fixiert ist.
 
-Die Ausgestaltung von Festgeldern in der Software \textit{Anika} folgt dabei nachfolgenden Konventionen. Die Anlagedauer beträgt eine Periode.
-Die Verzinsung entspricht dem Kapitalmarktzins für die Dauer einer Periode. Es erfolgt eine automatische Prolongation des Festgelds um eine Periode. Eine jederzeitige Verfügung den Teilnehmer ist im vollen Umfang oder teilweise ohne Vorfälligkeitsentschädigung möglich.
-Weiterhin sind Aufstockungen des Festgeld allzeit möglich.
-% Eine Anlage in Festgelder ist für die Teilnehmer des Planspiels optional.
+Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet sich dabei in Teilen von den üblichen am Markt befindlichen Festgeldern. Im Folgenden werden deshalb die Konditionen des in \textit{Anika} verwendeten Festgeldes dargestellt:
+\begin{itemize}
+	\item Die Anlagedauer beträgt eine Periode.
+	\item Die Verzinsung entspricht dem Kapitalmarktzins der jeweiligen Periode.
+	\item Es erfolgt eine automatische Prolongation des Festgelds um eine Periode.
+	\item Eine jederzeitige Verfügung den Teilnehmer ist im vollen Umfang oder teilweise ohne Vorfälligkeitsentschädigung möglich.
+	\item Aufstockungen des Festgeld sind jederzeit möglich.
+\end{itemize}
 
-Festgelder werden zum Kapitalsaldo bewertet. 
+Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet, da sie dadurch effektiv einer risikolosen Floating Rate Note gleichzusetzen sind. Im Gegensatz dazu fällt jedoch keine Ordergebühr an, da es kein Wertpapier ist.
 
-\section{Ermittlung von Kapitalerträgen $\dagger$}
+\section{Ermittlung der Kapitalerträge $\dagger$}
 \label{sec:ermittlung_von_wertpapierertraegen}
 
-\subsection{Ausschüttungen aus Aktie $\ast$}
+\subsection{Ausschüttungen aus Aktien und ETFs $\ast$}
 \label{sec:ausschuettung_aus_aktie}
 % TODO: Gibt es eine klarere Bezeichnung als um Dividendenausschüttungen bereinigt?
-Da der verwendete Aktienkurs um Dividendenausschüttungen bereinigt ist und deshalb gezahlte Dividenden im Kurs berücksichtigt, erfolgt keine zusätzliche Ausschüttung von Dividenden (siehe Kapitel \ref{sec:bewertung_von_aktien}).
-
-\subsection{Ausschüttungen aus \gls{ETF} $\ast$}
-\label{sec:ausschuettungen_aus_etf}
-Ausschüttungen aus dem \gls{ETF} erfolgen nicht, da der \gls{ETF} als thesaurierender \gls{ETF} aufgelegt ist (siehe Kapitel \ref{sec:bewertung_eines_exchange_traded_funds}).
+Wie bereits in Kapitel \ref{sec:bewertung_von_aktien} beschrieben wurde, beinhaltet der Aktienkurs der Planspielunternehmen die bereits ausgeschütteten Dividendenauszahlungen. Aus diesem Grund soll keine zusätzliche Dividendenausschüttung erfolgen. Dies gilt auch für ETFs. 
 
 \subsection{Zinserträge auf Festgelder $\ast$}
 \label{sec:zinsertraege_auf_festgelder}
-Die Dauer der Priode beträgt 1 Tag (siehe Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung}).
-Maßgeblich für die Bewertung ist der Tagesendsaldo 
-
+Festgelder werden wie bereits in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben wurde, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben. 
 
 \subsection{Zinserträge auf Floating Rate Notes $\ast$}
 \label{sec:zinsertraege_auf_floating_rate_notes}
-
+Wie bereits in Kapitel \ref{sec:bewertung_von_floating_rate_notes} beschrieben wurde, setzt sich die Verzinsung einer Floating Rate Note aus dem jeweiligen Kapitalmarktzinsatz und dem bonitätsabhängigen Emittentenaufschlag zusammen. Die sich daraus ergebende Zinszahlung wird am Ende der jeweiligen Periode dem Zahlungsmittelkonto des Teilnehmers gutgeschrieben. 
 \printbibliography[title={Literatur}]
 \end{document}
