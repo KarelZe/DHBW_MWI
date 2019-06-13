@@ -98,32 +98,34 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \maketitle
 
 \section{Überblick*}
-Dieses Fachkonzept beschreibt die Bewertung von Wertpapieren in der zu erstellenden Software \textit{Anika}. 
-Dabei werden die verwendeten Bewertungsmodelle und notwendige Prämissen eingeführt.
+Im Rahmen des MWI-Projektes soll die bestehende Planspielsoftware in der DHBW Karlsruhe um eine zusätzliche autarke Wertpapierkomponente mit dem Namen \textit{Anika} erweitert werden.
+Um sicherzustellen, dass diese Wertpapiere möglichst realistisch und fair bewertet werden können, beschreibt dieses Fachkonzept, wie deren Bewertung in dieser Software durchgeführt werden soll.
 
-Da die Software \textit{Anika} kein dediziertes Handelssystem implementiert, das Handelsaktivitäten einzelner Marktteilnehmer beispielsweise Kauforders der Planspielteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden anwendungsweit rechnerische Kurswerte verwendet. 
-
-Die Bewertung als auch der Handel von Finanzanlagen erfolgt deshalb zu einem rechnerischen Kurs, der auf Grundlage finanzmathematischer Modelle ermittelt wird. Insofern ist die Modellierung des rechnerischen Werts einer Finanzanlage eine zentrale Funktionalität der Software.
-
-Die Software \textit{Anika} unterstützt dabei die Bewertung folgender Finanzanlagen:
+Die Software \textit{Anika} unterstützt dabei den Handel folgender Finanzanlagen:
 \begin{enumerate}
 	\item Aktien
-	\item Floating Rate Notes
+	\item Floating Rate Notes (ETF)
 	\item Exchange Traded Funds
 	\item Festgeld
 \end{enumerate}
 
-Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
+Weil \textit{Anika} kein dediziertes Handelssystem implementiert, das die Handelsaktivitäten einzelner Marktteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden anwendungsweit ausschließlich rechnerische Kurswerte verwendet. 
+Deshalb erfolgt sowohl die Bewertung als auch der Handel von Finanzanlagen zu einem rechnerischen Kurs, der auf Grundlage finanzmathematischer Modelle ermittelt wird.
+Insofern ist die Modellierung des rechnerischen Werts einer Finanzanlage eine zentrale Funktionalität der Software.
 
-\section{Anlage und Pflege von Wertpapieren $\ast$}
+%Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
+
+\section{Anlage und Pflege von Finanzanlagen $\ast$}
 \label{sec:anlage_und_pflege_der_wertpapiere}
 
-Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. Hinsichtlich dem Vorgehen ist nach Art der Finanzanlage zu differenzieren.
+Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. 
+Im Folgenden wird beschrieben, wie die Finanzanlagen angelegt und gepflegt werden:
 \begin{itemize}
-	\item Die Anlage von {ETFs} und des Festgelds erfolgt durch das System mit Anlage eines Spiels automatisch. 
-	\item Die Anlage von Aktien und Floating Rate Notes der Planspielunternehmen erfolgt manuell mit Anlage des Spiels durch den Spielleiter. Eine Anlage von Aktien und Floating Rate Notes ist nur für Planspielunternehmen möglich. Die Software ermöglicht dabei, je Planspielunternehmen$\geq 0$ Aktien und Floating Rate Notes eines Unternehmens anzulegen. 
+	\item Der ETF und das Festgeld wird automatisch bei der Anlage eines Spiels erstellt.
+	\item Aktien und Floating Rate Notes können von den Planspielunternehmen emittiert werden, indem der Spielleiter dies bei der Anlage des Spiels manuell durchführt. Die Software ermöglicht dabei, dass je Planspielunternehmen $\geq 0$ Aktien und Floating Rate Notes emittiert werden können. 
 \end{itemize}
-Die Pflege der für die Bewertung notwendigen Geschäftsdaten erfolgt einmalig zu Periodenbeginn durch den Spielleiter. Dies betrifft sowohl Geschäfte, die manuell als auch automatisch durch das System angelegt werden. Detailliert wird darauf in den Folgekapiteln eingegangen.
+
+Die Pflege der für die Bewertung notwendigen Daten wie beispielsweise die Erfassung des Kapitalmarktzinssatzes, des Risikoaufschlages oder des Aktienkurses erfolgt dabei einmalig vor dem Start einer Planspielperiode durch den Spielleiter.
 
 \section{Zeitpunkt der Bewertung und Verbuchung}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung}
