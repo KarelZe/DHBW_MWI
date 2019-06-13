@@ -23,6 +23,8 @@ public class BuchungsFactory {
             return new Kaufbuchung();
         else if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN)
             return new Verkaufbuchung();
+        else if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL)
+            return new Startkapital();
         else
             throw new NoSuchElementException("Für diese Transaktions Art ist keine Buchung möglich.");
     }

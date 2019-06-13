@@ -1,5 +1,7 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.buchung.BuchungsFactory;
+import de.dhbw.karlsruhe.buchung.Buchungsart;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.helper.LogoutHelper;
@@ -107,21 +109,9 @@ public class RegisterController implements ControlledScreen {
         TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
 
         //Startkapital zuweisen
-        Buchung startkapital = new Buchung();
-        startkapital.setOrdergebuehr(0);
-        startkapital.setPeriode(null);
-        startkapital.setStueckzahl(1);
-        startkapital.setTeilnehmer(teilnehmerZurSpeicherung);
-        Optional<TransaktionsArt> optional = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
-        if(optional.isPresent()) {
-            startkapital.setTransaktionsArt(optional.get());
-        }
-        startkapital.setVeraenderungDepot(0);
-        startkapital.setVeraenderungFestgeld(0);
-        startkapital.setVeraenderungZahlungsmittelkonto(AktuelleSpieldaten.getSpiel().getStartkapital());
-        startkapital.setVolumen(AktuelleSpieldaten.getSpiel().getStartkapital());
-        startkapital.setWertpapier(null);
-        BuchungRepository.getInstanz().save(startkapital);
+        BuchungsFactory buchungsFactory = new BuchungsFactory();
+        Buchungsart startkapital = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
+        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, null, AktuelleSpieldaten.getSpiel().getStartkapital()));
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
