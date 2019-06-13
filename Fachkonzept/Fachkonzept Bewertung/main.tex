@@ -138,47 +138,52 @@ Die Pflege der für die Bewertung notwendigen Daten wie beispielsweise die Erfas
 
 Dieses Kapitel beschreibt den Zeitpunkt der Bewertung und der Verbuchung von Kapitelerträgen.
 
-Das Planspiel \textit{TOPSIM} nutzt ein  
+Die Software \textit{TOPSIM} unterteilt ein Planspiel in $n$ Perioden $P$.
+Eine feingranulare Unterteilung einer Periode ist nicht möglich, weshalb die Dauer einer Periode mit einer Zeiteinheit angenommen wird.
+Infolge entspricht der Periodenbeginn von $P_1$ dem Ultimo der Vorperiode $P_0$.
 
-Die rechnerischen Kurswerte gelten damit jeweils für die Folgeperiode.
-
-
-Da die Dauer einer Periode umfasst einen Tag. 
+Demnach ergibt sich folgender Zusammmenhang:
 
 \begin{figure}[htb]
 	\centering
 	\begin{tikzpicture} 
 		\draw[thick, ->] (0,0) -- (12cm,0);
-		\foreach \x in {2,4,6,8,10}
+		\foreach \x in {0,4,8}
 		\draw (\x cm,3pt) -- (\x cm,-3pt);
-		\draw[thick] (4,0) node[below=3pt,thick] {$31.12.$} node[above=3pt] {};
-		\draw[thick] (6,0) node[below=3pt, thick] {$t_h$} node[above=3pt] {};
-		\draw[thick] (10,0) node[below=3pt] {$T$} node[above=3pt] {};
-		\draw [black, thick ,decorate,decoration={brace,amplitude=5pt}] (4,0.5)  -- (8,0.5) 
-			   node [black,midway,above=4pt,font=\scriptsize] {Gültigkeit};
-		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (10,-0.5) -- (8,-0.5)
-			   node [black,midway,below=4pt,font=\scriptsize] {$T-t_h$};
-		\end{tikzpicture}
-	\caption{Bewertungszeitpunkt}
+		\draw[thick] (4,0) node[below=3pt,thick] {Ultimo $P_0$} node[above=3pt] {};
+		\draw[thick] (8,0) node[below=3pt, thick] {Ultimo $P_1$} node[above=3pt] {};
+		\draw [thick ] (4,0.5) node [above=4pt,font=\scriptsize, align=left] {
+		Verbuchung $P_0$\\ \parindent=1em \indent Bewertung $P_1$\\ \parindent=2em \indent Kauf/Verkauf $P_1$};
+		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (8,-0.5) -- (4,-0.5)
+			   node [black,midway,below=4pt,font=\scriptsize] {Dauer Verzinsung};
+		\draw [thick ] (8,0.5) node [above=4pt,font=\scriptsize, align=left] {Verbuchung $P_1$\\ \parindent=1em \indent Bewertung $P_2$\\ \parindent=2em \indent Kauf/Verkauf $P_2$};
+	\end{tikzpicture}
+	\caption{Bewertungs-/ Buchungszeitpunkt}
 	\label{img:zeitstrahl_pewertung}
 	(Eigene Darstellung)
 \end{figure}
 
-Damit lässt sich zusammenfassen, dass Aktienkurse und rechnerische Anleihekurse -- festgestellt am Jahresultimo -- die für die Folgeperiode relevanten Kurse für die Bewertung und den Handel darstellen. Die Verbuchung der Kapitalerträge erfolgt jeweils am Jahresultimo der Periode.
+Damit lässt sich zusammenfassen, dass Aktienkurse und rechnerische Anleihekurse -- festgestellt am Ultimo der Vorperiode -- die für die Folgeperiode relevanten Kurse für die Bewertung und den Handel darstellen.
 
-Die Bewertung der Finanzanlagen kann in einer beliebigen Reihenfolge efolgen. Ausschließlich für die Bewertung des ETFs bestehen temporale Abhängigkeiten zu anderen Anlagen. Kapitel \ref{sec:bewertung_eines_exchange_traded_funds} thematisiert dies detailliert.
+Die Bewertung der Finanzanlagen kann in einer beliebigen Reihenfolge efolgen.
+Ausschließlich für die Bewertung des \glspl{ETF} bestehen temporale Abhängigkeiten zu anderen Anlagen. Kapitel \ref{sec:bewertung_eines_exchange_traded_funds} thematisiert dies detailliert.
+
+Ein Kauf und Verkauf von Finanzanlagen ist erst möglich, nachdem die Finanzanlagen bewertet wurden.
+
+Die Verbuchung der Kapitalerträge erfolgt jeweils am Ultimo der Periode nach Durchführung aller Kauf- und Verkaufbuchungen.
+Die Dauer der Verzinsung beträgt damit ein Tag.
 
 \section{Bewertung von Finanzanlagen}
 \label{sec:bewertung_von_finanzanlagen}
-Im Folgenden wird beschrieben, wie die Finanzanlagen in der Software \textit{Anika} bewertet werden sollen. 
+Im Folgenden wird beschrieben, wie die Finanzanlagen in der Software \textit{Anika} bewertet werden sollen.
 
 \subsection{Bewertung von Aktien $\ast$}
 \label{sec:bewertung_von_aktien}
-Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den Teilnehmern gehandelt werden können. 
-Auf der Basis einiger Einflussfaktoren berechnet die Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode einen rechnerischer Aktienkurs. 
-Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar. 
+Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den Teilnehmern gehandelt werden können.
+Auf der Basis einiger Einflussfaktoren berechnet die Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode einen rechnerischer Aktienkurs.
+Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar.
 
-Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Seminarleiter in einer Übersicht dargestellt. Der darauf abgebildete Kurs beinhaltet die vergangenen Dividendenauszahlungen, wodurch der Inhaber der Aktie keine Dividende ausgezahlt bekommt, statdessen erhöht sich der Kurs der Aktie. 
+Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Seminarleiter in einer Übersicht dargestellt. Der darauf abgebildete Kurs beinhaltet die vergangenen Dividendenauszahlungen, wodurch der Inhaber der Aktie keine Dividende ausgezahlt bekommt, statdessen erhöht sich der Kurs der Aktie.
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
 Bei dem Handel mit Aktien wird eine vom Seminarleiter eingestellte Ordergebührt fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
@@ -192,7 +197,7 @@ Bei dem Handel mit Aktien wird eine vom Seminarleiter eingestellte Ordergebührt
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
 Hierbei ist insbesondere eine Bewertung der An
 
-Für die Implementierung wird eine Laufzeit von zehn Jahren, beginnend in Periode Null angenommen.
+Für die Implementierung wird eine Laufzeit von zehn Perioden, beginnend in Periode Null angenommen.
 Die \gls{FRN} verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
 Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
@@ -214,10 +219,10 @@ Damit teilt sich die Bewertung in die Bewetung einer \gls{FRN} mit einem Spread 
 
 \subsection{Bewertung eines Exchange Traded Funds $\dagger$}
 \label{sec:bewertung_eines_exchange_traded_funds}
-Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. 
+Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}.
 
-Die Software \textit{Anika} soll jedem Teilnehmer die Möglichkeit bieten, einen ETF zu handeln, der die Wertentwicklung des GMAX\footnote{Der Performanceindex GMAX bildet die gleichgewichteten Aktienkurse aller Planspielunternehmen ab.} abbildet. 
-Deshalb ist eine Bewertung des ETF erst dann möglich, wenn alle im GMAX enthaltenenen Aktienkurse vorliegen. 
+Die Software \textit{Anika} soll jedem Teilnehmer die Möglichkeit bieten, einen ETF zu handeln, der die Wertentwicklung des GMAX\footnote{Der Performanceindex GMAX bildet die gleichgewichteten Aktienkurse aller Planspielunternehmen ab.} abbildet.
+Deshalb ist eine Bewertung des ETF erst dann möglich, wenn alle im GMAX enthaltenenen Aktienkurse vorliegen.
 
 Für die Bewertung eines \glspl{ETF} wird dabei eine vollständige Replizierung des Indizes unterstellt. Außerdem wird angenommen, dass die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei nicht berücksichtigt.
 Dies führt dazu, dass der \gls{ETF} der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
@@ -244,14 +249,14 @@ Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, wer
 \subsection{Ausschüttungen aus Aktien und ETFs $\ast$}
 \label{sec:ausschuettung_aus_aktie}
 % TODO: Gibt es eine klarere Bezeichnung als um Dividendenausschüttungen bereinigt?
-Wie bereits in Kapitel \ref{sec:bewertung_von_aktien} beschrieben wurde, beinhaltet der Aktienkurs der Planspielunternehmen die bereits ausgeschütteten Dividendenauszahlungen. Aus diesem Grund soll keine zusätzliche Dividendenausschüttung erfolgen. Dies gilt auch für ETFs. 
+Wie bereits in Kapitel \ref{sec:bewertung_von_aktien} beschrieben wurde, beinhaltet der Aktienkurs der Planspielunternehmen die bereits ausgeschütteten Dividendenauszahlungen. Aus diesem Grund soll keine zusätzliche Dividendenausschüttung erfolgen. Dies gilt auch für ETFs.
 
 \subsection{Zinserträge auf Festgelder $\ast$}
 \label{sec:zinsertraege_auf_festgelder}
-Festgelder werden wie bereits in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben wurde, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben. 
+Festgelder werden wie bereits in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben wurde, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben.
 
 \subsection{Zinserträge auf Floating Rate Notes $\ast$}
 \label{sec:zinsertraege_auf_floating_rate_notes}
-Wie bereits in Kapitel \ref{sec:bewertung_von_floating_rate_notes} beschrieben wurde, setzt sich die Verzinsung einer Floating Rate Note aus dem jeweiligen Kapitalmarktzinsatz und dem bonitätsabhängigen Emittentenaufschlag zusammen. Die sich daraus ergebende Zinszahlung wird am Ende der jeweiligen Periode dem Zahlungsmittelkonto des Teilnehmers gutgeschrieben. 
+
 \printbibliography[title={Literatur}]
 \end{document}
