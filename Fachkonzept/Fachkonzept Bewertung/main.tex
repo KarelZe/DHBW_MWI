@@ -195,18 +195,24 @@ Bei dem Handel mit Aktien wird eine vom Seminarleiter eingestellte Ordergebührt
 \label{sec:bewertung_von_floating_rate_notes}
 \glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlages zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
-Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
-Hierbei ist insbesondere eine Bewertung der An
+\gls{FRN} sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig. 
 
-Für die Implementierung wird eine Laufzeit von zehn Perioden, beginnend in Periode Null angenommen.
-Die \gls{FRN} verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
-Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
+\glspl{FRN} in der Software \textit{Anika} weisen folgende Aupsprägung auf:
+\begin{itemize}
+	\item Die Laufzeit beträgt zehn Jahre.
+	\item Die Emission erfolgt in Periode eins.
+	\item Die Verzinsung entspricht dem Kapitalmarktzins und einem emissionsindividuellen Spread.
+	\item Das Zinsfixing erfolgt am Periodenultimo.
+	\item Die Zinsausschüttung einmal je Periode am Periodenultimo.
+\end{itemize}
 
-Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
+Dieses Fachkonzept präferiert für die Bewertung der \gls{FRN} ein Bewertungsmodell, das in \textcite[][31]{alexander_market_2008} dokumentiert ist.
+Es ist für diese Arbeit prädestiniert, da es ermöglicht,  Floater zu einem beliebigen Zeitpunkt zu bewerten und auch Floater mit Spreads $\neq 0$ zu bepreisen.
+Weiterhin ist das Vorgehen in der Literatur etabliert, so findet sich eine Variante davon in \textcite[][54]{veronesi_fixed_2010}. 
 
-Die Bewertung orientert sich an \autocite[][]{veronesi_fixed_2010}.
+% Wann erfolgt die Bewertung?
 
-Alternativ ist auch \autocite[][]{fabozzi_handbook_2005} möglich.
+Sofern der Spred $s=0$ ergeben sich Vereinfachungen hinsichtlich der Bewertung de
 
 Der Wert einer \gls{FRN} mit einem Spread von $s=0$ entspricht der der Wert der \gls{FRN} dem Nennwert der \gls{FRN} ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
 
@@ -214,13 +220,13 @@ Es handelt sich dabei um einen Spezialfall, der die Anforderungen von \textit{An
 
 Für einer \gls{FRN} mit einem Spread lässt sich der Cashflow in eine fixe und eine veränderliche Komponente aufspalten.
 
-Damit teilt sich die Bewertung in die Bewetung einer \gls{FRN} mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
+Damit teilt sich die Bewertung in die einer \gls{FRN} mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
 
-Für die Bewertung von \gls{FRN} gelten folgende Prämissen:
-\begin{itemize}
-	\item Die Bewertung erfolgt am Kupon\dots
-	\item Restlaufzeit...
-\end{itemize}
+
+
+Die Berechnung der Abzinsungsfaktoren erfolgt auf Grundlag
+
+Die Bewertung der \gls{FRN} erfolgt ausschließlich am Periodenultimo.
 
 % https://www.finpricing.com/lib/FiFrn.pdf
 
@@ -237,9 +243,12 @@ Das ist, Autoren wie \textcite{veronesi_fixed_2010} propagieren ein identisches 
 
 \textcite[][]{alexander_market_2008} zerlegt dabei die fixierten Zahlungen aus dem Spread $s$ und den veränderlichen Zahlungn aus dem Referenzzins. Die Festzins
 
-Nachfolgendes Beispiel ist \textcite[][32]{alexander_market_2008} entlehnt.
+% Bercü
 
-Bewertet wird ein \gls{FRN} mit jährlichen Zinskupons, die sich aus Referenzzins \gls{LIBOR} plus 60 Basispunkte zusammensetzen. Die Bewertung erfolgt an einem Zinszahlungstermin. Der \gls{LIBOR} zum Bewertungszeitpunkt beträgt 5~\%. Die Abzinsungssätze für 2, 3, 4 Jahre 4,85~\%, 4,65~\% beziehungsweise 4,5~\%.
+\textbf{Beispiel:}
+
+Nachfolgendes Beispiel ist \textcite[][32]{alexander_market_2008} entlehnt.
+Bewertet wird ein \gls{FRN} mit jährlichen Zinskupons, die sich aus Referenzzins \gls{LIBOR} plus 60 Basispunkte zusammensetzen. Die Bewertung erfolgt an einem Zinszahlungstermin. Der \gls{LIBOR} zum Bewertungszeitpunkt beträgt 5~\%. Die Abzinsungssätze für 2, 3 und 4 Jahre betragen 4,85~\%, 4,65~\% beziehungsweise 4,5~\%.
 % Die Diskontierung erfolgt mit dem Libor
 
 Da eine Zerlegung in feste Anleihe und einen Variablen Zahlungsstrom erfolgt, ist zunächst die Festzinsanleihe (erster Term) zu bewerten.
