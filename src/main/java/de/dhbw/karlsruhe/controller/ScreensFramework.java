@@ -81,11 +81,11 @@ public class ScreensFramework extends Application {
         Menu mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
         MenuItem mIperiodeAnlegen = new MenuItem("Periode anlegen");
+        MenuItem mIperiodePflegen = new MenuItem("Periode pflegen");
         MenuItem mIunternehmenAnlegen = new MenuItem("Unternehmen anlegen");
         MenuItem mIwertpapierAnlegen = new MenuItem("Wertpapier anlegen");
-        MenuItem mIperiodePflegen = new MenuItem("Periode pflegen");
         MenuItem mIteilnehmerUebersicht = new MenuItem("Teilnehmer zur\u00fccksetzen");
-        mAdministration.getItems().addAll(mIspielAnlegen, mIperiodeAnlegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIperiodePflegen, mIteilnehmerUebersicht);
+        mAdministration.getItems().addAll(mIspielAnlegen, mIperiodeAnlegen, mIperiodePflegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIteilnehmerUebersicht);
 
         Menu mAuswertung = new Menu("Auswertung");
         MenuItem mIteilnehmerDrucken = new MenuItem("Bestenliste drucken");
@@ -101,7 +101,10 @@ public class ScreensFramework extends Application {
         //Event hinzufügen
         mIteilnehmerLogin.setOnAction(event ->
                 screenController.setScreen(ScreensFramework.SCREEN_LOGIN));
-        mIteilnehmerRegistrieren.setOnAction(e -> screenController.setScreen(ScreensFramework.SCREEN_REGISTER));
+        mIteilnehmerRegistrieren.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
+        });
         mIunternehmenAnlegen.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
