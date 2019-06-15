@@ -1,13 +1,10 @@
 package de.dhbw.karlsruhe.bewertung;
 
-import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
-import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class FloatingRateNoteModell implements Bewertungsmodell {
     @Override
@@ -18,10 +15,10 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
         int restlaufzeit = 4;
 
         // Aktueller Spread des Emittenten
-        Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
+        //Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
         double constantSpread = 0.0;
-        if (kursOptional.isPresent())
-            constantSpread = kursOptional.get().getSpread();
+        //if (kursOptional.isPresent())
+        //    constantSpread = kursOptional.get().getSpread();
 
         double spread = wertpapier.getEmissionszins();
         double spotRate = periode.getKapitalmarktzinssatz();
