@@ -2,11 +2,15 @@ package de.dhbw.karlsruhe.model.fassade;
 
 import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
+import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingDouble;
 
 /**
  * Klasse bietet einen einfachen Zugriff auf das Buchungs-Repository.
@@ -67,18 +71,18 @@ public class PortfolioFassade {
     }
 
     public List<Portfolioposition> getPortfoliopositionen(long teilnehmerId, long periodenId) {
+
+        /* Schöner: Adaptiert von https://stackoverflow.com/a/26346574
         BuchungRepository buchungRepository = BuchungRepository.getInstanz();
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        return buchungen.stream().collect(groupingBy(Buchung::getWertpapier, collectingAndThen(reducing((a, b) -> new Portfolioposition(a.getWertpapier(), a.getVolumen() + b.getVolumen())),Optional::get)));
+        */
 
-
-        // TODO: Muss noch implementiert werden.
-        // https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-
-        // Prima als reduction darstellbar -> https://stackoverflow.com/a/40568972
-        // Map<Integer,Portfolioposition> ergebnis = buchungen.stream().collect(groupingBy(w));
-        // filtere auf Periode
-        // gruppiere buchungen
-        // buchungen.stream();
-        ArrayList<Portfolioposition> portfoliopositionen = new ArrayList<>();
-        return portfoliopositionen;
+        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
+        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        // Beschränke die Auswahl auf alle Transaktionen bis einschließlich zur abzufragenden Periode, dies ist notwendig, um auch umsatzlose Portfolios zu erfassen und summiere alle Transaktionen je Wertpapierposition
+        Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
+        // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
+        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
     }
 }
