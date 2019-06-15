@@ -112,15 +112,16 @@ public class RegisterController implements ControlledScreen {
 
 
 
-       /* //TODO: Periode 0 setzen
+/*        //TODO: Periode 0 setzen
         //Startkapital zuweisen
         BuchungsFactory buchungsFactory = new BuchungsFactory();
         Buchungsart startkapital = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
+        Wertpapier wertpapier = WertpapierRepository.getInstanz().findAll().stream()
+                .filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_STARTKAPITAL) // Filtere nach StartkapitalWertpapieren
+                .filter(w -> w.getSpiel().getId() == AktuelleSpieldaten.getSpiel().getId()) // Filtere das StartkapitalWertpapier dieses Spiels heraus
+                .findAny().orElseThrow(NoSuchElementException::new);
+        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, wertpapier , AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions*/
 
-        //TODO: refactor, wenn Wertpapier selbst die SpieleID besitzt
-        Wertpapier wertpapier = WertpapierRepository.getInstanz().findAll().stream().filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_STARTKAPITAL && w.getUnternehmen().getSpiel().getId() == AktuelleSpieldaten.getSpiel().getId()).findAny().orElseThrow(NoSuchElementException::new);
-        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, wertpapier , AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions
-*/
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Erfolgreich registiriert");
