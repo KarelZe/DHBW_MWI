@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class SpielAnlegenController implements ControlledScreen {
 
@@ -267,8 +266,9 @@ public class SpielAnlegenController implements ControlledScreen {
         Periode periode = new Periode(AktuelleSpieldaten.getSpiel(), 0, 0); //TODO: überlegen, ob die erste Periode konfigurierbar gemacht wird bei Spielanlegen.
         PeriodenRepository.getInstanz().save(periode);
 
-        List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
+        // TODO: Das hier legt für jedes Wertpapier (also auch die von anderen Spielen) einen neuen Kurs an
+       /* List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
         List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
-        KursRepository.getInstanz().save(kurse);
+        KursRepository.getInstanz().save(kurse);*/
     }
 }
