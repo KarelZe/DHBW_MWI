@@ -81,12 +81,13 @@ public class ScreensFramework extends Application {
 
         Menu mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
+        MenuItem mIspielVerwalten = new MenuItem("Spiel verwalten");
         MenuItem mIperiodeAnlegen = new MenuItem("Periode anlegen");
         MenuItem mIperiodePflegen = new MenuItem("Periode pflegen");
         MenuItem mIunternehmenAnlegen = new MenuItem("Unternehmen anlegen");
         MenuItem mIwertpapierAnlegen = new MenuItem("Wertpapier anlegen");
         MenuItem mIteilnehmerUebersicht = new MenuItem("Teilnehmer zur\u00fccksetzen");
-        mAdministration.getItems().addAll(mIspielAnlegen, mIperiodeAnlegen, mIperiodePflegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIteilnehmerUebersicht);
+        mAdministration.getItems().addAll(mIspielAnlegen, mIspielVerwalten, mIperiodeAnlegen, mIperiodePflegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIteilnehmerUebersicht);
 
         Menu mAuswertung = new Menu("Auswertung");
         MenuItem mIteilnehmerDrucken = new MenuItem("Bestenliste drucken");
@@ -133,6 +134,10 @@ public class ScreensFramework extends Application {
         mIspielAnlegen.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
+        });
+        mIspielVerwalten.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN, ScreensFramework.SCREEN_SPIEL_VERWALTEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
         });
 
 

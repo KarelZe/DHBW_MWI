@@ -40,6 +40,8 @@ public class InvestmentUebersichtController implements ControlledScreen {
         for (int i = 0; i < unternehmenListe.size(); i++) {
             tvInvestmentUebersicht.getColumns().addAll(new TableColumn(unternehmenListe.get(i).getName()));
         }
+
+        //TODO test durchführen
         /*System.out.println(
 
                 Arrays.toString(getSummeDerInvestitionenByUnternehmen(76, 3).entrySet().toArray())
@@ -85,6 +87,8 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
         List<Teilnehmer> teilnehmerDesUnternehmens = TeilnehmerRepository.getInstanz().findAllTeilnehmerbyUnternehmen(unternehmensId);
         PortfolioFassade portfolioFassade = new PortfolioFassade();
+        //TODO perioden werden nicht unbedingt sequenziell angelegt, d.h. wir müssen perioden verketten und im periodenrepository die aktuellste periode anfordern können
+
         // Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().reduce((first, second) -> second).get(); // Hole alle Perioden dieses Spiels und gebe die letzte zurück
 
         for (Teilnehmer t : teilnehmerDesUnternehmens) {
