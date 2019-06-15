@@ -25,7 +25,7 @@ public class ExchangeTradedFundModell implements Bewertungsmodell {
     public double bewerte(Periode periode, Wertpapier wertpapier) {
         List<Kurs> kurseInPeriode = KursRepository.getInstanz().findByPeriodenId(periode.getId());
         List<Kurs> kurseInIndex = kurseInPeriode.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).collect(Collectors.toList());
-        OptionalDouble indexkurs = kurseInIndex.stream().mapToDouble(Kurs::getKurs).average();
+        OptionalDouble indexkurs = kurseInIndex.stream().mapToDouble(Kurs::getKursValue).average();
         return indexkurs.orElse(100.00d);
     }
 }

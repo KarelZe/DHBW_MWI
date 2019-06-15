@@ -231,7 +231,6 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
     }
 
     public List<Teilnehmer> findAllTeilnehmerbyUnternehmen(long unternehmensId) {
-        List<Teilnehmer> alleTeilnehmer = findAll();
-        return alleTeilnehmer.stream().filter(t -> t.getUnternehmen().getId() == unternehmensId).collect(Collectors.toList());
+        return findAll().stream().filter(t -> t.getUnternehmen().getId() == unternehmensId).collect(Collectors.toList());
     }
 }

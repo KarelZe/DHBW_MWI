@@ -52,7 +52,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
             lblName.setText(kurs.getWertpapier().getName());
             // Spread ist nullable in DB
             txtSpread.setText(kurs.getSpread() == null ? "0" : kurs.getSpread().toString());
-            txtKursInsolvenz.setText(String.valueOf(kurs.getKurs()));
+            txtKursInsolvenz.setText(String.valueOf(kurs.getKursValue()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -64,6 +64,6 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
     @FXML
     private void initialize() {
         txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(NumberHelper.parseDouble(newValue, 0)));
-        txtKursInsolvenz.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(NumberHelper.parseDouble(newValue, 0)));
+        txtKursInsolvenz.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKursValue(NumberHelper.parseDouble(newValue, 0)));
     }
 }

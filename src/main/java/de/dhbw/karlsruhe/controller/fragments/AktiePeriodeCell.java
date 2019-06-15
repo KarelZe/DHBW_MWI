@@ -43,7 +43,7 @@ public class AktiePeriodeCell extends ListCell<Kurs> {
 
         if (kurs != null) {
             lblName.setText(kurs.getWertpapier().getName());
-            txtKurs.setText(String.valueOf(kurs.getKurs()));
+            txtKurs.setText(String.valueOf(kurs.getKursValue()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -54,7 +54,7 @@ public class AktiePeriodeCell extends ListCell<Kurs> {
 
     @FXML
     private void initialize() {
-        txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(NumberHelper.parseDouble(newValue, 0))
+        txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKursValue(NumberHelper.parseDouble(newValue, 0))
         );
     }
 }
