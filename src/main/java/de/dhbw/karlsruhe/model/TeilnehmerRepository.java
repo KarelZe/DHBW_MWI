@@ -11,6 +11,7 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
 
@@ -227,5 +228,10 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
                 tx.rollback();
         }
         return alleTeilnehmer;
+    }
+
+    public List<Teilnehmer> findAllTeilnehmerbyUnternehmen(long unternehmensId) {
+        List<Teilnehmer> alleTeilnehmer = findAll();
+        return alleTeilnehmer.stream().filter(t -> t.getUnternehmen().getId() == unternehmensId).collect(Collectors.toList());
     }
 }
