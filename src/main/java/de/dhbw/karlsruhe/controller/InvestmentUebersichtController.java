@@ -40,12 +40,10 @@ public class InvestmentUebersichtController implements ControlledScreen {
         for (int i = 0; i < unternehmenListe.size(); i++) {
             tvInvestmentUebersicht.getColumns().addAll(new TableColumn(unternehmenListe.get(i).getName()));
         }
-        /*System.out.println(
 
-                Arrays.toString(getSummeDerInvestitionenByUnternehmen(76, 3).entrySet().toArray())
 
-        );
-        System.out.println("Bla");*/
+
+
 
     }
 
@@ -79,13 +77,18 @@ public class InvestmentUebersichtController implements ControlledScreen {
         }
 
 
+        //Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().reduce((first, second) -> second).orElseThrow(NoSuchElementException::new);
+        //Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+
+
+
         List<Portfolioposition> aktienDerTeilnehmerDesUnternehmens = new ArrayList<>();
         List<Portfolioposition> anleihenDerTeilnehmerDesUnternehmens = new ArrayList<>();
         List<Portfolioposition> etfDerTeilnehmerDesUnternehmens = new ArrayList<>();
 
         List<Teilnehmer> teilnehmerDesUnternehmens = TeilnehmerRepository.getInstanz().findAllTeilnehmerbyUnternehmen(unternehmensId);
         PortfolioFassade portfolioFassade = new PortfolioFassade();
-        // Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().reduce((first, second) -> second).get(); // Hole alle Perioden dieses Spiels und gebe die letzte zurück
+
 
         for (Teilnehmer t : teilnehmerDesUnternehmens) {
             aktienDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getAktienPositionen(t.getId(), periodenId)); // Hole die Aktien in dieser Periode von diesem Teilnehmer

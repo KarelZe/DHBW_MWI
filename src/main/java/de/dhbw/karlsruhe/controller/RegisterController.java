@@ -1,17 +1,13 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.buchung.BuchungsFactory;
-import de.dhbw.karlsruhe.buchung.Buchungsart;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.helper.LogoutHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
-import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -114,11 +110,17 @@ public class RegisterController implements ControlledScreen {
         Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getSpiel());
         TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
 
+
+
+       /* //TODO: Periode 0 setzen
         //Startkapital zuweisen
         BuchungsFactory buchungsFactory = new BuchungsFactory();
         Buchungsart startkapital = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
-        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, null, AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions
 
+        //TODO: refactor, wenn Wertpapier selbst die SpieleID besitzt
+        Wertpapier wertpapier = WertpapierRepository.getInstanz().findAll().stream().filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_STARTKAPITAL && w.getUnternehmen().getSpiel().getId() == AktuelleSpieldaten.getSpiel().getId()).findAny().orElseThrow(NoSuchElementException::new);
+        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, wertpapier , AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions
+*/
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Erfolgreich registiriert");
