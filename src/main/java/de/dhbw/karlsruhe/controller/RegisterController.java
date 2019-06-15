@@ -102,7 +102,7 @@ public class RegisterController implements ControlledScreen {
         if (passwortKlartext.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Passwort");
-            alert.setContentText("Bitte geben Sie ein Passwort mit mindestens fünf Zeichen ein.");
+            alert.setContentText("Bitte geben Sie ein Passwort mit mindestens f\u00fcnf Zeichen ein.");
             alert.showAndWait();
             return;
         }
