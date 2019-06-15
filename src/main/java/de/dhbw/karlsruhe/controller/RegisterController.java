@@ -5,8 +5,14 @@ import de.dhbw.karlsruhe.buchung.Buchungsart;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.helper.LogoutHelper;
-import de.dhbw.karlsruhe.model.*;
-import de.dhbw.karlsruhe.model.jpa.*;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.BuchungRepository;
+import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.model.jpa.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
+import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,7 +117,7 @@ public class RegisterController implements ControlledScreen {
         //Startkapital zuweisen
         BuchungsFactory buchungsFactory = new BuchungsFactory();
         Buchungsart startkapital = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
-        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, null, AktuelleSpieldaten.getSpiel().getStartkapital()));
+        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, null, AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

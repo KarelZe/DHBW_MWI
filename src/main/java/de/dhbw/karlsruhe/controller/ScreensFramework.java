@@ -64,6 +64,7 @@ public class ScreensFramework extends Application {
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
+
         } else { //es konnte kein Spiel geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
         }

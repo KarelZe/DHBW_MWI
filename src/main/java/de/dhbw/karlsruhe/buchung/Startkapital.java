@@ -24,7 +24,7 @@ public class Startkapital implements Buchungsart {
             startkapital.setTransaktionsArt(optional.get());
         }
         startkapital.setOrdergebuehr(0);
-        startkapital.setPeriode(null); //TODO: @Christian das hier erzeugt Nullpointerexceptions
+        startkapital.setPeriode(periode);
         startkapital.setStueckzahl(1);
         startkapital.setTeilnehmer(teilnehmer);
 
@@ -32,7 +32,7 @@ public class Startkapital implements Buchungsart {
         startkapital.setVeraenderungFestgeld(0);
         startkapital.setVeraenderungZahlungsmittelkonto(AktuelleSpieldaten.getSpiel().getStartkapital());
         startkapital.setVolumen(AktuelleSpieldaten.getSpiel().getStartkapital());
-        startkapital.setWertpapier(null); //TODO: @Christian das hier erzeugt Nullpointerexceptions
+        startkapital.setWertpapier(wertpapier);
 
         return startkapital;
     }
