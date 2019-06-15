@@ -1,7 +1,9 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Wertpapier_Art")
@@ -11,10 +13,12 @@ public class WertpapierArt {
     public static final long WERTPAPIER_ANLEIHE = 2;
     public static final long WERTPAPIER_FESTGELD = 3;
     public static final long WERTPAPIER_ETF = 4;
+    public static final long WERTPAPIER_STARTKAPITAL = 5;
     public static final String WERTPAPIER_AKTIE_NAME = "Aktie";
     public static final String WERTPAPIER_ANLEIHE_NAME = "Anleihe";
     public static final String WERTPAPIER_FESTGELD_NAME = "Festgeld";
     public static final String WERTPAPIER_ETF_NAME = "ETF";
+    public static final String WERTPAPIER_STARTKAPITAL_NAME = "Startkapital";
 
     private String name;
 

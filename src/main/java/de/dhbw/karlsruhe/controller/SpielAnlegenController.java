@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class SpielAnlegenController implements ControlledScreen {
 
@@ -39,6 +40,7 @@ public class SpielAnlegenController implements ControlledScreen {
         try {
             this.neuesSpiel.setStartkapital(Double.valueOf(txtStartkapital.getText()));
         } catch (NumberFormatException e) {
+            //TODO: Spiel wird trotzdem angelegt. Das muss verhindert werden, sonst haben wir ein Spiel ohne Startkapital
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Spiel anlegen");
@@ -76,7 +78,10 @@ public class SpielAnlegenController implements ControlledScreen {
         insertAdminInDB();
         insertUnternehmenInDB();
         insertWertpapiereInDB();
+        insertFirstPeriodeInDB();
     }
+
+
     /**
      * Legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
      */
@@ -130,6 +135,15 @@ public class SpielAnlegenController implements ControlledScreen {
             WertpapierArt etf = new WertpapierArt();
             etf.setId(WertpapierArt.WERTPAPIER_ETF);
             etf.setName(WertpapierArt.WERTPAPIER_ETF_NAME);
+            wertpapierArtRepository.save(etf);
+        }
+
+        // Wertpapier für Startkapital
+        optional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_STARTKAPITAL);
+        if (optional.isEmpty()) {
+            WertpapierArt etf = new WertpapierArt();
+            etf.setId(WertpapierArt.WERTPAPIER_STARTKAPITAL);
+            etf.setName(WertpapierArt.WERTPAPIER_STARTKAPITAL_NAME);
             wertpapierArtRepository.save(etf);
         }
     }
@@ -236,5 +250,25 @@ public class SpielAnlegenController implements ControlledScreen {
         if (festgeldUnternehmen.size() >= 1)
             festgeld.setUnternehmen(festgeldUnternehmen.get(0));
         wertpapierRepository.save(festgeld);
+
+        // Startkapital
+        Wertpapier startkapital = new Wertpapier();
+        startkapital.setName("Startkapital");
+        Optional<WertpapierArt> startkapitalOptional = wertpapierArtRepository.findById(WertpapierArt.WERTPAPIER_STARTKAPITAL);
+        startkapitalOptional.ifPresent(startkapital::setWertpapierArt);
+
+        List<Unternehmen> startkapitalUnternehmen = unternehmenRepository.findByUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
+        if (startkapitalUnternehmen.size() >= 1)
+            startkapital.setUnternehmen(etfUnternehmen.get(0));
+        wertpapierRepository.save(startkapital);
+    }
+
+    private void insertFirstPeriodeInDB() {
+        Periode periode = new Periode(AktuelleSpieldaten.getSpiel(), 0, 0); //TODO: überlegen, ob die erste Periode konfigurierbar gemacht wird bei Spielanlegen.
+        PeriodenRepository.getInstanz().save(periode);
+
+        List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
+        List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
+        KursRepository.getInstanz().save(kurse);
     }
 }
