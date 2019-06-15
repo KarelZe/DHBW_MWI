@@ -182,6 +182,7 @@ public class SpielAnlegenController implements ControlledScreen {
         }
     }
 
+    //TODO: UnternehmensID von Teilnehmer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
     private void insertAdminInDB() {
         Teilnehmer spielleiter = new Teilnehmer();
         spielleiter.setBenutzername(ConstantsHelper.ADMIN_USERNAME);
