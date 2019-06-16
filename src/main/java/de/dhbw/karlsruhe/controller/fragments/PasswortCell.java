@@ -49,7 +49,7 @@ public class PasswortCell extends TableCell<TeilnehmerViewModel, Void> {
                         t.setPasswort(EncryptionHelper.getStringAsMD5(ConstantsHelper.DEFAULT_PASSWORT));
                         TeilnehmerRepository.getInstanz().save(t);
                         Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
-                        messageBox.setHeaderText("Das Passwort wurde auf \"Anika\" zur\u00fcckgesetzt.");
+                        messageBox.setHeaderText("Das Passwort wurde auf \"anika\" zur\u00fcckgesetzt.");
                         messageBox.showAndWait();
                     },
                     () -> {
