@@ -77,7 +77,7 @@
          <Insets left="90.0" right="90.0" top="20.0" />
       </GridPane.margin></Button>
     <ComboBox fx:id="cmbUnternehmen" prefHeight="31.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registrieren">
+   <Text  fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrieren">
       <font>
          <Font name="System Bold" size="20.0" />
       </font>

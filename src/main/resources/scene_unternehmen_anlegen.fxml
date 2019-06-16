@@ -5,17 +5,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vboxUnternehmen" xmlns="http://javafx.com/javafx/8.0.172-ea"
-      fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
-    <Button onAction="#doHinzufuegen" text="Neue Unternehmen anlegen"/>
-    <Label fx:id="lblUnternehmen" text="Unternehmen">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="vboxUnternehmen" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.UnternehmenAnlegenController">
+   <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Unternehmen anlegen">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+      <VBox.margin>
+         <Insets left="90.0" right="90.0" top="20.0" />
+      </VBox.margin>
+   </Text>
+    <Button onAction="#doHinzufuegen" text="+ Neues Unternehmen anlegen">
+      <VBox.margin>
+         <Insets bottom="10.0" left="90.0" right="90.0" top="20.0" />
+      </VBox.margin></Button>
+    <Label fx:id="lblUnternehmen" text="Unternehmen:">
         <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            <Insets bottom="5.0" left="90.0" right="90.0" top="5.0" />
         </VBox.margin>
+      <font>
+         <Font size="17.0" />
+      </font>
     </Label>
-    <ListView fx:id="lstVwUnternehmen" style="-fx-control-inner-background-alt: -fx-control-inner-background"
-              prefWidth="500"/>
-    <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-            mnemonicParsing="false" onAction="#doSpeichern" text="Speichern">
-    </Button>
+    <ListView fx:id="lstVwUnternehmen" prefWidth="500" style="-fx-control-inner-background-alt: -fx-control-inner-background">
+      <VBox.margin>
+         <Insets left="90.0" right="90.0" />
+      </VBox.margin></ListView>
+    <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#doSpeichern" prefHeight="39.0" prefWidth="106.0" text="Speichern">
+      <VBox.margin>
+         <Insets bottom="10.0" left="90.0" right="90.0" top="10.0" />
+      </VBox.margin></Button>
 </VBox>

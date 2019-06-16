@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.PeriodeAnlegenController">
-   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Periode anlegen">
+   <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Periode anlegen">
       <font>
          <Font name="System Bold" size="20.0" />
       </font>
@@ -33,11 +33,27 @@
     </rowConstraints>
     <Label prefHeight="21.0" prefWidth="312.0" text="Kapitalmarktzins" GridPane.columnIndex="0" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets top="20.0" />
+            <Insets bottom="5.0" top="20.0" />
          </GridPane.margin></Label>
-    <TextField fx:id="txtZins" prefWidth="311.0" promptText="1.06" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <Label text="Ordergebühr" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <TextField fx:id="txtOrder" prefWidth="311.0" promptText="0.03" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <TextField fx:id="txtZins" prefWidth="311.0" promptText="1.06" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="5.0" />
+         </GridPane.margin></TextField>
+    <Label text="Ordergebühr" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin></Label>
+    <TextField fx:id="txtOrder" prefWidth="311.0" promptText="0.03" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin></TextField>
+      <padding>
+         <Insets bottom="5.0" left="90.0" right="90.0" top="5.0" />
+      </padding>
   </GridPane>
-   <Button mnemonicParsing="false" onAction="#doPeriodeAnlegen" prefHeight="31.0" prefWidth="504.0" text="Periode anlegen" />
+   <Button mnemonicParsing="false" onAction="#doPeriodeAnlegen" prefHeight="50.0" prefWidth="504.0" text="Periode anlegen">
+      <VBox.margin>
+         <Insets left="90.0" right="90.0" />
+      </VBox.margin>
+   </Button>
 </VBox>
