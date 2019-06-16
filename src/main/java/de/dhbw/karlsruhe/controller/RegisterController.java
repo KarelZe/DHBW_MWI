@@ -1,14 +1,12 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.buchung.BuchungsFactory;
+import de.dhbw.karlsruhe.buchung.Buchungsart;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.helper.LogoutHelper;
-import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.UnternehmenRepository;
-import de.dhbw.karlsruhe.model.jpa.Rolle;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
-import de.dhbw.karlsruhe.model.jpa.Unternehmen;
+import de.dhbw.karlsruhe.model.*;
+import de.dhbw.karlsruhe.model.jpa.*;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +17,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -112,7 +112,6 @@ public class RegisterController implements ControlledScreen {
 
 
 
-/*        //TODO: Periode 0 setzen
         //Startkapital zuweisen
         BuchungsFactory buchungsFactory = new BuchungsFactory();
         Buchungsart startkapital = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
@@ -120,7 +119,10 @@ public class RegisterController implements ControlledScreen {
                 .filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_STARTKAPITAL) // Filtere nach StartkapitalWertpapieren
                 .filter(w -> w.getSpiel().getId() == AktuelleSpieldaten.getSpiel().getId()) // Filtere das StartkapitalWertpapier dieses Spiels heraus
                 .findAny().orElseThrow(NoSuchElementException::new);
-        BuchungRepository.getInstanz().save(startkapital.create(null, teilnehmerZurSpeicherung, wertpapier , AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions*/
+        Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId())
+                .stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+
+        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, teilnehmerZurSpeicherung, wertpapier, AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions*/
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
