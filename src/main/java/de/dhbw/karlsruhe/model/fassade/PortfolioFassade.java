@@ -18,10 +18,18 @@ import static java.util.stream.Collectors.summingDouble;
  */
 public class PortfolioFassade {
 
+    private static PortfolioFassade instanz;
     private BuchungRepository buchungRepository;
 
-    public PortfolioFassade() {
+    private PortfolioFassade() {
         buchungRepository = BuchungRepository.getInstanz();
+    }
+
+    public static PortfolioFassade getInstanz() {
+        if (PortfolioFassade.instanz == null) {
+            PortfolioFassade.instanz = new PortfolioFassade();
+        }
+        return instanz;
     }
 
     public double getZahlungsmittelkontoSaldo(long teilnehmerId) {

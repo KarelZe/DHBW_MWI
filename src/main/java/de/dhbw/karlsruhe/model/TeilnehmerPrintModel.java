@@ -22,7 +22,7 @@ public class TeilnehmerPrintModel {
     public TeilnehmerPrintModel(Teilnehmer teilnehmer) {
         this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname(), 0.0d);
         // Überschreibe Wert mit tatsächlichem Saldo
-        PortfolioFassade portfolioFassade = new PortfolioFassade();
+        PortfolioFassade portfolioFassade = PortfolioFassade.getInstanz();
         double gesamtSaldo = portfolioFassade.getGesamtSaldo(teilnehmer.getId());
         this.portfoliowert = new SimpleDoubleProperty(gesamtSaldo);
     }

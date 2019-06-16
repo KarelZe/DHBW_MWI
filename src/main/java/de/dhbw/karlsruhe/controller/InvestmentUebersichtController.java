@@ -1,55 +1,104 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.model.KursRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.UnternehmenRepository;
+import de.dhbw.karlsruhe.helper.ConverterHelper;
+import de.dhbw.karlsruhe.model.*;
 import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
-import de.dhbw.karlsruhe.model.jpa.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InvestmentUebersichtController implements ControlledScreen {
 
     private ScreenController screenController;
-    private List<Unternehmen> unternehmenListe;
+    private List<Unternehmen> unternehmenListe = UnternehmenRepository.getInstanz().findAllPlanspielUnternehmen();
     //private UnternehmenRepository unternehmenRepo;
 
     @FXML
-    private TableView<Object> tvInvestmentUebersicht;
+    private ComboBox<Periode> cbPeriodenAuswahl;
+
+    @FXML
+    private TableView<TabellenInhalt> tvInvestmentUebersicht;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
+    private List<TableColumn<TabellenInhalt, String>> tabellenZeilen = new ArrayList<>();
+
     @FXML
     public void initialize(){
-        System.out.println("Init");
+        cbPeriodenAuswahl.setItems(FXCollections.observableArrayList(new ArrayList<Periode>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()))));
+        cbPeriodenAuswahl.setValue(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new)); //setze aktuelle Periode
+        cbPeriodenAuswahl.setConverter(new ConverterHelper().getPeriodenConverter());
+
 
         tvInvestmentUebersicht.setEditable(true);
+        //tabellenZeilen.add(new TableColumn<TabellenInhalt, String>());
 
-        unternehmenListe = UnternehmenRepository.getInstanz().findAll();
-        for (int i = 0; i < unternehmenListe.size(); i++) {
-            tvInvestmentUebersicht.getColumns().addAll(new TableColumn(unternehmenListe.get(i).getName()));
+        for (Unternehmen u : unternehmenListe) {
+            tvInvestmentUebersicht.getColumns().addAll(new TableColumn(u.getName()));
         }
 
 
+    }
 
+    private Map<Long, Double> getInvestmentsOfAUnternehmenInEachUnternehmenByUnternehmenAndPeriode(long unternehmensId, long periodenId) {
+        class Tupel {
+            private long unternehmensId;
+            private double investitionssumme;
+
+            public Tupel(long unternehmensId, double investitionssumme) {
+                this.unternehmensId = unternehmensId;
+                this.investitionssumme = investitionssumme;
+            }
+
+            public long getUnternehmensId() {
+                return unternehmensId;
+            }
+
+            public void setUnternehmensId(long unternehmensId) {
+                this.unternehmensId = unternehmensId;
+            }
+
+            public double getInvestitionssumme() {
+                return investitionssumme;
+            }
+
+            public void setInvestitionssumme(double investitionssumme) {
+                this.investitionssumme = investitionssumme;
+            }
+        }
+        List<Wertpapier> wertpapiereDesUnternehmens = WertpapierRepository.getInstanz().findAll().stream()
+                .filter(w -> w.getUnternehmen().getId() == unternehmensId)
+                .filter(w -> w.getWertpapierArt().getId() != WertpapierArt.WERTPAPIER_FESTGELD)
+                .filter(w -> w.getWertpapierArt().getId() != WertpapierArt.WERTPAPIER_STARTKAPITAL)
+                .collect(Collectors.toList());
+        List<Buchung> buchungenDerWertpapiereDesUnternehmens = new ArrayList<>();
+        for (Wertpapier w : wertpapiereDesUnternehmens) {
+            buchungenDerWertpapiereDesUnternehmens.addAll(BuchungRepository.getInstanz().findAll().stream().filter(b -> b.getWertpapier().getId() == w.getId()).collect(Collectors.toList()));
+        }
+        List<Tupel> tupelList = new ArrayList<>();
+        for (Buchung b : buchungenDerWertpapiereDesUnternehmens) {
+            tupelList.add(new Tupel(b.getTeilnehmer().getUnternehmen().getId(),
+                    (b.getStueckzahl() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, b.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
+
+        }
+        return tupelList.stream().collect(Collectors.groupingBy(Tupel::getUnternehmensId, Collectors.summingDouble(Tupel::getInvestitionssumme)));
 
 
     }
 
     // Hole Positionen eines Unternehmens in einer Periode
-    public Map<Long, Double> getSummeDerInvestitionenByUnternehmen(long unternehmensId, long periodenId) {
+    private Map<Long, Double> getSummeDerInvestitionenByUnternehmen(long unternehmensId, long periodenId) {
         // Anonyme Klasse, um Investitionen in die Unternehmen zu speichern
         class InvestitionenTupel {
             private long unternehmensId;
@@ -88,7 +137,7 @@ public class InvestmentUebersichtController implements ControlledScreen {
         List<Portfolioposition> etfDerTeilnehmerDesUnternehmens = new ArrayList<>();
 
         List<Teilnehmer> teilnehmerDesUnternehmens = TeilnehmerRepository.getInstanz().findAllTeilnehmerbyUnternehmen(unternehmensId);
-        PortfolioFassade portfolioFassade = new PortfolioFassade();
+        PortfolioFassade portfolioFassade = PortfolioFassade.getInstanz();
 
 
         for (Teilnehmer t : teilnehmerDesUnternehmens) {
@@ -115,6 +164,14 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
         // Aggregiere die Invesititionen für jedes Unternehmen
         return investitionenTupelListUnsorted.stream().collect(Collectors.groupingBy(InvestitionenTupel::getUnternehmensId, Collectors.summingDouble(InvestitionenTupel::getWertDerWertpapiere)));
+
+
+    }
+
+    //TODO: was ist mit den Unternehmen, die keine Investition bekommen haben (niemand hat was von denen gekauft)
+
+    class TabellenInhalt {
+        SimpleStringProperty unternehmen;
 
 
     }

@@ -58,7 +58,7 @@ public class Periodenabschluss {
 
         List<Teilnehmer> teilnehmerAlle = TeilnehmerRepository.getInstanz().findAll();
 
-        PortfolioFassade portfolioFassade = new PortfolioFassade();
+        PortfolioFassade portfolioFassade = PortfolioFassade.getInstanz();
 
         BuchungsFactory buchungsFactory = new BuchungsFactory();
 

@@ -122,7 +122,7 @@ public class RegisterController implements ControlledScreen {
         Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId())
                 .stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
-        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, teilnehmerZurSpeicherung, wertpapier, AktuelleSpieldaten.getSpiel().getStartkapital())); //TODO erzeugt NullpointerExceptions*/
+        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, teilnehmerZurSpeicherung, wertpapier, AktuelleSpieldaten.getSpiel().getStartkapital()));
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

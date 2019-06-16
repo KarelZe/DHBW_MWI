@@ -57,4 +57,15 @@ public class Periode {
     public void setKapitalmarktzinssatz(double kapitalmarktzinssatzInProzent) {
         this.kapitalmarktzinssatz = kapitalmarktzinssatzInProzent;
     }
+
+
+    @Override
+    public String toString() {
+        return "Periode{" +
+                "id=" + id +
+                ", name='" + spiel + '\'' +
+                ", ordergebühr='" + ordergebuehr + '\'' +
+                ", kapitalmarktzinssatz=" + kapitalmarktzinssatz +
+                '}';
+    }
 }
