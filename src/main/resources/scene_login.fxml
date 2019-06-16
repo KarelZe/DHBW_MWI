@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<VBox prefHeight="557.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="557.0" prefWidth="600.0" spacing="5.0"
+      xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
    <Text id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
       <VBox.margin>
          <Insets bottom="10.0" left="90.0" right="90.0" top="200.0" />
@@ -29,7 +30,8 @@
             <Insets bottom="5.0" left="90.0" right="90.0" top="5.0" />
         </VBox.margin>
     </PasswordField>
-    <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#doLogin" prefHeight="49.0" prefWidth="622.0" text="Einloggen">
+    <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#doLogin"
+            prefHeight="45.0" prefWidth="600.0" text="Einloggen">
         <VBox.margin>
             <Insets bottom="5.0" left="90.0" right="90.0" top="20.0" />
         </VBox.margin>
