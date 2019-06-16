@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UnternehmenRepository implements CrudRepository<Unternehmen> {
 
@@ -161,5 +162,10 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
                 tx.rollback();
         }
         return unternehmen;
+    }
+
+
+    public List<Unternehmen> findAllPlanspielUnternehmen() {
+        return findAll().stream().filter(u -> u.getUnternehmenArt() == Unternehmen.UNTERNEHMEN_TEILNEHMER).collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.helper;
 
+import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.util.StringConverter;
@@ -45,6 +46,20 @@ public class ConverterHelper {
         }
     };
 
+    //+++++++++++++++Perioden++++++++++++++++++++++
+    private StringConverter<Periode> periodenConverter = new StringConverter<>() {
+        @Override
+        public String toString(Periode periode) {
+            return periode != null ? " [id: " + periode.getId() + "]" : "";
+        }
+
+        @Override
+        public Periode fromString(String id) {
+            return null;
+        }
+    };
+
+
     public StringConverter<Unternehmen> getUnternehmensConverter() {
         return unternehmensConverter;
     }
@@ -59,5 +74,13 @@ public class ConverterHelper {
 
     public void setSpieleConverter(StringConverter<Spiel> spieleConverter) {
         this.spieleConverter = spieleConverter;
+    }
+
+    public StringConverter<Periode> getPeriodenConverter() {
+        return periodenConverter;
+    }
+
+    public void setPeriodenConverter(StringConverter<Periode> periodenConverter) {
+        this.periodenConverter = periodenConverter;
     }
 }
