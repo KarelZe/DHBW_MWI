@@ -63,8 +63,8 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
-            screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
-            //screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
+            //screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
+            screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
 
         } else { //es konnte kein Spiel geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
