@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox fx:id="vboxUnternehmen" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.WertpapierAnlegenController">
-   <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Werpapiere anlegen">
+   <Text fx:id="headers" strokeType="OUTSIDE" strokeWidth="0.0" text="Werpapiere anlegen">
       <font>
          <Font name="System Bold" size="20.0" />
       </font>
