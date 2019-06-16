@@ -54,7 +54,7 @@
       <GridPane.margin>
          <Insets left="10.0" top="20.0" />
       </GridPane.margin></Button>
-   <Text fx:id="headers" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestenliste">
+   <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestenliste">
       <GridPane.margin>
          <Insets left="5.0" top="10.0" />
       </GridPane.margin>

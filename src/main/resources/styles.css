@@ -35,7 +35,7 @@
     -fx-text-fill: -fx-primary;
 }
 
- #headers{
+ #header{
     -fx-fill: -fx-secondary;
      -fx-underline: true;
 }

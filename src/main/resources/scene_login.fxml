@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox prefHeight="557.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.LoginController">
-   <Text id="headers" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+   <Text id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
       <VBox.margin>
          <Insets bottom="10.0" left="90.0" right="90.0" top="200.0" />
       </VBox.margin>

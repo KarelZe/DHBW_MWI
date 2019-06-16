@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox prefHeight="144.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.SpielVerwaltenController">
-   <Text fx:id="headers" strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel auswählen ">
+   <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel auswählen ">
       <font>
          <Font name="System Bold" size="20.0" />
       </font>
