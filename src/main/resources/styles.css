@@ -1,9 +1,9 @@
 
 * {
-    -fx-primary : #2A2E37;
-    -fx-secondary : #FFFF8D;
+    -fx-primary: #323234;
+    -fx-secondary: #B2B2B2;
     -fx-primarytext : #B2B2B2;
-    -fx-blue: #1976D2;
+    -fx-blue: #a349a4;
     -fx-red: #FF0000;
     -fx-color-1:#1976D2;
 }
@@ -14,9 +14,9 @@
 
 
 .button{
-    -fx-text-fill: -fx-primarytext;
-    -fx-background-color: -fx-primary;
-    -fx-border-color: -fx-secondary;
+    -fx-text-fill: -fx-secondary;
+    -fx-background-color: -fx-blue;
+    -fx-border-color: -fx-blue;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
     -fx-font-size: 12pt;
@@ -49,7 +49,7 @@
     -fx-text-fill: derive(-fx-secondary, 20%);
     -fx-background-color: -fx-primary;
     -fx-border-style: solid;
-    -fx-border-color: -fx-blue;
+    -fx-border-color: -fx-secondary;
 }
 
 .combo-box {
@@ -57,7 +57,7 @@
     -jfx-focus-color: -fx-secondary;
     -fx-background-color: -fx-primary;
     -fx-border-style: solid;
-    -fx-border-color: -fx-blue;
+    -fx-border-color: -fx-secondary;
 }
 
 .combo-box-popup .list-view .list-cell {
@@ -72,7 +72,7 @@
 
 }
 .combo-box .cell:selected {
-    -fx-text-fill: green;
+    -fx-text-fill: -fx-primarytext;
 }
 
 
@@ -129,6 +129,13 @@
     -fx-background-color:  derive(-fx-primary, 20%);
 }
 
+.menu:hover, .menu:showing {
+    -fx-background-color: derive(-fx-primary, 20%);
+}
+
+.menu-item:focused {
+    -fx-background-color: -fx-primary;
+}
 
 /*Toolbar buttons*/
 .toolbar-button
@@ -206,6 +213,7 @@
 .table-view:focused{
     -fx-background-color: derive(-fx-primary, 20%);
 }
+
 .table-row-cell {
     -fx-cell-size: 40px;
 }

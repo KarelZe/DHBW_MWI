@@ -77,7 +77,7 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
     }
 
     /***
-     * Speichert eine Liste von Unternehmensobjekten in der Datenbank im Rahmen einer Transaktion.
+     * Speichert eine Liste von Teilnehmersobjekten in der Datenbank im Rahmen einer Transaktion.
      * @param teilnehmer Liste von Unternehmen
      */
     @Override
