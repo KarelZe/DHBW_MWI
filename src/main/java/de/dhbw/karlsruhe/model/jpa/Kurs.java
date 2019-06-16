@@ -17,7 +17,7 @@ public class Kurs {
     @JoinColumn(name = "wertpapier_id")
     private Wertpapier wertpapier;
 
-    private double kurs;
+    private double kursValue;
 
     // Double, da null. Siehe https://stackoverflow.com/questions/3154582/why-do-i-get-a-null-value-was-assigned-to-a-property-of-primitive-type-setter-o/13906763
     private Double spread;
@@ -54,12 +54,12 @@ public class Kurs {
         this.wertpapier = wertpapier;
     }
 
-    public double getKurs() {
-        return kurs;
+    public double getKursValue() {
+        return kursValue;
     }
 
-    public void setKurs(double kurs) {
-        this.kurs = kurs;
+    public void setKursValue(double kurs) {
+        this.kursValue = kurs;
     }
 
     public Double getSpread() {
@@ -76,7 +76,7 @@ public class Kurs {
                 "id=" + id +
                 ", periode=" + periode +
                 ", wertpapier=" + wertpapier +
-                ", kurs=" + kurs +
+                ", kurs=" + kursValue +
                 ", spread=" + spread +
                 '}';
     }

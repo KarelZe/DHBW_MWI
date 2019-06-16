@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class InvestmentUebersichtController implements ControlledScreen {
@@ -96,21 +97,20 @@ public class InvestmentUebersichtController implements ControlledScreen {
             etfDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getEtfPositionen(t.getId(), periodenId)); // Hole die ETFs in dieser Periode von diesem Teilnehmer
         }
 
-
         List<InvestitionenTupel> investitionenTupelListUnsorted = new ArrayList<>();
 
         // Speichere von jeder Position die UnternehmensID des Wertpapiers und die Investitionshöhe in eine Liste
         for (Portfolioposition p : aktienDerTeilnehmerDesUnternehmens) {
             investitionenTupelListUnsorted.add(
-                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).get().getKurs())));
+                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
         }
         for (Portfolioposition p : anleihenDerTeilnehmerDesUnternehmens) {
             investitionenTupelListUnsorted.add(
-                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).get().getKurs())));
+                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
         }
         for (Portfolioposition p : etfDerTeilnehmerDesUnternehmens) {
             investitionenTupelListUnsorted.add(
-                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).get().getKurs())));
+                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
         }
 
         // Aggregiere die Invesititionen für jedes Unternehmen

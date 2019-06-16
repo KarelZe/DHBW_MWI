@@ -1,7 +1,8 @@
 package de.dhbw.karlsruhe.model.jpa;
 
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Wertpapier {
@@ -17,9 +18,9 @@ public class Wertpapier {
     @JoinColumn(name = "unternehmen_id")
     private Unternehmen unternehmen;
 
-    //ToDo: Möglicherweise Mapping fixen
-    //@OneToMany(mappedBy = "wertpapier", orphanRemoval = true, cascade = CascadeType.ALL)
-    //private Set<Kurs> kursSet;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "spiel_id")
+    private Spiel spiel;
 
     private String name;
 
@@ -30,6 +31,10 @@ public class Wertpapier {
     private int faelligkeit_periode; //optional (Anleihen)
 
     private int emission_periode; //optional (Anleihen)
+
+    public Wertpapier() {
+        spiel = AktuelleSpieldaten.getSpiel();
+    }
 
     public long getId() {
         return id;
@@ -95,6 +100,14 @@ public class Wertpapier {
         this.name = name;
     }
 
+    public Spiel getSpiel() {
+        return spiel;
+    }
+
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,11 +130,12 @@ public class Wertpapier {
                 "id=" + id +
                 ", wertpapierArt=" + wertpapierArt +
                 ", unternehmen=" + unternehmen +
+                ", spiel=" + spiel +
+                ", name='" + name + '\'' +
                 ", nennwert=" + nennwert +
                 ", emissionszins=" + emissionszins +
                 ", faelligkeit_periode=" + faelligkeit_periode +
                 ", emission_periode=" + emission_periode +
                 '}';
     }
-
 }

@@ -9,12 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import java.util.Optional;
+
 import java.util.List;
-import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 public class SpielVerwaltenController implements ControlledScreen {
 
@@ -56,8 +57,8 @@ public class SpielVerwaltenController implements ControlledScreen {
     private void doSelektiertesSpielLoeschen() {
         Spiel zuLoeschendesSpiel=cmbSpiele.getValue();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Spiel löschen?");
-        alert.setContentText("Soll das Spiel mit der ID "+zuLoeschendesSpiel.getId()+" unwiderruflich gelöscht werden?");
+        alert.setTitle("Spiel l\u00F6schen?");
+        alert.setContentText("Soll das Spiel mit der ID " + zuLoeschendesSpiel.getId() + " unwiderruflich gel\u00F6scht werden?");
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK){
@@ -68,8 +69,8 @@ public class SpielVerwaltenController implements ControlledScreen {
             cmbSpiele.setItems(spieleListe);
 
             alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Spiel löschen erfolgreich");
-            alert.setContentText("Das Spiel mit der ID "+zuLoeschendesSpiel.getId()+" wurde gelöscht.");
+            alert.setTitle("Spiel l\u00F6schen erfolgreich");
+            alert.setContentText("Das Spiel mit der ID " + zuLoeschendesSpiel.getId() + " wurde gel\u00F6scht.");
             alert.showAndWait();
         }
 
