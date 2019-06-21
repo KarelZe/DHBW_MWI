@@ -92,7 +92,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \vfuzz=20pt 
 \hfuzz=20pt
 
-\title{Fachkonzept für die Bewertung von Finanzanlagen und die Verbuchung von Kapitalerträgen}
+\title{Fachkonzept für die Bewertung von Finanzanlagen und die Verbuchung von Kapitalerträgen in der Software Anika}
 \author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsuhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsuhe.de}}
 
 \addbibresource{bib.bib}
@@ -111,10 +111,9 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \maketitle
 
 \section{Überblick}
-Im Rahmen des MWI-Projektes soll die bestehende Planspielsoftware in der DHBW Karlsruhe um eine zusätzliche autarke Wertpapierkomponente mit dem Namen \textit{Anika} erweitert werden.
-Um sicherzustellen, dass diese Wertpapiere möglichst realistisch und fair bewertet werden können, beschreibt dieses Fachkonzept, wie deren Bewertung in dieser Software durchgeführt werden soll.
+Im Rahmen des MWI-Projektes soll die bereits in der DHBW Karlsruhe eingesetzte Planspielsoftware \textit{TOPSIM} um eine zusätzliche autarke Wertpapierkomponente mit dem Namen \textit{Anika} erweitert werden, um den Teilnehmern die Möglichkeit zu bieten, mit einem fiktiven Kapital Finanzanlagen zu erwerben.
 
-Die Software \textit{Anika} unterstützt dabei den Handel folgender Finanzanlagen:
+Die Software \textit{Anika} soll dabei den Handel folgender Finanzanlagen unterstützen:
 \begin{enumerate}
 	\item Aktien
 	\item \gls{FRN}
@@ -122,32 +121,31 @@ Die Software \textit{Anika} unterstützt dabei den Handel folgender Finanzanlage
 	\item Festgeld
 \end{enumerate}
 
-Weil \textit{Anika} kein dediziertes Handelssystem implementiert, das die Handelsaktivitäten einzelner Marktteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden anwendungsweit ausschließlich rechnerische Kurswerte verwendet. 
-Deshalb erfolgt sowohl die Bewertung als auch der Handel von Finanzanlagen zu einem rechnerischen Kurs, der auf Grundlage finanzmathematischer Modelle ermittelt wird.
-Insofern ist die Modellierung des rechnerischen Werts einer Finanzanlage eine zentrale Funktionalität der Software.
+Um sicherzustellen, dass diese Finanzanlagen möglichst realistisch und fair bewertet werden, wurde dieses Fachkonzept erstellt, das definiert, wie deren Bewertung und Ausschüttungen in dieser Software durchgeführt werden soll.
+Weil \textit{Anika} kein dediziertes Handelssystem implementiert, das die Handelsaktivitäten einzelner Marktteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden dafür ausschließlich rechnerische Kurswerte verwendet, der auf der Grundlage finanzmathematischer Modelle ermittelt wird.
 
 %Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
 
 \section{Anlage und Pflege von Finanzanlagen}
 \label{sec:anlage_und_pflege_der_wertpapiere}
 
-Bevor eine Bewertung der Wertpapiere erfolgen kann, müssen die handelbaren Wertpapiere einschließlich der für die Bewertung notwendigen Geschäftsdaten angelegt sein. 
-Im Folgenden wird beschrieben, wie die Finanzanlagen angelegt und gepflegt werden:
+Bevor eine Bewertung der Finanzanlagen erfolgen kann, müssen sowohl diese als auch die die Bewertung notwendigen Geschäftsdaten angelegt werden. 
+Im Folgenden wird deshalb beschrieben, wie die Finanzanlagen angelegt und gepflegt werden sollen:
 \begin{itemize}
-	\item Der \gls{ETF} und das Festgeld wird automatisch bei der Anlage eines Spiels erstellt.
-	\item Aktien und \glspl{FRN} können von den Planspielunternehmen emittiert werden, indem der Spielleiter dies bei der Anlage des Spiels manuell durchführt. Die Software ermöglicht dabei, dass je Planspielunternehmen $\geq 0$ Aktien und \glspl{FRN} emittiert werden können. 
+	\item Bei der Anlage eines Spiels durch den Seminarleiter soll automatisch ein \gls{ETF} und ein Festgeld angelegt werden, sodass die Teilnehmer diese Finanzanlagen handeln können.
+	\item Im Rahmen der Initialisierung eines Spiels können zusätzlich sowohl Aktien als auch \glspl{FRN} der Planspielunternehmen manuell emittiert werden.  
 \end{itemize}
 
-Die Pflege der für die Bewertung notwendigen Daten wie beispielsweise die Erfassung des Kapitalmarktzinssatzes, des Risikoaufschlages oder des Aktienkurses erfolgt dabei einmalig vor dem Start einer Planspielperiode durch den Spielleiter.
+Die Pflege der Daten wie des Kapitalmarktzinssatzes, des unternehmensabhängigen Risikoaufschlages oder des Aktienkurses, die für die Bewertung der Finanzanlagen benötigt werden, erfolgt dabei einmalig vor dem Start einer Planspielperiode durch den Spielleiter.
 
 \section{Zeitpunkt der Bewertung und Verbuchung}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung}
 
-Dieses Kapitel beschreibt den Zeitpunkt der Bewertung und der Verbuchung von Kapitelerträgen.
+%Dieses Kapitel beschreibt den Zeitpunkt der Bewertung und der Verbuchung von Kapitelerträgen.
 
 Die Software \textit{TOPSIM} unterteilt ein Planspiel in $n$ Perioden $P$.
 Eine feingranulare Unterteilung einer Periode ist nicht möglich, weshalb die Dauer einer Periode mit einer Zeiteinheit angenommen wird.
-Infolge entspricht der Periodenbeginn von $P_1$ dem Ultimo der Vorperiode $P_0$.
+Daraus folgt, dass der Periodenbeginn von $P_1$ dem Ultimo der Vorperiode $P_0$ entspricht.
 
 Demnach ergibt sich folgender Zusammmenhang:
 
@@ -162,7 +160,7 @@ Demnach ergibt sich folgender Zusammmenhang:
 		\draw [thick ] (4,0.5) node [above=4pt,font=\scriptsize, align=left] {
 		Verbuchung $P_0$\\ \parindent=1em \indent Bewertung $P_1$\\ \parindent=2em \indent Kauf/Verkauf $P_1$};
 		\draw [ black, thick,decorate,decoration={brace,amplitude=5pt},yshift=-11pt] (8,-0.5) -- (4,-0.5)
-			   node [black,midway,below=4pt,font=\scriptsize] {Dauer Verzinsung};
+			   node [black,midway,below=4pt,font=\scriptsize] {Dauer der Verzinsung};
 		\draw [thick ] (8,0.5) node [above=4pt,font=\scriptsize, align=left] {Verbuchung $P_1$\\ \parindent=1em \indent Bewertung $P_2$\\ \parindent=2em \indent Kauf/Verkauf $P_2$};
 	\end{tikzpicture}
 	\caption{Bewertungs-/ Buchungszeitpunkt}
@@ -170,15 +168,13 @@ Demnach ergibt sich folgender Zusammmenhang:
 	(Eigene Darstellung)
 \end{figure}
 
-Damit lässt sich zusammenfassen, dass Aktienkurse und rechnerische Anleihekurse -- festgestellt am Ultimo der Vorperiode -- die für die Folgeperiode relevanten Kurse für die Bewertung und den Handel darstellen.
+Damit lässt sich zusammenfassen, dass Aktienkurse und rechnerische Anleihekurse, die am Ultimo der Vorperiode festgestellt werden, die für die Folgeperiode relevanten Kurse für die Bewertung und den Handel darstellen.
+Die Bewertung der Finanzanlagen kann dabei grundsätzlich in einer beliebigen Reihenfolge erfolgen.
+Lediglich für die Bewertung des \glspl{ETF} bestehen temporale Abhängigkeiten zu anderen Anlagen. Kapitel \ref{sec:bewertung_eines_exchange_traded_funds} thematisiert dies detailliert.
 
-Die Bewertung der Finanzanlagen kann in einer beliebigen Reihenfolge efolgen.
-Ausschließlich für die Bewertung des \glspl{ETF} bestehen temporale Abhängigkeiten zu anderen Anlagen. Kapitel \ref{sec:bewertung_eines_exchange_traded_funds} thematisiert dies detailliert.
-
-Ein Kauf und Verkauf von Finanzanlagen ist erst möglich, nachdem die Finanzanlagen bewertet wurden.
-
+Um sicherzustellen, dass die Finanzanlagen immer zu einem fairen Kurs gehandelt werden, können diese erst gehandelt werden, nachdem sie bewertet wurden. 
 Die Verbuchung der Kapitalerträge erfolgt jeweils am Ultimo der Periode nach Durchführung aller Kauf- und Verkaufbuchungen.
-Die Dauer der Verzinsung beträgt damit ein Tag.
+%Die Dauer der Verzinsung beträgt damit ein Tag. %ToDo Markus: warum schreibst du das? hätte ich jetzt weggelassen
 
 \section{Bewertung von Finanzanlagen}
 \label{sec:bewertung_von_finanzanlagen}
@@ -187,24 +183,22 @@ Im Folgenden wird beschrieben, wie die Finanzanlagen in der Software \textit{Ani
 \subsection{Bewertung von Aktien}
 \label{sec:bewertung_von_aktien}
 Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den Teilnehmern gehandelt werden können.
-Auf der Basis einiger Einflussfaktoren berechnet die Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode einen rechnerischer Aktienkurs.
-Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar.
-
-Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Seminarleiter in einer Übersicht dargestellt. Der darauf abgebildete Kurs beinhaltet die vergangenen Dividendenauszahlungen, wodurch der Inhaber der Aktie keine Dividende ausgezahlt bekommt, statdessen erhöht sich der Kurs der Aktie.
+Der rechnerische Kurs dieser Aktien wird von der Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode berechnet und dem Seminarleiter in einer Übersicht dargestellt.
+%Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar.
+Dieser Aktienkurs beinhaltet die vergangenen Dividendenauszahlungen. Auch zukünftige Dividenden werden nicht ausgeschüttet, sondern wirken sich positiv auf den Kurs aus. Dies führt dazu, dass die Software \textit{Anika} die Dividendenauszahlungen nict gesondert berücksichtigen muss.
+%Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Seminarleiter in einer Übersicht dargestellt. 
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
-Bei dem Handel mit Aktien wird eine vom Seminarleiter eingestellte Ordergebührt fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
-
-% TODO: Ausformulieren. Pflege von Kursen siehe Kapitel 2. Ordergebühren in %. Zuordnung sinnvoll zu Handel von Wertpapieren?
+Bei dem Handel mit Aktien wird neben deren Kurswert eine vom Seminarleiter eingestellte Ordergebühr\footnote{Diese Ordergebühr wird in Prozent angegeben.} fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
 
 \subsection{Bewertung von Floating Rate Notes}
 \label{sec:bewertung_von_floating_rate_notes}
 \glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlages zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
-Hierbei ist insbesondere eine Bewertung der An
+Hierbei ist insbesondere eine Bewertung der An %ToDo Markus
 
-Für die Implementierung wird eine Laufzeit von zehn Perioden, beginnend in Periode Null angenommen.
+Für die Implementierung wird eine Laufzeit von zehn Perioden, beginnend in Periode $P_0$ angenommen.
 Die \gls{FRN} verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
 Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
@@ -286,9 +280,8 @@ Dies stellt eine vereinfachende Annahme,
 \subsection{Bewertung eines Exchange Traded Funds}
 \label{sec:bewertung_eines_exchange_traded_funds}
 
-Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. Bei dem zugrundeliegenden Index kann es sich dabei um einen Aktien-, Anleihenindizes nebst anderen handeln.
+Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. Bei dem zugrundeliegenden Index kann es sich dabei beispielsweise um einen Aktien- oder Anleihenindex handeln, deren Wertentwicklung abgebildet wird.
 
-Der Index bildet dabei die Entwicklung mehrerer im Index enthaltenen Anlagen ab.
 Die Berechnung des Index setzt Konventionen zur Gewichtung der Anlagen voraus. Ein Überblick über Ansätze zur Gewichtung wird in \textcite[][S.~44~ff.]{bodie_investments_2018} gegeben, wohin gegen sich dieses Fachkonzept auf verwendete Ansätze beschränkt.
 
 Die Software \textit{Anika} bietet jedem Teilnehmer die Möglichkeit, einen ETF zu handeln, der die Wertentwicklung des Index \gls{GMAX} repliziert. Der \gls{GMAX} ist in Definition \ref{def:gmax} festgelegt.
