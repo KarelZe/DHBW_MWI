@@ -1,5 +1,8 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
+import de.dhbw.karlsruhe.controller.PrintController;
+import de.dhbw.karlsruhe.controller.ScreenController;
+import de.dhbw.karlsruhe.controller.ScreensFramework;
 import de.dhbw.karlsruhe.helper.ConstantsHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
@@ -15,14 +18,16 @@ import javafx.scene.control.TableCell;
 import java.io.IOException;
 import java.util.Optional;
 
-public class PasswortCell extends TableCell<TeilnehmerViewModel, Void> {
+public class HistorieCell extends TableCell<TeilnehmerViewModel, Void> {
     @FXML
-    private Button btnPasswort;
+    private Button btnHistorie;
 
-    public PasswortCell() {
+    private ScreenController screenController;
+
+    public HistorieCell() {
         super();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_passwort.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("cell_historie.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
@@ -37,20 +42,24 @@ public class PasswortCell extends TableCell<TeilnehmerViewModel, Void> {
         if (empty) {
             setGraphic(null);
         } else {
-            setGraphic(btnPasswort);
+            setGraphic(btnHistorie);
         }
     }
 
     @FXML
     private void initialize() {
-        btnPasswort.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
+        btnHistorie.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
+            //Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
+            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(111);
             teilnehmer.ifPresentOrElse(t -> {
-                        t.setPasswort(EncryptionHelper.getStringAsMD5(ConstantsHelper.DEFAULT_PASSWORT));
-                        TeilnehmerRepository.getInstanz().save(t);
-                        Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
-                        messageBox.setHeaderText("Das Passwort wurde auf \"anika\" zur\u00fcckgesetzt.");
-                        messageBox.showAndWait();
+                //Screen zu Historie wechseln
+                try {
+                    screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+                    screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                     },
                     () -> {
                         Alert messageBox = new Alert(Alert.AlertType.ERROR);
@@ -60,5 +69,7 @@ public class PasswortCell extends TableCell<TeilnehmerViewModel, Void> {
             );
         });
     }
+
+
 }
 
