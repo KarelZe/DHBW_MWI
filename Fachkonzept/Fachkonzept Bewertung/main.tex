@@ -42,6 +42,11 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \usepackage{ragged2e, array}
 \usepackage{listings}% Aufzählungen
 
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Beispiel}
+
 \usepackage{pgfplots}% pgf plots 
 \pgfplotsset{compat=1.15}
 \usepgfplotslibrary{statistics}
@@ -95,6 +100,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \newacronym{ETF}{ETF}{Exchange Traded Fund}
 \newacronym{FRN}{FRN}{Floating Rate Note}
 \newacronym{LIBOR}{LIBOR}{London Interbank Offered Rate}
+\newacronym{GMAX}{GMAX}{General Management Aktienindex}
 
 \makeatletter
 \let\@fnsymbol\@arabic
@@ -195,24 +201,21 @@ Bei dem Handel mit Aktien wird eine vom Seminarleiter eingestellte Ordergebührt
 \label{sec:bewertung_von_floating_rate_notes}
 \glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlages zusammen \autocite[][374]{fabozzi_handbook_2005}.
 
-\gls{FRN} sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig. 
+Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig.
+Hierbei ist insbesondere eine Bewertung der An
 
-\glspl{FRN} in der Software \textit{Anika} weisen folgende Aupsprägung auf:
-\begin{itemize}
-	\item Die Laufzeit beträgt zehn Jahre.
-	\item Die Emission erfolgt in Periode eins.
-	\item Die Verzinsung entspricht dem Kapitalmarktzins und einem emissionsindividuellen Spread.
-	\item Das Zinsfixing erfolgt am Periodenultimo.
-	\item Die Zinsausschüttung einmal je Periode am Periodenultimo.
-\end{itemize}
+Für die Implementierung wird eine Laufzeit von zehn Perioden, beginnend in Periode Null angenommen.
+Die \gls{FRN} verfügt über keinen Cap, Floor oder Collar, der die Höhe des Zinskupons beschränkt.
+Kündigungsrechte des Emittenten / Gläubigers bestehen nicht.
 
-Dieses Fachkonzept präferiert für die Bewertung der \gls{FRN} ein Bewertungsmodell, das in \textcite[][31]{alexander_market_2008} dokumentiert ist.
-Es ist für diese Arbeit prädestiniert, da es ermöglicht,  Floater zu einem beliebigen Zeitpunkt zu bewerten und auch Floater mit Spreads $\neq 0$ zu bepreisen.
-Weiterhin ist das Vorgehen in der Literatur etabliert, so findet sich eine Variante davon in \textcite[][54]{veronesi_fixed_2010}. 
+Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
 
-% Wann erfolgt die Bewertung?
+Die Bewertung orientert sich an \autocite[][]{veronesi_fixed_2010}.
 
-Sofern der Spred $s=0$ ergeben sich Vereinfachungen hinsichtlich der Bewertung de
+% Floater passen sich zwar der finanziellen Situation der Firma an, nicht aber der 
+% Kursverlauf aufnehmen.
+
+Alternativ ist auch \autocite[][]{fabozzi_handbook_2005} möglich.
 
 Der Wert einer \gls{FRN} mit einem Spread von $s=0$ entspricht der der Wert der \gls{FRN} dem Nennwert der \gls{FRN} ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
 
@@ -220,13 +223,13 @@ Es handelt sich dabei um einen Spezialfall, der die Anforderungen von \textit{An
 
 Für einer \gls{FRN} mit einem Spread lässt sich der Cashflow in eine fixe und eine veränderliche Komponente aufspalten.
 
-Damit teilt sich die Bewertung in die einer \gls{FRN} mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
+Damit teilt sich die Bewertung in die Bewetung einer \gls{FRN} mit einem Spread von Null und mehreren festen Zinszahlungen in Höhe des Spreads auf.
 
-
-
-Die Berechnung der Abzinsungsfaktoren erfolgt auf Grundlag
-
-Die Bewertung der \gls{FRN} erfolgt ausschließlich am Periodenultimo.
+Für die Bewertung von \gls{FRN} gelten folgende Prämissen:
+\begin{itemize}
+	\item Die Bewertung erfolgt am Kupon\dots
+	\item Restlaufzeit...
+\end{itemize}
 
 % https://www.finpricing.com/lib/FiFrn.pdf
 
@@ -243,12 +246,9 @@ Das ist, Autoren wie \textcite{veronesi_fixed_2010} propagieren ein identisches 
 
 \textcite[][]{alexander_market_2008} zerlegt dabei die fixierten Zahlungen aus dem Spread $s$ und den veränderlichen Zahlungn aus dem Referenzzins. Die Festzins
 
-% Bercü
-
-\textbf{Beispiel:}
-
 Nachfolgendes Beispiel ist \textcite[][32]{alexander_market_2008} entlehnt.
-Bewertet wird ein \gls{FRN} mit jährlichen Zinskupons, die sich aus Referenzzins \gls{LIBOR} plus 60 Basispunkte zusammensetzen. Die Bewertung erfolgt an einem Zinszahlungstermin. Der \gls{LIBOR} zum Bewertungszeitpunkt beträgt 5~\%. Die Abzinsungssätze für 2, 3 und 4 Jahre betragen 4,85~\%, 4,65~\% beziehungsweise 4,5~\%.
+
+Bewertet wird ein \gls{FRN} mit jährlichen Zinskupons, die sich aus Referenzzins \gls{LIBOR} plus 60 Basispunkte zusammensetzen. Die Bewertung erfolgt an einem Zinszahlungstermin. Der \gls{LIBOR} zum Bewertungszeitpunkt beträgt 5~\%. Die Abzinsungssätze für 2, 3, 4 Jahre 4,85~\%, 4,65~\% beziehungsweise 4,5~\%.
 % Die Diskontierung erfolgt mit dem Libor
 
 Da eine Zerlegung in feste Anleihe und einen Variablen Zahlungsstrom erfolgt, ist zunächst die Festzinsanleihe (erster Term) zu bewerten.
@@ -262,33 +262,73 @@ Die Bewertung des variablen Zahlungsstroms vereinfacht sich, da eine Bepreisung 
 	P_{t+T}^{s}&= (86.00-83.856) + 100 = 102.144\\
 \end{align*}
 
+% TODO: Wie lässt sich geänderte Bonität berücksichtigen? Höhere Abzinsungsfaktoren?
+
+% TODO: Jave EE nennt es static spread der wird aufgeschlagwn
+\begin{align*}
+	P=\sum_{i=1}^{n} \frac{C_{i}}{\left(1+r_{s}+r(i)\right)^{i}}+\frac{100}{\left(1+r_{s}+r(n)^{n}\right.}
+\end{align*}
+
+Legt man Arbitragefreiheit zugrunde, dann entspricht 
+% Mittels eines No-Arbitrage Arguments lässt sich zeigen, dass ein Floater im Fixingtermin immer zu pari notiert. Eine Floating Rate Note lässt sich synthetisch erzeugen durch eine rollierende (revolvierende) Geldanlage in einer Fixed Rate Note. Diese müssen dann denselben Preis haben.
+
+% Achtung!: Dies gilt nur für den Fall, dass der Bonitätsspread dem Bonitätsrisiko entspricht (sem=qm).
+
+Dies stellt eine vereinfachende Annahme, 
+
+
+
 
 \subsection{Bewertung eines Exchange Traded Funds}
 \label{sec:bewertung_eines_exchange_traded_funds}
-Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}.
 
-Die Software \textit{Anika} soll jedem Teilnehmer die Möglichkeit bieten, einen ETF zu handeln, der die Wertentwicklung des GMAX\footnote{Der Performanceindex GMAX bildet die gleichgewichteten Aktienkurse aller Planspielunternehmen ab.} abbildet.
-Deshalb ist eine Bewertung des ETF erst dann möglich, wenn alle im GMAX enthaltenenen Aktienkurse vorliegen.
+Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. Bei dem zugrundeliegenden Index kann es sich dabei um einen Aktien-, Anleihenindizes nebst anderen handeln.
 
-Für die Bewertung eines \glspl{ETF} wird dabei eine vollständige Replizierung des Indizes unterstellt. Außerdem wird angenommen, dass die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} werden dabei nicht berücksichtigt.
-Dies führt dazu, dass der \gls{ETF} der Entwicklung des zugrundeliegenden Indizes 1:1 folgt.
+Der Index bildet dabei die Entwicklung mehrerer im Index enthaltenen Anlagen ab.
+Die Berechnung des Index setzt Konventionen zur Gewichtung der Anlagen voraus. Ein Überblick über Ansätze zur Gewichtung wird in \textcite[][S.~44~ff.]{bodie_investments_2018} gegeben, wohin gegen sich dieses Fachkonzept auf verwendete Ansätze beschränkt.
 
-% TODO: Beispiel?
-% TODO: Gewichtung?
+Die Software \textit{Anika} bietet jedem Teilnehmer die Möglichkeit, einen ETF zu handeln, der die Wertentwicklung des Index \gls{GMAX} repliziert. Der \gls{GMAX} ist in Definition \ref{def:gmax} festgelegt.
+
+\begin{definition}
+	\label{def:gmax}
+	Der \gls{GMAX} ist ein preisgewichteter (\textit{price weighted}) Aktienindex der Planspielunternehmen. Alle Aktien sind gleichgewichtet.
+\end{definition}
+
+Die Berechnung des \gls{GMAX} als preisgewichteter Aktienindex erlaubt damit eine einfache und nachvollziehbare Berechnung. Zugleich stellt es einen Ansatz dar, der praktische Bedeutung für Indizes wie dem usprünglichen \textit{Dow Jones Industrial Average} hat, weshalb dieses Verfahren für die Software \textit{Anika} ausgewählt wurde. Diesem Ansatz ist nachteilig, dass hoch bewertete Aktien einen größeren Einfluss auf die Indexentwicklung nehmen.
+
+Die Berechnung des \gls{GMAX} wird an Beispiel~\ref{ex:gmax} für ein Spiel mit zwei Planspielunternehmen erläutert.
+Das Beispiel ist adaptiert aus \textcite[][S.~44]{bodie_investments_2018}.
+\begin{example}
+\label{ex:gmax}
+Legt man einen Aktienkurs für Unternehmen A $25$ ($P_0$) und $30$ in ($P_1$) und für Unternehmen B von $100$ ($P_0$) und $90$ in ($P_1$) zugrunde.
+
+Der Indexstand zum Bewertungszeitpunkt ermittelt sich dann als:\\
+Indexstand \gls{GMAX} ($P_0$) = $\frac{(25 + 100)}{2} = 62.5$\\
+Indexstand \gls{GMAX} ($P_1$) = $\frac{(25 + 100)}{2} = 60.$
+
+Die prozentuale Veränderung von $P_0$ auf $P_1$ ergibt sich als $-\frac{2.5}{62.5} = -4.0~\%$.
+\end{example}
+
+ Anhand des \gls{GMAX} wird ein \gls{ETF} konstruiert. Die Ausgestaltung des \gls{ETF} in der Software \textit{Anika} ist in Definition~\ref{def:etf} gegeben.
+\begin{definition}
+	\label{def:etf}
+	Der \gls{ETF} trackt den Index \gls{GMAX} durch vollständige Replizierung. Die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} wird eleminiert, wodurch der \gls{ETF} den \gls{GMAX} 1:1 folgt.
+\end{definition}
+
+Eine Bewertung des \gls{ETF} ist erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der Ausgestaltung gemäß Beispiel~\ref{def:etf} entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
+Beispielhaft ist der Kurs des \gls{ETF} aus Beispiel \ref{ex:gmax} in Periode $P_0$ $62.5$~EUR.
 
 \subsection{Bewertung von Festgeld}
 \label{sec:bewertung_von_festgeldern}
 
 Als ein Festgeld wird eine Variante der Termineinlage bezeichnet, dessen Kapital für eine vertraglich vereinbarte Anlagedauer fixiert ist.
 
-Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet sich dabei in Teilen von den üblichen am Markt befindlichen Festgeldern. Im Folgenden werden deshalb die Konditionen des in \textit{Anika} verwendeten Festgeldes dargestellt:
-\begin{itemize}
-	\item Die Anlagedauer beträgt eine Periode.
-	\item Die Verzinsung entspricht dem Kapitalmarktzins der jeweiligen Periode.
-	\item Es erfolgt eine automatische Prolongation des Festgelds um eine Periode.
-	\item Eine jederzeitige Verfügung den Teilnehmer ist im vollen Umfang oder teilweise ohne Vorfälligkeitsentschädigung möglich.
-	\item Aufstockungen des Festgeld sind jederzeit möglich.
-\end{itemize}
+Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet sich dabei in Teilen von den üblichen am Markt befindlichen Festgeldern. Im Definition \ref{def:festgeld} werden deshalb die Konditionen des in \textit{Anika} verwendeten Festgelds dargestellt.
+
+\begin{definition}
+	\label{def:festgeld}
+	Das Festgeld hat eine Laufzeit von einer Periode mit automatischer Prolongation um eine Periode. Die Verzinsung erfolgt zum Kapitalmarktzins. Teilverfügungen und vollständige Verfügungen und Aufstockungen sind jederzeit durch den Teilnehmer ohne Vorfälligkeitsentschädigung möglich. 
+\end{definition}
 
 Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet, da sie dadurch effektiv einer risikolosen Floating Rate Note gleichzusetzen sind. Im Gegensatz dazu fällt jedoch keine Ordergebühr an, da es kein Wertpapier ist.
 
@@ -304,10 +344,17 @@ Wie bereits in Kapitel \ref{sec:bewertung_von_aktien} beschrieben wurde, beinhal
 
 \subsection{Zinserträge auf Festgelder}
 \label{sec:zinsertraege_auf_festgelder}
-Festgelder werden wie bereits in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben wurde, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben.
+Festgelder werden, wie in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben.
 
 \subsection{Zinserträge auf Floating Rate Notes}
 \label{sec:zinsertraege_auf_floating_rate_notes}
+
+% Die Berechnung der Zinserträge der \gls{FRN} erfolgt bezogen auf den Nennbetrag unter Verwendung des 
+
+% \begin{example}
+% 	Eine \gls{FRN} verfügt über einen 
+% \end{example}
+
 
 \printbibliography[title={Literatur}]
 \end{document}
