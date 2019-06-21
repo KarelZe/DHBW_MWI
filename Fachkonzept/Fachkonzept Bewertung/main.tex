@@ -276,8 +276,12 @@ Legt man Arbitragefreiheit zugrunde, dann entspricht
 
 Dies stellt eine vereinfachende Annahme, 
 
+\begin{definition}
+	\label{def:floater}
+	\dots
+\end{definition}
 
-
+% Siehe Tuckman S. 542 f für Überlegungen zu Credit Spread.
 
 \subsection{Bewertung eines Exchange Traded Funds}
 \label{sec:bewertung_eines_exchange_traded_funds}
@@ -316,7 +320,7 @@ Die prozentuale Veränderung von $P_0$ auf $P_1$ ergibt sich als $-\frac{2.5}{62
 \end{definition}
 
 Eine Bewertung des \gls{ETF} ist erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der Ausgestaltung gemäß Beispiel~\ref{def:etf} entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
-Beispielhaft ist der Kurs des \gls{ETF} aus Beispiel \ref{ex:gmax} in Periode $P_0$ $62.5$~EUR.
+Beispielhaft ist der Kurs des \gls{ETF} aus Beispiel \ref{ex:gmax} in Periode $P_0$ $62.5$~Euro.
 
 \subsection{Bewertung von Festgeld}
 \label{sec:bewertung_von_festgeldern}
@@ -349,12 +353,30 @@ Festgelder werden, wie in Kapitel \ref{sec:bewertung_von_festgeldern} beschriebe
 \subsection{Zinserträge auf Floating Rate Notes}
 \label{sec:zinsertraege_auf_floating_rate_notes}
 
-% Die Berechnung der Zinserträge der \gls{FRN} erfolgt bezogen auf den Nennbetrag unter Verwendung des 
+Auf die \gls{FRN} gemäß Definition \ref{def:floater} erfolgen Zinsausschüttungen.
+Wegen der periodenweisen Zinsfixings und Ausschüttung wird der Zinsbetrag gemäß Definition \ref{def:zins_floater} bestimmt.
+Diese Definition ist aus \textcite[][S.~52]{veronesi_fixed_2010} adaptiert.
 
-% \begin{example}
-% 	Eine \gls{FRN} verfügt über einen 
-% \end{example}
+\begin{definition}
+	\label{def:zins_floater}
+\begin{align*}
+	c_t &= 100 (r_{t-1} + s)\\
+	c_t &= \text{Zinszahlung per $t$}\\
+	s &= \text{Spread bei Emission}\\
+	r_t &= \text{Referenzzins per $t$}
+\end{align*}
+$c_t$ wird dem Zahlungsmittelkonto gutgeschrieben.
+\end{definition}
 
+Die Berechnung der Zinserträge der \gls{FRN} erfolgt damit bezogen auf den Nennbetrag $(= 100)$ unter Verwendung des Kapitalmarktzinssatzes und des Spreads. Dabei ist der zeitliche Verzug zwischen dem Zinsfixing-Termin und dem Termin der Kuponzahlung erkennbar.
 
+\begin{example}
+	Eine \gls{FRN} muss bepreist werden. Der Kapitalmarktzins zum zurückliegenden Fixingtermin betrug 2~\%. Der \textit{Spread} bei Emission der \gls{FRN} beträgt 1~\%. 
+	
+	Die Kuponzahlung $c_t$ ergibt sich wiefolgt:
+
+	$c_t= 100 (1 + 2) = 3 $ Euro
+\end{example}
+\clearpage
 \printbibliography[title={Literatur}]
 \end{document}
