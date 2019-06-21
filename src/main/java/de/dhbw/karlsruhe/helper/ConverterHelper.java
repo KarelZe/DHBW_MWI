@@ -3,6 +3,7 @@ package de.dhbw.karlsruhe.helper;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
+import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import javafx.util.StringConverter;
 
 import java.text.SimpleDateFormat;
@@ -59,6 +60,29 @@ public class ConverterHelper {
         }
     };
 
+
+    //+++++++++++++++UNTERNEHMEN++++++++++++++++++++++
+    private StringConverter<Wertpapier> wertpapierConverter = new StringConverter<>() {
+
+        @Override
+        public String toString(Wertpapier wertpapier) {
+            return wertpapier != null ? wertpapier.getUnternehmen().getName() + " | " + wertpapier.getWertpapierArt().getName() + " [id: " + wertpapier.getId() + "]" : "";
+        }
+
+        @Override
+        public Wertpapier fromString(String id) {
+            return null;
+        }
+    };
+
+
+    public StringConverter<Wertpapier> getWertpapierConverter() {
+        return wertpapierConverter;
+    }
+
+    public void setWertpapierConverter(StringConverter<Wertpapier> wertpapierConverter) {
+        this.wertpapierConverter = wertpapierConverter;
+    }
 
     public StringConverter<Unternehmen> getUnternehmensConverter() {
         return unternehmensConverter;

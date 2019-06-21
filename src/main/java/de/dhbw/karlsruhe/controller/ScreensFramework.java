@@ -28,6 +28,7 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_TEILNEHMER_DRUCKEN = "teilnehmer_drucken";
     public static final String SCREEN_INVESTMENT_UEBERSICHT = "investment_uebersicht";
     public static final String SCREEN_TEILNEHMER_HISTORIE = "teilnehmer_historie";
+    public static final String SCREEN_WERTPAPIER_KAUFEN = "wertpapier_kaufen";
 
     public static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     public static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
@@ -42,6 +43,7 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_TEILNEHMER_DRUCKEN_FILE = "scene_teilnehmer_druck.fxml";
     public static final String SCREEN_INVESTMENT_UEBERSICHT_FILE = "scene_investment_uebersicht.fxml";
     public static final String SCREEN_TEILNEHMER_HISTORIE_FILE = "scene_teilnehmer_historie.fxml";
+    public static final String SCREEN_WERTPAPIER_KAUFEN_FILE = "scene_wertpapier_kaufen.fxml";
 
     public static void main(String[] args) {
         launch(args);
@@ -64,10 +66,12 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+        screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             //screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
-            screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
+            //screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
+            screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN);
 
         } else { //es konnte kein Spiel geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
