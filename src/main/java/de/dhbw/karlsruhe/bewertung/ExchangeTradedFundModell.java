@@ -14,7 +14,7 @@ public class ExchangeTradedFundModell implements Bewertungsmodell {
     /**
      * Diese Methode implementiert die Bewertung des Exchange Traded Funds (ETF) als arithmetisches Mittel der Aktienkurse
      * der Periode. Es wird dabei unterstellt, dass der ETF die Aktien seines Portfolios 1:1 repliziert.
-     * Die Gesamtkostenquote (TER) werden im Bewertungsmodell mit 0 angenommen. Der TrackingError wird mit 0 angenommen.
+     * Die Gesamtkostenquote (TER) und der Tracking Error werden im Bewertungsmodell mit 0 angenommen.
      * Die Bewertung des ETFs ist erst möglich, nachdem die Aktien des Portfolios bewertet wurden.
      *
      * @param periode    Periode, für die eine Bewertung erfolgen soll.
