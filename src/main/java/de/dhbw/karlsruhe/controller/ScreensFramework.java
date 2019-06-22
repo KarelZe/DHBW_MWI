@@ -63,7 +63,7 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+        //screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
@@ -80,8 +80,9 @@ public class ScreensFramework extends Application {
         //Menüpunkte erstellen
         MenuItem mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
         MenuItem mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
+        MenuItem mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
         //Menüpunkt zum Menü hinzufügen
-        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren);
+        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie);
 
         Menu mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
@@ -111,6 +112,10 @@ public class ScreensFramework extends Application {
             screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
         });
+        mIteilnehmerHistorie.setOnAction((event -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
+        }));
         mIunternehmenAnlegen.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
