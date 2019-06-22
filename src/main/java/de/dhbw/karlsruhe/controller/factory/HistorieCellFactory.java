@@ -1,15 +1,15 @@
 package de.dhbw.karlsruhe.controller.factory;
 
 import de.dhbw.karlsruhe.controller.fragments.HistorieCell;
-import de.dhbw.karlsruhe.controller.fragments.PasswortCell;
-import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
+import de.dhbw.karlsruhe.model.TeilnehmerPrintModel;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
-public class HistorieCellFactory implements Callback<TableColumn<TeilnehmerViewModel, Void>, TableCell<TeilnehmerViewModel, Void>> {
+public class HistorieCellFactory implements Callback<TableColumn<TeilnehmerPrintModel, Void>, TableCell<TeilnehmerPrintModel, Void>> {
 
-    public TableCell<TeilnehmerViewModel, Void> call(final TableColumn<TeilnehmerViewModel, Void> param) {
+    @Override
+    public TableCell<TeilnehmerPrintModel, Void> call( final TableColumn<TeilnehmerPrintModel, Void> param) {
         return new HistorieCell();
     }
 }

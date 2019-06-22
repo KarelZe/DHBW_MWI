@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.print.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
@@ -27,10 +28,13 @@ public class PrintController implements ControlledScreen {
     TableColumn<TeilnehmerPrintModel, Long> tblColId;
     @FXML
     TableColumn<TeilnehmerPrintModel, Double> tblColPortfoliowert;
+    @FXML
+    private Button btnHistorieAnzeigen;
+
+    private ScreenController screenController;
 
     @Override
-    public void setScreenParent(ScreenController screenPage) {
-    }
+    public void setScreenParent(ScreenController screenPage) {this.screenController = screenPage; }
 
     /**
      * Initialize Methode von JavaFX. Siehe hierzu https://stackoverflow.com/a/51392331
@@ -61,5 +65,10 @@ public class PrintController implements ControlledScreen {
         job.getJobSettings().setPageLayout(pageLayout);
         boolean success = job.printPage(tvDruckansicht);
         if (success) job.endJob();
+    }
+
+    public void doHistorie(){
+        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
     }
 }

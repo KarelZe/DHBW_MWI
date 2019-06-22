@@ -31,12 +31,20 @@ public class TeilnehmerHistorieController implements ControlledScreen{
     TableColumn<HistorieViewModel, Double> tblColUnternehmen;
 
     private ScreenController screenController;
+    public static Long teilnehmerID;
 
 
 
     @FXML
     private void initialize() {
-        List<Buchung> buchung = BuchungRepository.getInstanz().findByTeilnehmerId(AktuelleSpieldaten.getTeilnehmer().getId());
+        // Wenn ein Spieler angemeldet ist,  setzt ihn als anzuzeigende TeilnehmerID
+        if(AktuelleSpieldaten.getTeilnehmer()!=null) {
+            if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == 1) {
+                teilnehmerID = AktuelleSpieldaten.getTeilnehmer().getId();
+            }//Sonst handelt es sich um den Spielleiter. Das Programm setzt vor dem Aufruf die teilnehmerID auf den gewählten Teilnehmer
+        }
+
+        List<Buchung> buchung = BuchungRepository.getInstanz().findByTeilnehmerId(teilnehmerID);
         List<HistorieViewModel> historieViewModel = buchung.stream().map(HistorieViewModel::new).collect(Collectors.toList());
         ObservableList<HistorieViewModel> observableList = FXCollections.observableArrayList(historieViewModel);
         tvHistorie.setItems(observableList);
