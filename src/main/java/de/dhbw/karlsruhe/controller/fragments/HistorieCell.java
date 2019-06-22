@@ -1,12 +1,8 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
-import de.dhbw.karlsruhe.controller.PrintController;
-import de.dhbw.karlsruhe.controller.ScreenController;
-import de.dhbw.karlsruhe.controller.ScreensFramework;
-import de.dhbw.karlsruhe.helper.ConstantsHelper;
-import de.dhbw.karlsruhe.helper.EncryptionHelper;
+import de.dhbw.karlsruhe.controller.TeilnehmerHistorieController;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
+import de.dhbw.karlsruhe.model.TeilnehmerPrintModel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,11 +14,9 @@ import javafx.scene.control.TableCell;
 import java.io.IOException;
 import java.util.Optional;
 
-public class HistorieCell extends TableCell<TeilnehmerViewModel, Void> {
+public class HistorieCell extends TableCell<TeilnehmerPrintModel, Void> {
     @FXML
     private Button btnHistorie;
-
-    private ScreenController screenController;
 
     public HistorieCell() {
         super();
@@ -49,24 +43,20 @@ public class HistorieCell extends TableCell<TeilnehmerViewModel, Void> {
     @FXML
     private void initialize() {
         btnHistorie.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-            //Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
-            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(111);
+            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
             teilnehmer.ifPresentOrElse(t -> {
-                //Screen zu Historie wechseln
-                try {
-                    screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
-                    screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                //Setzt die Teilnehmer ID vom Historie Controller auf den gewollten Teilnehmer aus der Liste --> Leider lässt sich der Screen nicht durch dieses ActionEvent wechseln (kein Zugriff auf Controller)
+                TeilnehmerHistorieController.teilnehmerID = getTableView().getItems().get(getIndex()).getId();
 
-                    },
-                    () -> {
-                        Alert messageBox = new Alert(Alert.AlertType.ERROR);
-                        messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
-                        messageBox.showAndWait();
-                    }
-            );
+                Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
+                messageBox.setHeaderText("Teilnehmer wurde ausgewaehlt. Bitte Schaltflaeche ''Historie anzeigen'' betaetigen");
+                messageBox.showAndWait();
+
+            },() -> {
+                Alert messageBox = new Alert(Alert.AlertType.ERROR);
+                messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
+                messageBox.showAndWait();
+            });
         });
     }
 
