@@ -284,36 +284,33 @@ Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmen
 
 Die Berechnung des Index setzt Konventionen zur Gewichtung der Anlagen voraus. Ein Überblick über Ansätze zur Gewichtung wird in \textcite[][S.~44~ff.]{bodie_investments_2018} gegeben, wohin gegen sich dieses Fachkonzept auf verwendete Ansätze beschränkt.
 
-Die Software \textit{Anika} bietet jedem Teilnehmer die Möglichkeit, einen ETF zu handeln, der die Wertentwicklung des Index \gls{GMAX} repliziert. Der \gls{GMAX} ist in Definition \ref{def:gmax} festgelegt.
+Die Software \textit{Anika} bietet jedem Teilnehmer die Möglichkeit, einen ETF zu handeln, der die Wertentwicklung des Index \gls{GMAX} repliziert (siehe nachfolgende Definition \ref{def:gmax}).
 
 \begin{definition}
 	\label{def:gmax}
-	Der \gls{GMAX} ist ein preisgewichteter (\textit{price weighted}) Aktienindex der Planspielunternehmen. Alle Aktien sind gleichgewichtet.
+	Der \gls{GMAX} ist ein preisgewichteter (\textit{price weighted}) Aktienindex der Planspielunternehmen, bei dem alle Aktien gleichgewichtet sind.
 \end{definition}
 
-Die Berechnung des \gls{GMAX} als preisgewichteter Aktienindex erlaubt damit eine einfache und nachvollziehbare Berechnung. Zugleich stellt es einen Ansatz dar, der praktische Bedeutung für Indizes wie dem usprünglichen \textit{Dow Jones Industrial Average} hat, weshalb dieses Verfahren für die Software \textit{Anika} ausgewählt wurde. Diesem Ansatz ist nachteilig, dass hoch bewertete Aktien einen größeren Einfluss auf die Indexentwicklung nehmen.
+Die Berechnung des \gls{GMAX} als preisgewichteter Aktienindex erlaubt damit eine einfache und nachvollziehbare Berechnung. Zugleich stellt es einen Ansatz dar, der praktische Bedeutung für Indizes wie dem usprünglichen \textit{Dow Jones Industrial Average} hat, weshalb dieses Verfahren für die Software \textit{Anika} ausgewählt wurde. Dieser Ansatz hat jedoch den Nachteil, dass hoch bewertete Aktien einen größeren Einfluss auf die Indexentwicklung nehmen.
 
-Die Berechnung des \gls{GMAX} wird an Beispiel~\ref{ex:gmax} für ein Spiel mit zwei Planspielunternehmen erläutert.
-Das Beispiel ist adaptiert aus \textcite[][S.~44]{bodie_investments_2018}.
+Die Berechnung des \gls{GMAX} wird an Beispiel~\ref{ex:gmax}\footnote{Das Beispiel ist von \textcite[][S.~44]{bodie_investments_2018} adaptiert.} für ein Spiel mit zwei Planspielunternehmen erläutert.
+
 \begin{example}
 \label{ex:gmax}
-Legt man einen Aktienkurs für Unternehmen A $25$ ($P_0$) und $30$ in ($P_1$) und für Unternehmen B von $100$ ($P_0$) und $90$ in ($P_1$) zugrunde.
-
-Der Indexstand zum Bewertungszeitpunkt ermittelt sich dann als:\\
+Legt man einen Aktienkurs für Unternehmen A $25$ ($P_0$) und $30$ in ($P_1$) und für Unternehmen B von $100$ ($P_0$) und $90$ in ($P_1$) zugrunde, dann kann der Indexstand zum Bewertungszeitpunkt wie folgt ermittelt werden:\\
 Indexstand \gls{GMAX} ($P_0$) = $\frac{(25 + 100)}{2} = 62.5$\\
-Indexstand \gls{GMAX} ($P_1$) = $\frac{(25 + 100)}{2} = 60.$
+Indexstand \gls{GMAX} ($P_1$) = $\frac{(30 + 90)}{2} = 60.$
 
-Die prozentuale Veränderung von $P_0$ auf $P_1$ ergibt sich als $-\frac{2.5}{62.5} = -4.0~\%$.
+Die prozentuale Veränderung von $P_0$ auf $P_1$ ergibt damit aus $-\frac{2.5}{62.5} = -4.0~\%$.
 \end{example}
 
- Anhand des \gls{GMAX} wird ein \gls{ETF} konstruiert. Die Ausgestaltung des \gls{ETF} in der Software \textit{Anika} ist in Definition~\ref{def:etf} gegeben.
+ Anhand des \gls{GMAX} wird ein \gls{ETF} konstruiert. Die Ausgestaltung des \gls{ETF} in der Software \textit{Anika} kann der nachfolgenden Definition~\ref{def:etf} entnommen werden.
 \begin{definition}
 	\label{def:etf}
-	Der \gls{ETF} trackt den Index \gls{GMAX} durch vollständige Replizierung. Die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} wird eleminiert, wodurch der \gls{ETF} den \gls{GMAX} 1:1 folgt.
+	Der \gls{ETF} trackt den Index \gls{GMAX} durch vollständige Replizierung. Die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} wird eleminiert, wodurch die Wertentwicklung des \gls{ETF} die des \gls{GMAX} 1:1 abbildet.
 \end{definition}
 
-Eine Bewertung des \gls{ETF} ist erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der Ausgestaltung gemäß Beispiel~\ref{def:etf} entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
-Beispielhaft ist der Kurs des \gls{ETF} aus Beispiel \ref{ex:gmax} in Periode $P_0$ $62.5$~Euro.
+Eine Bewertung des \gls{ETF} ist deshalb erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der Ausgestaltung gemäß Beispiel~\ref{def:etf} entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
 
 \subsection{Bewertung von Festgeld}
 \label{sec:bewertung_von_festgeldern}
@@ -324,36 +321,34 @@ Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet s
 
 \begin{definition}
 	\label{def:festgeld}
-	Das Festgeld hat eine Laufzeit von einer Periode mit automatischer Prolongation um eine Periode. Die Verzinsung erfolgt zum Kapitalmarktzins. Teilverfügungen und vollständige Verfügungen und Aufstockungen sind jederzeit durch den Teilnehmer ohne Vorfälligkeitsentschädigung möglich. 
+	Das Festgeld wird mit dem periodebanhängigen Kapitalmarktzinssatz verzinst und hat eine Laufzeit von einer Periode mit automatischer Prolongation um eine weitere Periode. Teilverfügungen und vollständige Verfügungen und Aufstockungen sind jederzeit durch den Teilnehmer ohne Vorfälligkeitsentschädigung möglich. 
 \end{definition}
 
-Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet, da sie dadurch effektiv einer risikolosen Floating Rate Note gleichzusetzen sind. Im Gegensatz dazu fällt jedoch keine Ordergebühr an, da es kein Wertpapier ist.
+Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet, da sie dadurch effektiv einer risikolosen Floating Rate Note gleichzusetzen sind. Bei dem Kauf bzw. Verkauf des Festgeldes wird jedoch im Gegensatz zu den anderen Finanzanlagen keine Ordergebühr fällig.
 
 \section{Ermittlung der Kapitalerträge}
 \label{sec:ermittlung_von_wertpapierertraegen}
 
-Nachfolgende Kapitel beschreiben die Ermittlung der Kapitalerträge für unterschiedliche Anlagen.
+Nachfolgende Kapitel beschreiben die Ermittlung der Kapitalerträge für die in \textit{Anika} auftretenden Finanzanlagen.
 
 \subsection{Ausschüttungen aus Aktien und ETFs}
 \label{sec:ausschuettung_aus_aktie}
-% TODO: Gibt es eine klarere Bezeichnung als um Dividendenausschüttungen bereinigt?
-Wie bereits in Kapitel \ref{sec:bewertung_von_aktien} beschrieben wurde, beinhaltet der Aktienkurs der Planspielunternehmen die bereits ausgeschütteten Dividendenauszahlungen. Aus diesem Grund soll keine zusätzliche Dividendenausschüttung erfolgen. Dies gilt auch für \glspl{ETF}.
+Wie bereits in Kapitel \ref{sec:bewertung_von_aktien} beschrieben wurde, beinhaltet der Aktienkurs der Planspielunternehmen bereits die ausgeschütteten Dividendenauszahlungen. Aus diesem Grund soll keine separate Dividendenausschüttung erfolgen. Dies gilt auch für \glspl{ETF}.
 
 \subsection{Zinserträge auf Festgelder}
 \label{sec:zinsertraege_auf_festgelder}
-Festgelder werden, wie in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben.
+Festgelder werden, wie bereits in Kapitel \ref{sec:bewertung_von_festgeldern} beschrieben wurde, mit dem jeweiligen Kapitalmarktzinssatz verzinst. Diese Zinszahlung wird am Ende der jeweiligen Periode auf das Zahlungsmittelkonto des Teilnehmers gutgeschrieben.
 
 \subsection{Zinserträge auf Floating Rate Notes}
 \label{sec:zinsertraege_auf_floating_rate_notes}
 
-Auf die \gls{FRN} gemäß Definition \ref{def:floater} erfolgen Zinsausschüttungen.
-Wegen der periodenweisen Zinsfixings und Ausschüttung wird der Zinsbetrag gemäß Definition \ref{def:zins_floater} bestimmt.
-Diese Definition ist aus \textcite[][S.~52]{veronesi_fixed_2010} adaptiert.
+Die Inhaber von \gls{FRN} erhalten gemäß Definition \ref{def:floater} Zinsausschüttungen.
+Wegen der periodischen Zinsfixings und Ausschüttung wird der Zinsbetrag nach nachfolgender Definition \ref{def:zins_floater}\footnote{Diese Definition ist aus \textcite[][S.~52]{veronesi_fixed_2010} adaptiert.} bestimmt.
 
 \begin{definition}
 	\label{def:zins_floater}
 \begin{align*}
-	c_t &= 100 (r_{t-1} + s)\\
+	c_t &= 100 * (r_{t-1} + s)\\
 	c_t &= \text{Zinszahlung per $t$}\\
 	s &= \text{Spread bei Emission}\\
 	r_t &= \text{Referenzzins per $t$}
@@ -361,7 +356,7 @@ Diese Definition ist aus \textcite[][S.~52]{veronesi_fixed_2010} adaptiert.
 $c_t$ wird dem Zahlungsmittelkonto gutgeschrieben.
 \end{definition}
 
-Die Berechnung der Zinserträge der \gls{FRN} erfolgt damit bezogen auf den Nennbetrag $(= 100)$ unter Verwendung des Kapitalmarktzinssatzes und des Spreads. Dabei ist der zeitliche Verzug zwischen dem Zinsfixing-Termin und dem Termin der Kuponzahlung erkennbar.
+Die Berechnung der Zinserträge der \gls{FRN} erfolgt damit bezogen auf den Nennbetrag $(= 100)$ unter Verwendung des Kapitalmarktzinssatzes und des Spreads. Dabei ist der zeitliche Verzug zwischen dem Zinsfixing und dem Termin der Kuponzahlung erkennbar.
 
 \begin{example}
 	Eine \gls{FRN} muss bepreist werden. Der Kapitalmarktzins zum zurückliegenden Fixingtermin betrug 2~\%. Der \textit{Spread} bei Emission der \gls{FRN} beträgt 1~\%. 
