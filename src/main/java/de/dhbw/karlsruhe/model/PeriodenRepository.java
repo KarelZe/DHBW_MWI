@@ -87,7 +87,22 @@ public class PeriodenRepository implements CrudRepository<Periode> {
 
     @Override
     public Optional<Periode> findById(long id) {
-        throw new UnsupportedOperationException();
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Periode where id = :id";
+            Query query = session.createQuery(queryString);
+            query.setParameter("id", id);
+            tx.commit();
+            Periode periode = (Periode) query.uniqueResult();
+            if (periode != null)
+                return Optional.of(periode);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
     }
 
     @Override

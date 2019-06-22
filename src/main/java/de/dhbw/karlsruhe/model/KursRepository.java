@@ -87,7 +87,22 @@ public class KursRepository implements CrudRepository<Kurs> {
 
     @Override
     public Optional<Kurs> findById(long id) {
-        throw new UnsupportedOperationException();
+        Transaction tx = null;
+        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            String queryString = "from Kurs where id = :id";
+            Query query = session.createQuery(queryString);
+            query.setParameter("id", id);
+            tx.commit();
+            Kurs kurs = (Kurs) query.uniqueResult();
+            if (kurs != null)
+                return Optional.of(kurs);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (tx != null)
+                tx.rollback();
+        }
+        return Optional.empty();
     }
 
     public List<Kurs> findByPeriodenId(long periodeId) {

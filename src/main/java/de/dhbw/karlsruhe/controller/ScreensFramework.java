@@ -65,8 +65,8 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
+        //screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+        //screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);

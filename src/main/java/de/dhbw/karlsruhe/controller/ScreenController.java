@@ -29,7 +29,7 @@ public class ScreenController extends StackPane {
         return screens.get(name);
     }
 
-    public void loadScreen(String name, String resource) {
+    void loadScreen(String name, String resource) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
             Parent loadScreen = loader.load();

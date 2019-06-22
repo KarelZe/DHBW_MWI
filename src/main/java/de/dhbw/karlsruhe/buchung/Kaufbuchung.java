@@ -35,7 +35,9 @@ public class Kaufbuchung implements Buchungsart {
         buchung.setVeraenderungDepot(+buchung.getVolumen());
 
         // Auf Zahlungsmittelkonto werden Gebühren als auch der Gegenwert aus der Buchung belastet.
-        buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() + buchung.getOrdergebuehr()));
+        buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() / 100 + 1)));
+
+
         return buchung;
     }
 }

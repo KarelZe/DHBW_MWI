@@ -37,8 +37,8 @@ public class PeriodeAnlegenController implements ControlledScreen {
     private void doPeriodeAnlegen(ActionEvent event) {
         double ordergebuehr, kapitalzins;
         try {
-            ordergebuehr = Double.parseDouble(txtOrder.getText());
-            kapitalzins = Double.parseDouble(txtZins.getText());
+            ordergebuehr = Double.parseDouble(txtOrder.getText()) / 100 + 1;
+            kapitalzins = Double.parseDouble(txtZins.getText()) / 100 + 1;
         }catch (NumberFormatException e){
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
