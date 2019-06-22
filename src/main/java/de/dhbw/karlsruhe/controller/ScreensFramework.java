@@ -69,9 +69,8 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
-            //screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
-            //screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
-            screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN);
+            screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
+
 
         } else { //es konnte kein Spiel geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
@@ -84,8 +83,9 @@ public class ScreensFramework extends Application {
         //Menüpunkte erstellen
         MenuItem mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
         MenuItem mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
+        MenuItem mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
         //Menüpunkt zum Menü hinzufügen
-        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren);
+        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIwertpapierKaufen);
 
         Menu mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
@@ -95,6 +95,7 @@ public class ScreensFramework extends Application {
         MenuItem mIunternehmenAnlegen = new MenuItem("Unternehmen anlegen");
         MenuItem mIwertpapierAnlegen = new MenuItem("Wertpapier anlegen");
         MenuItem mIteilnehmerUebersicht = new MenuItem("Teilnehmer zur\u00fccksetzen");
+
         mAdministration.getItems().addAll(mIspielAnlegen, mIspielVerwalten, mIperiodeAnlegen, mIperiodePflegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIteilnehmerUebersicht);
 
         Menu mAuswertung = new Menu("Auswertung");
@@ -146,6 +147,10 @@ public class ScreensFramework extends Application {
         mIspielVerwalten.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN, ScreensFramework.SCREEN_SPIEL_VERWALTEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
+        });
+        mIwertpapierKaufen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN);
         });
 
 

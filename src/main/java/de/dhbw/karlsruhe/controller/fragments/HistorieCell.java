@@ -1,10 +1,7 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
-import de.dhbw.karlsruhe.controller.PrintController;
 import de.dhbw.karlsruhe.controller.ScreenController;
 import de.dhbw.karlsruhe.controller.ScreensFramework;
-import de.dhbw.karlsruhe.helper.ConstantsHelper;
-import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;

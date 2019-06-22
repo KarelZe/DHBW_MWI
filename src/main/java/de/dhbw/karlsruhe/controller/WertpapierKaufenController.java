@@ -1,7 +1,9 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.WertpapierRepository;
+import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import javafx.collections.FXCollections;
@@ -18,6 +20,10 @@ public class WertpapierKaufenController implements ControlledScreen {
 
     private ScreenController screenController;
 
+    @FXML
+    private Label lbZahlungsmittelkonto;
+    @FXML
+    private Label lbZahlungsmittelSaldo;
     @FXML
     private ListView lstVwWertpapiere;
     @FXML
@@ -47,6 +53,8 @@ public class WertpapierKaufenController implements ControlledScreen {
         ObservableList<Wertpapier> wertpapiereComboBox = FXCollections.observableArrayList(wertpapiere);
         cbWertpapierAuswahl.setItems(wertpapiereComboBox);
         cbWertpapierAuswahl.setConverter(new ConverterHelper().getWertpapierConverter());
+        lbZahlungsmittelSaldo.setText(Double.toString(PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getTeilnehmer().getId())));
+
     }
 
     @FXML

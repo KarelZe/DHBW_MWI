@@ -18,6 +18,8 @@
                 <Label fx:id="lblKostenDisplay" layoutX="451.0" layoutY="148.0" text="0"/>
                 <Button fx:id="btnKaufen" layoutX="459.0" layoutY="183.0" mnemonicParsing="false"
                         onAction="#doWertpapierKaufen" text="Kaufen"/>
+                <Label fx:id="lbZahlungsmittelSaldo" layoutX="451.0" layoutY="119.0" text="0"/>
+                <Label fx:id="lbZahlungsmittelkonto" layoutX="325.0" layoutY="119.0" text="Zahlungsmittelkonto:"/>
             </children>
         </Pane>
     </items>
