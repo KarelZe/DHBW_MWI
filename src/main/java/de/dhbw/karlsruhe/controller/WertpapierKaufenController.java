@@ -40,11 +40,19 @@ public class WertpapierKaufenController implements ControlledScreen {
     @FXML
     private TextField txtAnzahl;
     @FXML
-    private Label lblKosten;
+    private Label lblGesamtKosten;
     @FXML
-    private Label lblKostenDisplay;
+    private Label lblGesamtKostenDisplay;
     @FXML
     private Button btnKaufen;
+    @FXML
+    private Label lblOrdervolumen;
+    @FXML
+    private Label lblOrdervolumenDisplay;
+    @FXML
+    private Label lblOrderGebuehren;
+    @FXML
+    private Label lblOrderGebuehrenDisplay;
 
 
     private double teilnehmerZahlungsmittelkontoSaldo;
@@ -67,24 +75,37 @@ public class WertpapierKaufenController implements ControlledScreen {
 
     }
 
+    private Periode findAktuellePeriode() throws NoSuchElementException {
+        return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+
+    }
+
+    private double findAktuelleOrdergebuehr(Periode aktuellePeriode) throws NoSuchElementException {
+        return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr();
+    }
+
+    private double findWertpapierKursValue(Periode aktuellePeriode, Wertpapier selectedWertpapier) throws NoSuchElementException {
+        return KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(aktuellePeriode.getId(), selectedWertpapier.getId()).orElseThrow(NoSuchElementException::new).getKursValue();
+    }
+
     @FXML
     private void doWertpapierKaufen(ActionEvent event) {
         Wertpapier selectedWertpapier;
         double anzahlZuKaufen;
         double wertpapierKursValue;
-        double kaufwert;
+        double orderVolumen;
         double aktuelleOrderGebuehr;
         double orderGesamtKosten;
         Periode aktuellePeriode;
 
         try {
-            aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+            aktuellePeriode = findAktuellePeriode();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             return;
         }
         try {
-            aktuelleOrderGebuehr = PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr();
+            aktuelleOrderGebuehr = findAktuelleOrdergebuehr(aktuellePeriode);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             return;
@@ -111,14 +132,14 @@ public class WertpapierKaufenController implements ControlledScreen {
             return;
         }
         try {
-            wertpapierKursValue = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(aktuellePeriode.getId(), selectedWertpapier.getId()).orElseThrow(NoSuchElementException::new).getKursValue();
+            wertpapierKursValue = findWertpapierKursValue(aktuellePeriode, selectedWertpapier);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             return;
         }
         try {
-            kaufwert = wertpapierKursValue * anzahlZuKaufen;
-            orderGesamtKosten = kaufwert * (aktuelleOrderGebuehr / 100 + 1);
+            orderVolumen = wertpapierKursValue * anzahlZuKaufen;
+            orderGesamtKosten = orderVolumen * (aktuelleOrderGebuehr / 100 + 1);
             if (orderGesamtKosten <= teilnehmerZahlungsmittelkontoSaldo) {
                 BuchungsFactory buchungsFactory = new BuchungsFactory();
                 Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
@@ -128,7 +149,8 @@ public class WertpapierKaufenController implements ControlledScreen {
                 alert.setTitle("Wertpapierkauf");
                 alert.setContentText("Kauf erfolgreich!");
                 alert.showAndWait();
-
+                screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
+                screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN);
             } else {
                 throw new Exception("Fehler: orderGesamtKosten > teilnehmerZahlungsmittelkontoSaldo");
             }
@@ -141,13 +163,47 @@ public class WertpapierKaufenController implements ControlledScreen {
             alert.showAndWait();
         }
 
-
-
-
-
     }
 
-    private void validateOrder() {
+    @FXML
+    private void doBerechneKosten() {
+        Wertpapier selectedWertpapier;
+        double anzahlZuKaufen;
+        double wertpapierKursValue;
+        double orderVolumen;
+        double aktuelleOrderGebuehr;
+        double orderGesamtKosten;
+        Periode aktuellePeriode;
+
+        try {
+            selectedWertpapier = cbWertpapierAuswahl.getValue();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler!");
+            alert.setContentText("Bitte wählen Sie ein Wertpapier aus.");
+            alert.showAndWait();
+            return;
+        }
+        try {
+            anzahlZuKaufen = Double.valueOf(txtAnzahl.getText());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler!");
+            alert.setContentText("Bitte geben Sie eine Zahl in das Anzahlfeld ein.");
+            alert.showAndWait();
+            return;
+        }
+
+        aktuellePeriode = findAktuellePeriode();
+        aktuelleOrderGebuehr = findAktuelleOrdergebuehr(aktuellePeriode);
+        wertpapierKursValue = findWertpapierKursValue(aktuellePeriode, selectedWertpapier);
+        orderVolumen = wertpapierKursValue * anzahlZuKaufen;
+        orderGesamtKosten = orderVolumen * (aktuelleOrderGebuehr / 100 + 1);
+        lblOrdervolumenDisplay.setText(Double.toString(orderVolumen));
+        lblOrderGebuehrenDisplay.setText(Double.toString(orderVolumen * aktuelleOrderGebuehr / 100));
+        lblGesamtKostenDisplay.setText(Double.toString(orderGesamtKosten));
 
     }
 

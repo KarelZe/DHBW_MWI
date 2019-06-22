@@ -15,7 +15,7 @@ public class Kaufbuchung implements Buchungsart {
      * @return buchung mit Umsatzdaten oder leere Buchung
      */
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
+    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) throws UnsupportedOperationException {
         Buchung buchung = new Buchung();
         buchung.setPeriode(periode);
         buchung.setTeilnehmer(teilnehmer);
@@ -26,18 +26,30 @@ public class Kaufbuchung implements Buchungsart {
         // Frage Transaktions Art ab. Wird bei Spielanlage initialisiert.
         Optional<TransaktionsArt> transaktionsArt = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
         transaktionsArt.ifPresent(buchung::setTransaktionsArt);
+        long wertpapierArtId = wertpapier.getWertpapierArt().getId();
+        if (wertpapierArtId == WertpapierArt.WERTPAPIER_AKTIE || wertpapierArtId == WertpapierArt.WERTPAPIER_ANLEIHE || wertpapierArtId == WertpapierArt.WERTPAPIER_ETF) {
 
-        // Abfrage des Kurses aus Datenbank. Kurs ist einzigartig. Wird Kurs nicht gefunden ist er 0.
-        Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
-        kursOptional.ifPresent(k -> buchung.setVolumen(k.getKursValue() * bezugsgroesse));
+            // Abfrage des Kurses aus Datenbank. Kurs ist einzigartig. Wird Kurs nicht gefunden ist er 0.
+            Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
+            kursOptional.ifPresent(k -> buchung.setVolumen(k.getKursValue() * bezugsgroesse));
 
-        // Erfassung der Saldenveränderung auf Konto. Auf Depot wird Gegenwert ex Gebühren gutgeschrieben.
-        buchung.setVeraenderungDepot(+buchung.getVolumen());
+            // Erfassung der Saldenveränderung auf Konto. Auf Depot wird Gegenwert ex Gebühren gutgeschrieben.
+            buchung.setVeraenderungDepot(+buchung.getVolumen());
 
-        // Auf Zahlungsmittelkonto werden Gebühren als auch der Gegenwert aus der Buchung belastet.
-        buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() / 100 + 1)));
+            // Auf Zahlungsmittelkonto werden Gebühren als auch der Gegenwert aus der Buchung belastet.
+            buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() / 100 + 1)));
 
+            return buchung;
+        } else if (wertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_FESTGELD) {
+            Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
+            kursOptional.ifPresent(k -> buchung.setVolumen(k.getKursValue() * bezugsgroesse));
+            buchung.setVeraenderungFestgeld(+buchung.getVolumen());
+            buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() / 100 + 1)));
+            return buchung;
 
-        return buchung;
+        } else {
+            throw new UnsupportedOperationException("Für diese Wertpapierart ist keine Kaufbuchung erlaubt.");
+        }
+
     }
 }
