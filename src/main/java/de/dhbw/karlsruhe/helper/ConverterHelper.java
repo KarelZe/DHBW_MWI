@@ -1,5 +1,9 @@
 package de.dhbw.karlsruhe.helper;
 
+import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.KursRepository;
+import de.dhbw.karlsruhe.model.PeriodenRepository;
+import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
@@ -7,6 +11,8 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import javafx.util.StringConverter;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 public class ConverterHelper {
 
@@ -61,7 +67,7 @@ public class ConverterHelper {
     };
 
 
-    //+++++++++++++++UNTERNEHMEN++++++++++++++++++++++
+    //+++++++++++++++Wertpapier++++++++++++++++++++++
     private StringConverter<Wertpapier> wertpapierConverter = new StringConverter<>() {
 
         @Override
@@ -75,6 +81,34 @@ public class ConverterHelper {
         }
     };
 
+
+    //+++++++++++++++PortfolioPosition++++++++++++++++++++++
+    private StringConverter<Portfolioposition> portfoliopositionConverter = new StringConverter<>() {
+
+        @Override
+        public String toString(Portfolioposition portfolioposition) {
+            return portfolioposition != null ? portfolioposition.getWertpapier().getName() + " : "
+                    + KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue()
+                    + " | " + portfolioposition.getBezugsgroesse() : "";
+        }
+
+        @Override
+        public Portfolioposition fromString(String id) {
+            return null;
+        }
+    };
+
+    private Periode findAktuellePeriode() throws NoSuchElementException {
+        return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+    }
+
+    public StringConverter<Portfolioposition> getPortfoliopositionConverter() {
+        return portfoliopositionConverter;
+    }
+
+    public void setPortfoliopositionConverter(StringConverter<Portfolioposition> portfoliopositionConverter) {
+        this.portfoliopositionConverter = portfoliopositionConverter;
+    }
 
     public StringConverter<Wertpapier> getWertpapierConverter() {
         return wertpapierConverter;

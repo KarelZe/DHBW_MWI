@@ -27,4 +27,12 @@ public class Portfolioposition {
     public void setBezugsgroesse(double bezugsgroesse) {
         this.bezugsgroesse = bezugsgroesse;
     }
+
+    @Override
+    public String toString() {
+        return "Portfolioposition{" +
+                "wertpapier=" + wertpapier +
+                ", bezugsgroesse=" + bezugsgroesse +
+                '}';
+    }
 }

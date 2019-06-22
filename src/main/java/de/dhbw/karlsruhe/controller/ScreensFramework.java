@@ -29,6 +29,7 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_INVESTMENT_UEBERSICHT = "investment_uebersicht";
     public static final String SCREEN_TEILNEHMER_HISTORIE = "teilnehmer_historie";
     public static final String SCREEN_WERTPAPIER_KAUFEN = "wertpapier_kaufen";
+    public static final String SCREEN_WERTPAPIER_VERKAUFEN = "wertpapier_verkaufen";
 
     public static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     public static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
@@ -44,6 +45,7 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_INVESTMENT_UEBERSICHT_FILE = "scene_investment_uebersicht.fxml";
     public static final String SCREEN_TEILNEHMER_HISTORIE_FILE = "scene_teilnehmer_historie.fxml";
     public static final String SCREEN_WERTPAPIER_KAUFEN_FILE = "scene_wertpapier_kaufen.fxml";
+    public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
 
     public static void main(String[] args) {
         launch(args);
@@ -85,8 +87,9 @@ public class ScreensFramework extends Application {
         MenuItem mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
         MenuItem mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
         MenuItem mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
+        MenuItem mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
         //Menüpunkt zum Menü hinzufügen
-        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen);
+        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
 
         Menu mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
@@ -156,6 +159,10 @@ public class ScreensFramework extends Application {
         mIwertpapierKaufen.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN);
+        });
+        mIwertpapierVerkaufen.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_VERKAUFEN, ScreensFramework.SCREEN_WERTPAPIER_VERKAUFEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_VERKAUFEN);
         });
 
 
