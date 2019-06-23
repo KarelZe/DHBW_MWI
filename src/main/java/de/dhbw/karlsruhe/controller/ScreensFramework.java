@@ -91,6 +91,10 @@ public class ScreensFramework extends Application {
         //Menüpunkt zum Menü hinzufügen
         mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
 
+        Menu mSpiel = new Menu("Spiel");
+        MenuItem mIspielInitialisieren = new MenuItem("Spiel initialisieren");
+        mSpiel.getItems().addAll(mIspielInitialisieren);
+
         Menu mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
         MenuItem mIspielVerwalten = new MenuItem("Spiel verwalten");
@@ -107,7 +111,7 @@ public class ScreensFramework extends Application {
         mAuswertung.getItems().addAll(mIteilnehmerDrucken);
 
         //Menü zur Menübar hinzufügen
-        mbHaupt.getMenus().addAll(mTeilnehmer, mAdministration, mAuswertung);
+        mbHaupt.getMenus().addAll(mTeilnehmer, mAdministration, mAuswertung, mSpiel);
 
         VBox root = new VBox(mbHaupt);
         root.getChildren().addAll(screenController);
@@ -163,6 +167,10 @@ public class ScreensFramework extends Application {
         mIwertpapierVerkaufen.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_VERKAUFEN, ScreensFramework.SCREEN_WERTPAPIER_VERKAUFEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_VERKAUFEN);
+        });
+        mIspielInitialisieren.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
         });
 
 
