@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
 import de.dhbw.karlsruhe.bewertung.Periodenabschluss;
+import de.dhbw.karlsruhe.controller.ScreenController;
 import de.dhbw.karlsruhe.controller.factory.AktienPeriodeCellFactory;
 import de.dhbw.karlsruhe.controller.factory.AnleihePeriodeCellFactory;
 import de.dhbw.karlsruhe.model.KursRepository;
@@ -89,6 +90,8 @@ public class PeriodeTab extends Tab {
 
         Periodenabschluss periodenabschluss = new Periodenabschluss();
         periodenabschluss.periodeAbschliessen(periode);
+
+        ScreenController.myControllerHandle.changePage();
 
         // TODO: Führe Buchungen durch.
     }

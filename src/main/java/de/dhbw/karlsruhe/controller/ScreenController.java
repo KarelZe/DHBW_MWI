@@ -13,7 +13,9 @@ import java.util.HashMap;
 /**
  * Adaptiert von https://www.youtube.com/watch?v=5GsdaZWDcdY
  */
+
 public class ScreenController extends StackPane {
+    static public PeriodenDetailController myControllerHandle; //Hierüber kann der Controller von dem Detailscreen der Perioden erreicht werden.
 
     private HashMap<String, Node> screens = new HashMap<>();
 
@@ -34,6 +36,7 @@ public class ScreenController extends StackPane {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
             Parent loadScreen = loader.load();
             ControlledScreen controlledScreen = loader.getController();
+            if(name=="perioden_detail"){myControllerHandle = (PeriodenDetailController)loader.getController();}//Check ob es sich um die Detail Szene handelt. Wenn ja dann wir der Controller in der public static Variable myControllerHandle instanziierrt
             controlledScreen.setScreenParent(this);
             addScreen(name, loadScreen);
         } catch (IOException e) {
