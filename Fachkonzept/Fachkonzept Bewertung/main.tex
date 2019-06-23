@@ -219,18 +219,23 @@ In diesem Zusammenhang soll auf einige Besonderheiten aus Definition \ref{def:fl
 
 Die Bewertung der \gls{FRN} erfordert ein Bewertungsmodell. Ein Modell für die Bewertung der \gls{FRN} ist in \textcite[][S.~31~f.]{alexander_market_2008} dokumentiert. 
 Es ermöglicht die Berpeisung von \glspl{FRN} mit einem Spread $\neq0$ zu einem beliebigen Bewertungstichtag.
-Veränderungen bei der Bonität des Emittenten bleiben hingegen unberücksichtigt. 
+Ausfallrisiken lassen sich damit nur vereinfachend abbilden.
 Eine mögliche Alternative hierzu wird in \textcite[][S.~65~f.]{schonbucher_credit_2003} präsentiert. Allerdings verfügt sie über eine höhere Komplexität und erfordert weitere Annahmen hinsichtlich der Bonität. Aus diesem Grund wird für den Ansatz von \autocite[][S.~31~f.]{alexander_market_2008} optiert.
 
-\textcite[][]{alexander_market_2008} zerlegt dabei die fixierten Zahlungen aus dem Spread $s$ und den veränderlichen Zahlungn aus dem Referenzzins. Die Festzins
+Angenommen, ein \gls{FRN} wird zum Zeitpunkt $t = 0$ berpeist, der nächste Zinskupon wurde in Höhe von $c$ am zurückliegenden \textit{payment date} fixiert und wird zu $t$ bezahlt. Überdies stehen $T$ Zinszahlungen bis zur Fälligkeit aus. Dann gehen dem Anleger zu den Zeitpunkten $t+1, t+2, \ldots, t+T$ Zinszahlungen und zusätzlich im Zeitpunkt $t+T$ die Rückzahlung der Anleihe $N$ zu.
 
-% Flache zinskurve
+Der Zinskupon setzt sich dabei zusammen aus einem Refrenzzins und einem Spread bei Emission vereinbarten Spread. Der einperiodische Referenzzins zum Zeitpunkt $t$ wird als $R_t$ bezeichnet. Diskontierung erfolgt ebenfalls zum Referenzzins (ggf. erhöht um einen Bonitätsaufschlag). Der Spread wird als $s$ bezeichnet. Damit entspricht zum Zeitpunkt $t+n$ die Höhe einer Zinszahlung $100(R_{t+n-1}+s)$. 
 
+Der Preis der \gls{FRN} $P_{s}^{m}$ mit Spread $s$ und Fälligkeit $m$ ergibt sich damit als:
 \begin{align*}
-	P_{t+T}^{s}&=(\underbrace{B_{t+T}^{s}}_\text{Festzinsanleihe}-\underbrace{B_{t+T}^{0}}_\text{Nullkuponanleihe})+\underbrace{100(1+c - s)(1+t R_{0})^{-1}}_\text{Variabler Cashflow}\\
-	s&= Emissionsspread
+	P_{t+T}^{s}&=(\underbrace{B_{t+T}^{s}}_\text{Standardanleihe}-\underbrace{B_{t+T}^{0}}_\text{Nullkuponanleihe})+\underbrace{100(1+c - s)(1+t R_{0})^{-1}}_\text{Variabler Cashflow}\\
 \end{align*}
 % Obacht, Formel im Original ist falsch ist Teil des Errata http://carolalexander.org/publish/download/MRA_III_Revisions_1.pdf
+Wie oben ersichtlich, zerlegt \textcite[][31]{alexander_market_2008} die \gls{FRN} in einen fest- und einen variabelverzinslichen Zahlungsstrom. Der festverzinsliche Zahlungsstrom umfasst dabei die diskontierten Zahlungen auf den Spread $s$ zu den Zeitpunkt $t, t+1, \ldots, t+T$. Sie bildet den festverzinslichen Zahlungsstrom in Form einer Standardanleihe $B_{t+T}^{s}$ ab, reduziert den Barwert aber um den Barwert einer Nullkuponanleihe $B_{t+T}^{0}$, da der festverzinsliche Zahlungsstrom keine Tilgung bei Fälligkeit enthält. Die Bewertung der Nullkuponanleihe und der Festzinsanleihe erfolgt durch Diskontierung, wie in \textcite[][11]{alexander_market_2008} beschrieben.
+
+weiterhin diskontiert sie die zukünftigen, variabel verzinslichen Zinszahlungen an den Zeitpunkten $t+1, t+2, \ldots, t+T$ und die Tilgung in $t+T$  zum Zeitpunkt ab. 
+
+Da in der Anwendung \textit{Anika} ausschließlich der Kapitalmarktzinssatz für die aktuelle Periode vorliegen, erfolgt die Diskontierung mittels Kapitalmarktzinssatzes erhöht um einen emittentenindividuellen Bonitätsaufschlag, der sich aus dem Rating je Periode ableitet. Die Diskontierungssätze sind dabei über alle Laufzeiten gleich.
 
 Die Anwendung \textit{Anika} lässt darüber hinaus zu, den rechnerischen Kurs einer \gls{FRN} durch einen manuellen Kurs zu überschreiben. Dies ist insbesondere im Insolvenzfall eines Unternehmens sinnvoll.
 
@@ -244,12 +249,12 @@ Nachfolgend wird kurz die Bewertung einer \gls{FRN} demonstriert. Es ist aus \te
 		P_{t+T}^{s}&=\left(B_{t+T}^{s}-B_{t+T}^{0}\right)+100(1+c - s)\left(1+t R_{0}\right)^{-1}\\
 		B_{t+T}^{s}&=\frac{0.60}{1.05}+\frac{0.60}{1.05^2}+\frac{0.60}{1.05^3}+\frac{100.60}{1.05^4}=84.40\\
 		B_{t+T}^{0}&=\frac{100}{1.05^4}=82.27\\
-		P_{t+T}^{s}&= (84.40-82.27) + 100 = 102.13\\
+		P_{t+T}^{s}&= (84.40-82.27) + 100(1+0.056 - 0.006) (1+0.05)^{-1} = 102.13\\
 	\end{align*}
 
 	Da eine Zerlegung in feste Anleihe und einen variablen Zahlungsstrom erfolgt, ist zunächst die Festzinsanleihe und die Nullkuponanleihe (erster Term) zu bewerten.
 
-	Die Bewertung des variablen Zahlungsstroms vereinfacht sich, da eine Bepreisung zum Zinszahlungsdatum erfolgt. Der zweite Term kann mit 100 angenommen.
+	Die Bewertung des variablen Zahlungsstroms (zweiter Term) vereinfacht sich zu 100, da variabler Zins und Diskontierungszinssatz identisch sind.
 \end{example}
 
 % Mittels eines No-Arbitrage Arguments lässt sich zeigen, dass ein Floater im Fixingtermin immer zu pari notiert. Eine Floating Rate Note lässt sich synthetisch erzeugen durch eine rollierende (revolvierende) Geldanlage in einer Fixed Rate Note. Diese müssen dann denselben Preis haben.
