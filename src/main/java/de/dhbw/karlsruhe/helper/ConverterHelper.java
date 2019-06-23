@@ -73,8 +73,8 @@ public class ConverterHelper {
 
         @Override
         public String toString(Wertpapier wertpapier) {
-            return wertpapier != null ? wertpapier.getUnternehmen().getName() + " | " + wertpapier.getWertpapierArt().getName()
-                    + " (Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac)" : "";
+            return wertpapier != null ? wertpapier.getName() + " (" + wertpapier.getUnternehmen().getName() + " - " + wertpapier.getWertpapierArt().getName() + ")"
+                    + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac" : "";
         }
 
         @Override
@@ -89,8 +89,8 @@ public class ConverterHelper {
 
         @Override
         public String toString(Portfolioposition portfolioposition) {
-            return portfolioposition != null ? portfolioposition.getWertpapier().getUnternehmen().getName() + " | " + portfolioposition.getWertpapier().getWertpapierArt().getName()
-                    + " (Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac)"
+            return portfolioposition != null ? portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
+                    + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac"
                     + " | Positionsgr\u00f6\u00dfe: " + String.format("%.2f", portfolioposition.getBezugsgroesse()) + "\u20ac"
                     + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getTeilnehmer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
                     + " Stk.)" : "";
