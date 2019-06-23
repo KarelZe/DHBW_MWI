@@ -193,7 +193,7 @@ Bei dem Handel mit Aktien wird neben deren Kurswert eine vom Seminarleiter einge
 
 \subsection{Bewertung von Floating Rate Notes}
 \label{sec:bewertung_von_floating_rate_notes}
-\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlags zusammen \autocite[][374]{fabozzi_handbook_2005}.
+\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlags zusammen \autocite[][374]{fabozzi_handbook_2005}. In diesem Zusammenhang ist wichtig festzuhalten, dass sich zwar der Referenzzins über die Laufzeit verändert; der Aufschlag auf den Referenzzins jedoch konstant bleibt.
 
 Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig. \gls{FRN} werden gemäß Definition \ref{def:floater} in der Anwendung \textit{Anika} aufgelegt.
 
@@ -203,27 +203,24 @@ Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine 
 \end{definition}
 
 In diesem Zusammenhang soll auf einige Besonderheiten aus Definition \ref{def:floater} eingegangen werden:
-\begin{enumerate}
-	\item Die Annahme einer fest vereinbarten Laufzeit ist notwendig, da andernfalls Standard-Bewertungsmodelle für Floater nicht anwendbar sind.
-	\item 
-\end{enumerate}
+\begin{itemize}
+	\item Die Laufzeit der Anleihe soll nicht konfigurierbar sein. Sie wird deshalb pauschal mit zehn Perioden angenommen. Eine fest vereinbarte Laufzeit ist notwendig, da andernfalls Standard-Bewertungsmodelle für Floater nicht anwendbar sind. 
+	\item Der Zinskupon referenziert den Kapitalmarktzins, da er der einzige Referenzzins in der Software ist. Der bei Emission erfasste Spreadaufschlag auf den Referenzzins bleibt für die Dauer des Spiels konstant.
+	\item Die Einschränkung, dass Zinszahlungen einmalig zum Periodenultimo erfolgen, hebt die Notwendigkeit mehrerer Zinsbuchungen je Periode auf.
+\end{itemize}
 
-% Floater notieren zu Pari am Fixingtermin, allerdings nur nur sofern der Bonitätsspread dem Bonitätsrisiko entspricht.
-% Da Zeitpunkt der Zinszahlung und Kauf- / und Zeitpunkt der Anleihe übereinstimmen, sind keine Stückzinsen zu berücksichtigen.
 
-% Floater passen sich zwar der finanziellen Situation der Firma an, nicht aber der 
-% Kursverlauf aufnehmen.
-
+% Im hier betrachteten (und einfachsten) Fall gilt für die Zahlung in $t_i$ dass ihre Höhe in $t_{i-1}$ (\textit{reset date}) wird, die Zahlung selbst dagegen in $t_i$ (\textit{payment date}) erfolgt. Dies führt dazu, dass man den Wert der viarablen zinszahlungen und den WERt der variable verzinslcihen Anleihe ohne Zugrundelgung eines Zinsmodells bestimmen kann, sie also unabhängig von dem unterstellten Verhaltne der zinsen über die Zeit sind. DAs soll im Folgenden gezeigt werden. (aus Zinsderivate Branger \& Schlag, ISBN: 3-540-212228-0) Insgesamt ist das Buch aber schlecht, weil es keinen Spread und auch keine Bonitätsveränderung berücksichtigt.
 
 % Der Wert einer \gls{FRN} mit einem Spread von $s=0$ entspricht der der Wert der \gls{FRN} dem Nennwert der \gls{FRN} ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
 
 % Es handelt sich dabei um einen Spezialfall, der die Anforderungen von \textit{Anika} nicht vollständig abdeckt, da zwar eine Bepreisung zum Zinszahlungstermin erfolgt, der Spread aber auch andere Werte annehmen kann.
 
 
-Die  ein Modell für die Bewertung der \gls{FRN} ist in \textcite[][S.~31~f.]{alexander_market_2008} dokumentiert. 
+Die Bewertung der \gls{FRN} erfordert ein Bewertungsmodell. Ein Modell für die Bewertung der \gls{FRN} ist in \textcite[][S.~31~f.]{alexander_market_2008} dokumentiert. 
 Es ermöglicht die Berpeisung von \glspl{FRN} mit einem Spread $\neq0$ zu einem beliebigen Bewertungstichtag.
 Veränderungen bei der Bonität des Emittenten bleiben hingegen unberücksichtigt. 
-Eine mögliche Alternative hierzu wird in \textcite[][S.~65~f.]{schonbucher_credit_2003} dokumentiert, allerdings verfügt sie über eine höhere Komplexität und erfordert weitere Annahmen hinsichtlich der Bonität. Aus diesem Grund wird für den Ansatz von \autocite[][S.~31~f.]{alexander_market_2008} optiert.
+Eine mögliche Alternative hierzu wird in \textcite[][S.~65~f.]{schonbucher_credit_2003} präsentiert .Allerdings verfügt sie über eine höhere Komplexität und erfordert weitere Annahmen hinsichtlich der Bonität. Aus diesem Grund wird für den Ansatz von \autocite[][S.~31~f.]{alexander_market_2008} optiert.
 
 \textcite[][]{alexander_market_2008} zerlegt dabei die fixierten Zahlungen aus dem Spread $s$ und den veränderlichen Zahlungn aus dem Referenzzins. Die Festzins
 
@@ -232,8 +229,9 @@ Eine mögliche Alternative hierzu wird in \textcite[][S.~65~f.]{schonbucher_cred
 	s&= Emissionsspread
 \end{align*}
 
+Die Anwendung \textit{Anika} lässt darüber hinaus zu, den rechnerischen Kurs einer \gls{FRN} durch einen manuellen Kurs zu überschreiben. Dies ist insbesondere im Insolvenzfall eines Unternehmens sinnvoll.
 
-Nachfolgendes Beispiel ist \textcite[][32]{alexander_market_2008} adaptiert.
+Nachfolgend wird kurz die Bewertung einer \gls{FRN} demonstriert. Es ist aus \textcite[][32]{alexander_market_2008} adaptiert.
 
 \begin{example}
 	Bewertet wird ein \gls{FRN} mit jährlichen Zinskupons, die sich aus Kapitalmarktzins plus 60 Basispunkte zusammensetzen. Die Bewertung erfolgt an einem Zinszahlungstermin. Der Kapitalmarktzins zum Bewertungszeitpunkt beträgt 5~\%. Die Abzinsungssätze für 2, 3, 4 Jahre 4,85~\%, 4,65~\% beziehungsweise 4,5~\%.
