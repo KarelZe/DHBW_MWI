@@ -1,56 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<VBox fx:id="vboxUnternehmen" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.WertpapierAnlegenController">
-   <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Werpapiere anlegen">
-      <font>
-         <Font name="System Bold" size="20.0" />
-      </font>
-      <VBox.margin>
-         <Insets bottom="10.0" left="90.0" top="20.0" />
-      </VBox.margin>
-   </Text>
-    <Button onAction="#doHinzufuegenAktie" text="+ Neue Aktie anlegen">
-      <VBox.margin>
-         <Insets bottom="10.0" left="90.0" />
-      </VBox.margin></Button>
-    <Label fx:id="lblAktie" text="Aktie:">
-        <VBox.margin>
-            <Insets bottom="5.0" left="90.0" right="5.0" top="5.0" />
-        </VBox.margin>
-      <font>
-         <Font size="17.0" />
-      </font>
-    </Label>
-    <ListView fx:id="lstVwAktie" prefWidth="500">
-      <VBox.margin>
-         <Insets bottom="10.0" left="90.0" right="90.0" />
-      </VBox.margin></ListView>
-    <Button onAction="#doHinzufuegenAnleihe" text="+ Neue Anleihe anlegen">
-      <VBox.margin>
-         <Insets bottom="10.0" left="90.0" top="10.0" />
-      </VBox.margin>
-      <tooltip>
-         <Tooltip text="Empty Tooltip" />
-      </tooltip></Button>
-    <Label fx:id="lblAnleihe" text="Anleihe:">
-        <VBox.margin>
-            <Insets bottom="5.0" left="90.0" right="5.0" top="5.0" />
-        </VBox.margin>
-      <font>
-         <Font size="17.0" />
-      </font>
-    </Label>
-    <ListView fx:id="lstVwAnleihe" prefWidth="500">
-      <VBox.margin>
-         <Insets left="90.0" right="90.0" />
-      </VBox.margin></ListView>
-    <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#doSpeichern" prefHeight="43.0" prefWidth="131.0" text="Speichern">
-      <VBox.margin>
-         <Insets bottom="10.0" left="90.0" top="10.0" />
-      </VBox.margin></Button>
+
+<VBox fx:id="vboxUnternehmen" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.dhbw.karlsruhe.controller.WertpapierAnlegenController">
+  <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Werpapiere anlegen">
+    <font>
+      <Font name="System Bold" size="20.0" />
+    </font>
+    <VBox.margin>
+      <Insets bottom="10.0" left="90.0" top="20.0" />
+    </VBox.margin>
+  </Text>
+  <Button onAction="#doHinzufuegenAktie" text="+ Neue Aktie anlegen">
+    <VBox.margin>
+      <Insets bottom="10.0" left="90.0" />
+    </VBox.margin>
+  </Button>
+  <Label fx:id="lblAktie" text="Aktie:">
+    <font>
+      <Font size="17.0" fx:id="x1" />
+    </font>
+    <VBox.margin>
+      <Insets bottom="5.0" left="90.0" right="5.0" top="5.0" />
+    </VBox.margin>
+  </Label>
+  <ListView fx:id="lstVwAktie" prefWidth="500.0">
+    <VBox.margin>
+      <Insets bottom="10.0" left="90.0" right="90.0" />
+    </VBox.margin>
+  </ListView>
+  <Button onAction="#doHinzufuegenAnleihe" text="+ Neue Anleihe anlegen">
+    <tooltip>
+      <Tooltip text="Empty Tooltip" />
+    </tooltip>
+    <VBox.margin>
+      <Insets bottom="10.0" left="90.0" top="10.0" />
+    </VBox.margin>
+  </Button>
+  <Label fx:id="lblAnleihe" font="$x1" text="Anleihe:">
+    <VBox.margin>
+      <Insets bottom="5.0" left="90.0" right="5.0" top="5.0" />
+    </VBox.margin>
+  </Label>
+  <ListView fx:id="lstVwAnleihe" prefWidth="500.0">
+    <VBox.margin>
+      <Insets left="90.0" right="90.0" />
+    </VBox.margin>
+  </ListView>
+  <GridPane>
+    <children>
+      <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#doSpeichern" prefHeight="43.0" prefWidth="131.0" text="Speichern" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <GridPane.margin>
+          <Insets left="90.0" />
+        </GridPane.margin>
+      </Button>
+      <Button id="btnSpeichern" fx:id="btnWeiter" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#doPeriodeAnlegen" prefHeight="43.0" prefWidth="131.0" text="Weiter" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    </children>
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <padding>
+      <Insets top="30.0" />
+    </padding>
+    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+  </GridPane>
 </VBox>

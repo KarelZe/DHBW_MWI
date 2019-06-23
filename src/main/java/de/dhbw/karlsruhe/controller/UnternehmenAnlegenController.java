@@ -22,6 +22,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     private ArrayList<Unternehmen> unternehmenInitial;
 
     private UnternehmenRepository model;
+    private ScreenController screenController;
 
     @FXML
     void doSpeichern(ActionEvent event) {
@@ -39,6 +40,12 @@ public class UnternehmenAnlegenController implements ControlledScreen {
         Unternehmen erneut zu löschen.*/
         unternehmenInitial = unternehmenNachAenderung;
     }
+    @FXML
+    void doWertpapierAnlegen(ActionEvent event) {
+        doSpeichern(event);
+        screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN, ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN_FILE);
+        screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
+    }
 
     /**
      * Funktion initalisiert die ListView mit Unternehmen, sofern vorhanden.
@@ -55,6 +62,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
+        screenController = screenPage;
     }
 
     /**

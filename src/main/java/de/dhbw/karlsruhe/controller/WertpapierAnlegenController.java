@@ -31,6 +31,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
     private ObservableList<Wertpapier> aktieObserverableList = FXCollections.observableArrayList();
     private ArrayList<Wertpapier> aktieInitial = new ArrayList<>();
     private WertpapierRepository model;
+    private ScreenController screenController;
 
     @FXML
     void doSpeichern(ActionEvent event) {
@@ -53,6 +54,13 @@ public class WertpapierAnlegenController implements ControlledScreen {
         Wertpapier erneut zu löschen.*/
         aktieInitial = aktieNachAenderung;
         anleiheInitial = anleiheNachAenderung;
+    }
+
+    @FXML
+    void doPeriodeAnlegen(ActionEvent event) {
+        doSpeichern(event);
+        screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
     }
 
     /**
@@ -82,6 +90,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
+        screenController = screenPage;
     }
 
     public void doHinzufuegenAnleihe() {

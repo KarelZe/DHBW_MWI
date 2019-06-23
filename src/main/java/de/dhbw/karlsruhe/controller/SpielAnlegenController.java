@@ -34,7 +34,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     @FXML
     private void doSpielAnlegen(ActionEvent event) {
-        boolean isNeuanlage = false;
+        //Das neu angelegte Spiel wird immer auf AKTIV gesetzt
         this.neuesSpiel = new Spiel();
         try {
             this.neuesSpiel.setStartkapital(Double.valueOf(txtStartkapital.getText()));
@@ -45,21 +45,23 @@ public class SpielAnlegenController implements ControlledScreen {
             alert.setTitle("Spiel anlegen");
             alert.setContentText("Bitte geben Sie eine Zahl ein.");
             alert.showAndWait();
+            SpielRepository.deleteSpiel(this.neuesSpiel);
+            return;
         }
         this.neuesSpiel.setErstellungsdatum(new Date());
         if (AktuelleSpieldaten.getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
             this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
-            isNeuanlage = true;
         } else {
-            this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_INAKTIV);
+            AktuelleSpieldaten.getSpiel().setIst_aktiv(Spiel.SPIEL_INAKTIV);
+            this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
+            SpielRepository.persistSpiel(AktuelleSpieldaten.getSpiel());
         }
 
         initializeSpielInDB();
 
-        if (isNeuanlage) {
-            screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN, ScreensFramework.SCREEN_SPIEL_VERWALTEN_FILE);
-            screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
-        }
+        screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
+        screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
+
     }
 
     @Override
