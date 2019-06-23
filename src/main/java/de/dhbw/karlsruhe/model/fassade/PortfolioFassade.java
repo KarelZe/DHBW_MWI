@@ -1,16 +1,18 @@
 package de.dhbw.karlsruhe.model.fassade;
 
 import de.dhbw.karlsruhe.model.BuchungRepository;
+import de.dhbw.karlsruhe.model.WertpapierRepository;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
+import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingDouble;
+import static java.util.stream.Collectors.*;
 
 /**
  * Klasse bietet einen einfachen Zugriff auf das Buchungs-Repository.
@@ -93,4 +95,27 @@ public class PortfolioFassade {
         // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
         return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
     }
+
+    public long getCountOfPositionen(long teilnehmerId, long periodenId, long wertpapierId) {
+        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        Map<Wertpapier, Long> kaufBuchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId)
+                .filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_KAUFEN)
+                .filter(b -> b.getWertpapier().getId() == wertpapierId)
+                .collect(groupingBy(Buchung::getWertpapier, summingLong(Buchung::getStueckzahl)));
+
+        Map<Wertpapier, Long> verkaufBuchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId)
+                .filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN)
+                .filter(b -> b.getWertpapier().getId() == wertpapierId)
+                .collect(groupingBy(Buchung::getWertpapier, summingLong(Buchung::getStueckzahl)));
+
+        if (kaufBuchungenMap.size() <= 0)
+            return 0;
+        else if (verkaufBuchungenMap.size() <= 0)
+            return kaufBuchungenMap.get(WertpapierRepository.getInstanz().findById(wertpapierId).orElseThrow(NoSuchElementException::new));
+        else
+            return kaufBuchungenMap.get(WertpapierRepository.getInstanz().findById(wertpapierId).orElseThrow(NoSuchElementException::new))
+                    - verkaufBuchungenMap.get(WertpapierRepository.getInstanz().findById(wertpapierId).orElseThrow(NoSuchElementException::new));
+    }
+
+
 }

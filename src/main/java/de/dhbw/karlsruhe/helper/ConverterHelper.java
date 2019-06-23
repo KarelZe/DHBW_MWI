@@ -3,6 +3,7 @@ package de.dhbw.karlsruhe.helper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
+import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
@@ -72,7 +73,8 @@ public class ConverterHelper {
 
         @Override
         public String toString(Wertpapier wertpapier) {
-            return wertpapier != null ? wertpapier.getUnternehmen().getName() + " | " + wertpapier.getWertpapierArt().getName() + " [id: " + wertpapier.getId() + "]" : "";
+            return wertpapier != null ? wertpapier.getUnternehmen().getName() + " | " + wertpapier.getWertpapierArt().getName()
+                    + " (Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac)" : "";
         }
 
         @Override
@@ -87,9 +89,11 @@ public class ConverterHelper {
 
         @Override
         public String toString(Portfolioposition portfolioposition) {
-            return portfolioposition != null ? portfolioposition.getWertpapier().getName() + " : "
-                    + KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue()
-                    + " | " + portfolioposition.getBezugsgroesse() : "";
+            return portfolioposition != null ? portfolioposition.getWertpapier().getUnternehmen().getName() + " | " + portfolioposition.getWertpapier().getWertpapierArt().getName()
+                    + " (Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac)"
+                    + " | Positionsgr\u00f6\u00dfe: " + String.format("%.2f", portfolioposition.getBezugsgroesse()) + "\u20ac"
+                    + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getTeilnehmer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
+                    + " Stk.)" : "";
         }
 
         @Override

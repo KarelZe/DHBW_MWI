@@ -53,10 +53,7 @@ public class WertpapierKaufenController implements ControlledScreen {
     private Label lblOrderGebuehren;
     @FXML
     private Label lblOrderGebuehrenDisplay;
-    @FXML
-    private Label lblAktuellerKurs;
-    @FXML
-    private Label lblAktuellerKursDisplay;
+
 
 
     private double teilnehmerZahlungsmittelkontoSaldo;
@@ -74,7 +71,7 @@ public class WertpapierKaufenController implements ControlledScreen {
         cbWertpapierAuswahl.setItems(wertpapiereComboBox);
         cbWertpapierAuswahl.setConverter(new ConverterHelper().getWertpapierConverter());
         teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getTeilnehmer().getId());
-        lbZahlungsmittelSaldo.setText(Double.toString(teilnehmerZahlungsmittelkontoSaldo));
+        lbZahlungsmittelSaldo.setText(String.format("%.2f", teilnehmerZahlungsmittelkontoSaldo));
         lblOrderGebuehren.setText("Ordergeb\u00fchren (+ " + findAktuelleOrdergebuehr(findAktuellePeriode()) + " %):");
 
 
@@ -206,29 +203,10 @@ public class WertpapierKaufenController implements ControlledScreen {
         wertpapierKursValue = findWertpapierKursValue(aktuellePeriode, selectedWertpapier);
         orderVolumen = wertpapierKursValue * anzahlZuKaufen;
         orderGesamtKosten = orderVolumen * (aktuelleOrderGebuehr / 100 + 1);
-        lblOrdervolumenDisplay.setText(orderVolumen + "\u20ac");
-        lblOrderGebuehrenDisplay.setText(orderVolumen * aktuelleOrderGebuehr / 100 + "\u20ac");
-        lblGesamtKostenDisplay.setText(orderGesamtKosten + "\u20ac");
+        lblOrdervolumenDisplay.setText(String.format("%.2f", orderVolumen) + "\u20ac");
+        lblOrderGebuehrenDisplay.setText(String.format("%.2f", orderVolumen * aktuelleOrderGebuehr / 100) + "\u20ac");
+        lblGesamtKostenDisplay.setText(String.format("%.2f", orderGesamtKosten) + "\u20ac");
 
-    }
-
-    @FXML
-    private void doZeigeAktuellerKurs() {
-        Wertpapier selectedWertpapier;
-        Periode aktuellePeriode;
-        try {
-            selectedWertpapier = cbWertpapierAuswahl.getValue();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Fehler!");
-            alert.setContentText("Bitte wählen Sie ein Wertpapier aus.");
-            alert.showAndWait();
-            return;
-        }
-        aktuellePeriode = findAktuellePeriode();
-
-        lblAktuellerKursDisplay.setText(findWertpapierKursValue(aktuellePeriode, selectedWertpapier) + "\u20ac");
     }
 
 
