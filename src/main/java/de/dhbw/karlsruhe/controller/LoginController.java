@@ -18,13 +18,16 @@ import java.util.Optional;
 
 public class LoginController implements ControlledScreen {
 
-
     public Button btnTeilnehmerBearbeiten;
     @FXML
     private TextField txtBenutzername, txtPasswort;
 
     private ScreenController screenController;
 
+    /**
+     * Eventhandler für den Login-Button
+     * @param event
+     */
     @FXML
     private void doLogin(ActionEvent event) {
         // lese Daten aus Textfeldern der scene_login.fxml
@@ -61,63 +64,29 @@ public class LoginController implements ControlledScreen {
                 });
     }
 
-    @FXML
-    private void doRegistration(ActionEvent event) {
-        screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
-    }
-
-    @FXML
-    private void doPrint(ActionEvent event) {
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN, ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN);
-    }
-
-    @FXML
-    void doUnternehmenAnlegen(ActionEvent event) {
-        screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
-    }
-
     // Zur Erklärung https://stackoverflow.com/a/51392331
     // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
+
+    /**
+     * Initialisierung des Logins
+     */
     @FXML
     private void initialize() {
         initializeAktuellesSpiel();
     }
 
-    @FXML
-    private void doEditUser(ActionEvent event) {
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
-    }
-
-    public void doWertpapierAnlegen() {
-        screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN, ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
-    }
-
-    public void doTeilnehmerUebersicht() {
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
-    }
-
-    public void doSpielAnlegen() {
-        screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE); 
-        screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
-    }
-
-    @FXML
-    private void doUebersichtAnzeigen (ActionEvent event) {
-        screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT);
-    }
-
+    /**
+     * Setzt den screenController
+     * @param screenPage
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
     }
 
+    /**
+     * Initialisiert das aktuelle Spiel
+     */
     private void initializeAktuellesSpiel() {
         Spiel aktuellesSpiel = SpielRepository.getAktivesSpiel();
         if (aktuellesSpiel != null) {
@@ -127,16 +96,6 @@ public class LoginController implements ControlledScreen {
             alert.setTitle("Initialisieren");
             alert.setContentText("Es konnte kein Spiel geladen werden.");
         }
-    }
-
-    public void doPeriodeAnlegen() {
-        screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
-    }
-
-    public void doPeriodenPflegenDetail() {
-        screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
     }
 }
 

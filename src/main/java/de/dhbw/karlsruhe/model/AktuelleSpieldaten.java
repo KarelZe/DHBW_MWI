@@ -7,7 +7,6 @@ public class AktuelleSpieldaten {
     private static Teilnehmer teilnehmer;
     private static Spiel spiel;
 
-
     public static Teilnehmer getTeilnehmer() {
         return teilnehmer;
     }
