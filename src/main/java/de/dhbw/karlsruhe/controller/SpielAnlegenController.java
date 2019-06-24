@@ -32,6 +32,10 @@ public class SpielAnlegenController implements ControlledScreen {
 
     private TransaktionsArtRepository transaktionsArtRepository = TransaktionsArtRepository.getInstanz();
 
+    /**
+     * Eventhandler für Spiel-Anlagen-Button
+     * @param event
+     */
     @FXML
     private void doSpielAnlegen(ActionEvent event) {
         //Das neu angelegte Spiel wird immer auf AKTIV gesetzt
@@ -69,6 +73,9 @@ public class SpielAnlegenController implements ControlledScreen {
         screenController = screenPage;
     }
 
+    /**
+     * Initialisiert das Spiel in der Datenbank
+     */
     private void initializeSpielInDB() {
         SpielRepository.persistSpiel(this.neuesSpiel);
         AktuelleSpieldaten.setSpiel(this.neuesSpiel);
@@ -101,6 +108,9 @@ public class SpielAnlegenController implements ControlledScreen {
         }
     }
 
+    /**
+     * Legt Wertpapiere in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     */
     private void insertWertpapierArtenInDBIfNotExists() {
         Optional<WertpapierArt> optional;
         //Aktie
@@ -149,6 +159,9 @@ public class SpielAnlegenController implements ControlledScreen {
         }
     }
 
+    /**
+     * Legt TransaktionsArten in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     */
     private void insertTransaktionsArtenInDBIfNotExists() {
         Optional<TransaktionsArt> optional;
         //Kaufen
@@ -198,6 +211,9 @@ public class SpielAnlegenController implements ControlledScreen {
     }
 
     //TODO: UnternehmensID von Teilnehmer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
+    /**
+     * Fügt einen Spielleiteraccount in der Datenbank ein
+     */
     private void insertAdminInDB() {
         Teilnehmer spielleiter = new Teilnehmer();
         spielleiter.setBenutzername(ConstantsHelper.ADMIN_USERNAME);
@@ -209,6 +225,9 @@ public class SpielAnlegenController implements ControlledScreen {
         TeilnehmerRepository.getInstanz().save(spielleiter);
     }
 
+    /**
+     * Fügt die Unternehmen "GMAX" (für ETF) und "Bank" (für Festgeld) in der Datenbank ein
+     */
     private void insertUnternehmenInDB() {
         //GMAX (für ETF auf alle Unternehmen)
         Unternehmen gmax = new Unternehmen();
@@ -227,6 +246,9 @@ public class SpielAnlegenController implements ControlledScreen {
         unternehmenRepository.save(bank);
     }
 
+    /**
+     * Fügt die Wertpapiere "ETF", "Festgeld" und "Startkapital" in die Datenbank ein
+     */
     private void insertWertpapiereInDB() {
         //ETF auf GMAX
         Wertpapier etf = new Wertpapier();
@@ -264,6 +286,9 @@ public class SpielAnlegenController implements ControlledScreen {
         wertpapierRepository.save(startkapital);
     }
 
+    /**
+     * Fügt eine erste Periode in die Datenbank ein
+     */
     private void insertFirstPeriodeInDB() {
         Periode periode = new Periode(AktuelleSpieldaten.getSpiel(), 0, 0); //TODO: überlegen, ob die erste Periode konfigurierbar gemacht wird bei Spielanlegen.
         PeriodenRepository.getInstanz().save(periode);

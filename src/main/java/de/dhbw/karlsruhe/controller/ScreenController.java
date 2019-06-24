@@ -31,6 +31,11 @@ public class ScreenController extends StackPane {
         return screens.get(name);
     }
 
+    /**
+     * Lädt einen Screen
+     * @param name Fachlicher Name
+     * @param resource Technischer Name der FXML-Datei
+     */
     void loadScreen(String name, String resource) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
@@ -44,6 +49,10 @@ public class ScreenController extends StackPane {
         }
     }
 
+    /**
+     * Setzt den angegebenen Screen auf die Stage.
+     * @param name Fachlicher Name
+     */
     public void setScreen(final String name) {
         if (screens.get(name) != null) {
             if (!getChildren().isEmpty()) {
@@ -57,6 +66,10 @@ public class ScreenController extends StackPane {
         }
     }
 
+    /**
+     * Entlädt einen Screen
+     * @param name Fachlicher Name
+     */
     void unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Keine Screens zum Entfernen vorhanden.");
