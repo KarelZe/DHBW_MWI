@@ -7,10 +7,22 @@
          xmlns="http://javafx.com/javafx/8.0.172-ea">
     <graphic>
         <HBox spacing="5.0">
-            <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <ColorPicker fx:id="clrFarbe" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <tooltip>
+                    <Tooltip text="Bezeichnung des Unternehmens"/>
+                </tooltip>
+            </TextField>
+            <ColorPicker fx:id="clrFarbe" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <tooltip>
+                    <Tooltip text="Farbe des Unternehmens"/>
+                </tooltip>
+            </ColorPicker>
             <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="3"
-                    GridPane.rowIndex="1"/>
+                    GridPane.rowIndex="1">
+                <tooltip>
+                    <Tooltip text="Unternehmen löschen"/>
+                </tooltip>
+            </Button>
             <padding>
                 <Insets bottom="5.0" right="5.0" top="5.0"/>
             </padding>
