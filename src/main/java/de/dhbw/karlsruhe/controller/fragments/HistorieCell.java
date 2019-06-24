@@ -1,6 +1,6 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
-import de.dhbw.karlsruhe.controller.TeilnehmerHistorieController;
+import de.dhbw.karlsruhe.controller.ScreenController;
 import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.TeilnehmerPrintModel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
@@ -45,13 +45,8 @@ public class HistorieCell extends TableCell<TeilnehmerPrintModel, Void> {
         btnHistorie.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
             Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
             teilnehmer.ifPresentOrElse(t -> {
-                //Setzt die Teilnehmer ID vom Historie Controller auf den gewollten Teilnehmer aus der Liste --> Leider lässt sich der Screen nicht durch dieses ActionEvent wechseln (kein Zugriff auf Controller)
-                TeilnehmerHistorieController.teilnehmerID = getTableView().getItems().get(getIndex()).getId();
-
-                Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
-                messageBox.setHeaderText("Teilnehmer wurde ausgewaehlt. Bitte Schaltflaeche ''Historie anzeigen'' betaetigen");
-                messageBox.showAndWait();
-
+                //Ruft über den instanzierten Controllerr von ScreenController mit der ID die Historie auf
+                ScreenController.myPrintControllerHandle.showHistoriewithID(getTableView().getItems().get(getIndex()).getId());
             },() -> {
                 Alert messageBox = new Alert(Alert.AlertType.ERROR);
                 messageBox.setHeaderText("Es ist ein Fehler aufgetreten");

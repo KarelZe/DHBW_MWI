@@ -15,7 +15,8 @@ import java.util.HashMap;
  */
 
 public class ScreenController extends StackPane {
-    static public PeriodenDetailController myControllerHandle; //Hierüber kann der Controller von dem Detailscreen der Perioden erreicht werden.
+    static public PeriodenDetailController myPeriodeControllerHandle; //Hierüber kann der Controller von dem Detailscreen der Perioden erreicht werden.
+    static public PrintController myPrintControllerHandle;
 
     private HashMap<String, Node> screens = new HashMap<>();
 
@@ -41,7 +42,16 @@ public class ScreenController extends StackPane {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(resource));
             Parent loadScreen = loader.load();
             ControlledScreen controlledScreen = loader.getController();
-            if(name=="perioden_detail"){myControllerHandle = (PeriodenDetailController)loader.getController();}//Check ob es sich um die Detail Szene handelt. Wenn ja dann wir der Controller in der public static Variable myControllerHandle instanziierrt
+
+            switch (name){ //Check ob es sich um die Detail oder Historie Szene handelt. Wenn ja dann wir der Controller in der public static Variable instanziierrt
+                case "perioden_detail":
+                    myPeriodeControllerHandle = (PeriodenDetailController)loader.getController();
+                    break;
+                case "teilnehmer_drucken":
+                    myPrintControllerHandle = (PrintController)loader.getController();
+                    break;
+            }
+
             controlledScreen.setScreenParent(this);
             addScreen(name, loadScreen);
         } catch (IOException e) {

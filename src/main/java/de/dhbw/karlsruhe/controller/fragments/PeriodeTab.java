@@ -91,7 +91,7 @@ public class PeriodeTab extends Tab {
         Periodenabschluss periodenabschluss = new Periodenabschluss();
         periodenabschluss.periodeAbschliessen(periode);
 
-        ScreenController.myControllerHandle.changePage();
+        ScreenController.myPeriodeControllerHandle.changePage();
 
         // TODO: Führe Buchungen durch.
     }

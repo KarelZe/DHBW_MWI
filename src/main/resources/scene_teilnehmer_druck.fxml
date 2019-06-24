@@ -60,10 +60,6 @@
       <GridPane.margin>
          <Insets left="10.0" top="20.0" />
       </GridPane.margin></Button>
-    <Button fx:id="btnHistorieAnzeigen" mnemonicParsing="false" onAction="#doHistorie" prefHeight="40.0" prefWidth="180.0" text="Historie anzeigen" GridPane.rowIndex="3">
-        <GridPane.margin>
-            <Insets left="10.0" top="20.0" />
-        </GridPane.margin></Button>
    <Text fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestenliste">
       <GridPane.margin>
          <Insets left="5.0" top="10.0" />

@@ -74,16 +74,15 @@ public class PrintController implements ControlledScreen {
                 job.endJob();
             }
         }
-
-        /*
-        job.getJobSettings().setPageLayout(pageLayout);
-        boolean success = job.printPage(tvDruckansicht);
-        if (success) job.endJob();
-        */
     }
 
     public void doHistorie(){
         screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
+    }
+
+    public void showHistoriewithID(long id) {
+        TeilnehmerHistorieController.teilnehmerID =id;
+        doHistorie();
     }
 }
