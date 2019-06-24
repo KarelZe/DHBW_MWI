@@ -1,9 +1,9 @@
 
 * {
     -fx-primary: #323234;
-    -fx-secondary: #B2B2B2;
+    -fx-secondary: #474749;
     -fx-primarytext : #B2B2B2;
-    -fx-blue: #a349a4;
+    -fx-purple: #a349a4;
     -fx-red: #FF0000;
     -fx-color-1:#1976D2;
 }
@@ -12,13 +12,19 @@
     -fx-background-color: -fx-primary;
 }
 
-
-.button{
-    -fx-text-fill: -fx-secondary;
-    -fx-background-color: -fx-blue;
-    -fx-border-color: -fx-blue;
+.button:default {
+    -fx-base: -fx-purple;
+    -fx-border-color: -fx-purple;
+    -fx-background-color: -fx-purple;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
+    -fx-font-size: 12pt;
+}
+
+.button {
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-secondary;
+    -fx-border-color: -fx-secondary;
     -fx-font-size: 12pt;
 }
 
@@ -32,11 +38,11 @@
 .button:hover, .button:focused{
     -fx-border-color: -fx-secondary;
     -fx-background-color: -fx-secondary;
-    -fx-text-fill: -fx-primary;
+    -fx-text-fill: -fx-primarytext;
 }
 
  #header{
-    -fx-fill: -fx-secondary;
+     -fx-fill: -fx-primary;
      -fx-underline: true;
 }
 
@@ -46,7 +52,6 @@
     -fx-text-fill: -fx-primarytext;
     -fx-font-size : 12pt;
     -jfx-focus-color: -fx-secondary;
-    -fx-text-fill: derive(-fx-secondary, 20%);
     -fx-background-color: -fx-primary;
     -fx-border-style: solid;
     -fx-border-color: -fx-secondary;
@@ -91,7 +96,7 @@
 }
 
 .tab-label{
-    -fx-text-fill: -fx-secondary;
+    -fx-text-fill: -fx-primarytext;
     -fx-font-size: 10pt;
 }
 
@@ -160,7 +165,7 @@
 
 
 .label {
-    -fx-text-fill: -fx-secondary;
+    -fx-text-fill: -fx-primarytext;
     -fx-font-size: 12pt;
     -fx-text-alignment: center;
 }
@@ -192,7 +197,7 @@
 
 /*About window*/
 .about-text{
-    -fx-fill: -fx-secondary;
+    -fx-fill: -fx-primarytext;
 }
 
 .about-button{
@@ -314,8 +319,17 @@
 /*Checkbox*/
 
 .checkbox-main{
-    -fx-text-fill: -fx-secondary;
+    -fx-text-fill: -fx-primarytext;
     -jfx-checked-color: -fx-primary;
     -fx-font-size: 10pt;
 }
 
+/* Listview*/
+
+.list-cell {
+    -fx-background-color: transparent;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+}
