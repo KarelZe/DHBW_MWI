@@ -52,7 +52,7 @@
     -fx-text-fill: -fx-primarytext;
     -fx-font-size : 12pt;
     -jfx-focus-color: -fx-secondary;
-    -fx-background-color: -fx-primary;
+    -fx-background-color: -fx-secondary;
     -fx-border-style: solid;
     -fx-border-color: -fx-secondary;
 }
@@ -60,7 +60,7 @@
 .combo-box {
     -fx-font-size : 12pt;
     -jfx-focus-color: -fx-secondary;
-    -fx-background-color: -fx-primary;
+    -fx-background-color: -fx-secondary;
     -fx-border-style: solid;
     -fx-border-color: -fx-secondary;
 }
@@ -72,7 +72,7 @@
 }
 
 .combo-box-popup .list-view .list-cell:hover {
-    -fx-text-fill: -fx-primary;
+    -fx-text-fill: -fx-primarytext;
     -fx-background-color: -fx-secondary;
 
 }
@@ -332,4 +332,16 @@
 
 .list-view {
     -fx-background-color: transparent;
+}
+
+/* Color Picker */
+
+.color-picker {
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primarytext;
+    -fx-border-color: -fx-secondary;
+}
+
+.color-picker .color-picker-label .text {
+    visibility: false;
 }
