@@ -7,10 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.print.*;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.transform.Scale;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,13 +60,26 @@ public class PrintController implements ControlledScreen {
         PageLayout pageLayout = drucker.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
 
         // FIXME: Für Skalierung muss eine tiefe Kopie der entsprechenden Node erzeugt werden, da andernfalls die Node zur Ausgabe mit verändert wird.
-        // double scaleX = tvDruckansicht.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
-        // double scaleY = tvDruckansicht.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
+        // Wird Trotzdem noch verändert
+
+        Node node = tvDruckansicht;
+        double scaleX = node.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
+        double scaleY = node.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
+        node.getTransforms().add(new Scale(scaleX, scaleY));
 
         PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null && job.showPrintDialog(node.getScene().getWindow())){
+            boolean success = job.printPage(node);
+            if (success) {
+                job.endJob();
+            }
+        }
+
+        /*
         job.getJobSettings().setPageLayout(pageLayout);
         boolean success = job.printPage(tvDruckansicht);
         if (success) job.endJob();
+        */
     }
 
     public void doHistorie(){
