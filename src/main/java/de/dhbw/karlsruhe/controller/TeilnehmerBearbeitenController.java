@@ -27,9 +27,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     @FXML
     private ComboBox<Unternehmen> unternehmenComboBox;
 
-    @FXML
-    private Label lblBenutzername;
-
     private Teilnehmer teilnehmer;
 
     private CrudRepository<Unternehmen> model;
@@ -115,7 +112,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         unternehmenComboBox.setItems(unternehmenList);
         unternehmenComboBox.setValue(teilnehmer.getUnternehmen());
         unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());
-        lblBenutzername.setText(teilnehmer.getBenutzername());
     }
 
 
