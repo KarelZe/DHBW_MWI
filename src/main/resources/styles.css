@@ -3,7 +3,7 @@
     -fx-primary: #323234;
     -fx-secondary: #474749;
     -fx-primarytext : #B2B2B2;
-    -fx-purple: #a349a4;
+    -fx-dhbw: #e30613;
     -fx-red: #FF0000;
     -fx-color-1:#1976D2;
 }
@@ -13,9 +13,9 @@
 }
 
 .button:default {
-    -fx-base: -fx-purple;
-    -fx-border-color: -fx-purple;
-    -fx-background-color: -fx-purple;
+    -fx-base: -fx-dhbw;
+    -fx-border-color: -fx-dhbw;
+    -fx-background-color: -fx-dhbw;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
     -fx-font-size: 12pt;
