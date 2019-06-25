@@ -4,25 +4,26 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Diese Klasse stellt Bequemlichkeitsmethoden zur Verschlüsselung von Strings zur Verfügung.
+ *
+ * @author Christian Fix
+ */
+
 public class EncryptionHelper {
 
     /**
-     * Gibt den MD5-Wert einer Zeichenkette zurück.
-     *
-     * @param input Wert im Klartext
-     * @return Wert im MD5-Format
+     * Methode zur Verschlüsselung eines Strings mittels MD5-Algorithmus.
+     * @param input input im Klartext
+     * @return Wert im MD5-Format; im Fehlerfall {@code null}.
      */
     public static String getStringAsMD5(String input) {
         String md5 = null;
         if (null == input) return null;
         try {
-            //Create MessageDigest object for MD5
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            //Update input string in message digest
             digest.update(input.getBytes(), 0, input.length());
-            //Converts message digest value in base 16 (hex)
             md5 = new BigInteger(1, digest.digest()).toString(16);
-
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
