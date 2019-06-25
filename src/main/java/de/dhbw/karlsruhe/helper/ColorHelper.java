@@ -3,7 +3,7 @@ package de.dhbw.karlsruhe.helper;
 import javafx.scene.paint.Color;
 
 /**
- * Diese Klasse konvertiert Color-Objekte in String-Objekte und umgekehrt.
+ * Diese Klasse stellt Bequemlichkeitsmethoden zur Konvertierung von Color-Objekte in String-Objekte und umgekehrt bereit.
  * Strings werden für die Speicherung in der Datenbank o. Ä. benötigt.
  *
  * @author Markus Bilz
@@ -12,7 +12,7 @@ public class ColorHelper {
 
     /**
      * Diese Methode konvertiert einen String in ein Color-Objekt.
-     * @param farbe Farbe zur Konveritierung
+     * @param farbe Farbe zur Konvertierung
      * @return Color Objekt der Farbe, sofern keine Konvertierung möglich ist, Color Objekt der Farbe Schwarz
      */
     public static Color string2Color(String farbe) {
@@ -32,7 +32,7 @@ public class ColorHelper {
     }
 
     /**
-     * Konvertiert ein Color-Objekt in einen String. Die String-Repräsentation hat folgenden Aufbau @code{0x000000ff}.
+     * Konvertiert ein Color-Objekt in einen String. Die String-Repräsentation hat folgenden Aufbau {@code 0x000000ff}.
      *
      * @param farbe Farbe zur Konvertierung
      * @return Farbe als String
