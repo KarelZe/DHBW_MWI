@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class AktiePeriodeCell extends ListCell<Kurs> {
+public class AktienPeriodeCell extends ListCell<Kurs> {
 
     @FXML
     private Label lblName;
@@ -24,7 +24,7 @@ public class AktiePeriodeCell extends ListCell<Kurs> {
      * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
      * https://stackoverflow.com/a/31988574.
      */
-    public AktiePeriodeCell() {
+    public AktienPeriodeCell() {
         super();
 
         try {
