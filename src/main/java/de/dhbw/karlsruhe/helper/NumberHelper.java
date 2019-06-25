@@ -12,7 +12,7 @@ public class NumberHelper {
      *
      * @param zahl         Zahl zur Konvertierung
      * @param standardwert Standardwert im Fehlerfall
-     * @return double der Zahl, im Fehlerfall den Standardwert
+     * @return double der Zahl; im Fehlerfall den Standardwert
      */
     public static double parseDouble(String zahl, double standardwert) {
         try {
