@@ -6,14 +6,9 @@ import de.dhbw.karlsruhe.model.jpa.*;
 
 import java.util.Optional;
 
+
 public class Kaufbuchung implements Buchungsart {
-    /**
-     * @param periode      Periode in der die Transaktion erfolgt
-     * @param teilnehmer   Teilnehmer auf dessen Namen die Buchung erfolgt
-     * @param wertpapier   Wertpapier, das in Buchung involviert ist.
-     * @param bezugsgroesse Bezugsgroesse z. B. Nominalvolumen oder Saldo
-     * @return buchung mit Umsatzdaten oder leere Buchung
-     */
+
     @Override
     public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) throws UnsupportedOperationException {
         Buchung buchung = new Buchung();

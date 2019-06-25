@@ -4,19 +4,24 @@ import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Factory zur Erzeugung von Buchungen. Implementierung des Factory Patterns (GOF).
+ *
+ * @author Markus Bilz
+ */
 public class BuchungsFactory {
 
     /**
-     * Implementierung des Factory Patterns.
+     * Fabrikmethode zur Erzeugung einer Buchung abhängig der TransaktionsArt.
      *
-     * @param transaktionsArt Transaktionsart der Buchung
-     * @return Buchungsart abhängig der Transaktionsart
+     * @param transaktionsArt TransaktionsArt der Buchung
+     * @return Buchungsart abhängig der TransaktionArt
      * @throws NoSuchElementException Exception, falls TransaktionsArt nicht implementiert ist.
      */
     public Buchungsart create(final long transaktionsArt) throws NoSuchElementException {
 
         if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER)
-            return new ZinsbuchungWertpapier();
+            return new ZinsbuchungAnleihe();
         if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD)
             return new ZinsbuchungFestgeld();
         else if (transaktionsArt == TransaktionsArt.TRANSAKTIONSART_KAUFEN)
