@@ -7,7 +7,7 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import java.util.ArrayList;
 
 /**
- * Konkrete Implementierung des Bewertungsmodells für die Bewertung von Floating Rate Notes.
+ * Konkrete Implementierung des Bewertungsmodells für die Bewertung von Floating Rate Notes (FRN).
  *
  * @author Markus Bilz
  */

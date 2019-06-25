@@ -13,7 +13,7 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
  */
 public class ZinsbuchungFestgeld implements Buchungsart {
     /**
-     * Methode zur Verbuchung von Zinsen aus Festgeld mit Zinsgutschrift auf Zahlungsmittelkonto.
+     * Methode zur Erzeugung von Zinsbuchungen aus Festgeldern.
      * Die Verbuchung von Zinsgutschriften erfolgt gemäß Fachkonzept Bewertung und Verbuchung
      * von Kapitelerträgen Kapitel 5.2 beschrieben.
      * @param periode      Periode, in der die Transaktion erfolgt

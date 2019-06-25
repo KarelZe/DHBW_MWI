@@ -13,7 +13,7 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 public class ZinsbuchungAnleihe implements Buchungsart {
     /**
-     * Methode zur Verbuchung von Zinsen aus Anleihen mit Gutschrift auf Zahlungsmittelkonto.
+     * Methode zur Erzeugung von Zinsbuchungen aus Floating Rate Notes.
      * Die Verbuchung von Zinsgutschriften erfolgt gemäß Fachkonzept Bewertung und Verbuchung
      * von Kapitelerträgen Kapitel 5.3 beschrieben.
      * @param periode      Periode, in der die Transaktion erfolgt

@@ -24,6 +24,7 @@ public class Periodenabschluss {
     /**
      * Diese Methode führt einen Periodenabschluss durch. Dies umfasst einerseits die Bewertung aller Wertpapiere und
      * andererseits die Anlage aller Periodenabschluss-Transaktionen.
+     * Siehe hierzu Fachkonzept Bewertung von Finanzanlagen Kap. 3 ff.
      *
      * @param periode abzuschließende Periode.
      */
