@@ -4,11 +4,17 @@ import de.dhbw.karlsruhe.controller.ScreenController;
 import de.dhbw.karlsruhe.controller.ScreensFramework;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 
+/**
+ * Diese Klasse stellt Bequemlichkeitsmethoden für den Logout zur Verfügung.
+ *
+ * @author Christian Fix
+ */
+
 public class LogoutHelper {
 
     /**
-     * Loggt den derzeitigen Anwender aus und leitet ihn auf den Login-Screen weiter
-     * @param screenController
+     * Methode zum Logout des aktuellen Teilnehmers und Weiterleitung auf den Startbildschirm.
+     * @param screenController screenController des aufrufenden Screens
      */
     public static void logout(ScreenController screenController) {
         AktuelleSpieldaten.setTeilnehmer(null);
