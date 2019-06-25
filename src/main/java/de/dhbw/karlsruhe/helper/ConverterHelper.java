@@ -15,54 +15,99 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
+/**
+ * Diese Klasse stellt Methoden zur Darstellung diverser Objekte an der Oberfläche der Anwendung zur Verfügung.
+ *
+ * @author Markus Bilz, Christian Fix, Raphael Winkler
+ */
+
 public class ConverterHelper {
 
-    //+++++++++++++++UNTERNEHMEN++++++++++++++++++++++
+    /**
+     *  Konverter für Unternehmensobjekte.
+     */
     private StringConverter<Unternehmen> unternehmensConverter = new StringConverter<>() {
+        /**
+         * Methode zur Umwandlung von Unternehmensobjekten in Strings.
+         * @param unternehmen Unternehmensobjekt zur Konvertierung.
+         * @return String mit Aufbau {@code Unternehmen 1 [id: 0]}; im Fehlerfall {@code ''}
+         */
         @Override
         public String toString(Unternehmen unternehmen) {
             return unternehmen != null ? unternehmen.getName() + " [id: " + unternehmen.getId() + "]" : "";
         }
 
+        /**
+         * Methode zur Umwandlung von Strings in Unternehmensobjekte.
+         * @param unternehmen String zur Konvertierung.
+         * @return {@code null}
+         */
         @Override
-        public Unternehmen fromString(String id) {
+        public Unternehmen fromString(String unternehmen) {
             return null;
         }
     };
-    //+++++++++++++++SPIELE++++++++++++++++++++++
+    /**
+     * Konverter für Spieleobjekte.
+     */
     private StringConverter<Spiel> spieleConverter = new StringConverter<>() {
+
+        /**
+         * Methode zur Umwandlung von Spieleobjekten in Strings
+         * @param spiel Spielobjekt zur Konvertierung.
+         * @return String mit Aufbau {@code Spiel 1 (erstellt am 01.01.1990) (aktiv)}; im Fehlerfall {@code ''}
+         */
         @Override
         public String toString(Spiel spiel) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
             if (spiel != null) {
                 StringBuilder sbAnzeige = new StringBuilder("Spiel " + spiel.getId());
                 if (spiel.getErstellungsdatum() != null) {
-                    sbAnzeige.append(" (erstellt am ").append(simpleDateFormat.format(spiel.getErstellungsdatum())).append(")");
+                    sbAnzeige.append(" (erstellt am ");
+                    sbAnzeige.append(simpleDateFormat.format(spiel.getErstellungsdatum()));
+                    sbAnzeige.append(")");
                 }
                 if (spiel.getIst_aktiv() == Spiel.SPIEL_AKTIV) {
-                    sbAnzeige.append(" (AKTIV)");
+                    sbAnzeige.append(" (aktiv)");
                 }
                 return sbAnzeige.toString();
             } else {
-                return "NULL";
+                return "";
             }
         }
 
+        /**
+         * Methode zur Umwandlung von Strings in Spielobjekte.
+         * @param spiel String zur Konvertierung.
+         * @return {@code null}
+         */
         @Override
-        public Spiel fromString(String id) {
+        public Spiel fromString(String spiel) {
             return null;
         }
     };
 
-    //+++++++++++++++Perioden++++++++++++++++++++++
+    /**
+     * Konverter für Periodenobjekte.
+     */
     private StringConverter<Periode> periodenConverter = new StringConverter<>() {
+        /**
+         * Methode zur Umwandlung von Perioden in Strings.
+         * @param periode Periode zur Konvertierung
+         * @return String mit Aufbau {@code [id: 1]}; im Fehlerfall {@code ''}
+         */
         @Override
         public String toString(Periode periode) {
             return periode != null ? " [id: " + periode.getId() + "]" : "";
         }
 
+        /**
+         * Methode zur Umwandlung von Strings in Periodenobjekte.
+         * @param periode String zur Konvertierung.
+         * @return {@code null}
+         */
         @Override
-        public Periode fromString(String id) {
+        public Periode fromString(String periode) {
             return null;
         }
     };
