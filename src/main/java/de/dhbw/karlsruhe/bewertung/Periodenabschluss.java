@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Diese Klasse enthält Methoden zur Verbuchung des Periodenabschlusses.
+ *
+ * @author Markus Bilz
+ */
+
 public class Periodenabschluss {
 
     /**
@@ -29,8 +35,8 @@ public class Periodenabschluss {
     /**
      * Diese Methode bewertet die Wertpapiere einer Periode. Es werden ausschließlich Wertpapierarten, die eine Bewertung
      * erfordern, bewertet. Das heißt, kein Festgeld und auch keine Aktien.
-     * Implementierung des Factory Patterns.
-     *
+     * Siehe hierzu Fachkonzept Bewertung von Finanzanlagen Kap. 5 und Teilkapitel.
+     * Die Umsetzung erfolgt anhand des Factory Patterns (GOF).
      * @param periode zu bewertende Periode
      */
     private void periodeBewerten(Periode periode) {

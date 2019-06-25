@@ -10,16 +10,19 @@ import java.util.List;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
+/**
+ * Konkrete Implementierung des Bewertungsmodells für die Bewertung von Exchange Traded Funds (ETF).
+ *
+ * @author Markus Bilz
+ */
 public class ExchangeTradedFundModell implements Bewertungsmodell {
     /**
-     * Diese Methode implementiert die Bewertung des Exchange Traded Funds (ETF) als arithmetisches Mittel der Aktienkurse
-     * der Periode. Es wird dabei unterstellt, dass der ETF die Aktien seines Portfolios 1:1 repliziert.
-     * Die Gesamtkostenquote (TER) und der Tracking Error werden im Bewertungsmodell mit 0 angenommen.
+     * Diese Methode implementiert die Bewertung des Exchange Traded Funds.
+     * Die Implementierung folgt dem Fachkonzept Bewertung von Kapitalanlagen Kapitel 4.2.
      * Die Bewertung des ETFs ist erst möglich, nachdem die Aktien des Portfolios bewertet wurden.
-     *
      * @param periode    Periode, für die eine Bewertung erfolgen soll.
      * @param wertpapier Wertpapier, das zu bewerten ist.
-     * @return Kurs des ETFs
+     * @return Kurs des ETFs; im Fehlerfall {@code 100.00}.
      */
     @Override
     public double bewerte(Periode periode, Wertpapier wertpapier) {

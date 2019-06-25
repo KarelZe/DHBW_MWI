@@ -6,8 +6,20 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 import java.util.ArrayList;
 
+/**
+ * Konkrete Implementierung des Bewertungsmodells für die Bewertung von Floating Rate Notes.
+ *
+ * @author Markus Bilz
+ */
 public class FloatingRateNoteModell implements Bewertungsmodell {
 
+    /**
+     * Diese Methode implementiert die Bewertung einer Floating Rate Note.
+     * Die Implementierung erfolgt gem. Fachkonzept Bewertung von Finanzanlagen und Verbuchung von Kapitalerträgen.
+     * @param periode    Periode, für die eine Bewertung erfolgen soll.
+     * @param wertpapier Wertpapier, das zu bewerten ist.
+     * @return Kurs der Floating Rate Note.
+     */
     @Override
     public double bewerte(Periode periode, Wertpapier wertpapier) {
 

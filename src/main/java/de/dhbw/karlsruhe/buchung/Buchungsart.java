@@ -18,7 +18,7 @@ public interface Buchungsart {
      * @param teilnehmer Teilnehmer, auf dessen Namen die Buchung erfolgt
      * @param wertpapier Wertpapier, das in Buchung involviert ist.
      * @param bezugsgroesse Bezugsgroesse, z. B. Nominalvolumen oder Anzahl
-     * @return buchung Buchungsobjekt mit Buchungsdaten
+     * @return buchung Buchungsobjekt mit Buchungsdaten oder
      */
     Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse);
 }
