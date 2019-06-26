@@ -122,21 +122,21 @@ Die Software \textit{Anika} soll dabei den Handel folgender Finanzanlagen unters
 \end{enumerate}
 
 Um sicherzustellen, dass diese Finanzanlagen möglichst realistisch und fair bewertet werden, wurde dieses Fachkonzept erstellt, das definiert, wie deren Bewertung und Ausschüttungen in dieser Software durchgeführt werden soll.
-Weil \textit{Anika} kein dediziertes Handelssystem implementiert, das die Handelsaktivitäten einzelner Marktteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden dafür ausschließlich rechnerische Kurswerte verwendet, der auf der Grundlage finanzmathematischer Modelle ermittelt wird.
+Weil \textit{Anika} kein dediziertes Handelssystem implementiert, das die Handelsaktivitäten einzelner Marktteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden dafür ausschließlich rechnerische Kurswerte verwendet, die auf der Grundlage finanzmathematischer Modelle ermittelt wird.
 
 %Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
 
-\section{Anlage und Pflege von Finanzanlagen}
+\section{Anlage und Pflege der Finanzanlagen}
 \label{sec:anlage_und_pflege_der_wertpapiere}
 
-Bevor eine Bewertung der Finanzanlagen erfolgen kann, müssen sowohl diese als auch die die Bewertung notwendigen Geschäftsdaten angelegt werden. 
+Bevor eine Bewertung der Finanzanlagen erfolgen kann, müssen sowohl diese als auch die für die Bewertung notwendigen Geschäftsdaten angelegt werden. 
 Im Folgenden wird deshalb beschrieben, wie die Finanzanlagen angelegt und gepflegt werden sollen:
 \begin{itemize}
-	\item Bei der Anlage eines Spiels durch den Seminarleiter soll automatisch ein \gls{ETF} und ein Festgeld angelegt werden, sodass die Teilnehmer diese Finanzanlagen handeln können.
-	\item Im Rahmen der Initialisierung eines Spiels können zusätzlich sowohl Aktien als auch \glspl{FRN} der Planspielunternehmen manuell emittiert werden.  
+	\item Bei der Anlage eines Spiels durch den Spielleiter soll automatisch ein \gls{ETF} und ein Festgeld angelegt werden, sodass die Teilnehmer diese Finanzanlagen jederzeit handeln können.
+	\item Im Rahmen der Initialisierung eines Spiels können zusätzlich sowohl Aktien als auch \glspl{FRN} der Planspielunternehmen durch den Spielleiter emittiert werden.  
 \end{itemize}
 
-Die Pflege der Daten wie des Kapitalmarktzinssatzes, des unternehmensabhängigen Risikoaufschlages oder des Aktienkurses, die für die Bewertung der Finanzanlagen benötigt werden, erfolgt dabei einmalig vor dem Start einer Planspielperiode durch den Spielleiter.
+Die Pflege der Geschäftsdaten wie des Kapitalmarktzinssatzes, des unternehmensabhängigen Risikoaufschlages oder des Aktienkurses, die für die Bewertung der Finanzanlagen benötigt werden, erfolgt dabei einmalig vor dem Start einer Planspielperiode durch den Spielleiter.
 
 \section{Zeitpunkt der Bewertung und Verbuchung}
 \label{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung}
@@ -183,19 +183,19 @@ Im Folgenden wird beschrieben, wie die Finanzanlagen in der Software \textit{Ani
 \subsection{Bewertung von Aktien}
 \label{sec:bewertung_von_aktien}
 Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den Teilnehmern gehandelt werden können.
-Der rechnerische Kurs dieser Aktien wird von der Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode berechnet und dem Seminarleiter in einer Übersicht dargestellt.
+Der rechnerische Kurs dieser Aktien wird von der Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode berechnet und dem Spielleiter in einer Übersicht dargestellt.
 %Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar.
-Dieser Aktienkurs beinhaltet die vergangenen Dividendenauszahlungen. Auch zukünftige Dividenden werden nicht ausgeschüttet, sondern wirken sich positiv auf den Kurs aus. Dies führt dazu, dass die Software \textit{Anika} die Dividendenauszahlungen nict gesondert berücksichtigen muss.
-%Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Seminarleiter in einer Übersicht dargestellt. 
+Dieser Aktienkurs beinhaltet die vergangenen Dividendenauszahlungen. Auch zukünftige Dividenden werden nicht ausgeschüttet, sondern wirken sich positiv auf den Kurs aus. Dies führt dazu, dass die Software \textit{Anika} die Dividendenauszahlungen nicht gesondert berücksichtigen muss.
+%Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Spielleiter in einer Übersicht dargestellt. 
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
-Bei dem Handel mit Aktien wird neben deren Kurswert eine vom Seminarleiter eingestellte Ordergebühr\footnote{Diese Ordergebühr wird in Prozent angegeben.} fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
+Bei dem Handel mit Aktien wird neben deren Kurswert eine vom Spielleiter eingestellte Ordergebühr\footnote{Diese Ordergebühr wird in Prozent angegeben.} fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
 
 \subsection{Bewertung von Floating Rate Notes}
 \label{sec:bewertung_von_floating_rate_notes}
-\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlags zusammen \autocite[][374]{fabozzi_handbook_2005}. In diesem Zusammenhang ist wichtig festzuhalten, dass sich zwar der Referenzzins über die Laufzeit verändert; der Aufschlag auf den Referenzzins jedoch konstant bleibt.
+\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlags zusammen \autocite[][374]{fabozzi_handbook_2005}. In diesem Zusammenhang ist wichtig festzuhalten, dass sich zwar der Referenzzins über die Laufzeit verändert, der Aufschlag auf den Referenzzins bleibt jedoch konstant.
 
-Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine Bewertung durch die Anwendung \textit{Anika} notwendig. \gls{FRN} werden gemäß Definition \ref{def:floater} in der Anwendung \textit{Anika} aufgelegt.
+Weil Anleihen kein Bestandteil der Anwendung \textit{TOPSIM} sind, ist eine Bewertung durch die Anwendung \textit{Anika} notwendig. \gls{FRN} werden gemäß Definition \ref{def:floater} in der Anwendung \textit{Anika} aufgelegt.
 
 \begin{definition}
 	\label{def:floater}
@@ -204,7 +204,7 @@ Anleihen sind kein Bestandteil der Anwendung \textit{TOPSIM}, insofern ist eine 
 
 In diesem Zusammenhang soll auf einige Besonderheiten aus Definition \ref{def:floater} eingegangen werden:
 \begin{itemize}
-	\item Die Laufzeit der Anleihe soll nicht konfigurierbar sein. Sie wird deshalb pauschal mit zehn Perioden angenommen. Eine fest vereinbarte Laufzeit ist notwendig, da andernfalls Standard-Bewertungsmodelle für Floater nicht anwendbar sind. 
+	\item Die Laufzeit der Anleihe soll nicht konfigurierbar sein. Sie wird deshalb pauschal mit zehn Perioden angenommen. Eine fest vereinbarte Laufzeit ist notwendig, da andernfalls die Standard-Bewertungsmodelle für Floater nicht anwendbar sind. 
 	\item Der Zinskupon referenziert den Kapitalmarktzins, da er der einzige Referenzzins in der Software ist. Der bei Emission erfasste Spreadaufschlag auf den Referenzzins bleibt für die Dauer des Spiels konstant.
 	\item Die Einschränkung, dass Zinszahlungen einmalig zum Periodenultimo erfolgen, hebt die Notwendigkeit mehrerer Zinsbuchungen je Periode auf.
 \end{itemize}
@@ -219,30 +219,28 @@ In diesem Zusammenhang soll auf einige Besonderheiten aus Definition \ref{def:fl
 
 Die Bewertung der \gls{FRN} erfordert ein Bewertungsmodell. Ein Modell für die Bewertung der \gls{FRN} ist in \textcite[][S.~31~f.]{alexander_market_2008} dokumentiert. 
 Es ermöglicht die Berpeisung von \glspl{FRN} mit einem Spread $\neq0$ zu einem beliebigen Bewertungstichtag.
-Ausfallrisiken lassen sich damit nur vereinfachend abbilden.
-Eine mögliche Alternative hierzu wird in \textcite[][S.~65~f.]{schonbucher_credit_2003} präsentiert. Allerdings verfügt sie über eine höhere Komplexität und erfordert weitere Annahmen hinsichtlich der Bonität. Aus diesem Grund wird für den Ansatz von \autocite[][S.~31~f.]{alexander_market_2008} optiert.
+Ausfallrisiken lassen sich damit nur vereinfacht abbilden.
+Eine mögliche Alternative hierzu wird in \textcite[][S.~65~f.]{schonbucher_credit_2003} präsentiert. Allerdings verfügt sie über eine höhere Komplexität und erfordert weitere Annahmen hinsichtlich der Bonität. Aus diesem Grund wird für den Ansatz von \textcite[][S.~31~f.]{alexander_market_2008} optiert.
 
-Angenommen, ein \gls{FRN} wird zum Zeitpunkt $t = 0$ berpeist, der nächste Zinskupon wurde in Höhe von $c$ am zurückliegenden \textit{payment date} fixiert und wird zu $t$ bezahlt. Überdies stehen $T$ Zinszahlungen bis zur Fälligkeit aus. Dann gehen dem Anleger zu den Zeitpunkten $t+1, t+2, \ldots, t+T$ Zinszahlungen und zusätzlich im Zeitpunkt $t+T$ die Rückzahlung der Anleihe $N$ zu.
+Angenommen, ein \gls{FRN} wird zum Zeitpunkt $t = 0$ bepreist, der nächste Zinskupon wurde in Höhe von $c$ am zurückliegenden \textit{payment date} fixiert und wird zu $t$ bezahlt. Überdies stehen $T$ Zinszahlungen bis zur Fälligkeit aus. Dann gehen dem Anleger zu den Zeitpunkten $t+1, t+2, \ldots, t+T$ Zinszahlungen und zusätzlich im Zeitpunkt $t+T$ die Rückzahlung der Anleihe $N$ zu.
 
-Der Zinskupon setzt sich dabei zusammen aus einem Refrenzzins und einem Spread bei Emission vereinbarten Spread. Der einperiodische Referenzzins zum Zeitpunkt $t$ wird als $R_t$ bezeichnet. Diskontierung erfolgt ebenfalls zum Referenzzins (ggf. erhöht um einen Bonitätsaufschlag). Der Spread wird als $s$ bezeichnet. Damit entspricht zum Zeitpunkt $t+n$ die Höhe einer Zinszahlung $100(R_{t+n-1}+s)$. 
+Der Zinskupon setzt sich dabei aus einem Refrenzzins und einem Spread bei Emission vereinbarten Spread zusammen. Der einperiodische Referenzzins zum Zeitpunkt $t$ wird als $R_t$ bezeichnet. Diskontierung erfolgt ebenfalls zum Referenzzins (ggf. erhöht um einen Bonitätsaufschlag). Der Spread wird als $s$ bezeichnet. Damit entspricht zum Zeitpunkt $t+n$ die Höhe einer Zinszahlung $100(R_{t+n-1}+s)$. 
 
 Der Preis der \gls{FRN} $P_{s}^{m}$ mit Spread $s$ und Fälligkeit $m$ ergibt sich damit als:
 \begin{align*}
 	P_{t+T}^{s}&=(\underbrace{B_{t+T}^{s}}_\text{Standardanleihe}-\underbrace{B_{t+T}^{0}}_\text{Nullkuponanleihe})+\underbrace{100(1+c - s)(1+t R_{0})^{-1}}_\text{Variabler Cashflow}\\
 \end{align*}
 % Obacht, Formel im Original ist falsch ist Teil des Errata http://carolalexander.org/publish/download/MRA_III_Revisions_1.pdf
-Wie oben ersichtlich, zerlegt \textcite[][31]{alexander_market_2008} die \gls{FRN} in einen fest- und einen variabelverzinslichen Zahlungsstrom. Der festverzinsliche Zahlungsstrom umfasst dabei die diskontierten Zahlungen auf den Spread $s$ zu den Zeitpunkt $t, t+1, \ldots, t+T$. Sie bildet den festverzinslichen Zahlungsstrom in Form einer Standardanleihe $B_{t+T}^{s}$ ab, reduziert den Barwert aber um den Barwert einer Nullkuponanleihe $B_{t+T}^{0}$, da der festverzinsliche Zahlungsstrom keine Tilgung bei Fälligkeit enthält. Die Bewertung der Nullkuponanleihe und der Festzinsanleihe erfolgt durch Diskontierung, wie in \textcite[][11]{alexander_market_2008} beschrieben.
+Wie oben ersichtlich, zerlegt \textcite[][31]{alexander_market_2008} die \gls{FRN} in einen fest- und einen variabelverzinslichen Zahlungsstrom. Der festverzinsliche Zahlungsstrom umfasst dabei die diskontierten Zahlungen auf den Spread $s$ zu den Zeitpunkt $t, t+1, \ldots, t+T$. Sie bildet den festverzinslichen Zahlungsstrom in Form einer Standardanleihe $B_{t+T}^{s}$ ab, reduziert den Barwert aber um den Barwert einer Nullkuponanleihe $B_{t+T}^{0}$, da der festverzinsliche Zahlungsstrom keine Tilgung bei Fälligkeit enthält. Die Bewertung der Nullkuponanleihe und der Festzinsanleihe erfolgt durch Diskontierung, wie in \textcite[][11]{alexander_market_2008} beschrieben. Weiterhin diskontiert sie die zukünftigen, variabel verzinslichen Zinszahlungen an den Zeitpunkten $t+1, t+2, \ldots, t+T$ und die Tilgung in $t+T$  zum Zeitpunkt ab. 
 
-weiterhin diskontiert sie die zukünftigen, variabel verzinslichen Zinszahlungen an den Zeitpunkten $t+1, t+2, \ldots, t+T$ und die Tilgung in $t+T$  zum Zeitpunkt ab. 
-
-Da in der Anwendung \textit{Anika} ausschließlich der Kapitalmarktzinssatz für die aktuelle Periode vorliegen, erfolgt die Diskontierung mittels Kapitalmarktzinssatzes erhöht um einen emittentenindividuellen Bonitätsaufschlag, der sich aus dem Rating je Periode ableitet. Die Diskontierungssätze sind dabei über alle Laufzeiten gleich.
+Da in der Anwendung \textit{Anika} ausschließlich der Kapitalmarktzinssatz für die aktuelle Periode vorliegt, erfolgt die Diskontierung mittels Kapitalmarktzinssatzes erhöht um einen emittentenindividuellen Bonitätsaufschlag, der sich aus dem Rating je Periode ableitet. Die Diskontierungssätze sind dabei über alle Laufzeiten gleich.
 
 Die Anwendung \textit{Anika} lässt darüber hinaus zu, den rechnerischen Kurs einer \gls{FRN} durch einen manuellen Kurs zu überschreiben. Dies ist insbesondere im Insolvenzfall eines Unternehmens sinnvoll.
 
-Nachfolgend wird kurz die Bewertung einer \gls{FRN} demonstriert. Es ist aus \textcite[][32]{alexander_market_2008} adaptiert.
+Nachfolgend wird die exemplarische Bewertung einer \gls{FRN} demonstriert\footnote{Nachfolgendes Beispiel ist aus \textcite[][32]{alexander_market_2008} adaptiert.}. 
 
 \begin{example}
-	Bewertet wird ein \gls{FRN} mit jährlichen Zinskupons, die sich aus Kapitalmarktzins plus 60 Basispunkte zusammensetzen. Die Bewertung erfolgt an einem Zinszahlungstermin. Der Kapitalmarktzins zum Bewertungszeitpunkt beträgt 5~\%.
+	Bewertet wird ein \gls{FRN} mit einem jährlichen Zinskupon, der sich aus dem Kapitalmarktzins plus 60 Basispunkten zusammensetzt. Die Bewertung erfolgt an einem Zinszahlungstermin. Der Kapitalmarktzins zum Bewertungszeitpunkt beträgt 5~\%.
 	Die Diskontierung erfolgt mit dem Kapitalmarktzins ohne Spread.
 
 	\begin{align*}
@@ -252,9 +250,9 @@ Nachfolgend wird kurz die Bewertung einer \gls{FRN} demonstriert. Es ist aus \te
 		P_{t+T}^{s}&= (84.40-82.27) + 100(1+0.056 - 0.006) (1+0.05)^{-1} = 102.13\\
 	\end{align*}
 
-	Da eine Zerlegung in feste Anleihe und einen variablen Zahlungsstrom erfolgt, ist zunächst die Festzinsanleihe und die Nullkuponanleihe (erster Term) zu bewerten.
+	Da eine Zerlegung in einen festen und einen variablen Zahlungsstrom erfolgt, ist zunächst die Festzinsanleihe und die Nullkuponanleihe (erster Term) zu bewerten.
 
-	Die Bewertung des variablen Zahlungsstroms (zweiter Term) vereinfacht sich zu 100, da variabler Zins und Diskontierungszinssatz identisch sind.
+	Die Bewertung des variablen Zahlungsstroms (zweiter Term) vereinfacht sich zu 100, da der variable Zins und der Diskontierungszinssatz identisch sind.
 \end{example}
 
 % Mittels eines No-Arbitrage Arguments lässt sich zeigen, dass ein Floater im Fixingtermin immer zu pari notiert. Eine Floating Rate Note lässt sich synthetisch erzeugen durch eine rollierende (revolvierende) Geldanlage in einer Fixed Rate Note. Diese müssen dann denselben Preis haben.
@@ -263,12 +261,10 @@ Nachfolgend wird kurz die Bewertung einer \gls{FRN} demonstriert. Es ist aus \te
 
 % Im hier betrachteten (und einfachsten) Fall gilt für die Zahlung in $t_i$ dass ihre Höhe in $t_{i-1}$ (\textit{reset date}) wird, die Zahlung selbst dagegen in $t_i$ (\textit{payment date}) erfolgt. Dies führt dazu, dass man den Wert der viarablen zinszahlungen und den WERt der variable verzinslcihen Anleihe ohne Zugrundelgung eines Zinsmodells bestimmen kann, sie also unabhängig von dem unterstellten Verhaltne der zinsen über die Zeit sind. DAs soll im Folgenden gezeigt werden. (aus Zinsderivate Branger \& Schlag, ISBN: 3-540-212228-0) Insgesamt ist das Buch aber schlecht, weil es keinen Spread und auch keine Bonitätsveränderung berücksichtigt. 
  
-Das Folgekapitel beschreibt die Bewertung eines \gls{ETF} in der Software \textit{Anika}.
-
 \subsection{Bewertung eines Exchange Traded Funds}
 \label{sec:bewertung_eines_exchange_traded_funds}
 
-Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. Bei dem zugrundeliegenden Index kann es sich dabei beispielsweise um einen Aktien- oder Anleihenindex handeln, deren Wertentwicklung abgebildet wird.
+Bei \glspl{ETF} handelt es sich um eine börsengehandelte Variante des Investmentfonds, die es Anlegern ermöglicht, Portfolios, die einen Index replizieren, zu handeln \autocite[][S.~103]{bodie_investments_2018}. Bei dem zugrundeliegenden Index kann es sich dabei beispielsweise um einen Aktien- oder Anleihenindex handeln, dessen Wertentwicklung abgebildet werden soll.
 
 Die Berechnung des Index setzt Konventionen zur Gewichtung der Anlagen voraus. Ein Überblick über Ansätze zur Gewichtung wird in \textcite[][S.~44~ff.]{bodie_investments_2018} gegeben, wohin gegen sich dieses Fachkonzept auf verwendete Ansätze beschränkt.
 
@@ -279,9 +275,9 @@ Die Software \textit{Anika} bietet jedem Teilnehmer die Möglichkeit, einen ETF 
 	Der \gls{GMAX} ist ein preisgewichteter (\textit{price weighted}) Aktienindex der Planspielunternehmen, bei dem alle Aktien gleichgewichtet sind.
 \end{definition}
 
-Die Berechnung des \gls{GMAX} als preisgewichteter Aktienindex erlaubt damit eine einfache und nachvollziehbare Berechnung. Zugleich stellt es einen Ansatz dar, der praktische Bedeutung für Indizes wie dem usprünglichen \textit{Dow Jones Industrial Average} hat, weshalb dieses Verfahren für die Software \textit{Anika} ausgewählt wurde. Dieser Ansatz hat jedoch den Nachteil, dass hoch bewertete Aktien einen größeren Einfluss auf die Indexentwicklung nehmen.
+Die Berechnung des preisgewichteten Aktienindex \gls{GMAX} erlaubt damit eine einfache und nachvollziehbare Berechnung. Zugleich stellt es einen Ansatz dar, der praktische Bedeutung für Indizes wie dem usprünglichen \textit{Dow Jones Industrial Average} hat, weshalb dieses Verfahren für die Software \textit{Anika} ausgewählt wurde. Dieser Ansatz hat jedoch den Nachteil, dass hoch bewertete Aktien einen größeren Einfluss auf die Indexentwicklung nehmen.
 
-Die Berechnung des \gls{GMAX} wird an Beispiel~\ref{ex:gmax}\footnote{Das Beispiel ist von \textcite[][S.~44]{bodie_investments_2018} adaptiert.} für ein Spiel mit zwei Planspielunternehmen erläutert.
+Die Berechnung des \gls{GMAX} wird an Beispiel~\ref{ex:gmax}\footnote{Das Beispiel wurde von \textcite[][S.~44]{bodie_investments_2018} adaptiert.} für ein Spiel mit zwei Planspielunternehmen erläutert.
 
 \begin{example}
 \label{ex:gmax}
@@ -298,18 +294,18 @@ Die prozentuale Veränderung von $P_0$ auf $P_1$ ergibt damit aus $-\frac{2.5}{6
 	Der \gls{ETF} trackt den Index \gls{GMAX} durch vollständige Replizierung. Die \textit{Tracking Difference}\footnote{Der \textit{Tracking Difference} bezeichnet die Renditedifferenz zwischen dem \gls{ETF} und dem abgebildeten Index.} und die \textit{Total Expense Ratio}\footnote{Die \textit{Total Expense Ration} bezeichnet die Gesamtkostenquote des Fonds. Hierunter fallen beispielsweise Kosten zur Erfüllung regulatorischer Anforderungen.} wird eleminiert, wodurch die Wertentwicklung des \gls{ETF} die des \gls{GMAX} 1:1 abbildet.
 \end{definition}
 
-Eine Bewertung des \gls{ETF} ist deshalb erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der Ausgestaltung gemäß Beispiel~\ref{def:etf} entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
+Eine Bewertung des \gls{ETF} ist deshalb erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der in Beispiel~\ref{def:etf} gegebenen Ausgestaltung entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
 
 \subsection{Bewertung von Festgeld}
 \label{sec:bewertung_von_festgeldern}
 
 Als ein Festgeld wird eine Variante der Termineinlage bezeichnet, dessen Kapital für eine vertraglich vereinbarte Anlagedauer fixiert ist.
 
-Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet sich dabei in Teilen von den üblichen am Markt befindlichen Festgeldern. Im Definition \ref{def:festgeld} werden deshalb die Konditionen des in \textit{Anika} verwendeten Festgelds dargestellt.
+Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet sich dabei in Teilen von den üblichen am Markt befindlichen Festgeldern. In nachfolgender Definition \ref{def:festgeld} werden deshalb die Konditionen des in \textit{Anika} verwendeten Festgelds dargestellt.
 
 \begin{definition}
 	\label{def:festgeld}
-	Das Festgeld wird mit dem periodebanhängigen Kapitalmarktzinssatz verzinst und hat eine Laufzeit von einer Periode mit automatischer Prolongation um eine weitere Periode. Teilverfügungen und vollständige Verfügungen und Aufstockungen sind jederzeit durch den Teilnehmer ohne Vorfälligkeitsentschädigung möglich. 
+	Das Festgeld wird mit dem periodebanhängigen Kapitalmarktzinssatz verzinst und hat eine Laufzeit von einer Periode mit automatischer Prolongation um eine weitere Periode. Teilverfügungen, vollständige Verfügungen und Aufstockungen sind jederzeit durch den Teilnehmer ohne Vorfälligkeitsentschädigung möglich. 
 \end{definition}
 
 Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet. Bei dem Kauf bzw. Verkauf des Festgeldes wird jedoch im Gegensatz zu den anderen Finanzanlagen keine Ordergebühr fällig.
