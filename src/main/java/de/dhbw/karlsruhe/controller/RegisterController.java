@@ -107,7 +107,7 @@ public class RegisterController implements ControlledScreen {
             return;
         }
 
-        Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getSpiel());
+        Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getInstanz().getSpiel());
         TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
 
 
@@ -117,12 +117,12 @@ public class RegisterController implements ControlledScreen {
         Buchungsart startkapital = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_STARTKAPITAL);
         Wertpapier wertpapier = WertpapierRepository.getInstanz().findAll().stream()
                 .filter(w -> w.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_STARTKAPITAL) // Filtere nach StartkapitalWertpapieren
-                .filter(w -> w.getSpiel().getId() == AktuelleSpieldaten.getSpiel().getId()) // Filtere das StartkapitalWertpapier dieses Spiels heraus
+                .filter(w -> w.getSpiel().getId() == AktuelleSpieldaten.getInstanz().getSpiel().getId()) // Filtere das StartkapitalWertpapier dieses Spiels heraus
                 .findAny().orElseThrow(NoSuchElementException::new);
-        Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId())
+        Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId())
                 .stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
-        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, teilnehmerZurSpeicherung, wertpapier, AktuelleSpieldaten.getSpiel().getStartkapital()));
+        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, teilnehmerZurSpeicherung, wertpapier, AktuelleSpieldaten.getInstanz().getSpiel().getStartkapital()));
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

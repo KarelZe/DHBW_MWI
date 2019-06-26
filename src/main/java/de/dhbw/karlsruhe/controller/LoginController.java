@@ -38,10 +38,10 @@ public class LoginController implements ControlledScreen {
         Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
         teilnehmer.ifPresentOrElse(t -> {
                     System.out.println(t + " @ " + t.getUnternehmen() + " $ " + t.getRolle());
-                    AktuelleSpieldaten.setTeilnehmer(t);
+                    AktuelleSpieldaten.getInstanz().setTeilnehmer(t);
                     //ToDo: Übersichts-Screen anzeigen
-                    // TODO: @ Bilz Ersetzen durch Filter oder Map? https://www.callicoder.com/java-8-optional-tutorial/
-                    if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+                    // TODO: Ersetzen durch Filter oder Map? https://www.callicoder.com/java-8-optional-tutorial/
+                    if (AktuelleSpieldaten.getInstanz().getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
                         //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
                         screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
 
@@ -90,7 +90,7 @@ public class LoginController implements ControlledScreen {
     private void initializeAktuellesSpiel() {
         Spiel aktuellesSpiel = SpielRepository.getInstanz().getAktivesSpiel();
         if (aktuellesSpiel != null) {
-            AktuelleSpieldaten.setSpiel(aktuellesSpiel);
+            AktuelleSpieldaten.getInstanz().setSpiel(aktuellesSpiel);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Initialisieren");

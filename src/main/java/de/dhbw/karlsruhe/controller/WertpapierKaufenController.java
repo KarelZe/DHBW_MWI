@@ -70,7 +70,7 @@ public class WertpapierKaufenController implements ControlledScreen {
         ObservableList<Wertpapier> wertpapiereComboBox = FXCollections.observableArrayList(wertpapiere);
         cbWertpapierAuswahl.setItems(wertpapiereComboBox);
         cbWertpapierAuswahl.setConverter(new ConverterHelper().getWertpapierConverter());
-        teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getTeilnehmer().getId());
+        teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getTeilnehmer().getId());
         lbZahlungsmittelSaldo.setText(String.format("%.2f", teilnehmerZahlungsmittelkontoSaldo));
         lblOrderGebuehren.setText("Ordergeb\u00fchren (+ " + findAktuelleOrdergebuehr(findAktuellePeriode()) + " %):");
 
@@ -78,7 +78,7 @@ public class WertpapierKaufenController implements ControlledScreen {
     }
 
     private Periode findAktuellePeriode() throws NoSuchElementException {
-        return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+        return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
     }
 
@@ -145,7 +145,7 @@ public class WertpapierKaufenController implements ControlledScreen {
             if (orderGesamtKosten <= teilnehmerZahlungsmittelkontoSaldo) {
                 BuchungsFactory buchungsFactory = new BuchungsFactory();
                 Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
-                BuchungRepository.getInstanz().save(buchungsart.create(aktuellePeriode, AktuelleSpieldaten.getTeilnehmer(), selectedWertpapier, anzahlZuKaufen));
+                BuchungRepository.getInstanz().save(buchungsart.create(aktuellePeriode, AktuelleSpieldaten.getInstanz().getTeilnehmer(), selectedWertpapier, anzahlZuKaufen));
                 Alert alert;
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Wertpapierkauf");

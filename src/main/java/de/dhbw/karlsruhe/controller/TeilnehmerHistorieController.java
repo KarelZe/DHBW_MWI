@@ -2,8 +2,8 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.BuchungRepository;
-import de.dhbw.karlsruhe.model.jpa.Buchung;
 import de.dhbw.karlsruhe.model.HistorieViewModel;
+import de.dhbw.karlsruhe.model.jpa.Buchung;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,9 +38,9 @@ public class TeilnehmerHistorieController implements ControlledScreen{
     @FXML
     private void initialize() {
         // Wenn ein Spieler angemeldet ist,  setzt ihn als anzuzeigende TeilnehmerID
-        if(AktuelleSpieldaten.getTeilnehmer()!=null) {
-            if (AktuelleSpieldaten.getTeilnehmer().getRolle().getId() == 1) {
-                teilnehmerID = AktuelleSpieldaten.getTeilnehmer().getId();
+        if (AktuelleSpieldaten.getInstanz().getTeilnehmer() != null) {
+            if (AktuelleSpieldaten.getInstanz().getTeilnehmer().getRolle().getId() == 1) {
+                teilnehmerID = AktuelleSpieldaten.getInstanz().getTeilnehmer().getId();
             }//Sonst handelt es sich um den Spielleiter. Das Programm setzt vor dem Aufruf die teilnehmerID auf den gewählten Teilnehmer
         }
 

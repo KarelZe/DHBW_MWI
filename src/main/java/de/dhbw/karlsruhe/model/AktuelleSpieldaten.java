@@ -2,6 +2,12 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Diese Klasse stellt Methoden zur Abfrage des aktuellen Spiels und des eingeloggten Teilnehmers zur Verfügung.
@@ -10,23 +16,51 @@ import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
  *
  * @author Christian Fix
  */
-public class AktuelleSpieldaten {
-    private static Teilnehmer teilnehmer;
-    private static Spiel spiel;
+public class AktuelleSpieldaten implements Observable {
+    private static AktuelleSpieldaten instanz;
+    private Teilnehmer teilnehmer;
+    private Spiel spiel;
+    private List<InvalidationListener> alleListener = new ArrayList<>();
 
-    public static Teilnehmer getTeilnehmer() {
+    private AktuelleSpieldaten() {
+    }
+
+    public static AktuelleSpieldaten getInstanz() {
+        if (instanz == null)
+            instanz = new AktuelleSpieldaten();
+        return instanz;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        alleListener.add(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        alleListener.remove(listener);
+    }
+
+    public Teilnehmer getTeilnehmer() {
         return teilnehmer;
     }
 
-    public static void setTeilnehmer(Teilnehmer teilnehmer) {
-        AktuelleSpieldaten.teilnehmer = teilnehmer;
+    public void setTeilnehmer(Teilnehmer teilnehmer) {
+        this.teilnehmer = teilnehmer;
+        notifyListeners();
     }
 
-    public static Spiel getSpiel() {
+    public Spiel getSpiel() {
         return spiel;
     }
 
-    public static void setSpiel(Spiel spiel) {
-        AktuelleSpieldaten.spiel = spiel;
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
+    }
+
+    private void notifyListeners() {
+        for (InvalidationListener name : alleListener) {
+            name.invalidated(this);
+        }
     }
 }

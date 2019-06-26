@@ -1,8 +1,9 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
-import java.util.Set;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Unternehmen {
@@ -33,7 +34,7 @@ public class Unternehmen {
         this.farbe = "0xff0000ff";
         this.name = "";
         this.unternehmenArt = UNTERNEHMEN_TEILNEHMER;
-        this.spiel = AktuelleSpieldaten.getSpiel();
+        this.spiel = AktuelleSpieldaten.getInstanz().getSpiel();
     }
 
 

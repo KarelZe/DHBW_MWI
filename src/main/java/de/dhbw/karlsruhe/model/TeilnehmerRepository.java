@@ -53,7 +53,7 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
             Query query = session.createQuery(queryString);
             query.setParameter("benutzername", benutzername);
             query.setParameter("passwort", passwort);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             teilnehmer = (Teilnehmer) query.uniqueResult();
 
@@ -169,7 +169,7 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
             Query query = session.createQuery(queryString);
             query.setParameter("benutzername", benutzername);
             query.setParameter("passwort", passwort);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             Teilnehmer teilnehmer = (Teilnehmer) query.uniqueResult();
             if (teilnehmer != null)
@@ -189,7 +189,7 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
             String queryString = "from Teilnehmer WHERE benutzername =:benutzername AND spiel =: spiel";
             Query query = session.createQuery(queryString);
             query.setParameter("benutzername", benutzername);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             Teilnehmer teilnehmer = (Teilnehmer) query.uniqueResult();
             if (teilnehmer != null)
@@ -216,7 +216,7 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
             String queryString = "from Teilnehmer where rolle_id = :rolle_id AND spiel =: spiel";
             Query query = session.createQuery(queryString);
             query.setParameter("rolle_id", Rolle.ROLLE_TEILNEHMER);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             for (final Object o : query.list()) {
                 alleTeilnehmer.add((Teilnehmer) o);

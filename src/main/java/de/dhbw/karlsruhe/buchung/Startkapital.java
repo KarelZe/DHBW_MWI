@@ -23,8 +23,8 @@ public class Startkapital implements Buchungsart {
         startkapital.setTeilnehmer(teilnehmer);
         startkapital.setVeraenderungDepot(0);
         startkapital.setVeraenderungFestgeld(0);
-        startkapital.setVeraenderungZahlungsmittelkonto(AktuelleSpieldaten.getSpiel().getStartkapital());
-        startkapital.setVolumen(AktuelleSpieldaten.getSpiel().getStartkapital());
+        startkapital.setVeraenderungZahlungsmittelkonto(AktuelleSpieldaten.getInstanz().getSpiel().getStartkapital());
+        startkapital.setVolumen(AktuelleSpieldaten.getInstanz().getSpiel().getStartkapital());
         startkapital.setWertpapier(wertpapier);
 
         return startkapital;
