@@ -17,6 +17,12 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Diese Klasse implementiert den Controller für die Anlage von Wertpapieren.
+ *
+ * @author Markus Bilz
+ */
+
 public class WertpapierAnlegenController implements ControlledScreen {
 
     @FXML
@@ -33,6 +39,11 @@ public class WertpapierAnlegenController implements ControlledScreen {
     private WertpapierRepository model;
     private ScreenController screenController;
 
+    /**
+     * Methode zur Speicherung der (geänderten) Wertpapiere der ListView.
+     *
+     * @param event Event des aufrufenden Buttons
+     */
     @FXML
     void doSpeichern(ActionEvent event) {
 
@@ -56,6 +67,10 @@ public class WertpapierAnlegenController implements ControlledScreen {
         anleiheInitial = anleiheNachAenderung;
     }
 
+    /**
+     * Wechsel von der aktuellen Scene zur Scene zur Anlage von Wertpapieren.
+     * @param event Event des aufrufenden Buttons
+     */
     @FXML
     void doPeriodeAnlegen(ActionEvent event) {
         doSpeichern(event);
@@ -64,12 +79,11 @@ public class WertpapierAnlegenController implements ControlledScreen {
     }
 
     /**
-     * Funktion initalisiert die ListView mit Wertpapieren, sofern vorhanden.
+     * Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen für die
+     * spätere Verwendung. Sie erzeugt dynamisch alle Einträge ein
      */
     @FXML
     private void initialize() {
-
-
         // Frage alle Wertpapiere in DB ab und filtere nach Typ
         model = WertpapierRepository.getInstanz();
         ArrayList<Wertpapier> wertpapiere = new ArrayList<>(model.findAll());
@@ -87,12 +101,19 @@ public class WertpapierAnlegenController implements ControlledScreen {
         lstVwAnleihe.setCellFactory(new AnleiheCellFactory());
     }
 
-
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
     }
 
+    /**
+     * Methode zum Hinzfügen einer neuen Anleiheposition in die ListView.
+     * Das ListView, dem die Anleihe hinzugefügt wird, wird dann automatisch aktualisiert.
+     */
     public void doHinzufuegenAnleihe() {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_ANLEIHE, WertpapierArt.WERTPAPIER_ANLEIHE_NAME);
         Wertpapier wp = new Wertpapier();
@@ -101,6 +122,10 @@ public class WertpapierAnlegenController implements ControlledScreen {
         anleiheObserverableList.add(wp);
     }
 
+    /**
+     * Methode zum Hinzufügen einer neuen Aktienposition in die ListView.
+     * Das ListView, dem die Aktie hinzugefügt wird, wird dann automatisch aktualisiert.
+     */
     public void doHinzufuegenAktie() {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_AKTIE, WertpapierArt.WERTPAPIER_AKTIE_NAME);
         Wertpapier wp = new Wertpapier();

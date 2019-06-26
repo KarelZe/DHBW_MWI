@@ -13,6 +13,12 @@ import javafx.scene.control.ListView;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Diese Klasse implementiert den Controller für die Anlage von Unternehmen.
+ *
+ * @author Markus Bilz
+ */
+
 public class UnternehmenAnlegenController implements ControlledScreen {
 
     @FXML
@@ -24,6 +30,11 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     private UnternehmenRepository model;
     private ScreenController screenController;
 
+    /**
+     * Methode zur Speicherung der (geänderten) Unternehmen der ListView.
+     *
+     * @param event Event des aufrufenden Buttons
+     */
     @FXML
     void doSpeichern(ActionEvent event) {
 
@@ -40,6 +51,11 @@ public class UnternehmenAnlegenController implements ControlledScreen {
         Unternehmen erneut zu löschen.*/
         unternehmenInitial = unternehmenNachAenderung;
     }
+
+    /**
+     * Methode zum Wechsel der aktuellen Scene zur Scene um Wertpapiere anzulegen.
+     * @param event Event des aufrufenden Buttons
+     */
     @FXML
     void doWertpapierAnlegen(ActionEvent event) {
         doSpeichern(event);
@@ -48,7 +64,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
     }
 
     /**
-     * Funktion initalisiert die ListView mit Unternehmen, sofern vorhanden.
+     * Methode zur Initialisierung der ListView mit Unternehmen, sofern vorhanden.
      */
     @FXML
     private void initialize() {
@@ -59,16 +75,17 @@ public class UnternehmenAnlegenController implements ControlledScreen {
         lstVwUnternehmen.setCellFactory(new UnternehmenCellFactory());
     }
 
-
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
     }
 
     /**
-     * Methode fügt der ObsverableList, welche die Unternehmensobjekte für die ListView enthält, weitere Unternehmen
-     * hinzu.
-     *
+     * Methode zur Anlage neuer Unternehmen.
      */
     public void doHinzufuegen() {
         unternehmenObserverableList.add(new Unternehmen());
