@@ -8,10 +8,13 @@ import javafx.application.Application;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -59,6 +62,8 @@ public class ScreensFramework extends Application implements InvalidationListene
     public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
 
     private Menu mTeilnehmer, mAdministration, mAuswertung, mSpiel;
+    private Button btnLogout;
+    private ScreenController screenController = new ScreenController();
 
     /**
      * Diese Methode wird beim Start der Anwendung aufgerufen.
@@ -87,7 +92,6 @@ public class ScreensFramework extends Application implements InvalidationListene
         System.out.println(aktuelleSpieldaten);
 
         // Füge Screens zum ScreensController hinzu
-        ScreenController screenController = new ScreenController();
         screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
 
@@ -136,17 +140,29 @@ public class ScreensFramework extends Application implements InvalidationListene
         //Menü zur Menübar hinzufügen
         mbHaupt.getMenus().addAll(mTeilnehmer, mAdministration, mAuswertung, mSpiel);
 
+        // Erzeuge Button für Log-Out.
+        btnLogout = new Button("Ausloggen");
+        btnLogout.setOnAction(event -> doLogout());
+
         // Konfiguriere Menü anhand des aktuellen Spiels
         konfiguriereMenu();
 
-        VBox root = new VBox(mbHaupt);
+        HBox menuWrapper = new HBox(mbHaupt, btnLogout);
+        HBox.setHgrow(mbHaupt, Priority.ALWAYS);
+        HBox.setHgrow(btnLogout, Priority.NEVER);
+
+        // Konfiguriere Scene-Aufbau
+        VBox root = new VBox(menuWrapper);
         root.getChildren().addAll(screenController);
 
         Scene scene = new Scene(root);
 
         //Event hinzufügen
-        mIteilnehmerLogin.setOnAction(event ->
-                screenController.setScreen(ScreensFramework.SCREEN_LOGIN));
+        mIteilnehmerLogin.setOnAction(event -> {
+                    screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
+                    screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
+                }
+        );
         mIteilnehmerRegistrieren.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
@@ -226,6 +242,7 @@ public class ScreensFramework extends Application implements InvalidationListene
         mAuswertung.setDisable(true);
         mTeilnehmer.setDisable(true);
         mSpiel.setDisable(true);
+        btnLogout.setDisable(true);
 
         if (teilnehmer == null) {
             // später entfernen
@@ -236,9 +253,20 @@ public class ScreensFramework extends Application implements InvalidationListene
             mAuswertung.setDisable(false);
             mSpiel.setDisable(false);
             mTeilnehmer.setDisable(false);
+            btnLogout.setDisable(false);
         } else {
             mTeilnehmer.setDisable(false);
+            btnLogout.setDisable(false);
         }
+    }
+
+    /**
+     * Methode zum Durchführen eines Log-Outs.
+     */
+    private void doLogout() {
+        AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+        screenController.loadScreen(SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
+        screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
 
 }

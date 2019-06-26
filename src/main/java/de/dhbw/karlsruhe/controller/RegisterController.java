@@ -4,7 +4,6 @@ import de.dhbw.karlsruhe.buchung.BuchungsFactory;
 import de.dhbw.karlsruhe.buchung.Buchungsart;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.helper.LogoutHelper;
 import de.dhbw.karlsruhe.model.*;
 import de.dhbw.karlsruhe.model.jpa.*;
 import javafx.beans.binding.Bindings;
@@ -131,8 +130,8 @@ public class RegisterController implements ControlledScreen {
         alert.showAndWait();
 
         //Registrierung abschließen und zu Login wechseln
-        LogoutHelper.logout(controller);
-
+        AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+        controller.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
 
     @FXML

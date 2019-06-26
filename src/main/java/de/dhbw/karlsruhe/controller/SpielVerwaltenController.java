@@ -1,7 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.ConverterHelper;
-import de.dhbw.karlsruhe.helper.LogoutHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.SpielRepository;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
@@ -50,7 +49,8 @@ public class SpielVerwaltenController implements ControlledScreen {
             spielRepository.save(altesSpiel);
             spielRepository.save(neuesSpiel);
             AktuelleSpieldaten.getInstanz().setSpiel(neuesSpiel);
-            LogoutHelper.logout(screenController);
+            AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+            screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
         }
     }
 
