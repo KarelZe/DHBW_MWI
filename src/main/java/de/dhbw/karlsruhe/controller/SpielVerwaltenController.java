@@ -64,6 +64,13 @@ public class SpielVerwaltenController implements ControlledScreen {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK){
+            if(zuLoeschendesSpiel.getIst_aktiv() == Spiel.SPIEL_AKTIV) { //zu löschendes Spiel ist aktiv
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Spiel l\u00F6schen nicht m\u00F6glich");
+                alert.setContentText("Es kann kein aktives Spiel gel\u00F6scht werden.");
+                alert.showAndWait();
+                return;
+            }
             SpielRepository.deleteSpiel(zuLoeschendesSpiel);
 
             List<Spiel> alleSpiele = spielRepository.findAll();
@@ -74,6 +81,9 @@ public class SpielVerwaltenController implements ControlledScreen {
             alert.setTitle("Spiel l\u00F6schen erfolgreich");
             alert.setContentText("Das Spiel mit der ID " + zuLoeschendesSpiel.getId() + " wurde gel\u00F6scht.");
             alert.showAndWait();
+
+            screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN, ScreensFramework.SCREEN_SPIEL_VERWALTEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
         }
 
     }
