@@ -81,7 +81,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
             tx = session.beginTransaction();
             String queryString = "from Wertpapier where spiel =: spiel";
             Query query = session.createQuery(queryString);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
             for (final Object o : query.list()) {

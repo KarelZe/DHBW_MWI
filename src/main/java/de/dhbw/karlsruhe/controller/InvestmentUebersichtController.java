@@ -36,8 +36,8 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
     @FXML
     public void initialize(){
-        cbPeriodenAuswahl.setItems(FXCollections.observableArrayList(new ArrayList<Periode>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()))));
-        cbPeriodenAuswahl.setValue(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new)); //setze aktuelle Periode
+        cbPeriodenAuswahl.setItems(FXCollections.observableArrayList(new ArrayList<Periode>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()))));
+        cbPeriodenAuswahl.setValue(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new)); //setze aktuelle Periode
         cbPeriodenAuswahl.setConverter(new ConverterHelper().getPeriodenConverter());
 
 

@@ -34,20 +34,20 @@ public class SpielVerwaltenController implements ControlledScreen {
         List<Spiel> alleSpiele = SpielRepository.getAlleSpiele();
         ObservableList<Spiel> spieleListe = FXCollections.observableArrayList(alleSpiele);
         cmbSpiele.setItems(spieleListe);
-        cmbSpiele.getSelectionModel().select(AktuelleSpieldaten.getSpiel());
+        cmbSpiele.getSelectionModel().select(AktuelleSpieldaten.getInstanz().getSpiel());
         cmbSpiele.setConverter(new ConverterHelper().getSpieleConverter());
     }
 
     @FXML
     private void doSelektiertesSpielSpeichern(ActionEvent event) {
-        Spiel altesSpiel = AktuelleSpieldaten.getSpiel();
+        Spiel altesSpiel = AktuelleSpieldaten.getInstanz().getSpiel();
         Spiel neuesSpiel = cmbSpiele.getSelectionModel().getSelectedItem();
         if (altesSpiel.getId() != neuesSpiel.getId()) { //Selektierung hat sich verändert
             altesSpiel.setIst_aktiv(Spiel.SPIEL_INAKTIV);
             neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
             SpielRepository.persistSpiel(altesSpiel);
             SpielRepository.persistSpiel(neuesSpiel);
-            AktuelleSpieldaten.setSpiel(neuesSpiel);
+            AktuelleSpieldaten.getInstanz().setSpiel(neuesSpiel);
             LogoutHelper.logout(screenController);
         }
     }

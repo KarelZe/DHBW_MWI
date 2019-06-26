@@ -69,12 +69,12 @@ public class WertpapierVerkaufenController implements ControlledScreen {
 
     @FXML
     private void initialize() {
-        ArrayList<Portfolioposition> portfoliopositionen = PortfolioFassade.getInstanz().getPortfoliopositionen(AktuelleSpieldaten.getTeilnehmer().getId(), findAktuellePeriode().getId()).stream()
+        ArrayList<Portfolioposition> portfoliopositionen = PortfolioFassade.getInstanz().getPortfoliopositionen(AktuelleSpieldaten.getInstanz().getTeilnehmer().getId(), findAktuellePeriode().getId()).stream()
                 .filter(p -> p.getWertpapier().getWertpapierArt().getId() != WertpapierArt.WERTPAPIER_STARTKAPITAL).collect(Collectors.toCollection(ArrayList::new));
         ObservableList<Portfolioposition> portfoliopositionenComboBox = FXCollections.observableArrayList(portfoliopositionen);
         cbPortfoliopositionAuswahl.setItems(portfoliopositionenComboBox);
         cbPortfoliopositionAuswahl.setConverter(new ConverterHelper().getPortfoliopositionConverter());
-        teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getTeilnehmer().getId());
+        teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getTeilnehmer().getId());
         lbZahlungsmittelSaldo.setText(String.format("%.2f", teilnehmerZahlungsmittelkontoSaldo));
         lblOrderGebuehren.setText("Ordergeb\u00fchren (- " + findAktuelleOrdergebuehr(findAktuellePeriode()) + " %):");
 
@@ -82,7 +82,7 @@ public class WertpapierVerkaufenController implements ControlledScreen {
     }
 
     private Periode findAktuellePeriode() throws NoSuchElementException {
-        return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
+        return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
     }
 
@@ -137,11 +137,11 @@ public class WertpapierVerkaufenController implements ControlledScreen {
             return;
         }
         try {
-            anzahlVorhandeneWertpapierPositionen = PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getTeilnehmer().getId(), findAktuellePeriode().getId(), selectedWertpapier.getId());
+            anzahlVorhandeneWertpapierPositionen = PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getTeilnehmer().getId(), findAktuellePeriode().getId(), selectedWertpapier.getId());
             if (anzahlVorhandeneWertpapierPositionen >= anzahlZuVerkaufen) {
                 BuchungsFactory buchungsFactory = new BuchungsFactory();
                 Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_VERKAUFEN);
-                BuchungRepository.getInstanz().save(buchungsart.create(aktuellePeriode, AktuelleSpieldaten.getTeilnehmer(), selectedWertpapier, anzahlZuVerkaufen));
+                BuchungRepository.getInstanz().save(buchungsart.create(aktuellePeriode, AktuelleSpieldaten.getInstanz().getTeilnehmer(), selectedWertpapier, anzahlZuVerkaufen));
                 Alert alert;
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Wertpapierkauf");

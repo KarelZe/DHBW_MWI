@@ -128,7 +128,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
             String queryString = "from Unternehmen where unternehmenArt =: unternehmenArt AND spiel =: spiel";
             Query query = session.createQuery(queryString);
             query.setParameter("unternehmenArt", unternehmenArt);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
             for (final Object o : query.list()) {
@@ -150,7 +150,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
             tx = session.beginTransaction();
             String queryString = "from Unternehmen WHERE spiel =: spiel";
             Query query = session.createQuery(queryString);
-            query.setParameter("spiel", AktuelleSpieldaten.getSpiel());
+            query.setParameter("spiel", AktuelleSpieldaten.getInstanz().getSpiel());
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
             for (final Object o : query.list()) {

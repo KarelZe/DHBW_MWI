@@ -33,7 +33,7 @@ public class Wertpapier {
     private int emission_periode; //optional (Anleihen)
 
     public Wertpapier() {
-        spiel = AktuelleSpieldaten.getSpiel();
+        spiel = AktuelleSpieldaten.getInstanz().getSpiel();
     }
 
     public long getId() {

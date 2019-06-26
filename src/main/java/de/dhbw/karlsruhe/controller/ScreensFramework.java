@@ -2,7 +2,11 @@ package de.dhbw.karlsruhe.controller;
 
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.jpa.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -19,7 +23,7 @@ import javafx.stage.Stage;
  * @author Markus Bilz, Christian Fix, Jan Carlos Riecken, Raphael Winkler, Max Schwab, Ismail Nasir
  */
 
-public class ScreensFramework extends Application {
+public class ScreensFramework extends Application implements InvalidationListener {
 
     // Lege Namen und Pfade der einzelnen Scenes fest.
     public static final String SCREEN_LOGIN = "login";
@@ -54,8 +58,11 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_WERTPAPIER_KAUFEN_FILE = "scene_wertpapier_kaufen.fxml";
     public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
 
+    private Menu mTeilnehmer, mAdministration, mAuswertung, mSpiel;
+
     /**
      * Diese Methode wird beim Start der Anwendung aufgerufen.
+     *
      * @param args Kommandozeilenargumente
      */
     public static void main(String[] args) {
@@ -68,10 +75,16 @@ public class ScreensFramework extends Application {
      * Diese entspricht einem Screen zum Login, sofern ein Spiel vorhanden ist und andernfalls einem Screen für die
      * Anlage eines Spiels. Neben den Scenes werden darüber hinaus Eigenschaften wie Fenstergröße oder Icon festgelegt,
      * die über die gesamte Anwendung konsistent sind.
+     *
      * @param primaryStage Container, in dem alle visuellen Elemente angezeigt werden.
      */
     @Override
     public void start(Stage primaryStage) {
+
+
+        AktuelleSpieldaten aktuelleSpieldaten = AktuelleSpieldaten.getInstanz();
+        aktuelleSpieldaten.addListener(this);
+        System.out.println(aktuelleSpieldaten);
 
         // Füge Screens zum ScreensController hinzu
         ScreenController screenController = new ScreenController();
@@ -79,7 +92,7 @@ public class ScreensFramework extends Application {
         screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
 
         // Lege Screen fest, der als Erstes aufgerufen wird.
-        if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
+        if (AktuelleSpieldaten.getInstanz().getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
 
 
@@ -89,8 +102,8 @@ public class ScreensFramework extends Application {
 
         //MenüBar erstellen
         MenuBar mbHaupt = new MenuBar();
-        //Menü erstelleb
-        Menu mTeilnehmer = new Menu("Teilnehmer");
+        //Menü erstellen
+        mTeilnehmer = new Menu("Teilnehmer");
         //Menüpunkte erstellen
         MenuItem mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
         MenuItem mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
@@ -101,11 +114,11 @@ public class ScreensFramework extends Application {
         //Menüpunkt zum Menü hinzufügen
         mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
 
-        Menu mSpiel = new Menu("Spiel");
+        mSpiel = new Menu("Spiel");
         MenuItem mIspielInitialisieren = new MenuItem("Spiel initialisieren");
         mSpiel.getItems().addAll(mIspielInitialisieren);
 
-        Menu mAdministration = new Menu("Administration");
+        mAdministration = new Menu("Administration");
         MenuItem mIspielAnlegen = new MenuItem("Spiel anlegen");
         MenuItem mIspielVerwalten = new MenuItem("Spiel verwalten");
         MenuItem mIperiodeAnlegen = new MenuItem("Periode anlegen");
@@ -116,15 +129,19 @@ public class ScreensFramework extends Application {
 
         mAdministration.getItems().addAll(mIspielAnlegen, mIspielVerwalten, mIperiodeAnlegen, mIperiodePflegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIteilnehmerUebersicht);
 
-        Menu mAuswertung = new Menu("Auswertung");
+        mAuswertung = new Menu("Auswertung");
         MenuItem mIteilnehmerDrucken = new MenuItem("Bestenliste drucken");
         mAuswertung.getItems().addAll(mIteilnehmerDrucken);
 
         //Menü zur Menübar hinzufügen
         mbHaupt.getMenus().addAll(mTeilnehmer, mAdministration, mAuswertung, mSpiel);
 
+        // Konfiguriere Menü anhand des aktuellen Spiels
+        konfiguriereMenu();
+
         VBox root = new VBox(mbHaupt);
         root.getChildren().addAll(screenController);
+
         Scene scene = new Scene(root);
 
         //Event hinzufügen
@@ -192,9 +209,36 @@ public class ScreensFramework extends Application {
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.setMaximized(true);
         primaryStage.show();
-
-
     }
 
+
+    @Override
+    public void invalidated(Observable observable) {
+        System.out.println("Listener" + AktuelleSpieldaten.getInstanz().getTeilnehmer());
+        konfiguriereMenu();
+    }
+
+    private void konfiguriereMenu() {
+        Teilnehmer teilnehmer = AktuelleSpieldaten.getInstanz().getTeilnehmer();
+
+        // setze initialen Stand
+        mAdministration.setDisable(true);
+        mAuswertung.setDisable(true);
+        mTeilnehmer.setDisable(true);
+        mSpiel.setDisable(true);
+
+        if (teilnehmer == null) {
+            // später entfernen
+            mTeilnehmer.setDisable(false);
+            mSpiel.setDisable(false);
+        } else if (teilnehmer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+            mAdministration.setDisable(false);
+            mAuswertung.setDisable(false);
+            mSpiel.setDisable(false);
+            mTeilnehmer.setDisable(false);
+        } else {
+            mTeilnehmer.setDisable(false);
+        }
+    }
 
 }

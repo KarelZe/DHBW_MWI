@@ -42,7 +42,7 @@ public class PeriodenDetailController implements ControlledScreen {
     @FXML
     private void initialize() {
         PeriodenRepository periodenModel = PeriodenRepository.getInstanz();
-        perioden = new ArrayList<>(periodenModel.findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()));
+        perioden = new ArrayList<>(periodenModel.findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()));
         IntStream.rangeClosed(1, perioden.size()).forEach(p -> {
             Periode periode = perioden.get(p - 1);
             //Null wird ausgelassen, da es sich hier um eine Periode handelt, die mit Start des Siels erzeugt wird.
