@@ -65,7 +65,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
      */
     @FXML
     private void initialize() {
-        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
+        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getIndex()));
         clrFarbe.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setFarbe(ColorHelper.color2String(newValue)));
         txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
     }

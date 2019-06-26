@@ -75,15 +75,15 @@ public class AktienCell extends ListCell<Wertpapier> {
      */
     @FXML
     private void initialize() {
-        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
-        txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
 
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());
-
         cmbUnternehmen.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setUnternehmen(newValue));
+
+        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getIndex()));
+        txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
 
     }
 }

@@ -86,8 +86,8 @@ public class AnleiheCell extends ListCell<Wertpapier> {
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
         cmbUnternehmen.setItems(unternehmenComboBox);
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());
-
         cmbUnternehmen.valueProperty().addListener((observable, oldValue, newValue) -> getItem().setUnternehmen(newValue));
-        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));
+
+        btnLoeschen.setOnAction(event -> getListView().getItems().remove(getIndex()));
     }
 }
