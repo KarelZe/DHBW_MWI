@@ -8,10 +8,12 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.util.HashMap;
 
-// FIXME: @ Bilz sauber dokumentieren
-
 /**
- * Adaptiert von https://www.youtube.com/watch?v=5GsdaZWDcdY
+ * Diese Klasse ist Teil eines Frameworks zum Laden und Entladen von Screens.
+ * Das Framework folgt dabei der Idee, dass Screens wiederverwendet werden können und
+ * damit eine Neuerzeugung bei Wechsel eines Screens entfällt. Die Implementierung ist adaptiert von:
+ * @see <a href="http://youtube.com">https://www.youtube.com/watch?v=5GsdaZWDcdY</a>
+ * @author Markus Bilz, Christian Fix
  */
 
 public class ScreenController extends StackPane {
@@ -33,7 +35,7 @@ public class ScreenController extends StackPane {
     }
 
     /**
-     * Lädt einen Screen
+     * Methode zum Laden eines Screens.
      * @param name Fachlicher Name
      * @param resource Technischer Name der FXML-Datei
      */
@@ -43,12 +45,12 @@ public class ScreenController extends StackPane {
             Parent loadScreen = loader.load();
             ControlledScreen controlledScreen = loader.getController();
 
-            switch (name){ //Check ob es sich um die Detail oder Historie Szene handelt. Wenn ja dann wir der Controller in der public static Variable instanziierrt
+            switch (name) { //Check, ob es sich um die Detail oder Historie Szene handelt. Wenn ja, dann wir der Controller in der public static Variable instanziert
                 case "perioden_detail":
-                    myPeriodeControllerHandle = (PeriodenDetailController)loader.getController();
+                    myPeriodeControllerHandle = loader.getController();
                     break;
                 case "teilnehmer_drucken":
-                    myPrintControllerHandle = (PrintController)loader.getController();
+                    myPrintControllerHandle = loader.getController();
                     break;
             }
 
@@ -60,7 +62,7 @@ public class ScreenController extends StackPane {
     }
 
     /**
-     * Setzt den angegebenen Screen auf die Stage.
+     * Methode zum Setzen des ausgewählten Screens auf die Stage.
      * @param name Fachlicher Name
      */
     public void setScreen(final String name) {
@@ -77,7 +79,7 @@ public class ScreenController extends StackPane {
     }
 
     /**
-     * Entlädt einen Screen
+     * Methode zum Entladen eines Screens.
      * @param name Fachlicher Name
      */
     void unloadScreen(String name) {

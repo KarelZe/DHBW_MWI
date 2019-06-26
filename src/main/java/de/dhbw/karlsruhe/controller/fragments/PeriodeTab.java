@@ -20,6 +20,11 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Diese Klasse erzeugt einen Tab mit Perioden.
+ *
+ * @author Markus Bilz
+ */
 public class PeriodeTab extends Tab {
 
     @FXML
@@ -40,7 +45,13 @@ public class PeriodeTab extends Tab {
     private KursRepository model;
     private Periode periode;
 
-
+    /**
+     * Konstruktor für die Erzeugung eines {@code PeriodeTab}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     *
+     * @param text    Reitername des Tabs
+     * @param periode Periode zur Anzeige im Tab
+     */
     public PeriodeTab(String text, Periode periode) {
         super();
         this.periode = periode;
@@ -55,6 +66,10 @@ public class PeriodeTab extends Tab {
         setText(text);
     }
 
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen des Tabs
+     * für die spätere Verwendung. Sie erzeugt für alle Wertpapiere einer Periode dynamisch Einträge zur Pflege.
+     */
     @FXML
     private void initialize() {
         setContent(vboxPeriode);
@@ -78,21 +93,24 @@ public class PeriodeTab extends Tab {
         lstVwAnleihe.setCellFactory(new AnleihePeriodeCellFactory());
     }
 
+    /**
+     * Diese Methode implementiert eine Speicherfunktionalität für die Kurse der Periode.
+     */
     private void doSpeichern() {
-        // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
         model.save(aktieNachAenderung);
         ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
         model.save(anleiheNachAenderung);
     }
 
+    /**
+     * Diese Methode erlaubt die Verbuchung und die Bewertung der Periode.
+     */
     private void doAbschliessen() {
 
         Periodenabschluss periodenabschluss = new Periodenabschluss();
         periodenabschluss.periodeAbschliessen(periode);
 
         ScreenController.myPeriodeControllerHandle.changePage();
-
-        // TODO: Führe Buchungen durch.
     }
 }
