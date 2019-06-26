@@ -11,7 +11,14 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-// FIXME: @ Bilz Sauber dokumentieren
+/**
+ * Diese Klasse stellt den Einstiegspunkt für die Anwendung dar. Sie verwaltet hierfür die Referenzen auf
+ * alle Scenees der Anwendung. Sie implementiert den {@code ScreenController} für den Wechsel und
+ * den Aufruf von Scenes.
+ *
+ * @author Markus Bilz, Christian Fix, Jan Carlos Riecken, Raphael Winkler, Max Schwab, Ismail Nasir
+ */
+
 public class ScreensFramework extends Application {
 
     // Lege Namen und Pfade der einzelnen Scenes fest.
@@ -47,28 +54,30 @@ public class ScreensFramework extends Application {
     public static final String SCREEN_WERTPAPIER_KAUFEN_FILE = "scene_wertpapier_kaufen.fxml";
     public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
 
+    /**
+     * Diese Methode wird beim Start der Anwendung aufgerufen.
+     * @param args Kommandozeilenargumente
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Diese Methode wird beim Start der Anwendung aufgerufen. Sie ist Teil des Lifecycles von JavaFX.
+     * Sie erzeugt das Menü einschließlich der Menüeinträge. Darüber hinaus wird eine initiale Scene geladen.
+     * Diese entspricht einem Screen zum Login, sofern ein Spiel vorhanden ist und andernfalls einem Screen für die
+     * Anlage eines Spiels. Neben den Scenes werden darüber hinaus Eigenschaften wie Fenstergröße oder Icon festgelegt,
+     * die über die gesamte Anwendung konsistent sind.
+     * @param primaryStage Container, in dem alle visuellen Elemente angezeigt werden.
+     */
     @Override
     public void start(Stage primaryStage) {
+
         // Füge Screens zum ScreensController hinzu
         ScreenController screenController = new ScreenController();
         screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN, ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN_FILE);
-        //screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
         screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN, ScreensFramework.SCREEN_SPIEL_VERWALTEN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN, ScreensFramework.SCREEN_TEILNEHMER_DRUCKEN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
-        screenController.loadScreen(ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT, ScreensFramework.SCREEN_INVESTMENT_UEBERSICHT_FILE);
-        //screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
-        //screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_KAUFEN, ScreensFramework.SCREEN_WERTPAPIER_KAUFEN_FILE);
+
         // Lege Screen fest, der als Erstes aufgerufen wird.
         if (AktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
@@ -88,6 +97,7 @@ public class ScreensFramework extends Application {
         MenuItem mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
         MenuItem mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
         MenuItem mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
+
         //Menüpunkt zum Menü hinzufügen
         mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
 
@@ -173,10 +183,10 @@ public class ScreensFramework extends Application {
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
         });
 
-
-        //css laden
+        // CSS laden
         scene.getStylesheets().add(getClass().getClassLoader().getResource("styles.css").toExternalForm());
 
+        // Setze Text in Fenster Bar und Logo
         primaryStage.setScene(scene);
         primaryStage.setTitle("Anika");
         primaryStage.getIcons().add(new Image("logo.png"));
