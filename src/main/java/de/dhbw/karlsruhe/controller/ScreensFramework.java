@@ -3,10 +3,12 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -62,6 +64,7 @@ public class ScreensFramework extends Application implements InvalidationListene
     public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
 
     private Menu mTeilnehmer, mAdministration, mAuswertung, mSpiel;
+    private MenuItem mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen, mIteilnehmerRegistrieren, mIteilnehmerLogin;
     private Button btnLogout;
     private ScreenController screenController = new ScreenController();
 
@@ -109,11 +112,11 @@ public class ScreensFramework extends Application implements InvalidationListene
         //Menü erstellen
         mTeilnehmer = new Menu("Teilnehmer");
         //Menüpunkte erstellen
-        MenuItem mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
-        MenuItem mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
-        MenuItem mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
-        MenuItem mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
-        MenuItem mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
+        mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
+        mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
+        mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
+        mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
+        mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
 
         //Menüpunkt zum Menü hinzufügen
         mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
@@ -148,9 +151,10 @@ public class ScreensFramework extends Application implements InvalidationListene
         konfiguriereMenu();
 
         HBox menuWrapper = new HBox(mbHaupt, btnLogout);
+        menuWrapper.setSpacing(5);
+        menuWrapper.setPadding(new Insets(5, 5, 5, 5));
         HBox.setHgrow(mbHaupt, Priority.ALWAYS);
         HBox.setHgrow(btnLogout, Priority.NEVER);
-
         // Konfiguriere Scene-Aufbau
         VBox root = new VBox(menuWrapper);
         root.getChildren().addAll(screenController);
@@ -228,34 +232,52 @@ public class ScreensFramework extends Application implements InvalidationListene
     }
 
 
+    /**
+     * Methode passt Menü in Abhängigkeit der Rechte des angemeldeten Users und des aktuellen Siels an.
+     * Implementierung des Observer-Patterns (GOF).
+     *
+     * @param observable Observable zur Verarbeitung
+     */
     @Override
     public void invalidated(Observable observable) {
-        System.out.println("Listener" + AktuelleSpieldaten.getInstanz().getTeilnehmer());
         konfiguriereMenu();
     }
 
+    /**
+     * Methode zur Konfiguration des Menüs. Rollen-basiert werden Menüs aktiviert oder deaktiviert.
+     */
     private void konfiguriereMenu() {
         Teilnehmer teilnehmer = AktuelleSpieldaten.getInstanz().getTeilnehmer();
-
-        // setze initialen Stand
+        Spiel spiel = AktuelleSpieldaten.getInstanz().getSpiel();
+        // setze initialen Stand für Menüeinträge
         mAdministration.setDisable(true);
         mAuswertung.setDisable(true);
         mTeilnehmer.setDisable(true);
         mSpiel.setDisable(true);
         btnLogout.setDisable(true);
-
+        // setze initialen Stand für Menüeinträge
+        mIteilnehmerHistorie.setDisable(true);
+        mIwertpapierKaufen.setDisable(true);
+        mIwertpapierVerkaufen.setDisable(true);
+        // setze initialen Stand. Diese Einträge erfordern keine besonderen Berechtigungen.
+        mIteilnehmerLogin.setDisable(false);
+        mIteilnehmerRegistrieren.setDisable(false);
+        // aktiviere Rollen-basiert einzelne Menüs oder Menü-Einträge
         if (teilnehmer == null) {
-            // später entfernen
             mTeilnehmer.setDisable(false);
             mSpiel.setDisable(false);
         } else if (teilnehmer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
             mAdministration.setDisable(false);
             mAuswertung.setDisable(false);
             mSpiel.setDisable(false);
-            mTeilnehmer.setDisable(false);
             btnLogout.setDisable(false);
         } else {
             mTeilnehmer.setDisable(false);
+            mIteilnehmerHistorie.setDisable(false);
+            mIwertpapierKaufen.setDisable(false);
+            mIwertpapierVerkaufen.setDisable(false);
+            mIteilnehmerRegistrieren.setDisable(true);
+            mIteilnehmerLogin.setDisable(true);
             btnLogout.setDisable(false);
         }
     }
