@@ -35,10 +35,24 @@ public class PeriodeAnlegenController implements ControlledScreen {
 
     @FXML
     private void doPeriodeAnlegen(ActionEvent event) {
-        double ordergebuehr, kapitalzins;
+        double ordergebuehr, kapitalmarktzins;
         try {
             ordergebuehr = Double.parseDouble(txtOrder.getText()) / 100.00d;
-            kapitalzins = Double.parseDouble(txtZins.getText()) / 100.00d;
+            kapitalmarktzins = Double.parseDouble(txtZins.getText()) / 100.00d;
+            if(ordergebuehr < 0 || kapitalmarktzins < 0) { //Ordergebühr oder Kapitalmarkzins < 0
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periode anlegen");
+                alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen nicht negativ sein.");
+                alert.showAndWait();
+                return;
+            }
+            if(ordergebuehr > 0.5 || kapitalmarktzins > 0.5) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Periode anlegen");
+                alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen maximal 50 % betragen.");
+                alert.showAndWait();
+                return;
+            }
         }catch (NumberFormatException e){
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -47,7 +61,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
             alert.showAndWait();
             return;
         }
-        Periode periode = new Periode(AktuelleSpieldaten.getSpiel(),  ordergebuehr, kapitalzins);
+        Periode periode = new Periode(AktuelleSpieldaten.getSpiel(),  ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
         // TODO: Das hier legt für jedes Wertpapier (also auch die von anderen Spielen) einen neuen Kurs an

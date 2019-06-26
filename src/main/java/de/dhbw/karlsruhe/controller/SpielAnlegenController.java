@@ -35,36 +35,47 @@ public class SpielAnlegenController implements ControlledScreen {
     /**
      * Eventhandler für Spiel-Anlagen-Button
      * @param event
+     * @author Christian Fix
      */
     @FXML
     private void doSpielAnlegen(ActionEvent event) {
         //Das neu angelegte Spiel wird immer auf AKTIV gesetzt
         this.neuesSpiel = new Spiel();
         try {
-            this.neuesSpiel.setStartkapital(Double.valueOf(txtStartkapital.getText()));
-        } catch (NumberFormatException e) {
-            //TODO: Spiel wird trotzdem angelegt. Das muss verhindert werden, sonst haben wir ein Spiel ohne Startkapital
+            double startkapital = Double.valueOf(txtStartkapital.getText());
+            if(startkapital > 0.0) {
+                this.neuesSpiel.setStartkapital(startkapital);
+            }
+            else { //Startkapital <= 0.0
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Spiel anlegen");
+                alert.setContentText("Das Startkapital muss positiv sein.");
+                alert.showAndWait();
+                return;
+            }
+
+            this.neuesSpiel.setErstellungsdatum(new Date());
+            if (AktuelleSpieldaten.getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
+                this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
+            } else {
+                AktuelleSpieldaten.getSpiel().setIst_aktiv(Spiel.SPIEL_INAKTIV);
+                this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
+                SpielRepository.getInstanz().save(AktuelleSpieldaten.getSpiel());
+            }
+
+            initializeSpielInDB();
+
+            screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
+
+        } catch (NumberFormatException e) { //keine Zahl beim Startkapital eingegeben
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Spiel anlegen");
             alert.setContentText("Bitte geben Sie eine Zahl ein.");
             alert.showAndWait();
-            SpielRepository.deleteSpiel(this.neuesSpiel);
-            return;
-        }
-        this.neuesSpiel.setErstellungsdatum(new Date());
-        if (AktuelleSpieldaten.getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
-            this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
-        } else {
-            AktuelleSpieldaten.getSpiel().setIst_aktiv(Spiel.SPIEL_INAKTIV);
-            this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
-            SpielRepository.persistSpiel(AktuelleSpieldaten.getSpiel());
         }
 
-        initializeSpielInDB();
-
-        screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN);
 
     }
 
@@ -75,9 +86,10 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Initialisiert das Spiel in der Datenbank
+     * @author Christian Fix
      */
     private void initializeSpielInDB() {
-        SpielRepository.persistSpiel(this.neuesSpiel);
+        SpielRepository.getInstanz().save(this.neuesSpiel);
         AktuelleSpieldaten.setSpiel(this.neuesSpiel);
 
         insertRollenInDBIfNotExists();
@@ -92,6 +104,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     * @author Christian Fix
      */
     private void insertRollenInDBIfNotExists() {
         if(RolleRepository.findById(Rolle.ROLLE_TEILNEHMER) == null) { //Teilnehmerrolle existiert noch nicht in der Datenbank
@@ -110,6 +123,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Legt Wertpapiere in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     * @author Christian Fix
      */
     private void insertWertpapierArtenInDBIfNotExists() {
         Optional<WertpapierArt> optional;
@@ -161,6 +175,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Legt TransaktionsArten in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     * @author Christian Fix
      */
     private void insertTransaktionsArtenInDBIfNotExists() {
         Optional<TransaktionsArt> optional;
@@ -213,6 +228,7 @@ public class SpielAnlegenController implements ControlledScreen {
     //TODO: UnternehmensID von Teilnehmer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
     /**
      * Fügt einen Spielleiteraccount in der Datenbank ein
+     * @author Christian Fix
      */
     private void insertAdminInDB() {
         Teilnehmer spielleiter = new Teilnehmer();
@@ -227,6 +243,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Fügt die Unternehmen "GMAX" (für ETF) und "Bank" (für Festgeld) in der Datenbank ein
+     * @author Christian Fix
      */
     private void insertUnternehmenInDB() {
         //GMAX (für ETF auf alle Unternehmen)
@@ -248,6 +265,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Fügt die Wertpapiere "ETF", "Festgeld" und "Startkapital" in die Datenbank ein
+     * @author Christian Fix
      */
     private void insertWertpapiereInDB() {
         //ETF auf GMAX

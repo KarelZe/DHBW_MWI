@@ -29,9 +29,11 @@ public class SpielVerwaltenController implements ControlledScreen {
 
     private Spiel neuesSpiel;
 
+    private SpielRepository spielRepository = SpielRepository.getInstanz();
+
     @FXML
     private void initialize() {
-        List<Spiel> alleSpiele = SpielRepository.getAlleSpiele();
+        List<Spiel> alleSpiele = spielRepository.findAll();
         ObservableList<Spiel> spieleListe = FXCollections.observableArrayList(alleSpiele);
         cmbSpiele.setItems(spieleListe);
         cmbSpiele.getSelectionModel().select(AktuelleSpieldaten.getSpiel());
@@ -45,8 +47,8 @@ public class SpielVerwaltenController implements ControlledScreen {
         if (altesSpiel.getId() != neuesSpiel.getId()) { //Selektierung hat sich verändert
             altesSpiel.setIst_aktiv(Spiel.SPIEL_INAKTIV);
             neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
-            SpielRepository.persistSpiel(altesSpiel);
-            SpielRepository.persistSpiel(neuesSpiel);
+            spielRepository.save(altesSpiel);
+            spielRepository.save(neuesSpiel);
             AktuelleSpieldaten.setSpiel(neuesSpiel);
             LogoutHelper.logout(screenController);
         }
@@ -64,7 +66,7 @@ public class SpielVerwaltenController implements ControlledScreen {
         if (result.get() == ButtonType.OK){
             SpielRepository.deleteSpiel(zuLoeschendesSpiel);
 
-            List<Spiel> alleSpiele = SpielRepository.getAlleSpiele();
+            List<Spiel> alleSpiele = spielRepository.findAll();
             ObservableList<Spiel> spieleListe = FXCollections.observableArrayList(alleSpiele);
             cmbSpiele.setItems(spieleListe);
 

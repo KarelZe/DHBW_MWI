@@ -88,7 +88,7 @@ public class LoginController implements ControlledScreen {
      * Initialisiert das aktuelle Spiel
      */
     private void initializeAktuellesSpiel() {
-        Spiel aktuellesSpiel = SpielRepository.getAktivesSpiel();
+        Spiel aktuellesSpiel = SpielRepository.getInstanz().getAktivesSpiel();
         if (aktuellesSpiel != null) {
             AktuelleSpieldaten.setSpiel(aktuellesSpiel);
         } else {
