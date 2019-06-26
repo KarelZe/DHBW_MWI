@@ -13,6 +13,12 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Diese Klasse stellt eine Cell für Aktien zur Überladung eines ListViews zur Verfügung.
+ *
+ * @author Markus Bilz
+ */
+
 public class AktienCell extends ListCell<Wertpapier> {
 
     @FXML
@@ -22,12 +28,9 @@ public class AktienCell extends ListCell<Wertpapier> {
     @FXML
     private Button btnLoeschen;
 
-    // TODO: Error handling
-
     /**
-     * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
-     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
-     * https://stackoverflow.com/a/31988574.
+     * Konstruktor für die Erzeugung einer {@code AktienCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      */
     public AktienCell() {
         super();
@@ -41,6 +44,16 @@ public class AktienCell extends ListCell<Wertpapier> {
         }
     }
 
+    /**
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Wertpapier}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
+     * Wertpapierobjekt verändert oder anderweitig das UI aktualisiert werden muss.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     * Sofern das Wertpapierobjekt {@code null} ist, wird ausschließlich eine leere Zeile angezeigt.
+     *
+     * @param wertpapier Wertpapier, das in der Zeile angezeigt wird.
+     * @param empty      boolean, ob Zeile leer ist.
+     */
     @Override
     public void updateItem(Wertpapier wertpapier, boolean empty) {
         super.updateItem(wertpapier, empty);
@@ -56,6 +69,10 @@ public class AktienCell extends ListCell<Wertpapier> {
         }
     }
 
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     */
     @FXML
     private void initialize() {
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));

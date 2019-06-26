@@ -18,9 +18,8 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     private Button btnLoeschen;
 
     /**
-     * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
-     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
-     * https://stackoverflow.com/a/31988574.
+     * Konstruktor für die Erzeugung einer {@code UnternehmenCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      */
     public UnternehmenCell() {
         super();
@@ -36,11 +35,11 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     }
 
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des Unternehmens-Parameter.
-     * Sie durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
-     * Unternehmensobjekt verändert oder anderweitig das UI upgedatet werden muss.
-     * Sie soll nicht durch den Programmierer aufgerufen werden.
-     * Die Implmentierung wurde adaptiert von https://www.turais.de/how-to-custom-listview-cell-in-javafx/.
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Unternehmen}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
+     * Unternehmensobjekt verändert oder anderweitig das UI atkualisiert werden muss.
+     * Sie soll nicht durch den Programmierer aufgerufen werden und wird automatisch durch das System aufgerufen.
+     * Sofern das Unternehmensobjekt {@code null} ist, wird ausschließlich eine leere Zeile angezeigt.
      *
      * @param unternehmen Unternehmen, das in der Zeile angezeigt wird.
      * @param empty       boolean, ob Zeile leer ist.
@@ -60,6 +59,10 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
         }
     }
 
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     */
     @FXML
     private void initialize() {
         btnLoeschen.setOnAction(event -> getListView().getItems().remove(getItem()));

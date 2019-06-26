@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Implementierung der Klasse orientiert sich an // https://stackoverflow.com/questions/47511132/javafx-custom-listview
+ * Diese Klasse stellt eine Cell für Anleihen zur Überladung eines ListViews zur Verfügung.
+ *
+ * @author Markus Bilz
  */
 public class AnleiheCell extends ListCell<Wertpapier> {
 
@@ -28,12 +30,9 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     @FXML
     private Button btnLoeschen;
 
-    // TODO: Error handling?
-
     /**
-     * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
-     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
-     * https://stackoverflow.com/a/31988574.
+     * Konstruktor für die Erzeugung einer {@code AnleiheCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      */
     public AnleiheCell() {
         super();
@@ -48,6 +47,16 @@ public class AnleiheCell extends ListCell<Wertpapier> {
         }
     }
 
+    /**
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Wertpapier}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
+     * Wertpapierobjekt verändert oder anderweitig das UI aktualisiert werden muss.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     * Sofern das Wertpapierobjekt {@code null} ist, wird ausschließlich eine leere Zeile angezeigt.
+     *
+     * @param wertpapier Wertpapier, das in der Zeile angezeigt wird.
+     * @param empty      boolean, ob Zeile leer ist.
+     */
     @Override
     public void updateItem(Wertpapier wertpapier, boolean empty) {
         super.updateItem(wertpapier, empty);
@@ -64,6 +73,10 @@ public class AnleiheCell extends ListCell<Wertpapier> {
         }
     }
 
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     */
     @FXML
     private void initialize() {
         txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));

@@ -11,6 +11,11 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+/**
+ * Diese Klasse stellt eine Cell für Aktienkurse zur Überladung eines ListViews zur Verfügung.
+ *
+ * @author Markus Bilz
+ */
 public class AktienPeriodeCell extends ListCell<Kurs> {
 
     @FXML
@@ -20,9 +25,8 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
 
 
     /**
-     * Konstruktor für die Erzeugung einer Zeile. Die Initalisierung der Listener erfolgt aus Performanzgründen im
-     * Konstruktor. Siehe hierzu https://stackoverflow.com/a/36436734 und
-     * https://stackoverflow.com/a/31988574.
+     * Konstruktor für die Erzeugung einer {@code AktienPeriodenCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      */
     public AktienPeriodeCell() {
         super();
@@ -37,6 +41,16 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
         }
     }
 
+    /**
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Kurs}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
+     * Kursobjekt verändert oder anderweitig das UI aktualsiert werden muss.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     * Sofern das Kursobjekt {@code null} ist, wird ausschließlich eine leere Zeile angezeigt.
+     *
+     * @param kurs  Kurs, das in der Zeile angezeigt wird.
+     * @param empty boolean, ob Zeile leer ist.
+     */
     @Override
     public void updateItem(Kurs kurs, boolean empty) {
         super.updateItem(kurs, empty);
@@ -52,6 +66,10 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
         }
     }
 
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     */
     @FXML
     private void initialize() {
         txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKursValue(NumberHelper.parseDouble(newValue, 0))
