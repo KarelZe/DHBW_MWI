@@ -61,7 +61,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
             alert.showAndWait();
             return;
         }
-        Periode periode = new Periode(AktuelleSpieldaten.getSpiel(),  ordergebuehr, kapitalmarktzins);
+        Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(),  ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
         // TODO: Das hier legt für jedes Wertpapier (also auch die von anderen Spielen) einen neuen Kurs an

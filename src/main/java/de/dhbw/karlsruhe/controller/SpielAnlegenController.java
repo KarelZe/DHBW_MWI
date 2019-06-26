@@ -55,12 +55,12 @@ public class SpielAnlegenController implements ControlledScreen {
             }
 
             this.neuesSpiel.setErstellungsdatum(new Date());
-            if (AktuelleSpieldaten.getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
+            if (AktuelleSpieldaten.getInstanz().getSpiel() == null) { //kein Spiel gesetzt -> erstelltes Spiel auf aktiv setzen
                 this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
             } else {
-                AktuelleSpieldaten.getSpiel().setIst_aktiv(Spiel.SPIEL_INAKTIV);
+                AktuelleSpieldaten.getInstanz().getSpiel().setIst_aktiv(Spiel.SPIEL_INAKTIV);
                 this.neuesSpiel.setIst_aktiv(Spiel.SPIEL_AKTIV);
-                SpielRepository.getInstanz().save(AktuelleSpieldaten.getSpiel());
+                SpielRepository.getInstanz().save(AktuelleSpieldaten.getInstanz().getSpiel());
             }
 
             initializeSpielInDB();
@@ -90,7 +90,7 @@ public class SpielAnlegenController implements ControlledScreen {
      */
     private void initializeSpielInDB() {
         SpielRepository.getInstanz().save(this.neuesSpiel);
-        AktuelleSpieldaten.setSpiel(this.neuesSpiel);
+        AktuelleSpieldaten.getInstanz().setSpiel(this.neuesSpiel);
 
         insertRollenInDBIfNotExists();
         insertWertpapierArtenInDBIfNotExists();
@@ -251,7 +251,7 @@ public class SpielAnlegenController implements ControlledScreen {
         gmax.setFarbe(ColorHelper.color2String(Color.BLACK));
         gmax.setName("GMAX");
         gmax.setUnternehmenArt(Unternehmen.UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT);
-        gmax.setSpiel(AktuelleSpieldaten.getSpiel());
+        gmax.setSpiel(AktuelleSpieldaten.getInstanz().getSpiel());
         unternehmenRepository.save(gmax);
 
         //Bank (für Festgeld)
@@ -259,7 +259,7 @@ public class SpielAnlegenController implements ControlledScreen {
         bank.setFarbe(ColorHelper.color2String(Color.BLACK));
         bank.setName("Bank");
         bank.setUnternehmenArt(Unternehmen.UNTERNEHMEN_BANK);
-        bank.setSpiel(AktuelleSpieldaten.getSpiel());
+        bank.setSpiel(AktuelleSpieldaten.getInstanz().getSpiel());
         unternehmenRepository.save(bank);
     }
 
@@ -308,7 +308,7 @@ public class SpielAnlegenController implements ControlledScreen {
      * Fügt eine erste Periode in die Datenbank ein
      */
     private void insertFirstPeriodeInDB() {
-        Periode periode = new Periode(AktuelleSpieldaten.getSpiel(), 0, 0); //TODO: überlegen, ob die erste Periode konfigurierbar gemacht wird bei Spielanlegen.
+        Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(), 0, 0); //TODO: überlegen, ob die erste Periode konfigurierbar gemacht wird bei Spielanlegen.
         PeriodenRepository.getInstanz().save(periode);
 
         // TODO: Das hier legt für jedes Wertpapier (also auch die von anderen Spielen) einen neuen Kurs an
