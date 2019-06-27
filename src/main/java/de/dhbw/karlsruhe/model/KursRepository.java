@@ -42,11 +42,11 @@ public class KursRepository implements CrudRepository<Kurs> {
     public void save(List<Kurs> kurse) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
             for (Kurs k : kurse) {
+                tx = session.beginTransaction();
                 session.saveOrUpdate(k);
+                tx.commit();
             }
-            tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)

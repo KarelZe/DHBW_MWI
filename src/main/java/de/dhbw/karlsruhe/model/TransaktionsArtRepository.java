@@ -91,11 +91,11 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
     public void save(List<TransaktionsArt> transaktionsArten) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
             for (TransaktionsArt e : transaktionsArten) {
+                tx = session.beginTransaction();
                 session.saveOrUpdate(e);
+                tx.commit();
             }
-            tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)

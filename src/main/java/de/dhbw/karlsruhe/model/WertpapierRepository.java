@@ -101,11 +101,11 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     public void save(List<Wertpapier> wertpapiere) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
             for (Wertpapier w : wertpapiere) {
+                tx = session.beginTransaction();
                 session.saveOrUpdate(w);
+                tx.commit();
             }
-            tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)

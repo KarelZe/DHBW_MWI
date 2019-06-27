@@ -42,11 +42,11 @@ public class PeriodenRepository implements CrudRepository<Periode> {
     public void save(List<Periode> perioden) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
             for (Periode p : perioden) {
+                tx = session.beginTransaction();
                 session.saveOrUpdate(p);
+                tx.commit();
             }
-            tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)

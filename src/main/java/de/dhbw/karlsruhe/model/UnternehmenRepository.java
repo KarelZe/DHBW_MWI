@@ -52,11 +52,11 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
     public void save(List<Unternehmen> unternehmen) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
             for (Unternehmen u : unternehmen) {
+                tx = session.beginTransaction();
                 session.saveOrUpdate(u);
+                tx.commit();
             }
-            tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             if (tx != null)
