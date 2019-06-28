@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.model.jpa;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Periode {
@@ -11,6 +12,9 @@ public class Periode {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
+
+    @OneToMany(mappedBy = "periode", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Kurs> KursSet;
 
     @Column(name = "ordergebuehr_in_prozent")
     private double ordergebuehr;
