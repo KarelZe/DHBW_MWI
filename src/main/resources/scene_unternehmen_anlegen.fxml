@@ -39,7 +39,7 @@
     <GridPane prefWidth="590.0">
         <children>
             <Button id="btnWeiter" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-                    mnemonicParsing="false" onAction="#doWertpapierAnlegen" prefHeight="39.0" prefWidth="106.0"
+                    mnemonicParsing="false" onAction="#doSpeichern" prefHeight="39.0" prefWidth="106.0"
                     text="Weiter" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
                 <GridPane.margin>
                     <Insets/>

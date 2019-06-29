@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
@@ -40,6 +41,21 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
         // Aktualisiere alle Unternehmen und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Unternehmen> unternehmenNachAenderung = new ArrayList<>(unternehmenObserverableList);
+
+        // Überprüfe Eingaben auf Gültigkeit
+        boolean ungueltigerName = false;
+        for (Unternehmen u : unternehmenNachAenderung)
+            if (u.getName().isBlank()) ungueltigerName = true;
+
+        if (ungueltigerName) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setHeaderText(null);
+            alert.setContentText("Es fehlt ein Unternehmensname.");
+            alert.showAndWait();
+            return;
+        }
+
         model.save(unternehmenNachAenderung);
 
         /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
@@ -50,15 +66,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
         /* Setze unternehmenIntial zurück, andernfalls würde bei erneuter Speicherung versucht werden, das
         Unternehmen erneut zu löschen.*/
         unternehmenInitial = unternehmenNachAenderung;
-    }
 
-    /**
-     * Methode zum Wechsel der aktuellen Scene zur Scene um Wertpapiere anzulegen.
-     * @param event Event des aufrufenden Buttons
-     */
-    @FXML
-    void doWertpapierAnlegen(ActionEvent event) {
-        doSpeichern(event);
         screenController.loadScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN, ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_WERTPAPIER_ANLEGEN);
     }
