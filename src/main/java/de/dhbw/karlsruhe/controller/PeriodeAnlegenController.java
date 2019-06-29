@@ -43,28 +43,33 @@ public class PeriodeAnlegenController implements ControlledScreen {
         try {
             ordergebuehr = Double.parseDouble(txtOrdergebuehr.getText()) / 100.00d;
             kapitalmarktzins = Double.parseDouble(txtKapitalmarktzins.getText()) / 100.00d;
-            if(ordergebuehr < 0 || kapitalmarktzins < 0) { //Ordergebühr oder Kapitalmarkzins < 0
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Periode anlegen");
-                alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen nicht negativ sein.");
-                alert.showAndWait();
-                return;
-            }
-            if(ordergebuehr > 0.5 || kapitalmarktzins > 0.5) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Periode anlegen");
-                alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen maximal 50 % betragen.");
-                alert.showAndWait();
-                return;
-            }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Periode anlegen");
+            alert.setHeaderText(null);
             alert.setContentText("Bitte geben Sie Zahlen ein.");
             alert.showAndWait();
             return;
         }
+
+        if (ordergebuehr < 0 || kapitalmarktzins < 0) { //Ordergebühr oder Kapitalmarkzins < 0
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setHeaderText(null);
+            alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen nicht negativ sein.");
+            alert.showAndWait();
+            return;
+        }
+        if (ordergebuehr > 0.5 || kapitalmarktzins > 0.5) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setHeaderText(null);
+            alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen maximal 50 % betragen.");
+            alert.showAndWait();
+            return;
+        }
+
         Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(),  ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
