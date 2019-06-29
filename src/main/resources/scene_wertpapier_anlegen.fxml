@@ -49,7 +49,7 @@
     <GridPane>
         <children>
             <Button id="btnSpeichern" fx:id="btnWeiter" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-                    mnemonicParsing="false" onAction="#doPeriodeAnlegen" prefHeight="43.0" prefWidth="131.0"
+                    mnemonicParsing="false" onAction="#doSpeichern" prefHeight="43.0" prefWidth="131.0"
                     text="Weiter" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         </children>
         <columnConstraints>

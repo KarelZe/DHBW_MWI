@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PeriodeAnlegenController implements ControlledScreen {
-
-    public Button btnAnlegen;
+    @FXML
+    private Button btnAnlegen;
     private ScreenController screenController;
 
     private PeriodenRepository periodenRepository = PeriodenRepository.getInstanz();
@@ -70,6 +70,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
             return;
         }
 
+
         Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(),  ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
@@ -86,6 +87,8 @@ public class PeriodeAnlegenController implements ControlledScreen {
         BooleanBinding booleanBind = Bindings.or(txtKapitalmarktzins.textProperty().isEmpty(),
                 txtOrdergebuehr.textProperty().isEmpty());
         btnAnlegen.disableProperty().bind(booleanBind);
+
     }
+
 
 }

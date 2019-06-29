@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -47,10 +48,32 @@ public class WertpapierAnlegenController implements ControlledScreen {
     @FXML
     void doSpeichern(ActionEvent event) {
 
-        // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
         ArrayList<Wertpapier> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
-        model.save(aktieNachAenderung);
         ArrayList<Wertpapier> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
+
+        // Überprüfe Eingaben auf Gültigkeit
+        boolean ungueltigesUnternehmen = false;
+        boolean ungueltigerName = false;
+        ArrayList<Wertpapier> wertpapiereAlle = new ArrayList<>(aktieNachAenderung);
+        wertpapiereAlle.addAll(anleiheNachAenderung);
+
+        for (Wertpapier w : wertpapiereAlle) {
+            if (w.getName().isBlank()) ungueltigerName = true;
+            if (w.getUnternehmen() == null) ungueltigesUnternehmen = true;
+        }
+
+        if (ungueltigerName || ungueltigesUnternehmen) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setHeaderText(null);
+            alert.setContentText("Es fehlen Eingaben");
+            alert.showAndWait();
+            return;
+        }
+
+
+        // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
+        model.save(aktieNachAenderung);
         model.save(anleiheNachAenderung);
 
         /* Lösche nicht benötigte Wertpapiere aus Datenbank. Durchlaufe hierfür wertpapierNachAenderung.
@@ -65,18 +88,11 @@ public class WertpapierAnlegenController implements ControlledScreen {
         Wertpapier erneut zu löschen.*/
         aktieInitial = aktieNachAenderung;
         anleiheInitial = anleiheNachAenderung;
-    }
 
-    /**
-     * Wechsel von der aktuellen Scene zur Scene zur Anlage von Wertpapieren.
-     * @param event Event des aufrufenden Buttons
-     */
-    @FXML
-    void doPeriodeAnlegen(ActionEvent event) {
-        doSpeichern(event);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
     }
+
 
     /**
      * Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen für die
@@ -133,5 +149,6 @@ public class WertpapierAnlegenController implements ControlledScreen {
         wp.setName("Aktie");
         aktieObserverableList.add(wp);
     }
+
 }
 
