@@ -18,6 +18,10 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
+/**
+ * Ermöglicht das Bearbeiten eines bereits registrierten und eingeloggten Teilnehmers durch den Teilnehmer selbst
+ */
+
 public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     @FXML
@@ -31,6 +35,11 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     private CrudRepository<Unternehmen> model;
 
 
+    /**
+     * Aktualisiert die Daten eines Teilnehmers in der Datenbank
+     * Vorraussetzung: Bestimmte Kriterien sind erfüllt
+     * @param event Event des aufrufenden Buttons
+     */
     @FXML
     private void aktualisieren(ActionEvent event) {
 
@@ -100,7 +109,9 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     }
 
-
+    /**
+     * Initialisiert die Bearbeitung
+     */
     @FXML
     private void initialize() {
         teilnehmer = AktuelleSpieldaten.getInstanz().getTeilnehmer();
@@ -113,7 +124,10 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());
     }
 
-
+    /**
+     * Setzt den screenController
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
     }

@@ -55,6 +55,10 @@ public class SpielVerwaltenController implements ControlledScreen {
     }
 
     //ToDo: Nach Löschvorgang aktivies Spiel automatisch neu setzen?
+    /**
+     * Löscht das vom Spielleiter ausgewählt Spiel aus der Datenbank
+     * Die dazugehörigen Einträge, wie Teilnehmer und Unternehmen des entsprechenden Spiels werden ebenfalls gelöscht
+     */
     @FXML
     private void doSelektiertesSpielLoeschen() {
         Spiel zuLoeschendesSpiel=cmbSpiele.getValue();
@@ -88,6 +92,10 @@ public class SpielVerwaltenController implements ControlledScreen {
 
     }
 
+    /**
+     * Setzt den screenController
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;

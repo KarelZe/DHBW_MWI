@@ -20,6 +20,10 @@ import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/**
+ * Ermöglicht die selbstständige Registrierung eines Teilnehmers
+ * Für die Registrierung müssen Vor-, Nachname, Unternehmen und Passwort durch den Teilnehmer eingegeben werden
+ */
 
 public class RegisterController implements ControlledScreen {
 
@@ -31,6 +35,12 @@ public class RegisterController implements ControlledScreen {
 
     private ScreenController controller;
 
+    /**
+     * Liest die vom Nutzer eingebenen Daten aus
+     * Wenn diese gewissen Kriterien entsprechen, wird der Teilnehmer in der Datenbank angelegt und erhält das Startkapital
+     * Der Teilnehmer wird über seinen Benutzernamen informiert, der sich aus <Vorname>.<Nachname> zusammensetzt
+     * @param event Event des aufrufenden Buttons
+     */
     @FXML
     private void doRegister(ActionEvent event) {
         // Lese Daten aus Textfeldern der scene_register.fxml
@@ -96,7 +106,6 @@ public class RegisterController implements ControlledScreen {
             return;
         }
 
-        //ToDo: Unterstützung für Umlaute einbauen
         //Passwortlänge prüfen
         if (passwortKlartext.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -134,6 +143,9 @@ public class RegisterController implements ControlledScreen {
         controller.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
 
+    /**
+     * Initialisiert die Registrierung
+     */
     @FXML
     private void initialize() {
         // Initialisiere ComboBox aus Modell
@@ -148,7 +160,10 @@ public class RegisterController implements ControlledScreen {
         cmbUnternehmen.setConverter(new ConverterHelper().getUnternehmensConverter());
     }
 
-
+    /**
+     * Setzt den screenController
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         controller = screenPage;
