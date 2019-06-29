@@ -43,7 +43,8 @@ public class LoginController implements ControlledScreen {
                     // TODO: Ersetzen durch Filter oder Map? https://www.callicoder.com/java-8-optional-tutorial/
                     if (AktuelleSpieldaten.getInstanz().getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
                         //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
-                        screenController.setScreen(ScreensFramework.SCREEN_SPIEL_VERWALTEN);
+                       screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
+                       screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
 
                     } else {
                         Alert alert;
