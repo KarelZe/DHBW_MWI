@@ -7,9 +7,12 @@ import de.dhbw.karlsruhe.model.WertpapierRepository;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 
 public class PeriodeAnlegenController implements ControlledScreen {
 
+    public Button btnAnlegen;
     private ScreenController screenController;
 
     private PeriodenRepository periodenRepository = PeriodenRepository.getInstanz();
@@ -26,7 +30,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
     private KursRepository kursRepository = KursRepository.getInstanz();
 
     @FXML
-    private TextField txtZins, txtOrder;
+    private TextField txtKapitalmarktzins, txtOrdergebuehr;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
@@ -37,8 +41,8 @@ public class PeriodeAnlegenController implements ControlledScreen {
     private void doPeriodeAnlegen(ActionEvent event) {
         double ordergebuehr, kapitalmarktzins;
         try {
-            ordergebuehr = Double.parseDouble(txtOrder.getText()) / 100.00d;
-            kapitalmarktzins = Double.parseDouble(txtZins.getText()) / 100.00d;
+            ordergebuehr = Double.parseDouble(txtOrdergebuehr.getText()) / 100.00d;
+            kapitalmarktzins = Double.parseDouble(txtKapitalmarktzins.getText()) / 100.00d;
             if(ordergebuehr < 0 || kapitalmarktzins < 0) { //Ordergebühr oder Kapitalmarkzins < 0
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Periode anlegen");
@@ -70,6 +74,13 @@ public class PeriodeAnlegenController implements ControlledScreen {
         kursRepository.save(kurse);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
+    }
+
+    @FXML
+    private void initialize() {
+        BooleanBinding booleanBind = Bindings.or(txtKapitalmarktzins.textProperty().isEmpty(),
+                txtOrdergebuehr.textProperty().isEmpty());
+        btnAnlegen.disableProperty().bind(booleanBind);
     }
 
 }
