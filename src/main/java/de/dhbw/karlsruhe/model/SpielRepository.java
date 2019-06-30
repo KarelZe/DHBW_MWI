@@ -43,19 +43,14 @@ public class SpielRepository implements CrudRepository<Spiel> {
         return instanz;
     }
 
-    public static void deleteSpiel (Spiel spiel) {
-        Transaction tx = null;
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            session.delete(spiel);
-            tx.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-    }
-
+    /**
+     * Gibt erstes {@link Spiel} mit den dem Status {@code ist_aktiv = true} zurück.
+     * Durch die Anwendung ist sichergestellt, dass immer maximal ein {@link Spiel} über
+     * diesen Status verfügt.
+     *
+     * @return aktives {@link Spiel}; andernfalls {@code null}
+     * @author Markus Bilz, Christian Fix
+     */
     public Spiel getAktivesSpiel() {
         Transaction tx = null;
         Spiel spiel = null;
@@ -108,11 +103,22 @@ public class SpielRepository implements CrudRepository<Spiel> {
         }
     }
 
+    /**
+     * Gibt die Anzahl an {@link Spiel} Objekten in der Datenbank zurück.
+     * @return Anzahl an {@link Spiel Spielen}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
-        throw new UnsupportedOperationException();
+        return findAll().size();
     }
 
+    /**
+     * Löscht ein {@link Spiel} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     * @param spiel zu löschendes {@link Spiel}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(Spiel spiel) {
         Transaction tx = null;
@@ -127,6 +133,11 @@ public class SpielRepository implements CrudRepository<Spiel> {
         }
     }
 
+    /**
+     * Löscht eine Liste von {@link Spiel} Objekten aus der Datenbank, sofern vorhanden.
+     * @param spiele Liste von {@link Spiel} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(List<Spiel> spiele) {
         for(Spiel spiel : spiele) {
@@ -134,11 +145,26 @@ public class SpielRepository implements CrudRepository<Spiel> {
         }
     }
 
+    /**
+     * Frägt das Vorhandensein eines {@link Spiel} Objekts in der Datenbank ab.
+     * @param id Id der abzufragenden {@link Spiel}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public boolean existsById(long id) {
-        throw new UnsupportedOperationException();
+        return findById(id).isPresent();
     }
 
+    /**
+     * Abfrage eines {@link Spiel} Objekts anhand der Id des {@link Spiel Spiels} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
+     *
+     * @param id Id des zu findenden {@link Spiel Spiels}
+     * @return Optional ist ein Container für {@link Spiel}, um vereinfacht das Vorhandensein des {@link Spiel Spiels} zu prüfen.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public Optional<Spiel> findById(long id) {
         Transaction tx = null;
@@ -159,6 +185,11 @@ public class SpielRepository implements CrudRepository<Spiel> {
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@link Spiel Spiele} Objekte in der Datenbank.
+     * @return Liste mit {@link Spiel Spiele} Objekten; andernfalls {@code null}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<Spiel> findAll() {
         Transaction tx = null;

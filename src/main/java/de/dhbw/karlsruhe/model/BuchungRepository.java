@@ -47,7 +47,12 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     // Implementierung Interface
 
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
+    /**
+     * Gibt die Anzahl an {@link Buchung Buchungs} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link Buchung Buchungen}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
         return findAll().size();

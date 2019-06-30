@@ -76,9 +76,15 @@ public class PeriodenRepository implements CrudRepository<Periode> {
         }
     }
 
+    /**
+     * Gibt die Anzahl an {@link Periode} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link Periode Perioden}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
-        throw new UnsupportedOperationException();
+        return findAll().size();
     }
 
     @Override

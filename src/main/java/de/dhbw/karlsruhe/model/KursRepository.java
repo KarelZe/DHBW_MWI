@@ -76,6 +76,12 @@ public class KursRepository implements CrudRepository<Kurs> {
         }
     }
 
+    /**
+     * Gibt die Anzahl an {@link Kurs} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link Kurs Kursen}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
         throw new UnsupportedOperationException();

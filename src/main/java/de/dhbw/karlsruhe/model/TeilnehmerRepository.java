@@ -109,6 +109,12 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
         }
     }
 
+    /**
+     * Gibt die Anzahl an {@link Teilnehmer} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link Teilnehmer Teilnehmern}.
+     * @author Markus Bilz
+     */
     @Override
     public long count() {
         return findAll().size();
