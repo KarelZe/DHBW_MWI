@@ -2,9 +2,14 @@ package de.dhbw.karlsruhe.model.jpa;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.Set;
 
+/**
+ * POJO Klasse für die Speicherung der Rollen.
+ * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ *
+ * @author Markus Bilz, Christian Fix
+ */
 @Entity
 public class Spiel {
     public static final int SPIEL_AKTIV = 1;
@@ -24,6 +29,13 @@ public class Spiel {
 
     @OneToMany(mappedBy = "spiel", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Unternehmen> unternehmenSet;
+
+    /**
+     * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
+     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     */
+    public Spiel() {
+    }
 
     public long getId() {
         return id;

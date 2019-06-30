@@ -7,6 +7,14 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * POJO Klasse für die Speicherung einer {@code TransaktionsArt}.
+ * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * Die Speicherung der {@code TransaktionsArt} in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
+ * Die Datenbank-Tabelle lautet {@code Transaktions_Art}.
+ *
+ * @author Markus Bilz, Christian Fix
+ */
 @Entity
 @Table(name = "Transaktions_Art")
 public class TransaktionsArt {
@@ -28,6 +36,13 @@ public class TransaktionsArt {
 
     @OneToMany(mappedBy = "transaktionsArt")
     private List<Buchung> buchungen = new ArrayList<>();
+
+    /**
+     * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
+     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     */
+    public TransaktionsArt() {
+    }
 
     public long getId() {
         return id;

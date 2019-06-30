@@ -3,6 +3,12 @@ package de.dhbw.karlsruhe.model.jpa;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * POJO Klasse für die Speicherung einer Periode.
+ * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ *
+ * @author Markus Bilz, Christian Fix
+ */
 @Entity
 public class Periode {
     @Id
@@ -27,6 +33,10 @@ public class Periode {
         this.kapitalmarktzinssatz = kapitalmarktzinssatz;
     }
 
+    /**
+     * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
+     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     */
     public Periode() {
     }
 

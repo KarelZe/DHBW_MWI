@@ -3,6 +3,12 @@ package de.dhbw.karlsruhe.model.jpa;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * POJO Klasse für die Speicherung eines {@code Teilnehmer}.
+ * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ *
+ * @author Markus Bilz, Christian Fix
+ */
 @Entity
 public class Teilnehmer {
     @Id
@@ -29,7 +35,10 @@ public class Teilnehmer {
     @OneToMany(mappedBy = "teilnehmer", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Buchung> buchungSet;
 
-    // Hibernate benötigt leeren Konstruktor. Zur Erklärung siehe https://stackoverflow.com/a/25452112
+    /**
+     * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
+     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     */
     public Teilnehmer() {
 
     }

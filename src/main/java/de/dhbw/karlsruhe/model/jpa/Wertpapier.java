@@ -4,6 +4,12 @@ import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 
 import javax.persistence.*;
 
+/**
+ * POJO Klasse für die Speicherung eines {@code Wertpapier}.
+ * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ *
+ * @author Markus Bilz, Christian Fix
+ */
 @Entity
 public class Wertpapier {
     @Id
@@ -32,6 +38,10 @@ public class Wertpapier {
 
     private int emission_periode; //optional (Anleihen)
 
+    /**
+     * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
+     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     */
     public Wertpapier() {
         spiel = AktuelleSpieldaten.getInstanz().getSpiel();
     }
