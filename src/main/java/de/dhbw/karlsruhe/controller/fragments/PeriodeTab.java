@@ -98,8 +98,9 @@ public class PeriodeTab extends Tab {
      */
     private void doSpeichern() {
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
-        model.save(aktieNachAenderung);
         ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
+
+        model.save(aktieNachAenderung);
         model.save(anleiheNachAenderung);
     }
 

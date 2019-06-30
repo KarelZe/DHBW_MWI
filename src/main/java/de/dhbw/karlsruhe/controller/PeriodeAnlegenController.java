@@ -46,7 +46,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Periode anlegen");
+            alert.setTitle("Ung\u00fcltige Eingabe");
             alert.setHeaderText(null);
             alert.setContentText("Bitte geben Sie Zahlen ein.");
             alert.showAndWait();
@@ -63,8 +63,8 @@ public class PeriodeAnlegenController implements ControlledScreen {
         }
         if (ordergebuehr > 0.5 || kapitalmarktzins > 0.5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ung\u00fcltige Eingabe");
             alert.setHeaderText(null);
+            alert.setTitle("Ung\u00fcltige Eingabe");
             alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen maximal 50 % betragen.");
             alert.showAndWait();
             return;

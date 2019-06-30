@@ -49,6 +49,7 @@ public class LoginController implements ControlledScreen {
                     } else {
                         Alert alert;
                         alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
                         alert.setTitle("Login");
                         alert.setContentText("Login erfolgreich.");
                         alert.showAndWait();
@@ -59,6 +60,7 @@ public class LoginController implements ControlledScreen {
                 () -> {
                     Alert alert;
                     alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
                     alert.setTitle("Benutzername oder Passwort");
                     alert.setContentText("Bitte erfassen Sie Ihren Benutzername und Ihr Passwort erneut.");
                     alert.showAndWait();

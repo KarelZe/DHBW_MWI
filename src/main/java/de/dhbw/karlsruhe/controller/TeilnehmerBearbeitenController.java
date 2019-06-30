@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 /**
  * Ermöglicht das Bearbeiten eines bereits registrierten und eingeloggten Teilnehmers durch den Teilnehmer selbst
+ * @author Max Schwaab
  */
 
 public class TeilnehmerBearbeitenController implements ControlledScreen {
@@ -54,6 +55,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         //Name prüfen
         if ((vorname.length() == 0) || (nachname.length() == 0)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setTitle("Ungeeignete Eingaben für Vor- und Nachname");
             alert.setContentText("Bitte geben Sie als Vor- und Nachnamen Namen mit mindestens einem Zeichen ein. Dies darf kein Leerzeichen sein");
             alert.showAndWait();
@@ -65,6 +67,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             //Passwortlänge prüfen
             if (passwort1.length() < 5) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
                 alert.setTitle("Passwort zu kurz");
                 alert.setContentText("Bitte geben Sie ein Passwort mit mindestens 5 Zeichen ein.");
                 alert.showAndWait();
@@ -74,6 +77,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             //Passwortübereinstimmung prüfen
             if (!passwort1.equals(passwort2)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
                 alert.setTitle("Passwort korrigieren");
                 alert.setContentText("Bitte geben Sie in beiden Passwortfeldern das gleiche Passwort ein.");
                 alert.showAndWait();
@@ -85,6 +89,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
         if (unternehmenComboBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setTitle("Unternehmen auswählen");
             alert.setContentText("Bitte wählen Sie ihr zugehöriges Unternehmen aus.");
             alert.showAndWait();
