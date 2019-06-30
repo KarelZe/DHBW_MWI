@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 
 /**
- * Klasse bietet einen einfachen Zugriff auf das Buchungs-Repository, indem Buchungen zu Portfoliopositionen aggregiert
- * werden. Verwendung ist in Verbindung mit {@link Portfolioposition} sinnvoll.
- * Implementierung erfolgt mittels  Facade-Patterns (GOF) in Verbindung mit dem Singleton-Patterns (GOF).
- * Für Pattern siehe <a href="https://refactoring.guru/design-patterns/facade/">https://refactoring.guru/</a>
+ * Die Klasse bietet einen einfachen Zugriff auf das {@link BuchungRepository}, indem {@linkplain Buchung Buchungen}
+ * zu {@linkplain Portfolioposition Portfoliopositionen} aggregiert werden.
+ * Verwendung ist in Verbindung mit {@link Portfolioposition} sinnvoll.
+ * Implementierung erfolgt Facade-Patterns (GOF) in Verbindung mit dem Singleton-Patterns (GOF).
  * @author Markus Bilz, Raphael Winkler
  */
 public class PortfolioFassade {
@@ -28,6 +28,7 @@ public class PortfolioFassade {
 
     /**
      * Implementierung des Singleton-Patterns (GOF).
+     * @author Markus Bilz
      */
     private PortfolioFassade() {
         buchungRepository = BuchungRepository.getInstanz();
@@ -37,6 +38,7 @@ public class PortfolioFassade {
      * Implementierung des Singleton-Patterns (GOF).
      *
      * @return Instanz der PortfolioFassade
+     * @author Markus Bilz
      */
     public static PortfolioFassade getInstanz() {
         if (PortfolioFassade.instanz == null) {
@@ -49,6 +51,7 @@ public class PortfolioFassade {
      * Methode gibt den aktuellen Saldo eines Zahlungsmittelkontos eines Teilnehmers zurück.
      * @param teilnehmerId Id des Kontoinhabers
      * @return Saldo des Zahlungsmittelkontos
+     * @author Markus Bilz
      */
     public double getZahlungsmittelkontoSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
@@ -59,6 +62,7 @@ public class PortfolioFassade {
      * Methode gibt den aktuellen Saldo eines Depots eines Teilnehmers zurück.
      * @param teilnehmerId Id des Depotinhabers
      * @return Saldo des Depots
+     * @author Markus Bilz
      */
     public double getDepotSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
@@ -70,6 +74,7 @@ public class PortfolioFassade {
      * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
      * @param teilnehmerId Id des Festgeldinhabers
      * @return Saldo des Depots.
+     * @author Markus Bilz
      */
     public double getFestgeldSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
@@ -80,6 +85,7 @@ public class PortfolioFassade {
      * Methode gibt den aktuellen Saldo eines Teilnehmers bestehend aus Zahlungsmittelkonto-, Festgeld- und Depotguthaben zurück.
      * @param teilnehmerId Id des Teilnehmers
      * @return Gesamtsaldo des Teilnehmer Engagements
+     * @author Markus Bilz
      */
     public double getGesamtSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
@@ -93,6 +99,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden.
      * @return Liste mit Anleihepositionen
+     * @author Markus Bilz
      */
     public List<Portfolioposition> getAnleihePositionen(long teilnehmerId, long periodenId) {
         List<Portfolioposition> portfoliopositionen = getPortfoliopositionen(teilnehmerId, periodenId);
@@ -106,6 +113,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden.
      * @return Liste mit Aktienpositionen
+     * @author Markus Bilz
      */
     public List<Portfolioposition> getAktienPositionen(long teilnehmerId, long periodenId) {
         List<Portfolioposition> portfoliopositionen = getPortfoliopositionen(teilnehmerId, periodenId);
@@ -118,6 +126,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit ETF-Positionen
+     * @author Markus Bilz
      */
     public List<Portfolioposition> getEtfPositionen(long teilnehmerId, long periodenId) {
         List<Portfolioposition> portfoliopositionen = getPortfoliopositionen(teilnehmerId, periodenId);
@@ -130,6 +139,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Festgeld-Positionen
+     * @author Markus Bilz
      */
     public List<Portfolioposition> getFestgeldPositionen(long teilnehmerId, long periodenId) {
         List<Portfolioposition> portfoliopositionen = getPortfoliopositionen(teilnehmerId, periodenId);
@@ -143,6 +153,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Portfolio-Positionen
+     * @author Markus Bilz
      */
     public List<Portfolioposition> getPortfoliopositionen(long teilnehmerId, long periodenId) {
 
@@ -154,6 +165,15 @@ public class PortfolioFassade {
         return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
     }
 
+    /**
+     * // TODO: Raphael kommentieren
+     *
+     * @param teilnehmerId Id des Teilnehmers
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
+     * @param wertpapierId Id des Wertpapiers
+     * @return Anzahl der {@linkplain Portfolioposition Portfoliopositionen}
+     * @author Raphael Winkler
+     */
     // TODO: Raphael warum so kompliziert? Ich würde einfach get ETFPositionen ... machen und dann addieren.
     public long getCountOfPositionen(long teilnehmerId, long periodenId, long wertpapierId) {
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
