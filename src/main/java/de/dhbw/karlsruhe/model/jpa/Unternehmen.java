@@ -6,8 +6,17 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * POJO Klasse für die Speicherung einer {@code WertpapierArt}.
+ * <p>
+ * POJO Klasse für die Speicherung eines {@code Unternehmens}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
+ *
+ * <p>
+ * Ein {@code unternehmen} ist in der Software das Äquivalent zum Planspielunternehmen der Teilnehmer.
+ * Ein Planspielunternehmen kann als Emittent von Aktien und Anleihen auftreten.
+ * Neben den Planspielunternehmen bestehen in der Anwendung Dummy-Unternehmen für die Ausgabe von
+ * Spielkapital, die Emission des GMAX und die Anlage von Festgeldern.
+ * </p>
  *
  * @author Markus Bilz, Christian Fix
  */
@@ -38,7 +47,7 @@ public class Unternehmen {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public Unternehmen() {
         this.farbe = "0xff0000ff";
@@ -46,7 +55,6 @@ public class Unternehmen {
         this.unternehmenArt = UNTERNEHMEN_TEILNEHMER;
         this.spiel = AktuelleSpieldaten.getInstanz().getSpiel();
     }
-
 
 
     public long getId() {

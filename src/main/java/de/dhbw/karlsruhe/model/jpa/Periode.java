@@ -4,8 +4,15 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * POJO Klasse für die Speicherung einer Periode.
+ * <p>
+ * POJO Klasse für die Speicherung einer {@code Periode}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
+ * <p>
+ * Die Bedeutung einer {@code Periode} ist dabei identisch zu der im Planspiel. Sie repräsentiert einen abgeschlossenen
+ * Zeitraum in einem Spiel. Eine Unterscheidung in eine {@code Periode} erfolgt, um Konsistenz zum Planspiel zu erreichen
+ * und um beispielsweise eine differenzierte Auswertung zu ermöglichen.
+ * </p>
  *
  * @author Markus Bilz, Christian Fix
  */
@@ -35,7 +42,7 @@ public class Periode {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public Periode() {
     }

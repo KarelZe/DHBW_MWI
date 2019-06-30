@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.*;
  * Klasse bietet einen einfachen Zugriff auf das Buchungs-Repository, indem Buchungen zu Portfoliopositionen aggregiert
  * werden. Verwendung ist in Verbindung mit {@link Portfolioposition} sinnvoll.
  * Implementierung erfolgt mittels  Facade-Patterns (GOF) in Verbindung mit dem Singleton-Patterns (GOF).
- * Für Pattern siehe @see <a href="refactoring.guru">https://refactoring.guru/design-patterns/facade/a>
+ * Für Pattern siehe <a href="https://refactoring.guru/design-patterns/facade/">https://refactoring.guru/</a>
  * @author Markus Bilz, Raphael Winkler
  */
 public class PortfolioFassade {

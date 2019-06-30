@@ -4,8 +4,15 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * POJO Klasse für die Speicherung eines {@code Teilnehmer}.
- * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * <p>
+ *  POJO Klasse für die Speicherung eines {@code Teilnehmer}.
+ *  Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
+ *
+ * <p>
+ *   Diese Anwendung nutzt {@code Teilnehmer}, um eine Trennung zwischen einzelnen Investoren zu ermöglichen.
+ *   Neben Anlegern sind auch Spielleiter als {@code} abgebildet.
+ * </p>
  *
  * @author Markus Bilz, Christian Fix
  */
@@ -37,7 +44,7 @@ public class Teilnehmer {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public Teilnehmer() {
 

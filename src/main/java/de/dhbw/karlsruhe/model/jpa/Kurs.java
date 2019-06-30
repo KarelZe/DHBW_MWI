@@ -3,12 +3,23 @@ package de.dhbw.karlsruhe.model.jpa;
 import javax.persistence.*;
 
 /**
- * POJO Klasse für die Speicherung eines Kurses.
+ * <p>
+ * POJO Klasse für die Speicherung eines {@code Kurses}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * Die Speicherung in der Datenbank erfolgt in der anderslautenden Tabelle {@code Periode_Wertpapier}.
+ * </p>
+ * <p>
  * Grundsätzlich verfügt jedes {@code Wertpapier} je {@code Periode} über einen eindeutigen Kurs unabhängig der
  * Art des Wertpapiers. Für Floating Rate Notes wird zusätzlich der Spread gespeichert.
- *
+ * </p>
+ * <p>
+ * Ein {@code Kurs} repräsentiert in der Anwendung den Marktwert einer Finanzanlage. Beispielsweise entspricht er
+ * bei ETFs dem Indexstand oder bei Aktien dem Aktienkurs des Planspielunternehmens.
+ * </p>
+ * <p>
+ * Die Erfassung und Berechnung von Kursen ist in {@link de.dhbw.karlsruhe.buchung.BuchungsFactory}
+ * nebst zugehörigem Fachkonzept geregelt.
+ * </p>
  * @author Markus Bilz, Christian Fix
  */
 @Entity
@@ -40,7 +51,7 @@ public class Kurs {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public Kurs() {
     }

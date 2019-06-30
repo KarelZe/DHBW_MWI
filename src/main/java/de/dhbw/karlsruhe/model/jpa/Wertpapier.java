@@ -5,8 +5,15 @@ import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import javax.persistence.*;
 
 /**
+ * <p>
  * POJO Klasse für die Speicherung eines {@code Wertpapier}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
+ *
+ * <p>
+ * Ein {@code Wertpapier} ist in der Software eine Finanzanlage unterschiedlicher Art. Hierzu zählen neben Anleihen, Aktien,
+ * Festgelder und ETFs, auch das Startkapital.
+ * </p>
  *
  * @author Markus Bilz, Christian Fix
  */

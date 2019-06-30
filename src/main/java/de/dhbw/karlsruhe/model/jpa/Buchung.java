@@ -3,11 +3,15 @@ package de.dhbw.karlsruhe.model.jpa;
 import javax.persistence.*;
 
 /**
+ * <p>
  * POJO Klasse für die Speicherung einer {@code Buchung}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
- * Grundsätzlich entspricht jede Veränderung eines Saldos z. B. Zinsgutschrift, Kauf, Verbuchung Startkapital einer
+ * </p>
+ * <p>
+ Grundsätzlich entspricht jede Veränderung eines Saldos z. B. Zinsgutschrift, Kauf, Verbuchung Startkapital einer
  * {@code Buchung}, dies erlaubt eine Analyse von Saldenveränderungen und eine transparente Rückabwicklung von Buchungen.
- * Weiterhin sind einzelne Buchungen notwendig für die korrekte Bestimmung der Rendite.
+ * Weiterhin sind einzelne Buchungen für die korrekte Bestimmung der Rendite notwendig.
+ * </p>
  *
  * @author Markus Bilz, Christian Fix
  */
@@ -47,7 +51,7 @@ public class Buchung {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public Buchung() {
     }

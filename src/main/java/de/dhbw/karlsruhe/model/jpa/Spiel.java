@@ -5,9 +5,17 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * POJO Klasse für die Speicherung der Rollen.
+ * <p>
+ * POJO Klasse für die Speicherung eines {@code Spiels}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
  *
+ * <p>
+ *  Diese Anwendung nutzt Spiele um Planspiele einzelner Kurse voneinander zu trennen. Durch die Unterscheidung nach
+ *  Spielen ist es möglich, alternative Spiele zu laden und zu einem späteren Zeitpunkt fortzusetzen. Zwischen
+ *  einzelnen Spielen besteht keine Abhängigkeit. Jedoch besteht für alle Spiel-Individuellen Daten z. B. Aktienkurse,
+ *  Teilnehmer etc. eine Abhängigkeit zum Spiel.
+ * </p>
  * @author Markus Bilz, Christian Fix
  */
 @Entity
@@ -32,7 +40,7 @@ public class Spiel {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public Spiel() {
     }

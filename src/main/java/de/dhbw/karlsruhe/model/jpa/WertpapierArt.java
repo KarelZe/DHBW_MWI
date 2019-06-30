@@ -6,10 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * <p>
  * POJO Klasse für die Speicherung einer {@code WertpapierArt}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
+ * <p>
  * Die Speicherung der {@code WertpapierArt} in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
  * Die Datenbank-Tabelle lautet {@code Wertpapier_Art}.
+ * </p>
+ * <p>
+ * Die {@code WertpapierArt} ist vergleichbar mit einer Produktgruppe eines Wertpapiers in der Realwelt.
+ * Die Unterscheidung nach {@code WertpapierArt} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
+ * differenzierte optische Darstellung unterschiedlicher Wertpapiere im UI.
+ * </p>
  *
  * @author Markus Bilz, Christian Fix
  */
@@ -40,7 +49,7 @@ public class WertpapierArt {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public WertpapierArt() {
 

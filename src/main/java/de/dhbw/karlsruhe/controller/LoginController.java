@@ -79,8 +79,8 @@ public class LoginController implements ControlledScreen {
     }
 
     /**
-     * Setzt den screenController
-     * @param screenPage
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     * @param screenPage Controller des Screens
      */
     @Override
     public void setScreenParent(ScreenController screenPage) {

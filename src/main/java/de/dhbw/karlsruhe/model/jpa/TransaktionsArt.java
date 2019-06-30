@@ -8,11 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>
  * POJO Klasse für die Speicherung einer {@code TransaktionsArt}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * </p>
+ *
+ * <p>
  * Die Speicherung der {@code TransaktionsArt} in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
  * Die Datenbank-Tabelle lautet {@code Transaktions_Art}.
- *
+ * </p>
+ * <p>
+ * Die {@code TransaktionsArt} ist vergleichbar mit einem Buchungsschlüssel oder einer Primanota in der Realwelt.
+ * Die Unterscheidung nach {@code TransaktionsArt} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
+ * differenzierte optische Darstellung unterschiedlicher Buchungen im UI.
+ * </p>
  * @author Markus Bilz, Christian Fix
  */
 @Entity
@@ -39,7 +48,7 @@ public class TransaktionsArt {
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
-     * Siehe hierzu: <a href="https://docs.jboss.org">https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor</a>.
+     * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
     public TransaktionsArt() {
     }
