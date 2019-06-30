@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="400" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="de.dhbw.karlsruhe.controller.MenuController">
+    <HBox spacing="5.0">
+        <MenuBar fx:id="menuBar" HBox.hgrow="ALWAYS">
+            <menus>
+                <Menu fx:id="mTeilnehmer" text="Teilnehmer">
+                    <items>
+                        <MenuItem fx:id="mIteilnehmerRegistrieren" text="Teilnehmer registrieren"/>
+                        <MenuItem fx:id="mIteilnehmerLogin" text="Teilnehmer einloggen"/>
+                        <MenuItem fx:id="mIteilnehmerHistorie" text="Transaktionshistorie anzeigen"/>
+                        <MenuItem fx:id="mIwertpapierKaufen" text="Wertpapier kaufen"/>
+                        <MenuItem fx:id="mIwertpapierVerkaufen" text="Wertpapier verkaufen"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mSpiel" text="Spiel">
+                    <items>
+                        <MenuItem fx:id="mIspielInitialisieren" text="Spiel initialisieren"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mAdministration" text="Administration">
+                    <items>
+                        <MenuItem fx:id="mIspielAnlegen" text="Spiel anlegen"/>
+                        <MenuItem fx:id="mIspielVerwalten" text="Spiel verwalten"/>
+                        <MenuItem fx:id="mIperiodeAnlegen" text="Periode anlegen"/>
+                        <MenuItem fx:id="mIperiodePflegen" text="Periode pflegen"/>
+                        <MenuItem fx:id="mIunternehmenAnlegen" text="Unternehmen anlegen"/>
+                        <MenuItem fx:id="mIwertpapierAnlegen" text="Wertpapier anlegen"/>
+                        <MenuItem fx:id="mIteilnehmerUebersicht" text="Teilnehmer zur\u00fccksetzen"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mAuswertung" text="Auswertung">
+                    <items>
+                        <MenuItem fx:id="mIteilnehmerDrucken" text="Bestenliste drucken"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#doLogout" text="Ausloggen" HBox.hgrow="NEVER"/>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+
+
+    </HBox>
+
+</VBox>
