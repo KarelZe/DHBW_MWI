@@ -12,19 +12,30 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Unternehmen Unternehmens} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class UnternehmenRepository implements CrudRepository<Unternehmen> {
 
     private static UnternehmenRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private UnternehmenRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz von UnternehmensRespository
+     * Gibt Instanz des {@link UnternehmenRepository UnternehemensRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link UnternehmenRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static UnternehmenRepository getInstanz() {
         if (UnternehmenRepository.instanz == null) {
@@ -34,19 +45,22 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
     }
 
 
-    /***
-     * Speichert ein Unternehmensobjekt in der Datenbank im Rahmen einer Transaktion.
-     * Implementierung des Musters Bequemlichkeitsmethode
-     * @param unternehmen Unternehmensobjekt
+    /**
+     * Speichert ein {@link Unternehmen Unternehmens} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param unternehmen {@link Unternehmen} zur Speicherung
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(Unternehmen unternehmen) {
         save(List.of(unternehmen));
     }
 
-    /***
-     * Speichert eine Liste von Unternehmensobjekten in der Datenbank im Rahmen einer Transaktion.
-     * @param unternehmen Liste von Unternehmen
+    /**
+     * Speichert eine Liste von {@link Unternehmen Unternehmens} Objekten in der Datenbank.
+     *
+     * @param unternehmen Liste von {@link Unternehmen Unternehemns} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(List<Unternehmen> unternehmen) {

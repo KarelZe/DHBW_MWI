@@ -23,15 +23,18 @@ public class AktuelleSpieldaten implements Observable {
     private List<InvalidationListener> alleListener = new ArrayList<>();
 
     /**
-     * Singleton Implementierung (GOF).
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     * @author Markus Bilz
      */
     private AktuelleSpieldaten() {
     }
 
     /**
-     * Singleton Implementierung (GOF)
+     * Methode gibt Instanz des Modells zurück.
+     * Implementierung als Singleton Pattern.
      *
-     * @return instanz
+     * @return Instanz von {@link AktuelleSpieldaten}
      */
     public static AktuelleSpieldaten getInstanz() {
         if (instanz == null)

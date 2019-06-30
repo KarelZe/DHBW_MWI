@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
  * <p>
- Grundsätzlich entspricht jede Veränderung eines Saldos z. B. Zinsgutschrift, Kauf, Verbuchung Startkapital einer
+ * Grundsätzlich entspricht jede Veränderung eines Saldos z. B. Zinsgutschrift, Kauf, Verbuchung Startkapital einer
  * {@code Buchung}, dies erlaubt eine Analyse von Saldenveränderungen und eine transparente Rückabwicklung von Buchungen.
  * Weiterhin sind einzelne Buchungen für die korrekte Bestimmung der Rendite notwendig.
  * </p>

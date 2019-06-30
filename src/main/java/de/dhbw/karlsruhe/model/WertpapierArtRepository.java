@@ -11,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link WertpapierArt} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
 
     private static WertpapierArtRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private WertpapierArtRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return Instanz von WertpapierArtRepository
+     * Gibt Instanz des {@link WertpapierArtRepository WertpapierArtRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link WertpapierArtRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static WertpapierArtRepository getInstanz() {
         if (WertpapierArtRepository.instanz == null) {
@@ -94,8 +105,12 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
         return wertpapierArten;
     }
 
-
-    // TODO: Wie werden Exceptions hochgegegeben?
+    /**
+     * Speichert eine Liste von {@link WertpapierArt} Objekten in der Datenbank.
+     *
+     * @param wertpapierArten Liste von {@link WertpapierArt} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<WertpapierArt> wertpapierArten) {
         Transaction tx = null;
@@ -113,9 +128,10 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
     }
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     *
-     * @param wertpapierArt WertpapierArtobjekt zur Speicherung.
+     * Speichert ein {@link WertpapierArt} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param wertpapierArt {@link WertpapierArt} zur Speicherung
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(WertpapierArt wertpapierArt) {

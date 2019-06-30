@@ -12,21 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Buchung} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class BuchungRepository implements CrudRepository<Buchung> {
     private static BuchungRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz, Christian Fix
+     */
     private BuchungRepository() {
     }
 
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz des repository
+     * Gibt Instanz des {@link BuchungRepository BuchungRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link BuchungRepository}
+     * @author Markus Bilz, Christian Fix
      */
-
     public static BuchungRepository getInstanz() {
         if (BuchungRepository.instanz == null) {
             BuchungRepository.instanz = new BuchungRepository();
@@ -100,9 +110,12 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         return buchungen;
     }
 
-
-    // TODO: Wie werden Exceptions hochgegegeben?
-
+    /**
+     * Speichert eine Liste von {@link Buchung} Objekten in der Datenbank.
+     *
+     * @param buchung Liste von {@link Buchung} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<Buchung> buchung) {
         Transaction tx = null;
@@ -121,22 +134,27 @@ public class BuchungRepository implements CrudRepository<Buchung> {
 
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     *
-     * @param buchung Wertpapierobjekt zur Speicherung.
+     * Speichert ein {@link Buchung Buchungs} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param buchung {@link Buchung} zur Speicherung
+     * @author Christian Fix, Markus Bilz
      */
-
     @Override
     public void save(Buchung buchung) {
         save(List.of(buchung));
     }
 
+    /**
+     * Löscht eine Liste von {@link Buchung Buchungs} Objekten aus der Datenbank, sofern vorhanden.
+     * @param buchungen Liste von {@link Buchung Buchungs} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
-    public void delete(List<Buchung> buchung) {
+    public void delete(List<Buchung> buchungen) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            for (Buchung e : buchung) {
+            for (Buchung e : buchungen) {
                 session.delete(e);
             }
             tx.commit();
@@ -160,7 +178,8 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     }
 
     /**
-     * @param teilnehmerId teilnehmer ID
+     * Abfrage von {@link Buchung Buchungs} Objekten anhand der Id des {@link de.dhbw.karlsruhe.model.jpa.Teilnehmer Teilnehmers} in der Datenbank.
+     * @param teilnehmerId Id des Teilnehmers
      * @return Buchungen oder leere Liste
      * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}.
      * Die PortfolioFassade bietet einen einfacheren Zugriff auf Salden des Teilnehmers, weshalb die Fassade bevorzugt

@@ -1,7 +1,6 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
-import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -12,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Spiel} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class SpielRepository implements CrudRepository<Spiel> {
 
     private static SpielRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private SpielRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz von Spiel
+     * Gibt Instanz des {@link SpielRepository SpielRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link SpielRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static SpielRepository getInstanz() {
         if (SpielRepository.instanz == null) {
@@ -65,6 +75,12 @@ public class SpielRepository implements CrudRepository<Spiel> {
         return spiel;
     }
 
+    /**
+     * Speichert ein {@link Spiel} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param spiel {@link Spiel} zur Speicherung
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(Spiel spiel) {
         Transaction tx = null;
@@ -79,6 +95,12 @@ public class SpielRepository implements CrudRepository<Spiel> {
         }
     }
 
+    /**
+     * Speichert eine Liste von {@link Spiel} Objekten in der Datenbank.
+     *
+     * @param spiele Liste von {@link Spiel} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<Spiel> spiele) {
         for(Spiel spiel : spiele) {

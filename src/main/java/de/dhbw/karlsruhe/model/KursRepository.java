@@ -11,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Kurs} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class KursRepository implements CrudRepository<Kurs> {
 
     private static KursRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private KursRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return Instanz von Kurs
+     * Gibt Instanz des {@link KursRepository KursRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link KursRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static KursRepository getInstanz() {
         if (KursRepository.instanz == null) {
@@ -32,12 +43,23 @@ public class KursRepository implements CrudRepository<Kurs> {
         return instanz;
     }
 
-
+    /**
+     * Speichert ein {@link Kurs} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param kurs {@link Kurs} zur Speicherung
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(Kurs kurs) {
         save(List.of(kurs));
     }
 
+    /**
+     * Speichert eine Liste von {@link Kurs} Objekten in der Datenbank.
+     *
+     * @param kurse Liste von {@link Kurs} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<Kurs> kurse) {
         Transaction tx = null;
@@ -64,6 +86,11 @@ public class KursRepository implements CrudRepository<Kurs> {
         delete(List.of(kurs));
     }
 
+    /**
+     * Löscht eine Liste von {@link Kurs} Objekten aus der Datenbank, sofern vorhanden.
+     * @param kurse Liste von {@link Kurs} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(List<Kurs> kurse) {
         Transaction tx = null;

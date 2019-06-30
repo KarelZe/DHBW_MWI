@@ -13,19 +13,30 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Teilnehmer} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
 
     private static TeilnehmerRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private TeilnehmerRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz
+     * Gibt Instanz des {@link TeilnehmerRepository TeilnehmerRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link TeilnehmerRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static TeilnehmerRepository getInstanz() {
         if (TeilnehmerRepository.instanz == null) {
@@ -66,19 +77,21 @@ public class TeilnehmerRepository implements CrudRepository<Teilnehmer> {
     }
 
     /**
-     * Speichert ein Teilnehmerobjekt in der Datenbank im Rahmen einer Transaktion.
-     * Implmementierung des Musters Bequemlichkeitsmethode.
-     *
-     * @param teilnehmer Teilnehmer
+     * Speichert ein {@link Teilnehmer} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param teilnehmer {@link Teilnehmer} zur Speicherung
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(Teilnehmer teilnehmer) {
         save(List.of(teilnehmer));
     }
 
-    /***
-     * Speichert eine Liste von Teilnehmersobjekten in der Datenbank im Rahmen einer Transaktion.
-     * @param teilnehmer Liste von Unternehmen
+    /**
+     * Speichert eine Liste von {@link Teilnehmer} Objekten in der Datenbank.
+     *
+     * @param teilnehmer Liste von {@link Teilnehmer} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(List<Teilnehmer> teilnehmer) {

@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 
 /**
- * Die Klasse bietet einen einfachen Zugriff auf das {@link BuchungRepository}, indem {@linkplain Buchung Buchungen}
- * zu {@linkplain Portfolioposition Portfoliopositionen} aggregiert werden.
+ * Die Klasse bietet einen einfachen Zugriff auf das {@link BuchungRepository}, indem {@link Buchung Buchungen}
+ * zu {@link Portfolioposition Portfoliopositionen} aggregiert werden.
  * Verwendung ist in Verbindung mit {@link Portfolioposition} sinnvoll.
  * Implementierung erfolgt Facade-Patterns (GOF) in Verbindung mit dem Singleton-Patterns (GOF).
  * @author Markus Bilz, Raphael Winkler
@@ -171,7 +171,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
      * @param wertpapierId Id des Wertpapiers
-     * @return Anzahl der {@linkplain Portfolioposition Portfoliopositionen}
+     * @return Anzahl der {@link Portfolioposition Portfoliopositionen}
      * @author Raphael Winkler
      */
     // TODO: Raphael warum so kompliziert? Ich würde einfach get ETFPositionen ... machen und dann addieren.

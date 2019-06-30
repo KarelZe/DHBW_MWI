@@ -11,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Periode Perioden} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class PeriodenRepository implements CrudRepository<Periode> {
 
     private static PeriodenRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private PeriodenRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz von Periode
+     * Gibt Instanz des {@link PeriodenRepository PeriodenRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link PeriodenRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static PeriodenRepository getInstanz() {
         if (PeriodenRepository.instanz == null) {
@@ -32,12 +43,23 @@ public class PeriodenRepository implements CrudRepository<Periode> {
         return instanz;
     }
 
-
+    /**
+     * Speichert ein {@link Periode} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param periode {@link Periode} zur Speicherung
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(Periode periode) {
         save(List.of(periode));
     }
 
+    /**
+     * Speichert eine Liste von {@link Periode} Objekten in der Datenbank.
+     *
+     * @param perioden Liste von {@link Periode} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<Periode> perioden) {
         Transaction tx = null;

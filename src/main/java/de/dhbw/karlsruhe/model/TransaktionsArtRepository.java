@@ -11,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link TransaktionsArt} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt> {
 
     private static TransaktionsArtRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private TransaktionsArtRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz von TransfaktionsArtRepository
+     * Gibt Instanz des {@link TransaktionsArtRepository TransaktionsArtRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link TransaktionsArtRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static TransaktionsArtRepository getInstanz() {
         if (TransaktionsArtRepository.instanz == null) {
@@ -86,7 +97,12 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
     }
 
 
-    // TODO: Wie werden Exceptions hochgegegeben?
+    /**
+     * Speichert eine Liste von {@link TransaktionsArt} Objekten in der Datenbank.
+     *
+     * @param transaktionsArten Liste von {@link TransaktionsArt} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<TransaktionsArt> transaktionsArten) {
         Transaction tx = null;
@@ -103,6 +119,12 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
         }
     }
 
+    /**
+     * Speichert ein {@link TransaktionsArt} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param transaktionsArt {@link TransaktionsArt} zur Speicherung
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(TransaktionsArt transaktionsArt) {
         save(List.of(transaktionsArt));

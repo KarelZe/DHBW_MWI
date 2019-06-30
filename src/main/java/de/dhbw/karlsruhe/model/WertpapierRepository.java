@@ -11,19 +11,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Wertpapier} Objekten her.
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
+ *
+ * @author Christian Fix, Markus Bilz
+ */
 public class WertpapierRepository implements CrudRepository<Wertpapier> {
 
     private static WertpapierRepository instanz;
 
-    // TODO: Überlegen, ob als ENUM? https://dzone.com/articles/java-singletons-using-enum
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     *
+     * @author Markus Bilz
+     */
     private WertpapierRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz von WertpapierRepository
+     * Gibt Instanz des {@link WertpapierRepository WertpapierRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link WertpapierRepository}
+     * @author Markus Bilz, Christian Fix
      */
     public static WertpapierRepository getInstanz() {
         if (WertpapierRepository.instanz == null) {
@@ -96,7 +107,12 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     }
 
 
-    // TODO: Wie werden Exceptions hochgegegeben?
+    /**
+     * Speichert eine Liste von {@link Wertpapier} Objekten in der Datenbank.
+     *
+     * @param wertpapiere Liste von {@link Wertpapier} Objekten zur Speicherung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void save(List<Wertpapier> wertpapiere) {
         Transaction tx = null;
@@ -114,9 +130,10 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     }
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     *
-     * @param wertpapier Wertpapierobjekt zur Speicherung.
+     * Speichert ein {@link Wertpapier} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
+     * @param wertpapier {@link Wertpapier} zur Speicherung
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(Wertpapier wertpapier) {

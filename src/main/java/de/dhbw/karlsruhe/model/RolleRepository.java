@@ -13,7 +13,7 @@ import java.util.Optional;
 
 /**
  * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Rolle} Objekten her.
- * Implementiert als RepositoryPattern (Fowler).
+ * Implementiert als Repository Pattern (Fowler) und Singleton Pattern (GOF).
  *
  * @author Markus Bilz, Christian Fix
  */
@@ -24,16 +24,16 @@ public class RolleRepository implements CrudRepository<Rolle> {
     /**
      * Privater Konstruktor.
      * Implementierung des Singleton Patterns (GOF).
-     * @author Christian Fix
+     * @author Christian Fix, Markus Bilz
      */
     private RolleRepository() {
     }
 
     /**
-     * Gibt Instanz des {@linkplain RolleRepository RolleRepositories} zurück.
+     * Gibt Instanz des {@link RolleRepository RolleRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
      * @return instanz von {@link RolleRepository}
-     * @author Christian Fix
+     * @author Christian Fix, Markus Bilz
      */
     public static RolleRepository getInstanz() {
         if (RolleRepository.instanz == null) {
@@ -44,8 +44,9 @@ public class RolleRepository implements CrudRepository<Rolle> {
 
     /**
      * Speichert ein {@link Rolle} Objekt in der Datenbank.
+     * Implementierung des Bequemlichkeitsmusters.
      * @param rolle {@link Rolle} zur Speicherung
-     * @author Christian Fix
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void save(Rolle rolle) {
@@ -76,7 +77,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
 
     /**
      * Gibt die Anzahl an {@link Rolle} Objekten in der Datenbank zurück.
-     * @return Anzahl an {@linkplain Rolle Rollen}.
+     * @return Anzahl an {@link Rolle Rollen}.
      * @author Christian Fix
      */
     @Override
@@ -86,8 +87,9 @@ public class RolleRepository implements CrudRepository<Rolle> {
 
     /**
      * Löscht ein {@link Rolle} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
      * @param rolle zu löschende {@link Rolle}.
-     * @author Christian Fix
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void delete(Rolle rolle) {
@@ -157,7 +159,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
     }
 
     /**
-     * Abfrage aller {@linkplain Rolle Rollen} Objekte in der Datenbank.
+     * Abfrage aller {@link Rolle Rollen} Objekte in der Datenbank.
      * @return Liste mit {@link Rolle} Objekten; gegebenenfalls leer.
      * @author Christian Fix
      */
