@@ -108,17 +108,17 @@ public class SpielAnlegenController implements ControlledScreen {
      * @author Christian Fix
      */
     private void insertRollenInDBIfNotExists() {
-        if(RolleRepository.findById(Rolle.ROLLE_TEILNEHMER) == null) { //Teilnehmerrolle existiert noch nicht in der Datenbank
+        if(RolleRepository.getInstanz().findById(Rolle.ROLLE_TEILNEHMER).isEmpty()) { //Teilnehmerrolle existiert noch nicht in der Datenbank
             Rolle teilnehmerRolle = new Rolle();
             teilnehmerRolle.setName("Teilnehmer");
             teilnehmerRolle.setId(1);
-            RolleRepository.persistRolle(teilnehmerRolle);
+            RolleRepository.getInstanz().save(teilnehmerRolle);
         }
-        if(RolleRepository.findById(Rolle.ROLLE_SPIELLEITER) == null) { //Spielleiterrolle existiert noch nicht in der Datenbank
+        if(RolleRepository.getInstanz().findById(Rolle.ROLLE_SPIELLEITER).isEmpty()) { //Spielleiterrolle existiert noch nicht in der Datenbank
             Rolle seminarleiterRolle = new Rolle();
             seminarleiterRolle.setName("Seminarleiter");
             seminarleiterRolle.setId(2);
-            RolleRepository.persistRolle(seminarleiterRolle);
+            RolleRepository.getInstanz().save(seminarleiterRolle);
         }
     }
 
@@ -237,7 +237,8 @@ public class SpielAnlegenController implements ControlledScreen {
         spielleiter.setPasswort(EncryptionHelper.getStringAsMD5(ConstantsHelper.ADMIN_PASSWORT));
         spielleiter.setVorname("Admin");
         spielleiter.setNachname("Admin");
-        spielleiter.setRolle(RolleRepository.findById(Rolle.ROLLE_SPIELLEITER));
+        Optional<Rolle> optionalRolle = RolleRepository.getInstanz().findById(Rolle.ROLLE_SPIELLEITER);
+        optionalRolle.ifPresent(spielleiter::setRolle);
         spielleiter.setSpiel(this.neuesSpiel);
         TeilnehmerRepository.getInstanz().save(spielleiter);
     }
