@@ -2,7 +2,6 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,18 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt die Verbindung zur Datenbank zur Speicherung von {@link Rolle} Objekten her.
+ * Implementiert als RepositoryPattern (Fowler).
+ *
+ * @author Markus Bilz, Christian Fix
+ */
 public class RolleRepository implements CrudRepository<Rolle> {
 
     private static RolleRepository instanz;
 
+    /**
+     * Privater Konstruktor.
+     * Implementierung des Singleton Patterns (GOF).
+     * @author Christian Fix
+     */
     private RolleRepository() {
     }
 
     /**
-     * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
-     *
-     * @return instanz von RolleRepository
+     * Gibt Instanz des {@linkplain RolleRepository RolleRepositories} zurück.
+     * Implementierung als Singleton Pattern (GOF).
+     * @return instanz von {@link RolleRepository}
+     * @author Christian Fix
      */
     public static RolleRepository getInstanz() {
         if (RolleRepository.instanz == null) {
@@ -33,9 +43,8 @@ public class RolleRepository implements CrudRepository<Rolle> {
     }
 
     /**
-     * Persistiert ein Rollenobjekt in der Datenbank im Rahmen einer Transaktion.
-     *
-     * @param rolle Rolle
+     * Speichert ein {@link Rolle} Objekt in der Datenbank.
+     * @param rolle {@link Rolle} zur Speicherung
      * @author Christian Fix
      */
     @Override
@@ -53,9 +62,9 @@ public class RolleRepository implements CrudRepository<Rolle> {
     }
 
     /**
-     * Persistiert eine Liste von Rollenobjekten in der Datenbank.
+     * Speichert eine Liste von {@link Rolle} Objekten in der Datenbank.
      *
-     * @param rollen Liste von Rollen
+     * @param rollen Liste von {@link Rolle} Objekten zur Speicherung.
      * @author Christian Fix
      */
     @Override
@@ -65,16 +74,31 @@ public class RolleRepository implements CrudRepository<Rolle> {
         }
     }
 
+    /**
+     * Gibt die Anzahl an {@link Rolle} Objekten in der Datenbank zurück.
+     * @return Anzahl an {@linkplain Rolle Rollen}.
+     * @author Christian Fix
+     */
     @Override
     public long count() {
         return findAll().size();
     }
 
+    /**
+     * Löscht ein {@link Rolle} Objekt aus der Datenbank, sofern vorhanden.
+     * @param rolle zu löschende {@link Rolle}.
+     * @author Christian Fix
+     */
     @Override
     public void delete(Rolle rolle) {
         delete(List.of(rolle));
     }
 
+    /**
+     * Löscht eine Liste von {@link Rolle} Objekten aus der Datenbank, sofern vorhanden.
+     * @param rollen Liste von {@link Rolle} Objekten zur Löschung.
+     * @author Christian Fix
+     */
     @Override
     public void delete(List<Rolle> rollen) {
         Transaction tx = null;
@@ -91,19 +115,24 @@ public class RolleRepository implements CrudRepository<Rolle> {
         }
     }
 
-
+    /**
+     * Frägt das Vorhandensein eines {@link Rolle} Objekts in der Datenbank ab.
+     * @param id Id der abzufragenden {@link Rolle}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix
+     */
     @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }
 
     /**
-     * Diese Methode stellt ein Rollenobjekt anhand der id der Rolle.
+     * Abfrage eines {@link Rolle} Objekts anhand der Id der {@link Rolle} in der Datenbank.
      * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
-     * Dadurch können Prüfungen auf Null-Werte vereinfaht werden.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
      *
-     * @param id ID der Rolle.
-     * @return Optional ist ein Container für ROlle, um vereinfacht das Vorhandensein der Rolle zu prüfen.
+     * @param id Id der zu findenden {@link Rolle}
+     * @return Optional ist ein Container für {@link Rolle}, um vereinfacht das Vorhandensein der {@link Rolle} zu prüfen.
      * @author Christian Fix
      */
     public Optional<Rolle> findById(long id) {
@@ -127,6 +156,11 @@ public class RolleRepository implements CrudRepository<Rolle> {
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@linkplain Rolle Rollen} Objekte in der Datenbank.
+     * @return Liste mit {@link Rolle} Objekten; gegebenenfalls leer.
+     * @author Christian Fix
+     */
     @Override
     public List<Rolle> findAll() {
         Transaction tx = null;
