@@ -71,6 +71,14 @@ public class WertpapierAnlegenController implements ControlledScreen {
             return;
         }
 
+        if(aktieNachAenderung.isEmpty() || anleiheNachAenderung.isEmpty()) { //keine Aktie und/oder Anleihe emittiert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wertpapier anlegen");
+            alert.setHeaderText(null);
+            alert.setContentText("Sie m\u00fcssen mindestens eine Aktie und eine Anleihe erfassen.");
+            alert.showAndWait();
+            return;
+        }
 
         // Aktualisiere alle Wertpapier und füge sofern notwendig neue der Datenbank hinzu
         model.save(aktieNachAenderung);

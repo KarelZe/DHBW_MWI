@@ -56,6 +56,15 @@ public class UnternehmenAnlegenController implements ControlledScreen {
             return;
         }
 
+        if(unternehmenNachAenderung.isEmpty()) { //kein Unternehmen angelegt
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Unternehmen anlegen");
+            alert.setHeaderText(null);
+            alert.setContentText("Sie m\u00fcssen mindestens ein Unternehmen erfassen.");
+            alert.showAndWait();
+            return;
+        }
+
         model.save(unternehmenNachAenderung);
 
         /* Lösche nicht benötigte Unternehmen aus Datenbank. Durchlaufe hierfür unternehmenNachAenderung.
