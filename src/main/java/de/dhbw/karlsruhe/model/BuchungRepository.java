@@ -2,7 +2,9 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
+import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
+import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -44,9 +46,6 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         return instanz;
     }
 
-    // Implementierung Interface
-
-
     /**
      * Gibt die Anzahl an {@link Buchung Buchungs} Objekten in der Datenbank zurück.
      *
@@ -66,14 +65,14 @@ public class BuchungRepository implements CrudRepository<Buchung> {
 
 
     /**
-     * Diese Methode stellt ein Wertpapierobjekt anhand der id des Wertpapiers.
-     * Es handelt sich dabei um eine Variante des NUll-Objekt-Patterns.
-     * Dadurch können Prüfungen auf Null-Werte vereinfaht werden.
+     * Abfrage eines {@link Buchung} Objekts anhand der Id der {@link Buchung} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
      *
-     * @param id ID des Wertpapiers.
-     * @return Optional ist ein Container für Wertpapier, um vereinfacht das Vorhandensein des Wertpapiers zu prüfen.
+     * @param id Id der zu findenden {@link Buchung}
+     * @return Optional ist ein Container für eine {@link Buchung}, um vereinfacht das Vorhandensein der {@link Buchung} zu prüfen.
+     * @author Christian Fix, Markus Bilz
      */
-
     @Override
     public Optional<Buchung> findById(long id) {
         Transaction tx = null;
@@ -94,6 +93,12 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@link Buchung Buchungen} Objekte in der Datenbank.
+     *
+     * @return Liste mit {@link Buchung} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<Buchung> findAll() {
         Transaction tx = null;
@@ -172,23 +177,24 @@ public class BuchungRepository implements CrudRepository<Buchung> {
 
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     *
-     * @param buchung Wertpapier zur Löschung.
+     * Löscht ein {@link Buchung Buchungs} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     * @param buchung zu löschende {@link Buchung}.
+     * @author Christian Fix, Markus Bilz
      */
-
     @Override
     public void delete(Buchung buchung) {
         delete(List.of(buchung));
     }
 
     /**
-     * Abfrage von {@link Buchung Buchungs} Objekten anhand der Id des {@link de.dhbw.karlsruhe.model.jpa.Teilnehmer Teilnehmers} in der Datenbank.
+     * Abfrage von {@link Buchung Buchungs} Objekten anhand der Id des {@link Teilnehmer Teilnehmers} in der Datenbank.
      * @param teilnehmerId Id des Teilnehmers
-     * @return Buchungen oder leere Liste
-     * @deprecated ersetzt durch PortfolioFassade {@link de.dhbw.karlsruhe.model.fassade.PortfolioFassade}.
+     * @return Liste mit Buchungen; gegebenfalls leer
+     * @deprecated ersetzt durch PortfolioFassade {@link PortfolioFassade}.
      * Die PortfolioFassade bietet einen einfacheren Zugriff auf Salden des Teilnehmers, weshalb die Fassade bevorzugt
      * zu verwenden ist, sofern nicht zwingend Buchungen benötigt werden.
+     * @author Christian Fix, Markus Bilz
      */
     @Deprecated
     public List<Buchung> findByTeilnehmerId(long teilnehmerId) {

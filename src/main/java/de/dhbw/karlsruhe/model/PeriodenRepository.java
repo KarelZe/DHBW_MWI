@@ -2,6 +2,7 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.jpa.Periode;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -87,11 +88,23 @@ public class PeriodenRepository implements CrudRepository<Periode> {
         return findAll().size();
     }
 
+    /**
+     * Löscht ein {@link Periode Perioden} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
+     * @param periode zu löschende {@link Periode}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(Periode periode) {
         delete(List.of(periode));
     }
 
+    /**
+     * Löscht eine Liste von {@link Periode} Objekten aus der Datenbank, sofern vorhanden.
+     * @param perioden Liste von {@link Periode} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(List<Periode> perioden) {
         Transaction tx = null;
@@ -108,11 +121,26 @@ public class PeriodenRepository implements CrudRepository<Periode> {
         }
     }
 
+    /**
+     * Frägt das Vorhandensein eines {@link Periode} Objekts in der Datenbank ab.
+     * @param id Id der abzufragenden {@link Periode}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public boolean existsById(long id) {
-        throw new UnsupportedOperationException();
+        return findById(id).isPresent();
     }
 
+    /**
+     * Abfrage eines {@link Periode} Objekts anhand der Id der {@link Periode} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns (GOF).
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
+     *
+     * @param id Id der zu findenden {@link Periode}
+     * @return Optional ist ein Container für eine {@link Periode}, um vereinfacht das Vorhandensein der {@link Periode} zu prüfen.
+     * @author Christian Fix, Markus
+     */
     @Override
     public Optional<Periode> findById(long id) {
         Transaction tx = null;
@@ -133,11 +161,22 @@ public class PeriodenRepository implements CrudRepository<Periode> {
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@link Periode Perioden} Objekte in der Datenbank.
+     * @throws UnsupportedOperationException Exception, da noch nicht implementiert.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<Periode> findAll() {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Abfrage aller {@link Periode Perioden} eines {@link Spiel Spiels}.
+     * @param spieleId Id des zugehörigen Spiels
+     * @return Liste mit {@link Periode} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     public List<Periode> findAllBySpieleId(long spieleId) {
         Transaction tx = null;
         ArrayList<Periode> perioden = new ArrayList<>();
