@@ -39,6 +39,7 @@ public class RegisterController implements ControlledScreen {
      * Liest die vom Nutzer eingebenen Daten aus
      * Wenn diese gewissen Kriterien entsprechen, wird der Teilnehmer in der Datenbank angelegt und erhält das Startkapital
      * Der Teilnehmer wird über seinen Benutzernamen informiert, der sich aus <Vorname>.<Nachname> zusammensetzt
+     *
      * @param event Event des aufrufenden Buttons
      */
     @FXML
@@ -50,8 +51,6 @@ public class RegisterController implements ControlledScreen {
         String vorname = txtVorname.getText().trim();
         String nachname = txtNachname.getText().trim();
         Unternehmen unternehmen = cmbUnternehmen.getSelectionModel().getSelectedItem();
-        System.out.println(unternehmen);
-        System.out.println(vorname);
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
         Rolle rolle = new Rolle();
         rolle.setId(Rolle.ROLLE_TEILNEHMER);
@@ -67,20 +66,21 @@ public class RegisterController implements ControlledScreen {
 
         // Eindeutigkeit des Benutzernamens prüfen
         Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findByBenutzername(benutzername);
-        teilnehmer.ifPresent(t -> {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
-                    alert.setTitle("Benutzername");
-                    alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
-                    alert.showAndWait();
-                    return;
-                }
-        );
+        if (teilnehmer.isPresent()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
+            alert.setHeaderText(null);
+            alert.setTitle("Benutzername");
+            alert.setContentText("Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
+            alert.showAndWait();
+            return;
+        }
 
 
         //Zuordnung zu Unternehmen prüfen
         System.out.println("U: " + unternehmen);
         if (unternehmen == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setTitle("Unternehmensauswahl");
             alert.setContentText("Bitte legen Sie Ihr Unternehmen wie im Planspiel fest.");
             alert.showAndWait();
@@ -91,6 +91,7 @@ public class RegisterController implements ControlledScreen {
         //Name prüfen
         if ((vorname.trim().length() == 0) || (nachname.trim().length() == 0)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setTitle("Vor- und Nachname");
             alert.setContentText("Bitte geben Sie einen Vor- und Nachname ein.");
             alert.showAndWait();
@@ -100,6 +101,7 @@ public class RegisterController implements ControlledScreen {
         //Passwortübereinstimmung prüfen
         if (!passwortKlartext.equals(passwortKlartextWiederholung)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setTitle("Passwort");
             alert.setContentText("Bitte geben Sie in beiden Passwortfeldern das gleiche Passwort ein.");
             alert.showAndWait();
@@ -109,6 +111,7 @@ public class RegisterController implements ControlledScreen {
         //Passwortlänge prüfen
         if (passwortKlartext.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
             alert.setTitle("Passwort");
             alert.setContentText("Bitte geben Sie ein Passwort mit mindestens f\u00fcnf Zeichen ein.");
             alert.showAndWait();
@@ -117,7 +120,6 @@ public class RegisterController implements ControlledScreen {
 
         Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getInstanz().getSpiel());
         TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
-
 
 
         //Startkapital zuweisen
@@ -134,8 +136,9 @@ public class RegisterController implements ControlledScreen {
 
         //Teilnehmer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
         alert.setTitle("Erfolgreich registiriert");
-        alert.setContentText("Sie wurden erfolgreich mit dem Benutzernamen "+"\""+teilnehmerZurSpeicherung.getBenutzername()+"\""+" registriert!");
+        alert.setContentText("Sie wurden erfolgreich mit dem Benutzernamen " + "\"" + teilnehmerZurSpeicherung.getBenutzername() + "\"" + " registriert!");
         alert.showAndWait();
 
         //Registrierung abschließen und zu Login wechseln
@@ -162,6 +165,7 @@ public class RegisterController implements ControlledScreen {
 
     /**
      * Setzt den screenController
+     *
      * @param screenPage Controller des Screens
      */
     @Override
