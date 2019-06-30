@@ -74,7 +74,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
         Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(),  ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
-        // TODO: Das hier legt für jedes Wertpapier (also auch die von anderen Spielen) einen neuen Kurs an
+        //Kurs-Objekt von Aktien und Anleihen erzeugen, sodass dieser in der nachfolgenden Übersicht angezeigt werden
         List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
         List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
         kursRepository.save(kurse);

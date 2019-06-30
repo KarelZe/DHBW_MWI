@@ -61,7 +61,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
             lblName.setText(kurs.getWertpapier().getName());
             // Spread ist nullable in DB -> Konvertiere in %
             txtSpread.setText(kurs.getSpread() == null ? "0.00d" : String.valueOf(kurs.getSpread() * 100.00d));
-            txtKursInsolvenz.setText(String.valueOf(kurs.getKursValue()));
+            txtKursInsolvenz.setText(String.valueOf(kurs.getInsolvenzkurs()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -78,6 +78,6 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
     private void initialize() {
         // Konvertiere BP in %
         txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(NumberHelper.parseDouble(newValue, 0) / 100));
-        txtKursInsolvenz.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKursValue(NumberHelper.parseDouble(newValue, 0)));
+        txtKursInsolvenz.textProperty().addListener((observable, oldValue, newValue) -> getItem().setInsolvenzkurs(NumberHelper.parseDouble(newValue, 0)));
     }
 }

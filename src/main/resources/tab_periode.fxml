@@ -23,11 +23,11 @@
          <VBox.margin>
             <Insets />
          </VBox.margin></ListView>
-        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Speichern">
+        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="true" text="Speichern">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" />
          </VBox.margin></Button>
-        <Button fx:id="btnAbschliessen" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" text="Periode abschließen">
+        <Button fx:id="btnAbschliessen" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="true" text="Periode abschließen">
          <padding>
             <Insets bottom="5.0" left="10.0" />
          </padding>
