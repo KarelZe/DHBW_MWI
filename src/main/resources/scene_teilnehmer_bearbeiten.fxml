@@ -1,25 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.TeilnehmerBearbeitenController">
-    <Label text="Vorname" />
-     <TextField fx:id="vornameFeld" />
-    <Label text="Nachname" />
-     <TextField fx:id="nachnameFeld" />
-    <Label text="Passwort" />
-     <PasswordField fx:id="passwortFeld" promptText="Neues Passwort" />
-    <Label text="Passwort Wiederholung" />
-     <PasswordField fx:id="passwortBestaetigenFeld" promptText="Neues Passwort" />
-    <Label text="Unternehmen" />
-     <ComboBox fx:id="unternehmenComboBox" />
-     <Button layoutX="21.0" layoutY="280.0" mnemonicParsing="false" onAction="#aktualisieren" text="Aktualisieren" />
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0"
+      prefHeight="527.0" prefWidth="567.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      fx:controller="de.dhbw.karlsruhe.controller.TeilnehmerBearbeitenController">
+    <Label text="Vorname">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0" top="60.0"/>
+        </VBox.margin>
+    </Label>
+    <TextField fx:id="vornameFeld">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </TextField>
+    <Label text="Nachname">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </Label>
+    <TextField fx:id="nachnameFeld">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </TextField>
+    <Label text="Passwort">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </Label>
+    <PasswordField fx:id="passwortFeld" promptText="Neues Passwort">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </PasswordField>
+    <Label text="Passwort Wiederholung">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </Label>
+    <PasswordField fx:id="passwortBestaetigenFeld" promptText="Neues Passwort">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </PasswordField>
+    <Label text="Unternehmen">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </Label>
+    <ComboBox fx:id="unternehmenComboBox" prefHeight="31.0" prefWidth="366.0">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0"/>
+        </VBox.margin>
+    </ComboBox>
+    <Button layoutX="21.0" layoutY="280.0" mnemonicParsing="false" onAction="#aktualisieren" prefHeight="52.0"
+            prefWidth="208.0" text="Aktualisieren">
+        <VBox.margin>
+            <Insets left="90.0" right="90.0" top="20.0"/>
+        </VBox.margin>
+    </Button>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>

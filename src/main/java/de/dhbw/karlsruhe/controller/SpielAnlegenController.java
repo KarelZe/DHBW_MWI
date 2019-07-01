@@ -24,6 +24,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     private Spiel neuesSpiel;
 
+
     private UnternehmenRepository unternehmenRepository = UnternehmenRepository.getInstanz();
 
     private WertpapierRepository wertpapierRepository = WertpapierRepository.getInstanz();
@@ -44,6 +45,8 @@ public class SpielAnlegenController implements ControlledScreen {
         try {
             double startkapital = Double.valueOf(txtStartkapital.getText());
             if(startkapital > 0.0) {
+                txtStartkapital.getStyleClass().removeAll("text-field-correct, focus");
+                txtStartkapital.getStyleClass().add(".text-field-correct");
                 this.neuesSpiel.setStartkapital(startkapital);
             }
             else { //Startkapital <= 0.0
