@@ -43,26 +43,34 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         return instanz;
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
-    @Override
+    /**
+     * Gibt die Anzahl an {@link Wertpapier} Objekten in der Datenbank zurück.
+     * @return Anzahl an {@link Wertpapier Wertpapieren}.
+     * @author Christian Fix, Markus Bilz
+     */
     public long count() {
         return findAll().size();
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
-    @Override
+    /**
+     * Frägt das Vorhandensein eines {@link Wertpapier} Objekts in der Datenbank ab.
+     * @param id Id des abzufragenden {@link Wertpapier Wertpapiers}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix, Markus Bilz
+     */
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }
 
 
     /**
-     * Diese Methode stellt ein Wertpapierobjekt anhand der id des Wertpapiers.
-     * Es handelt sich dabei um eine Variante des NUll-Objekt-Patterns.
-     * Dadurch können Prüfungen auf Null-Werte vereinfaht werden.
+     * Abfrage eines {@link Wertpapier} Objekts anhand der Id des {@link Wertpapier Wertpapiers} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
      *
-     * @param id ID des Wertpapiers.
-     * @return Optional ist ein Container für Wertpapier, um vereinfacht das Vorhandensein des Wertpapiers zu prüfen.
+     * @param id Id der zu findenden {@link Wertpapier Wertpapiers}
+     * @return Optional ist ein Container für {@link Wertpapier Wertpapiere}, um vereinfacht das Vorhandensein des {@link Wertpapier Wertpapiers} zu prüfen.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public Optional<Wertpapier> findById(long id) {
@@ -83,7 +91,12 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         }
         return Optional.empty();
     }
-
+    /**
+     * Abfrage aller {@link Wertpapier} Objekte in der Datenbank.
+     * Es werden ausschließlich Wertpapiere des aktuell aktiven Spiels zurückgegeben.
+     * @return Liste mit {@link Wertpapier} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<Wertpapier> findAll() {
         Transaction tx = null;
@@ -139,13 +152,17 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     public void save(Wertpapier wertpapier) {
         save(List.of(wertpapier));
     }
-
+    /**
+     * Löscht eine Liste von {@link Wertpapier} Objekten aus der Datenbank, sofern vorhanden.
+     * @param wertpapiere Liste von {@link Wertpapier} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
-    public void delete(List<Wertpapier> wertpapier) {
+    public void delete(List<Wertpapier> wertpapiere) {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            for (Wertpapier e : wertpapier) {
+            for (Wertpapier e : wertpapiere) {
                 session.delete(e);
             }
             tx.commit();
@@ -157,8 +174,10 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     }
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     * @param wertpapier Wertpapier zur Löschung.
+     * Löscht ein {@link Wertpapier} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     * @param wertpapier zu löschendes {@link Wertpapier}.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void delete(Wertpapier wertpapier) {
