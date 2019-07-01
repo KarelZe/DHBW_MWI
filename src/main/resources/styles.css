@@ -57,6 +57,15 @@
     -fx-border-color: -fx-secondary;
 }
 
+.text-field-correct {
+    -fx-text-fill: green;
+    -fx-font-size: 12pt;
+    -jfx-focus-color: -fx-secondary;
+    -fx-background-color: -fx-secondary;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-secondary;
+}
+
 .combo-box {
     -fx-font-size : 12pt;
     -jfx-focus-color: -fx-secondary;

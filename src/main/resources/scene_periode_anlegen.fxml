@@ -3,7 +3,8 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" maxWidth="500.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="500.0" minHeight="-Infinity"
+      minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
       fx:controller="de.dhbw.karlsruhe.controller.PeriodeAnlegenController">
   <GridPane hgap="10.0" vgap="10.0">
     <columnConstraints>
@@ -43,13 +44,14 @@
     <rowConstraints>
       <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints/>
     </rowConstraints>
     <VBox.margin>
-      <Insets/>
+      <Insets left="90.0" right="90.0" top="240.0"/>
     </VBox.margin>
   </GridPane>
   <Button fx:id="btnAnlegen" defaultButton="true" mnemonicParsing="false" onAction="#doPeriodeAnlegen" prefHeight="50.0"
-          prefWidth="318.0" text="Periode anlegen">
+          prefWidth="225.0" text="Periode anlegen">
     <VBox.margin>
       <Insets left="90.0" right="90.0" />
     </VBox.margin>
