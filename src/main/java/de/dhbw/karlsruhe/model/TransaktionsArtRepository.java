@@ -43,18 +43,37 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
         return instanz;
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
+    /**
+     * Gibt die Anzahl an {@link TransaktionsArt} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link TransaktionsArt TransaktionsArten}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
         return findAll().size();
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
+    /**
+     * Frägt das Vorhandensein eines {@link TransaktionsArt} Objekts in der Datenbank ab.
+     * @param id Id der abzufragenden {@link TransaktionsArt}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }
 
+    /**
+     * Abfrage eines {@link TransaktionsArt} Objekts anhand der Id der {@link TransaktionsArt} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
+     *
+     * @param id Id der zu findenden {@link TransaktionsArt}
+     * @return Optional ist ein Container für {@link TransaktionsArt}, um vereinfacht das Vorhandensein der {@link TransaktionsArt} zu prüfen.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public Optional<TransaktionsArt> findById(long id) {
         Transaction tx = null;
@@ -75,6 +94,11 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@link TransaktionsArt} Objekte in der Datenbank.
+     * @return Liste mit {@link TransaktionsArt} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<TransaktionsArt> findAll() {
         Transaction tx = null;
@@ -130,6 +154,11 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
         save(List.of(transaktionsArt));
     }
 
+    /**
+     * Löscht eine Liste von {@link TransaktionsArt} Objekten aus der Datenbank, sofern vorhanden.
+     * @param transaktionsArten Liste von {@link TransaktionsArt} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(List<TransaktionsArt> transaktionsArten) {
         Transaction tx = null;
@@ -145,6 +174,13 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
                 tx.rollback();
         }
     }
+
+    /**
+     * Löscht ein {@link TransaktionsArt} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     * @param transaktionsArt zu löschende {@link TransaktionsArt}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(TransaktionsArt transaktionsArt) {
         delete(List.of(transaktionsArt));

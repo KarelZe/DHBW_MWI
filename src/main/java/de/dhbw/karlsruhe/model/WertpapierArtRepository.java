@@ -43,13 +43,23 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
         return instanz;
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
+    /**
+     * Gibt die Anzahl an {@link WertpapierArt} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link WertpapierArt WertpapierArten}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
         return findAll().size();
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
+    /**
+     * Frägt das Vorhandensein eines {@link WertpapierArt} Objekts in der Datenbank ab.
+     * @param id Id der abzufragenden {@link WertpapierArt}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
@@ -57,12 +67,13 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
 
 
     /**
-     * Diese Methode stellt ein WertpapierArt-Objekt anhand der id der WertpapierArt.
-     * Es handelt sich dabei um eine Variante des NUll-Objekt-Patterns.
-     * Dadurch können Prüfungen auf Null-Werte vereinfaht werden.
+     * Abfrage eines {@link WertpapierArt} Objekts anhand der Id der {@link WertpapierArt} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
      *
-     * @param id ID des Wertpapiers.
-     * @return Optional ist ein Container für WertpapierArten, um vereinfacht das Vorhandensein einer WertpapierArt zu prüfen.
+     * @param id Id der zu findenden {@link WertpapierArt}
+     * @return Optional ist ein Container für {@link WertpapierArt}, um vereinfacht das Vorhandensein der {@link WertpapierArt} zu prüfen.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public Optional<WertpapierArt> findById(long id) {
@@ -84,6 +95,11 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@link WertpapierArt} Objekte in der Datenbank.
+     * @return Liste mit {@link WertpapierArt} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<WertpapierArt> findAll() {
         Transaction tx = null;
@@ -138,6 +154,11 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
         save(List.of(wertpapierArt));
     }
 
+    /**
+     * Löscht eine Liste von {@link WertpapierArt} Objekten aus der Datenbank, sofern vorhanden.
+     * @param wertpapierArt Liste von {@link WertpapierArt} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(List<WertpapierArt> wertpapierArt) {
         Transaction tx = null;
@@ -155,8 +176,10 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
     }
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     * @param wertpapierArt WertpapierArt zur Löschung.
+     * Löscht ein {@link WertpapierArt} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     * @param wertpapierArt zu löschende {@link WertpapierArt}.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void delete(WertpapierArt wertpapierArt) {
