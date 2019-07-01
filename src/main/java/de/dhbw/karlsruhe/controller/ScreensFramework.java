@@ -64,7 +64,7 @@ public class ScreensFramework extends Application implements InvalidationListene
     public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
 
     private Menu mTeilnehmer, mAdministration, mAuswertung, mSpiel;
-    private MenuItem mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen, mIteilnehmerRegistrieren, mIteilnehmerLogin;
+    private MenuItem mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen, mIteilnehmerRegistrieren, mIteilnehmerLogin, mIteilnehmerBearbeiten;
     private Button btnLogout;
     private ScreenController screenController = new ScreenController();
 
@@ -114,12 +114,13 @@ public class ScreensFramework extends Application implements InvalidationListene
         //Menüpunkte erstellen
         mIteilnehmerRegistrieren = new MenuItem("Benutzer registrieren");
         mIteilnehmerLogin = new MenuItem("Benutzer einloggen");
+        mIteilnehmerBearbeiten = new MenuItem("Benutzer bearbeiten");
         mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
         mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
         mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
 
         //Menüpunkt zum Menü hinzufügen
-        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
+        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerBearbeiten, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
 
         mSpiel = new Menu("Spiel");
         MenuItem mIspielInitialisieren = new MenuItem("Spiel initialisieren");
@@ -163,14 +164,18 @@ public class ScreensFramework extends Application implements InvalidationListene
 
         //Event hinzufügen
         mIteilnehmerLogin.setOnAction(event -> {
-                    screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
-                    screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
-                }
-        );
+            screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
+        });
         mIteilnehmerRegistrieren.setOnAction(e -> {
             screenController.loadScreen(ScreensFramework.SCREEN_REGISTER, ScreensFramework.SCREEN_REGISTER_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_REGISTER);
         });
+        mIteilnehmerBearbeiten.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
+        });
+
         mIteilnehmerHistorie.setOnAction((event -> {
             screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
@@ -259,32 +264,36 @@ public class ScreensFramework extends Application implements InvalidationListene
         mIteilnehmerHistorie.setDisable(true);
         mIwertpapierKaufen.setDisable(true);
         mIwertpapierVerkaufen.setDisable(true);
+        mIteilnehmerBearbeiten.setDisable(true);
         // setze initialen Stand. Diese Einträge erfordern keine besonderen Berechtigungen.
         mIteilnehmerLogin.setDisable(false);
         mIteilnehmerRegistrieren.setDisable(false);
-        // aktiviere Rollen-basiert einzelne Menüs oder Menü-Einträge
-        if (benutzer == null) {
+
+        if (benutzer != null) {
+            // Es ist Benutzer vorhanden und unterscheide nach Rollen
+            if (benutzer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+                mAdministration.setDisable(false);
+                mAuswertung.setDisable(false);
+                mSpiel.setDisable(false);
+                btnLogout.setDisable(false);
+                mIteilnehmerLogin.setDisable(false);
+            } else {
+                mTeilnehmer.setDisable(false);
+                mIteilnehmerHistorie.setDisable(false);
+                mIwertpapierKaufen.setDisable(false);
+                mIwertpapierVerkaufen.setDisable(false);
+                mIteilnehmerRegistrieren.setDisable(true);
+                mIteilnehmerLogin.setDisable(true);
+                btnLogout.setDisable(false);
+            }
+            mIteilnehmerBearbeiten.setDisable(false);
+
+        } else if (spiel != null) {
+            // Es ist Spiel vorhanden, aber kein aktiver Teilnehmer
             mTeilnehmer.setDisable(false);
-            mSpiel.setDisable(false);
-        } else if (benutzer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
-            mAdministration.setDisable(false);
-            mAuswertung.setDisable(false);
-            mSpiel.setDisable(false);
-            btnLogout.setDisable(false);
         } else {
-            mTeilnehmer.setDisable(false);
-            mIteilnehmerHistorie.setDisable(false);
-            mIwertpapierKaufen.setDisable(false);
-            mIwertpapierVerkaufen.setDisable(false);
-            mIteilnehmerRegistrieren.setDisable(true);
-            mIteilnehmerLogin.setDisable(true);
-            btnLogout.setDisable(false);
-        }
-        if (spiel == null) {
+            // Es ist weder Benutzer noch Spiel vorhanden betrifft den aller ersten Anwendungsstart.
             mSpiel.setDisable(false);
-            mIteilnehmerLogin.setDisable(true);
-            mIteilnehmerRegistrieren.setDisable(true);
-            mTeilnehmer.setDisable(true);
         }
     }
 
