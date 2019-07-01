@@ -1,6 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
+import de.dhbw.karlsruhe.model.jpa.Spiel;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -78,21 +79,33 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         }
     }
 
+    /**
+     * Gibt die Anzahl an {@link Unternehmen} Objekten in der Datenbank zurück.
+     *
+     * @return Anzahl an {@link Unternehmen}.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public long count() {
         return findAll().size();
     }
 
     /**
-     * Implementierung des Patterns Bequemlichkeits Methode.
-     *
-     * @param unternehmen Unternehmen zur Löschung.
+     * Löscht ein {@link Unternehmen} Objekt aus der Datenbank, sofern vorhanden.
+     * Implementierung des Patterns Bequemlichkeitsmethode.
+     * @param unternehmen zu löschende {@link Unternehmen}.
+     * @author Christian Fix, Markus Bilz
      */
     @Override
     public void delete(Unternehmen unternehmen) {
         delete(List.of(unternehmen));
     }
 
+    /**
+     * Löscht eine Liste von {@link Unternehmen Unternehmens} Objekten aus der Datenbank, sofern vorhanden.
+     * @param unternehmen Liste von {@link Unternehmen Unternehmens} Objekten zur Löschung.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public void delete(List<Unternehmen> unternehmen) {
         Transaction tx = null;
@@ -109,11 +122,26 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         }
     }
 
+    /**
+     * Frägt das Vorhandensein eines {@link Unternehmen Unternehmens} Objekts in der Datenbank ab.
+     * @param id Id des abzufragenden {@link Unternehmen Unternehmens}
+     * @return {@code true}, sofern vorhanden; andernfalls {@code false}
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }
 
+    /**
+     * Abfrage eines {@link Unternehmen Unternehmens} Objekts anhand der Id der {@link Unternehmen} in der Datenbank.
+     * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
+     * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
+     *
+     * @param id Id der zu findenden {@link Unternehmen}
+     * @return Optional ist ein Container für {@link Unternehmen}, um vereinfacht das Vorhandensein des {@link Unternehmen Unternehmens} zu prüfen.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public Optional<Unternehmen> findById(long id) {
         Transaction tx = null;
@@ -134,6 +162,15 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         return Optional.empty();
     }
 
+    /**
+     * Abfrage aller {@link Unternehmen} Objekte in der Datenbank nach Unternehmensart.
+     * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
+     * sodass keine Daten von {@link Unternehmen} fremder Spiele preisgegeben werden.
+     * Die Unternehmensart ist in der Klasse {@link Unternehmen} dokumentiert.
+     * @param unternehmenArt Art des {@link Unternehmen Unternehmens} z. B. {@code 1}
+     * @return Liste mit {@link Unternehmen Unternehmens} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     public List<Unternehmen> findByUnternehmenArt(int unternehmenArt) {
         Transaction tx = null;
         ArrayList<Unternehmen> unternehmen = new ArrayList<>();
@@ -156,6 +193,15 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         return unternehmen;
     }
 
+    /**
+     * Abfrage aller {@link Unternehmen} Objekte in der Datenbank.
+     * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
+     * sodass keine Daten von {@link Unternehmen} fremder Spiele preisgegeben werden.
+     * Die Ergebnismenge kann dabei Planspielunternehmen als auch Dummy-Unternehmen für die Emission des ETFs o. Ä.
+     * enthalten.
+     * @return Liste mit {@link Unternehmen Unternehmens} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     @Override
     public List<Unternehmen> findAll() {
         Transaction tx = null;
@@ -178,7 +224,15 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         return unternehmen;
     }
 
-
+    /**
+     * Abfrage aller {@link Unternehmen} Objekte in der Datenbank.
+     * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
+     * sodass keine Daten von {@link Unternehmen} fremder Spiele preisgegeben werden.
+     * Die Ergebnismenge enthält dabei nur {@link Unternehmen} mit der {@code UnternehmenArt = UNTERNEHMEN_TEILNEHMER}
+     * und damit keine Dummy-Unternehmen für beispielsweise die Emission von ETFs.
+     * @return Liste mit {@link Unternehmen Unternehmens} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     public List<Unternehmen> findAllPlanspielUnternehmen() {
         return findAll().stream().filter(u -> u.getUnternehmenArt() == Unternehmen.UNTERNEHMEN_TEILNEHMER).collect(Collectors.toList());
     }
