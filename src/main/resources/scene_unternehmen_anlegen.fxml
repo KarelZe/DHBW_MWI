@@ -31,7 +31,7 @@
             <Insets bottom="5.0" left="90.0" right="90.0" top="5.0"/>
         </VBox.margin>
     </Label>
-    <ListView fx:id="lstVwUnternehmen" prefWidth="500.0">
+    <ListView fx:id="lstVwUnternehmen" prefHeight="293.0" prefWidth="500.0">
         <VBox.margin>
             <Insets left="90.0" right="90.0"/>
         </VBox.margin>
@@ -39,10 +39,10 @@
     <GridPane prefWidth="590.0">
         <children>
             <Button id="btnWeiter" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
-                    mnemonicParsing="false" onAction="#doSpeichern" prefHeight="39.0" prefWidth="106.0"
-                    text="Weiter" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    mnemonicParsing="false" onAction="#doSpeichern" prefHeight="39.0" prefWidth="106.0" text="Weiter"
+                    textAlignment="CENTER">
                 <GridPane.margin>
-                    <Insets/>
+                    <Insets bottom="10.0" left="90.0"/>
                 </GridPane.margin>
                 <tooltip>
                     <Tooltip text="Speichern und weiter"/>
