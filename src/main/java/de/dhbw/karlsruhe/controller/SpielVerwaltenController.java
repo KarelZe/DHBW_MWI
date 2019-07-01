@@ -75,7 +75,7 @@ public class SpielVerwaltenController implements ControlledScreen {
                 alert.showAndWait();
                 return;
             }
-            SpielRepository.deleteSpiel(zuLoeschendesSpiel);
+            SpielRepository.getInstanz().delete(zuLoeschendesSpiel);
 
             List<Spiel> alleSpiele = spielRepository.findAll();
             ObservableList<Spiel> spieleListe = FXCollections.observableArrayList(alleSpiele);
