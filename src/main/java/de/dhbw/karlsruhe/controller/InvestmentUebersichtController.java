@@ -88,7 +88,7 @@ public class InvestmentUebersichtController implements ControlledScreen {
         }
         List<Tupel> tupelList = new ArrayList<>();
         for (Buchung b : buchungenDerWertpapiereDesUnternehmens) {
-            tupelList.add(new Tupel(b.getTeilnehmer().getUnternehmen().getId(),
+            tupelList.add(new Tupel(b.getBenutzer().getUnternehmen().getId(),
                     (b.getStueckzahl() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, b.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
 
         }
@@ -136,14 +136,14 @@ public class InvestmentUebersichtController implements ControlledScreen {
         List<Portfolioposition> anleihenDerTeilnehmerDesUnternehmens = new ArrayList<>();
         List<Portfolioposition> etfDerTeilnehmerDesUnternehmens = new ArrayList<>();
 
-        List<Teilnehmer> teilnehmerDesUnternehmens = TeilnehmerRepository.getInstanz().findAllTeilnehmerbyUnternehmen(unternehmensId);
+        List<Benutzer> benutzerDesUnternehmen = BenutzerRepository.getInstanz().findAllBenutzerByUnternehmen(unternehmensId);
         PortfolioFassade portfolioFassade = PortfolioFassade.getInstanz();
 
 
-        for (Teilnehmer t : teilnehmerDesUnternehmens) {
-            aktienDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getAktienPositionen(t.getId(), periodenId)); // Hole die Aktien in dieser Periode von diesem Teilnehmer
-            anleihenDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getAnleihePositionen(t.getId(), periodenId)); // Hole die Anleihen in dieser Periode von diesem Teilnehmer
-            etfDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getEtfPositionen(t.getId(), periodenId)); // Hole die ETFs in dieser Periode von diesem Teilnehmer
+        for (Benutzer t : benutzerDesUnternehmen) {
+            aktienDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getAktienPositionen(t.getId(), periodenId)); // Hole die Aktien in dieser Periode von diesem Benutzer
+            anleihenDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getAnleihePositionen(t.getId(), periodenId)); // Hole die Anleihen in dieser Periode von diesem Benutzer
+            etfDerTeilnehmerDesUnternehmens.addAll(portfolioFassade.getEtfPositionen(t.getId(), periodenId)); // Hole die ETFs in dieser Periode von diesem Benutzer
         }
 
         List<InvestitionenTupel> investitionenTupelListUnsorted = new ArrayList<>();

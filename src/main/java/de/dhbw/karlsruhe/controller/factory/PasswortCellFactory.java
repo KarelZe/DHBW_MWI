@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.controller.factory;
 
 import de.dhbw.karlsruhe.controller.fragments.PasswortCell;
-import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
+import de.dhbw.karlsruhe.model.BenutzerViewModel;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
@@ -13,14 +13,14 @@ import javafx.util.Callback;
  * @author Markus Bilz
  * @see <a href="http://oracle.com">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#cell-factories</a>.
  */
-public class PasswortCellFactory implements Callback<TableColumn<TeilnehmerViewModel, Void>, TableCell<TeilnehmerViewModel, Void>> {
+public class PasswortCellFactory implements Callback<TableColumn<BenutzerViewModel, Void>, TableCell<BenutzerViewModel, Void>> {
     /**
      * Methode zur Erzeugung neuer Cells einer Table.
      *
      * @param param ListView, für das {@code PasswortCell} erzeugt wird
      * @return PasswortCell
      */
-    public TableCell<TeilnehmerViewModel, Void> call(final TableColumn<TeilnehmerViewModel, Void> param) {
+    public TableCell<BenutzerViewModel, Void> call(final TableColumn<BenutzerViewModel, Void> param) {
         return new PasswortCell();
     }
 }

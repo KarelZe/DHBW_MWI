@@ -137,7 +137,7 @@ public class ConverterHelper {
             return portfolioposition != null ? portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
                     + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue()) + "\u20ac"
                     + " | Positionsgr\u00f6\u00dfe: " + String.format("%.2f", portfolioposition.getBezugsgroesse()) + "\u20ac"
-                    + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getTeilnehmer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
+                    + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
                     + " Stk.)" : "";
         }
 

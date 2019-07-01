@@ -70,7 +70,7 @@ public class WertpapierKaufenController implements ControlledScreen {
         ObservableList<Wertpapier> wertpapiereComboBox = FXCollections.observableArrayList(wertpapiere);
         cbWertpapierAuswahl.setItems(wertpapiereComboBox);
         cbWertpapierAuswahl.setConverter(new ConverterHelper().getWertpapierConverter());
-        teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getTeilnehmer().getId());
+        teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
         lbZahlungsmittelSaldo.setText(String.format("%.2f", teilnehmerZahlungsmittelkontoSaldo));
         lblOrderGebuehren.setText("Ordergeb\u00fchren (+ " + findAktuelleOrdergebuehr(findAktuellePeriode()) + " %):");
 
@@ -145,7 +145,7 @@ public class WertpapierKaufenController implements ControlledScreen {
             if (orderGesamtKosten <= teilnehmerZahlungsmittelkontoSaldo) {
                 BuchungsFactory buchungsFactory = new BuchungsFactory();
                 Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_KAUFEN);
-                BuchungRepository.getInstanz().save(buchungsart.create(aktuellePeriode, AktuelleSpieldaten.getInstanz().getTeilnehmer(), selectedWertpapier, anzahlZuKaufen));
+                BuchungRepository.getInstanz().save(buchungsart.create(aktuellePeriode, AktuelleSpieldaten.getInstanz().getBenutzer(), selectedWertpapier, anzahlZuKaufen));
                 Alert alert;
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Wertpapierkauf");

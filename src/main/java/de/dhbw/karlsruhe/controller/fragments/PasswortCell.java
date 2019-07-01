@@ -2,9 +2,9 @@ package de.dhbw.karlsruhe.controller.fragments;
 
 import de.dhbw.karlsruhe.helper.ConstantsHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
+import de.dhbw.karlsruhe.model.BenutzerViewModel;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.scene.control.TableCell;
 import java.io.IOException;
 import java.util.Optional;
 
-public class PasswortCell extends TableCell<TeilnehmerViewModel, Void> {
+public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
     @FXML
     private Button btnPasswort;
 
@@ -44,10 +44,10 @@ public class PasswortCell extends TableCell<TeilnehmerViewModel, Void> {
     @FXML
     private void initialize() {
         btnPasswort.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
+            Optional<Benutzer> teilnehmer = BenutzerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
             teilnehmer.ifPresentOrElse(t -> {
                         t.setPasswort(EncryptionHelper.getStringAsMD5(ConstantsHelper.DEFAULT_PASSWORT));
-                        TeilnehmerRepository.getInstanz().save(t);
+                        BenutzerRepository.getInstanz().save(t);
                         Alert messageBox = new Alert(Alert.AlertType.INFORMATION);
                         messageBox.setHeaderText("Das Passwort wurde auf \"anika\" zur\u00fcckgesetzt.");
                         messageBox.showAndWait();

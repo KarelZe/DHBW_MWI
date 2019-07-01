@@ -2,9 +2,9 @@ package de.dhbw.karlsruhe.controller;
 
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -99,7 +99,7 @@ public class ScreensFramework extends Application implements InvalidationListene
         screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
 
         // Lege Screen fest, der als Erstes aufgerufen wird.
-        if (AktuelleSpieldaten.getInstanz().getSpiel() != null) { //Spiel konnte geladen werden
+        if (aktuelleSpieldaten.getSpiel() != null) { //Spiel konnte geladen werden
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
 
 
@@ -110,10 +110,10 @@ public class ScreensFramework extends Application implements InvalidationListene
         //MenüBar erstellen
         MenuBar mbHaupt = new MenuBar();
         //Menü erstellen
-        mTeilnehmer = new Menu("Teilnehmer");
+        mTeilnehmer = new Menu("Benutzer");
         //Menüpunkte erstellen
-        mIteilnehmerRegistrieren = new MenuItem("Teilnehmer registrieren");
-        mIteilnehmerLogin = new MenuItem("Teilnehmer einloggen");
+        mIteilnehmerRegistrieren = new MenuItem("Benutzer registrieren");
+        mIteilnehmerLogin = new MenuItem("Benutzer einloggen");
         mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
         mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
         mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
@@ -132,7 +132,7 @@ public class ScreensFramework extends Application implements InvalidationListene
         MenuItem mIperiodePflegen = new MenuItem("Periode pflegen");
         MenuItem mIunternehmenAnlegen = new MenuItem("Unternehmen anlegen");
         MenuItem mIwertpapierAnlegen = new MenuItem("Wertpapier anlegen");
-        MenuItem mIteilnehmerUebersicht = new MenuItem("Teilnehmer zur\u00fccksetzen");
+        MenuItem mIteilnehmerUebersicht = new MenuItem("Benutzer zur\u00fccksetzen");
 
         mAdministration.getItems().addAll(mIspielAnlegen, mIspielVerwalten, mIperiodeAnlegen, mIperiodePflegen, mIunternehmenAnlegen, mIwertpapierAnlegen, mIteilnehmerUebersicht);
 
@@ -247,7 +247,7 @@ public class ScreensFramework extends Application implements InvalidationListene
      * Methode zur Konfiguration des Menüs. Rollen-basiert werden Menüs aktiviert oder deaktiviert.
      */
     private void konfiguriereMenu() {
-        Teilnehmer teilnehmer = AktuelleSpieldaten.getInstanz().getTeilnehmer();
+        Benutzer benutzer = AktuelleSpieldaten.getInstanz().getBenutzer();
         Spiel spiel = AktuelleSpieldaten.getInstanz().getSpiel();
         // setze initialen Stand für Menüeinträge
         mAdministration.setDisable(true);
@@ -263,10 +263,10 @@ public class ScreensFramework extends Application implements InvalidationListene
         mIteilnehmerLogin.setDisable(false);
         mIteilnehmerRegistrieren.setDisable(false);
         // aktiviere Rollen-basiert einzelne Menüs oder Menü-Einträge
-        if (teilnehmer == null) {
+        if (benutzer == null) {
             mTeilnehmer.setDisable(false);
             mSpiel.setDisable(false);
-        } else if (teilnehmer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+        } else if (benutzer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
             mAdministration.setDisable(false);
             mAuswertung.setDisable(false);
             mSpiel.setDisable(false);
@@ -280,13 +280,19 @@ public class ScreensFramework extends Application implements InvalidationListene
             mIteilnehmerLogin.setDisable(true);
             btnLogout.setDisable(false);
         }
+        if (spiel == null) {
+            mSpiel.setDisable(false);
+            mIteilnehmerLogin.setDisable(true);
+            mIteilnehmerRegistrieren.setDisable(true);
+            mTeilnehmer.setDisable(true);
+        }
     }
 
     /**
      * Methode zum Durchführen eines Log-Outs.
      */
     private void doLogout() {
-        AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+        AktuelleSpieldaten.getInstanz().setBenutzer(null);
         screenController.loadScreen(SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
     }

@@ -1,9 +1,9 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
 import de.dhbw.karlsruhe.controller.ScreenController;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerPrintModel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.BenutzerPrintModel;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ import javafx.scene.control.TableCell;
 import java.io.IOException;
 import java.util.Optional;
 
-public class HistorieCell extends TableCell<TeilnehmerPrintModel, Void> {
+public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
     @FXML
     private Button btnHistorie;
 
@@ -43,7 +43,7 @@ public class HistorieCell extends TableCell<TeilnehmerPrintModel, Void> {
     @FXML
     private void initialize() {
         btnHistorie.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
-            Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
+            Optional<Benutzer> teilnehmer = BenutzerRepository.getInstanz().findById(getTableView().getItems().get(getIndex()).getId());
             teilnehmer.ifPresentOrElse(t -> {
                 //Ruft über den instanzierten Controllerr von ScreenController mit der ID die Historie auf
                 ScreenController.myPrintControllerHandle.showHistoriewithID(getTableView().getItems().get(getIndex()).getId());

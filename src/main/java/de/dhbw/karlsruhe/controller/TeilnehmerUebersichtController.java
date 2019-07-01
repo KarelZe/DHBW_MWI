@@ -1,8 +1,8 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerViewModel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
+import de.dhbw.karlsruhe.model.BenutzerViewModel;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 
 public class TeilnehmerUebersichtController implements ControlledScreen {
     @FXML
-    TableView<TeilnehmerViewModel> tvTeilnehmer;
+    TableView<BenutzerViewModel> tvTeilnehmer;
     @FXML
-    TableColumn<TeilnehmerViewModel, String> tblColVorname;
+    TableColumn<BenutzerViewModel, String> tblColVorname;
     @FXML
-    TableColumn<TeilnehmerViewModel, String> tblColNachname;
+    TableColumn<BenutzerViewModel, String> tblColNachname;
     @FXML
-    TableColumn<TeilnehmerViewModel, Long> tblColId;
+    TableColumn<BenutzerViewModel, Long> tblColId;
     @FXML
-    TableColumn<TeilnehmerViewModel, Long> tblColPasswort;
+    TableColumn<BenutzerViewModel, Long> tblColPasswort;
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
@@ -30,9 +30,9 @@ public class TeilnehmerUebersichtController implements ControlledScreen {
 
     @FXML
     private void initialize() {
-        List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
-        List<TeilnehmerViewModel> teilnehmerViewModel = teilnehmer.stream().map(TeilnehmerViewModel::new).collect(Collectors.toList());
-        ObservableList<TeilnehmerViewModel> observableList = FXCollections.observableArrayList(teilnehmerViewModel);
+        List<Benutzer> benutzer = BenutzerRepository.getInstanz().findAll();
+        List<BenutzerViewModel> benutzerViewModel = benutzer.stream().map(BenutzerViewModel::new).collect(Collectors.toList());
+        ObservableList<BenutzerViewModel> observableList = FXCollections.observableArrayList(benutzerViewModel);
         tvTeilnehmer.setItems(observableList);
     }
 

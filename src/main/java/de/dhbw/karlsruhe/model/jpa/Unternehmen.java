@@ -12,7 +12,7 @@ import java.util.Set;
  * </p>
  *
  * <p>
- * Ein {@code unternehmen} ist in der Software das Äquivalent zum Planspielunternehmen der Teilnehmer.
+ * Ein {@code unternehmen} ist in der Software das Äquivalent zum Planspielunternehmen der Benutzer.
  * Ein Planspielunternehmen kann als Emittent von Aktien und Anleihen auftreten.
  * Neben den Planspielunternehmen bestehen in der Anwendung Dummy-Unternehmen für die Ausgabe von
  * Spielkapital, die Emission des GMAX und die Anlage von Festgeldern.

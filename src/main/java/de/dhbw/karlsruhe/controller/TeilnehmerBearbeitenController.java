@@ -3,10 +3,10 @@ package de.dhbw.karlsruhe.controller;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
 import de.dhbw.karlsruhe.model.CrudRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 
 /**
- * Ermöglicht das Bearbeiten eines bereits registrierten und eingeloggten Teilnehmers durch den Teilnehmer selbst
+ * Ermöglicht das Bearbeiten eines bereits registrierten und eingeloggten Teilnehmers durch den Benutzer selbst
  * @author Max Schwaab
  */
 
@@ -31,7 +31,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     @FXML
     private ComboBox<Unternehmen> unternehmenComboBox;
 
-    private Teilnehmer teilnehmer;
+    private Benutzer benutzer;
 
     private CrudRepository<Unternehmen> model;
 
@@ -44,7 +44,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     @FXML
     private void aktualisieren(ActionEvent event) {
 
-        System.out.println(teilnehmer);
+        System.out.println(benutzer);
 
         String vorname = vornameFeld.getText().trim();
         String nachname = nachnameFeld.getText().trim();
@@ -84,7 +84,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
                 return;
             }
 
-            teilnehmer.setPasswort(EncryptionHelper.getStringAsMD5(passwort1));
+            benutzer.setPasswort(EncryptionHelper.getStringAsMD5(passwort1));
         }
 
         if (unternehmenComboBox.getValue() == null) {
@@ -96,21 +96,21 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
             return;
         }
 
-        teilnehmer.setVorname(vorname);
-        teilnehmer.setNachname(nachname);
-        teilnehmer.setBenutzername(vorname + "." + nachname);
-        teilnehmer.setUnternehmen(unternehmenComboBox.getValue());
+        benutzer.setVorname(vorname);
+        benutzer.setNachname(nachname);
+        benutzer.setBenutzername(vorname + "." + nachname);
+        benutzer.setUnternehmen(unternehmenComboBox.getValue());
 
-        TeilnehmerRepository.getInstanz().save(teilnehmer);
+        BenutzerRepository.getInstanz().save(benutzer);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Aktualisieren erfolgreich");
-        alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: " + "\"" + teilnehmer.getBenutzername() + "\"");
+        alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: " + "\"" + benutzer.getBenutzername() + "\"");
         alert.showAndWait();
 
-        //ToDo: Aktueller Teilnehmer neu setzen?
+        //ToDo: Aktueller Benutzer neu setzen?
 
-        System.out.println(teilnehmer);
+        System.out.println(benutzer);
 
     }
 
@@ -119,13 +119,13 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
      */
     @FXML
     private void initialize() {
-        teilnehmer = AktuelleSpieldaten.getInstanz().getTeilnehmer();
-        vornameFeld.setText(teilnehmer.getVorname());
-        nachnameFeld.setText(teilnehmer.getNachname());
+        benutzer = AktuelleSpieldaten.getInstanz().getBenutzer();
+        vornameFeld.setText(benutzer.getVorname());
+        nachnameFeld.setText(benutzer.getNachname());
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenList = FXCollections.observableArrayList(unternehmen);
         unternehmenComboBox.setItems(unternehmenList);
-        unternehmenComboBox.setValue(teilnehmer.getUnternehmen());
+        unternehmenComboBox.setValue(benutzer.getUnternehmen());
         unternehmenComboBox.setConverter(new ConverterHelper().getUnternehmensConverter());
     }
 

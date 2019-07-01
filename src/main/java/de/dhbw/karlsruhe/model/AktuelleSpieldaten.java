@@ -1,7 +1,7 @@
 package de.dhbw.karlsruhe.model;
 
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class AktuelleSpieldaten implements Observable {
     private static AktuelleSpieldaten instanz;
-    private Teilnehmer teilnehmer;
+    private Benutzer benutzer;
     private Spiel spiel;
     private List<InvalidationListener> alleListener = new ArrayList<>();
 
@@ -69,12 +69,12 @@ public class AktuelleSpieldaten implements Observable {
         }
     }
 
-    public Teilnehmer getTeilnehmer() {
-        return teilnehmer;
+    public Benutzer getBenutzer() {
+        return benutzer;
     }
 
-    public void setTeilnehmer(Teilnehmer teilnehmer) {
-        this.teilnehmer = teilnehmer;
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
         notifyListeners();
     }
 

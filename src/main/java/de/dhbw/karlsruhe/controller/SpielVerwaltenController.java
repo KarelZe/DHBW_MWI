@@ -49,7 +49,7 @@ public class SpielVerwaltenController implements ControlledScreen {
             spielRepository.save(altesSpiel);
             spielRepository.save(neuesSpiel);
             AktuelleSpieldaten.getInstanz().setSpiel(neuesSpiel);
-            AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+            AktuelleSpieldaten.getInstanz().setBenutzer(null);
             screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
         }
     }
@@ -57,7 +57,7 @@ public class SpielVerwaltenController implements ControlledScreen {
     //ToDo: Nach Löschvorgang aktivies Spiel automatisch neu setzen?
     /**
      * Löscht das vom Spielleiter ausgewählt Spiel aus der Datenbank
-     * Die dazugehörigen Einträge, wie Teilnehmer und Unternehmen des entsprechenden Spiels werden ebenfalls gelöscht
+     * Die dazugehörigen Einträge, wie Benutzer und Unternehmen des entsprechenden Spiels werden ebenfalls gelöscht
      */
     @FXML
     private void doSelektiertesSpielLoeschen() {

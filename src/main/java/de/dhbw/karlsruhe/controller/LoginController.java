@@ -2,11 +2,11 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
 import de.dhbw.karlsruhe.model.SpielRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -35,13 +35,13 @@ public class LoginController implements ControlledScreen {
         String passwortKlartext = txtPasswort.getText();
         String passwortVerschluesselt = EncryptionHelper.getStringAsMD5(passwortKlartext);
 
-        Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
+        Optional<Benutzer> teilnehmer = BenutzerRepository.getInstanz().findByBenutzernameAndPasswort(benutzername, passwortVerschluesselt);
         teilnehmer.ifPresentOrElse(t -> {
                     System.out.println(t + " @ " + t.getUnternehmen() + " $ " + t.getRolle());
-                    AktuelleSpieldaten.getInstanz().setTeilnehmer(t);
+                    AktuelleSpieldaten.getInstanz().setBenutzer(t);
                     //ToDo: Übersichts-Screen anzeigen
                     // TODO: Ersetzen durch Filter oder Map? https://www.callicoder.com/java-8-optional-tutorial/
-                    if (AktuelleSpieldaten.getInstanz().getTeilnehmer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+                    if (AktuelleSpieldaten.getInstanz().getBenutzer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
                         //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);

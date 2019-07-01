@@ -1,7 +1,6 @@
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.model.jpa.Buchung;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;

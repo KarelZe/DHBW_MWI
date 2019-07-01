@@ -3,8 +3,8 @@ package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -188,7 +188,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     }
 
     /**
-     * Abfrage von {@link Buchung Buchungs} Objekten anhand der Id des {@link Teilnehmer Teilnehmers} in der Datenbank.
+     * Abfrage von {@link Buchung Buchungs} Objekten anhand der Id des {@link Benutzer Teilnehmers} in der Datenbank.
      * @param teilnehmerId Id des Teilnehmers
      * @return Liste mit Buchungen; gegebenfalls leer
      * @deprecated ersetzt durch PortfolioFassade {@link PortfolioFassade}.

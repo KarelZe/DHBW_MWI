@@ -1,9 +1,9 @@
 package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Rolle;
 import de.dhbw.karlsruhe.model.jpa.Spiel;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -26,7 +26,7 @@ public class MenuController implements ControlledScreen, InvalidationListener {
     private ScreenController screenController;
 
     public void doLogout(ActionEvent actionEvent) {
-        AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+        AktuelleSpieldaten.getInstanz().setBenutzer(null);
         screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
@@ -133,7 +133,7 @@ public class MenuController implements ControlledScreen, InvalidationListener {
      * Methode zur Konfiguration des Menüs. Rollen-basiert werden Menüs aktiviert oder deaktiviert.
      */
     private void konfiguriereMenu() {
-        Teilnehmer teilnehmer = AktuelleSpieldaten.getInstanz().getTeilnehmer();
+        Benutzer benutzer = AktuelleSpieldaten.getInstanz().getBenutzer();
         Spiel spiel = AktuelleSpieldaten.getInstanz().getSpiel();
         // setze initialen Stand für Menüeinträge
         mAdministration.setDisable(true);
@@ -149,10 +149,10 @@ public class MenuController implements ControlledScreen, InvalidationListener {
         mIteilnehmerLogin.setDisable(false);
         mIteilnehmerRegistrieren.setDisable(false);
         // aktiviere Rollen-basiert einzelne Menüs oder Menü-Einträge
-        if (teilnehmer == null) {
+        if (benutzer == null) {
             mTeilnehmer.setDisable(false);
             mSpiel.setDisable(false);
-        } else if (teilnehmer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
+        } else if (benutzer.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
             mAdministration.setDisable(false);
             mAuswertung.setDisable(false);
             mSpiel.setDisable(false);

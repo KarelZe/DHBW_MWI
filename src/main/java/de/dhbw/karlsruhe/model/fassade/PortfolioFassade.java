@@ -70,7 +70,7 @@ public class PortfolioFassade {
     }
 
     /**
-     * Methode gibt den aktuellen Saldo eines Festgelds für einen Teilnehmer zurück.
+     * Methode gibt den aktuellen Saldo eines Festgelds für einen Benutzer zurück.
      * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
      * @param teilnehmerId Id des Festgeldinhabers
      * @return Saldo des Depots.
@@ -84,7 +84,7 @@ public class PortfolioFassade {
     /**
      * Methode gibt den aktuellen Saldo eines Teilnehmers bestehend aus Zahlungsmittelkonto-, Festgeld- und Depotguthaben zurück.
      * @param teilnehmerId Id des Teilnehmers
-     * @return Gesamtsaldo des Teilnehmer Engagements
+     * @return Gesamtsaldo des Benutzer Engagements
      * @author Markus Bilz
      */
     public double getGesamtSaldo(long teilnehmerId) {
@@ -149,7 +149,7 @@ public class PortfolioFassade {
     /**
      * Methode gibt alle Portfoliopositionen das heißt Festgeld, Zahlungsmittelkonto, Depotpositionen etc. zurück bis
      * einschließlich eines Periodenstichtags zurück. Es werden neben aktiven Portfoliopositionen auch historische
-     * Positonen ausgewiesen. Die Ermittlung erfolgt anhand von Buchungen, die dem Teilnehmer zugeordnet werden können.
+     * Positonen ausgewiesen. Die Ermittlung erfolgt anhand von Buchungen, die dem Benutzer zugeordnet werden können.
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Portfolio-Positionen

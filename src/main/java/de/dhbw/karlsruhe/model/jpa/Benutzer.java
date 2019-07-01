@@ -5,19 +5,19 @@ import java.util.Set;
 
 /**
  * <p>
- *  POJO Klasse für die Speicherung eines {@code Teilnehmer}.
+ *  POJO Klasse für die Speicherung eines {@code Benutzer}.
  *  Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
  *
  * <p>
- *   Diese Anwendung nutzt {@code Teilnehmer}, um eine Trennung zwischen einzelnen Investoren zu ermöglichen.
+ *   Diese Anwendung nutzt {@code Benutzer}, um eine Trennung zwischen einzelnen Investoren zu ermöglichen.
  *   Neben Anlegern sind auch Spielleiter als {@code} abgebildet.
  * </p>
  *
  * @author Markus Bilz, Christian Fix
  */
 @Entity
-public class Teilnehmer {
+public class Benutzer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -39,18 +39,18 @@ public class Teilnehmer {
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;
 
-    @OneToMany(mappedBy = "teilnehmer", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "benutzer", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Buchung> buchungSet;
 
     /**
      * Implementierung eines Parameter-Losen Konstruktors. Diese Bereitstellung ist ein Best-Practice-Ansatz.
      * Siehe hierzu: <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">https://docs.jboss.org/</a>.
      */
-    public Teilnehmer() {
+    public Benutzer() {
 
     }
 
-    public Teilnehmer(String benutzername, String passwort, String vorname, String nachname, Unternehmen unternehmen, Rolle rolle, Spiel spiel) {
+    public Benutzer(String benutzername, String passwort, String vorname, String nachname, Unternehmen unternehmen, Rolle rolle, Spiel spiel) {
         this.benutzername = benutzername;
         this.passwort = passwort;
         this.vorname = vorname;
@@ -126,7 +126,7 @@ public class Teilnehmer {
 
     @Override
     public String toString() {
-        return "Teilnehmer{" +
+        return "Benutzer{" +
                 "id=" + id +
                 ", benutzername='" + benutzername + '\'' +
                 ", passwort='" + passwort + '\'' +

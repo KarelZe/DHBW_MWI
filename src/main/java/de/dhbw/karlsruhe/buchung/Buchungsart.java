@@ -1,8 +1,8 @@
 package de.dhbw.karlsruhe.buchung;
 
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
 import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 /**
@@ -15,10 +15,10 @@ public interface Buchungsart {
     /**
      * Implementierung des Factory Patterns (GOF).
      * @param periode    Periode, in der die Transaktion erfolgt
-     * @param teilnehmer Teilnehmer, auf dessen Namen die Buchung erfolgt
+     * @param benutzer Benutzer, auf dessen Namen die Buchung erfolgt
      * @param wertpapier Wertpapier, das in Buchung involviert ist.
      * @param bezugsgroesse Bezugsgroesse, z. B. Nominalvolumen oder Anzahl
      * @return buchung Buchungsobjekt mit Buchungsdaten oder
      */
-    Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse);
+    Buchung create(Periode periode, Benutzer benutzer, Wertpapier wertpapier, double bezugsgroesse);
 }

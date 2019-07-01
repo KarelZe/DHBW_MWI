@@ -10,7 +10,7 @@ import java.util.Optional;
 public class Startkapital implements Buchungsart {
 
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
+    public Buchung create(Periode periode, Benutzer benutzer, Wertpapier wertpapier, double bezugsgroesse) {
 
         Buchung startkapital = new Buchung();
 
@@ -20,7 +20,7 @@ public class Startkapital implements Buchungsart {
         startkapital.setOrdergebuehr(0);
         startkapital.setPeriode(periode);
         startkapital.setStueckzahl(1);
-        startkapital.setTeilnehmer(teilnehmer);
+        startkapital.setBenutzer(benutzer);
         startkapital.setVeraenderungDepot(0);
         startkapital.setVeraenderungFestgeld(0);
         startkapital.setVeraenderungZahlungsmittelkonto(AktuelleSpieldaten.getInstanz().getSpiel().getStartkapital());

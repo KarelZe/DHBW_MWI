@@ -38,10 +38,10 @@ public class TeilnehmerHistorieController implements ControlledScreen{
     @FXML
     private void initialize() {
         // Wenn ein Spieler angemeldet ist,  setzt ihn als anzuzeigende TeilnehmerID
-        if (AktuelleSpieldaten.getInstanz().getTeilnehmer() != null) {
-            if (AktuelleSpieldaten.getInstanz().getTeilnehmer().getRolle().getId() == 1) {
-                teilnehmerID = AktuelleSpieldaten.getInstanz().getTeilnehmer().getId();
-            }//Sonst handelt es sich um den Spielleiter. Das Programm setzt vor dem Aufruf die teilnehmerID auf den gewählten Teilnehmer
+        if (AktuelleSpieldaten.getInstanz().getBenutzer() != null) {
+            if (AktuelleSpieldaten.getInstanz().getBenutzer().getRolle().getId() == 1) {
+                teilnehmerID = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
+            }//Sonst handelt es sich um den Spielleiter. Das Programm setzt vor dem Aufruf die teilnehmerID auf den gewählten Benutzer
         }
 
         List<Buchung> buchung = BuchungRepository.getInstanz().findByTeilnehmerId(teilnehmerID);

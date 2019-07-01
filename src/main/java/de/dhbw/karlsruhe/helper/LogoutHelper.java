@@ -17,7 +17,7 @@ public class LogoutHelper {
      * @param screenController screenController des aufrufenden Screens
      */
     public static void logout(ScreenController screenController) {
-        AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+        AktuelleSpieldaten.getInstanz().setBenutzer(null);
         screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
 }

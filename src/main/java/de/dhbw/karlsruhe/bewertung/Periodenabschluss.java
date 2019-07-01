@@ -2,9 +2,9 @@ package de.dhbw.karlsruhe.bewertung;
 
 import de.dhbw.karlsruhe.buchung.BuchungsFactory;
 import de.dhbw.karlsruhe.buchung.Buchungsart;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
 import de.dhbw.karlsruhe.model.BuchungRepository;
 import de.dhbw.karlsruhe.model.KursRepository;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
 import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
 import de.dhbw.karlsruhe.model.jpa.*;
@@ -65,26 +65,26 @@ public class Periodenabschluss {
      */
     private void verbuchePeriode(Periode periode) {
 
-        List<Teilnehmer> alleTeilnehmer = TeilnehmerRepository.getInstanz().findAll();
+        List<Benutzer> alleBenutzer = BenutzerRepository.getInstanz().findAll();
         PortfolioFassade portfolioFassade = PortfolioFassade.getInstanz();
         BuchungsFactory buchungsFactory = new BuchungsFactory();
         ArrayList<Buchung> buchungen = new ArrayList<>();
 
-        for (Teilnehmer teilnehmer : alleTeilnehmer) {
+        for (Benutzer benutzer : alleBenutzer) {
 
             //Festgeld (Zinsbuchung)
-            List<Portfolioposition> festgeldPositionen = portfolioFassade.getFestgeldPositionen(periode.getId(), teilnehmer.getId());
+            List<Portfolioposition> festgeldPositionen = portfolioFassade.getFestgeldPositionen(periode.getId(), benutzer.getId());
             Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
             for (Portfolioposition portfolioposition : festgeldPositionen) {
-                Buchung zinsbuchungFestgelt = buchungsart.create(periode, teilnehmer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
+                Buchung zinsbuchungFestgelt = buchungsart.create(periode, benutzer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
                 buchungen.add(zinsbuchungFestgelt);
             }
 
             //Floater (Zinsbuchung)
-            List<Portfolioposition> anleihenPositionen = portfolioFassade.getAnleihePositionen(periode.getId(), teilnehmer.getId());
+            List<Portfolioposition> anleihenPositionen = portfolioFassade.getAnleihePositionen(periode.getId(), benutzer.getId());
             buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
             for (Portfolioposition portfolioposition : anleihenPositionen) {
-                Buchung zinsbuchungFloater = buchungsart.create(periode, teilnehmer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
+                Buchung zinsbuchungFloater = buchungsart.create(periode, benutzer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
                 buchungen.add(zinsbuchungFloater);
             }
         }

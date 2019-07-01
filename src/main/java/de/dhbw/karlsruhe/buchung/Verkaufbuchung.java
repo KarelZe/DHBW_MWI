@@ -9,10 +9,10 @@ import java.util.Optional;
 public class Verkaufbuchung implements Buchungsart {
 
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
+    public Buchung create(Periode periode, Benutzer benutzer, Wertpapier wertpapier, double bezugsgroesse) {
         Buchung buchung = new Buchung();
         buchung.setPeriode(periode);
-        buchung.setTeilnehmer(teilnehmer);
+        buchung.setBenutzer(benutzer);
         buchung.setWertpapier(wertpapier);
         buchung.setStueckzahl((long) bezugsgroesse);
         buchung.setOrdergebuehr(periode.getOrdergebuehr());

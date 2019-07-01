@@ -27,7 +27,7 @@ public class Buchung {
 
     @ManyToOne
     @JoinColumn(name = "teilnehmer_id")
-    private Teilnehmer teilnehmer;
+    private Benutzer benutzer;
 
     @ManyToOne
     @JoinColumn(name = "wertpapier_id")
@@ -72,12 +72,12 @@ public class Buchung {
         this.periode = periode;
     }
 
-    public Teilnehmer getTeilnehmer() {
-        return teilnehmer;
+    public Benutzer getBenutzer() {
+        return benutzer;
     }
 
-    public void setTeilnehmer(Teilnehmer teilnehmer) {
-        this.teilnehmer = teilnehmer;
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
     }
 
     public Wertpapier getWertpapier() {

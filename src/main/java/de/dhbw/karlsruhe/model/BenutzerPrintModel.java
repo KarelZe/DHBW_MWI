@@ -1,22 +1,30 @@
 package de.dhbw.karlsruhe.model;
 
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class TeilnehmerViewModel {
+public class BenutzerPrintModel {
     private SimpleLongProperty id;
     private SimpleStringProperty vorname;
     private SimpleStringProperty nachname;
+    private SimpleDoubleProperty portfoliowert;
 
-    public TeilnehmerViewModel(Teilnehmer teilnehmer) {
-        this(teilnehmer.getId(), teilnehmer.getVorname(), teilnehmer.getNachname());
-    }
-
-    public TeilnehmerViewModel(long id, String vorname, String nachname) {
+    public BenutzerPrintModel(long id, String vorname, String nachname, Double gesamtSaldo) {
         this.id = new SimpleLongProperty(id);
         this.vorname = new SimpleStringProperty(vorname);
         this.nachname = new SimpleStringProperty(nachname);
+        this.portfoliowert = new SimpleDoubleProperty(gesamtSaldo);
+    }
+
+    public BenutzerPrintModel(Benutzer benutzer) {
+        this(benutzer.getId(), benutzer.getVorname(), benutzer.getNachname(), 0.0d);
+        // Überschreibe Wert mit tatsächlichem Saldo
+        PortfolioFassade portfolioFassade = PortfolioFassade.getInstanz();
+        double gesamtSaldo = portfolioFassade.getGesamtSaldo(benutzer.getId());
+        this.portfoliowert = new SimpleDoubleProperty(gesamtSaldo);
     }
 
     public long getId() {
@@ -53,5 +61,17 @@ public class TeilnehmerViewModel {
 
     public SimpleStringProperty nachnameProperty() {
         return nachname;
+    }
+
+    public Double getPortfoliowert() {
+        return portfoliowert.get();
+    }
+
+    public void setPortfoliowert(Double portfoliowert) {
+        this.portfoliowert.set(portfoliowert);
+    }
+
+    public SimpleDoubleProperty portfoliowertProperty() {
+        return portfoliowert;
     }
 }

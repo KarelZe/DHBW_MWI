@@ -1,8 +1,8 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.model.TeilnehmerPrintModel;
-import de.dhbw.karlsruhe.model.TeilnehmerRepository;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
+import de.dhbw.karlsruhe.model.BenutzerPrintModel;
+import de.dhbw.karlsruhe.model.BenutzerRepository;
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,15 +21,15 @@ import java.util.stream.Collectors;
 public class PrintController implements ControlledScreen {
     public GridPane grdTeilnehmer;
     @FXML
-    TableView<TeilnehmerPrintModel> tvDruckansicht;
+    TableView<BenutzerPrintModel> tvDruckansicht;
     @FXML
-    TableColumn<TeilnehmerPrintModel, String> tblColVorname;
+    TableColumn<BenutzerPrintModel, String> tblColVorname;
     @FXML
-    TableColumn<TeilnehmerPrintModel, String> tblColNachname;
+    TableColumn<BenutzerPrintModel, String> tblColNachname;
     @FXML
-    TableColumn<TeilnehmerPrintModel, Long> tblColId;
+    TableColumn<BenutzerPrintModel, Long> tblColId;
     @FXML
-    TableColumn<TeilnehmerPrintModel, Double> tblColPortfoliowert;
+    TableColumn<BenutzerPrintModel, Double> tblColPortfoliowert;
     @FXML
     private Button btnHistorieAnzeigen;
 
@@ -43,10 +43,10 @@ public class PrintController implements ControlledScreen {
      */
     @FXML
     private void initialize() {
-        List<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findAll();
-        List<TeilnehmerPrintModel> teilnehmerPrintModel = teilnehmer.stream().map(TeilnehmerPrintModel::new).collect(Collectors.toList());
+        List<Benutzer> benutzer = BenutzerRepository.getInstanz().findAll();
+        List<BenutzerPrintModel> benutzerPrintModel = benutzer.stream().map(BenutzerPrintModel::new).collect(Collectors.toList());
         // TODO: Überdenken, ob ArrayList wirklich sinnvoll, wegen Notwendigkeit zur sortierten Ausgabe.
-        ObservableList<TeilnehmerPrintModel> observableList = FXCollections.observableArrayList(teilnehmerPrintModel);
+        ObservableList<BenutzerPrintModel> observableList = FXCollections.observableArrayList(benutzerPrintModel);
         tvDruckansicht.setItems(observableList);
     }
 

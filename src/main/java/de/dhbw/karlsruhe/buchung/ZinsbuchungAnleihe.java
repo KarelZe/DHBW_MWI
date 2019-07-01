@@ -1,8 +1,8 @@
 package de.dhbw.karlsruhe.buchung;
 
+import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
 import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Teilnehmer;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 /**
@@ -17,16 +17,16 @@ public class ZinsbuchungAnleihe implements Buchungsart {
      * Die Verbuchung von Zinsgutschriften erfolgt gemäß Fachkonzept Bewertung und Verbuchung
      * von Kapitelerträgen Kapitel 5.3 beschrieben.
      * @param periode      Periode, in der die Transaktion erfolgt
-     * @param teilnehmer   Teilnehmer, auf dessen Namen die Buchung erfolgt
+     * @param benutzer   Benutzer, auf dessen Namen die Buchung erfolgt
      * @param wertpapier   Wertpapier, das in Buchung involviert ist.
      * @param bezugsgroesse Bezugsgroesse, z. B. Nominalvolumen oder Saldo.
      * @return Zinsbuchung von Anleihe
      */
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) {
+    public Buchung create(Periode periode, Benutzer benutzer, Wertpapier wertpapier, double bezugsgroesse) {
         Buchung buchung = new Buchung();
         buchung.setPeriode(periode);
-        buchung.setTeilnehmer(teilnehmer);
+        buchung.setBenutzer(benutzer);
         buchung.setWertpapier(wertpapier);
         // Berechne aus Nominalvolumen * (Emissionsspread + Kapitalmarktzins).
         double zinsgutschrift = bezugsgroesse * (wertpapier.getEmissionszins() + periode.getKapitalmarktzinssatz());

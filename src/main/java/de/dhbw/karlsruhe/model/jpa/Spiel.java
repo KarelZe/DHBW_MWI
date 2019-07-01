@@ -14,7 +14,7 @@ import java.util.Set;
  *  Diese Anwendung nutzt Spiele um Planspiele einzelner Kurse voneinander zu trennen. Durch die Unterscheidung nach
  *  Spielen ist es möglich, alternative Spiele zu laden und zu einem späteren Zeitpunkt fortzusetzen. Zwischen
  *  einzelnen Spielen besteht keine Abhängigkeit. Jedoch besteht für alle Spiel-Individuellen Daten z. B. Aktienkurse,
- *  Teilnehmer etc. eine Abhängigkeit zum Spiel.
+ *  Benutzer etc. eine Abhängigkeit zum Spiel.
  * </p>
  * @author Markus Bilz, Christian Fix
  */
@@ -30,7 +30,7 @@ public class Spiel {
     private int ist_aktiv;
 
     @OneToMany(mappedBy = "spiel", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Teilnehmer> teilnehmerSet;
+    private Set<Benutzer> benutzerSet;
 
     @OneToMany(mappedBy = "spiel", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Periode> periodeSet;

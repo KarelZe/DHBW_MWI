@@ -11,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -110,7 +109,7 @@ public class SpielAnlegenController implements ControlledScreen {
     private void insertRollenInDBIfNotExists() {
         if(RolleRepository.getInstanz().findById(Rolle.ROLLE_TEILNEHMER).isEmpty()) { //Teilnehmerrolle existiert noch nicht in der Datenbank
             Rolle teilnehmerRolle = new Rolle();
-            teilnehmerRolle.setName("Teilnehmer");
+            teilnehmerRolle.setName("Benutzer");
             teilnehmerRolle.setId(1);
             RolleRepository.getInstanz().save(teilnehmerRolle);
         }
@@ -226,13 +225,13 @@ public class SpielAnlegenController implements ControlledScreen {
         }
     }
 
-    //TODO: UnternehmensID von Teilnehmer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
+    //TODO: UnternehmensID von Benutzer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
     /**
      * Fügt einen Spielleiteraccount in der Datenbank ein
      * @author Christian Fix
      */
     private void insertAdminInDB() {
-        Teilnehmer spielleiter = new Teilnehmer();
+        Benutzer spielleiter = new Benutzer();
         spielleiter.setBenutzername(ConstantsHelper.ADMIN_USERNAME);
         spielleiter.setPasswort(EncryptionHelper.getStringAsMD5(ConstantsHelper.ADMIN_PASSWORT));
         spielleiter.setVorname("Admin");
@@ -240,7 +239,7 @@ public class SpielAnlegenController implements ControlledScreen {
         Optional<Rolle> optionalRolle = RolleRepository.getInstanz().findById(Rolle.ROLLE_SPIELLEITER);
         optionalRolle.ifPresent(spielleiter::setRolle);
         spielleiter.setSpiel(this.neuesSpiel);
-        TeilnehmerRepository.getInstanz().save(spielleiter);
+        BenutzerRepository.getInstanz().save(spielleiter);
     }
 
     /**

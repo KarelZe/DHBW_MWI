@@ -10,10 +10,10 @@ import java.util.Optional;
 public class Kaufbuchung implements Buchungsart {
 
     @Override
-    public Buchung create(Periode periode, Teilnehmer teilnehmer, Wertpapier wertpapier, double bezugsgroesse) throws UnsupportedOperationException {
+    public Buchung create(Periode periode, Benutzer benutzer, Wertpapier wertpapier, double bezugsgroesse) throws UnsupportedOperationException {
         Buchung buchung = new Buchung();
         buchung.setPeriode(periode);
-        buchung.setTeilnehmer(teilnehmer);
+        buchung.setBenutzer(benutzer);
         buchung.setWertpapier(wertpapier);
         buchung.setStueckzahl((long) bezugsgroesse);
         buchung.setOrdergebuehr(periode.getOrdergebuehr());

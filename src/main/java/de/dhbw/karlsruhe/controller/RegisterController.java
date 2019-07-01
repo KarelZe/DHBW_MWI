@@ -22,7 +22,7 @@ import java.util.Optional;
 
 /**
  * Ermöglicht die selbstständige Registrierung eines Teilnehmers
- * Für die Registrierung müssen Vor-, Nachname, Unternehmen und Passwort durch den Teilnehmer eingegeben werden
+ * Für die Registrierung müssen Vor-, Nachname, Unternehmen und Passwort durch den Benutzer eingegeben werden
  */
 
 public class RegisterController implements ControlledScreen {
@@ -37,8 +37,8 @@ public class RegisterController implements ControlledScreen {
 
     /**
      * Liest die vom Nutzer eingebenen Daten aus
-     * Wenn diese gewissen Kriterien entsprechen, wird der Teilnehmer in der Datenbank angelegt und erhält das Startkapital
-     * Der Teilnehmer wird über seinen Benutzernamen informiert, der sich aus <Vorname>.<Nachname> zusammensetzt
+     * Wenn diese gewissen Kriterien entsprechen, wird der Benutzer in der Datenbank angelegt und erhält das Startkapital
+     * Der Benutzer wird über seinen Benutzernamen informiert, der sich aus <Vorname>.<Nachname> zusammensetzt
      *
      * @param event Event des aufrufenden Buttons
      */
@@ -65,7 +65,7 @@ public class RegisterController implements ControlledScreen {
         }
 
         // Eindeutigkeit des Benutzernamens prüfen
-        Optional<Teilnehmer> teilnehmer = TeilnehmerRepository.getInstanz().findByBenutzername(benutzername);
+        Optional<Benutzer> teilnehmer = BenutzerRepository.getInstanz().findByBenutzername(benutzername);
         if (teilnehmer.isPresent()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Dieser Benutzername existiert bereits. Bitte wenden Sie sich an den Seminarleiter.");
             alert.setHeaderText(null);
@@ -118,8 +118,8 @@ public class RegisterController implements ControlledScreen {
             return;
         }
 
-        Teilnehmer teilnehmerZurSpeicherung = new Teilnehmer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getInstanz().getSpiel());
-        TeilnehmerRepository.getInstanz().save(teilnehmerZurSpeicherung);
+        Benutzer benutzerZurSpeicherung = new Benutzer(benutzername, passwortVerschluesselt, vorname, nachname, unternehmen, rolle, AktuelleSpieldaten.getInstanz().getSpiel());
+        BenutzerRepository.getInstanz().save(benutzerZurSpeicherung);
 
 
         //Startkapital zuweisen
@@ -132,17 +132,17 @@ public class RegisterController implements ControlledScreen {
         Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId())
                 .stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
-        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, teilnehmerZurSpeicherung, wertpapier, AktuelleSpieldaten.getInstanz().getSpiel().getStartkapital()));
+        BuchungRepository.getInstanz().save(startkapital.create(aktuellePeriode, benutzerZurSpeicherung, wertpapier, AktuelleSpieldaten.getInstanz().getSpiel().getStartkapital()));
 
-        //Teilnehmer über erfolgreiche Registrierung informieren
+        //Benutzer über erfolgreiche Registrierung informieren
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Erfolgreich registiriert");
-        alert.setContentText("Sie wurden erfolgreich mit dem Benutzernamen " + "\"" + teilnehmerZurSpeicherung.getBenutzername() + "\"" + " registriert!");
+        alert.setContentText("Sie wurden erfolgreich mit dem Benutzernamen " + "\"" + benutzerZurSpeicherung.getBenutzername() + "\"" + " registriert!");
         alert.showAndWait();
 
         //Registrierung abschließen und zu Login wechseln
-        AktuelleSpieldaten.getInstanz().setTeilnehmer(null);
+        AktuelleSpieldaten.getInstanz().setBenutzer(null);
         controller.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
 
