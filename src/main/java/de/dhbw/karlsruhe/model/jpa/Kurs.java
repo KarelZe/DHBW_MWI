@@ -37,16 +37,17 @@ public class Kurs {
     @JoinColumn(name = "wertpapier_id")
     private Wertpapier wertpapier;
 
-    private double kursValue;
+    private double kurs;
 
     // Double, da null. Siehe https://stackoverflow.com/questions/3154582/why-do-i-get-a-null-value-was-assigned-to-a-property-of-primitive-type-setter-o/13906763
     private Double spread;
 
-    private Double insolvenzkurs;
+    private Double manuellerKurs;
 
     public Kurs(Periode periode, Wertpapier wertpapier) {
         this.periode = periode;
         this.wertpapier = wertpapier;
+        this.kurs = 100;
     }
 
     /**
@@ -80,12 +81,19 @@ public class Kurs {
         this.wertpapier = wertpapier;
     }
 
-    public double getKursValue() {
-        return kursValue;
+    /**
+     * Gibt den Kurs eines Wertpapiers zurück. Sollte der Kurs zuvor überschrieben worden sein (z. B. bei Insolvenz),
+     * dann wird der {@code manuellerKurs} zurückgegeben, andernfalls der {@code kurs}.
+     *
+     * @return Kurs
+     * @author Christian Fix, Markus Bilz
+     */
+    public double getKurs() {
+        return this.manuellerKurs == null ? this.kurs : this.manuellerKurs;
     }
 
-    public void setKursValue(double kurs) {
-        this.kursValue = kurs;
+    public void setKurs(double kurs) {
+        this.kurs = kurs;
     }
 
     public Double getSpread() {
@@ -96,12 +104,12 @@ public class Kurs {
         this.spread = spread;
     }
 
-    public Double getInsolvenzkurs() {
-        return insolvenzkurs;
+    public Double getManuellerKurs() {
+        return manuellerKurs;
     }
 
-    public void setInsolvenzkurs(Double insolvenzkurs) {
-        this.insolvenzkurs = insolvenzkurs;
+    public void setManuellerKurs(Double manuellerKurs) {
+        this.manuellerKurs = manuellerKurs;
     }
 
     @Override
@@ -110,7 +118,7 @@ public class Kurs {
                 "id=" + id +
                 ", periode=" + periode +
                 ", wertpapier=" + wertpapier +
-                ", kurs=" + kursValue +
+                ", kurs=" + kurs +
                 ", spread=" + spread +
                 '}';
     }

@@ -89,7 +89,7 @@ public class InvestmentUebersichtController implements ControlledScreen {
         List<Tupel> tupelList = new ArrayList<>();
         for (Buchung b : buchungenDerWertpapiereDesUnternehmens) {
             tupelList.add(new Tupel(b.getBenutzer().getUnternehmen().getId(),
-                    (b.getStueckzahl() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, b.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
+                    (b.getStueckzahl() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, b.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs())));
 
         }
         return tupelList.stream().collect(Collectors.groupingBy(Tupel::getUnternehmensId, Collectors.summingDouble(Tupel::getInvestitionssumme)));
@@ -151,15 +151,15 @@ public class InvestmentUebersichtController implements ControlledScreen {
         // Speichere von jeder Position die UnternehmensID des Wertpapiers und die Investitionshöhe in eine Liste
         for (Portfolioposition p : aktienDerTeilnehmerDesUnternehmens) {
             investitionenTupelListUnsorted.add(
-                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
+                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs())));
         }
         for (Portfolioposition p : anleihenDerTeilnehmerDesUnternehmens) {
             investitionenTupelListUnsorted.add(
-                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
+                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs())));
         }
         for (Portfolioposition p : etfDerTeilnehmerDesUnternehmens) {
             investitionenTupelListUnsorted.add(
-                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKursValue())));
+                    new InvestitionenTupel(p.getWertpapier().getUnternehmen().getId(), (p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs())));
         }
 
         // Aggregiere die Invesititionen für jedes Unternehmen

@@ -52,7 +52,7 @@ public class Periodenabschluss {
             Wertpapier wertpapier = kurs.getWertpapier();
             Bewertungsmodell bewertungsmodell = bewertungsmodellFactory.create(wertpapier.getWertpapierArt().getId());
             double bewertungskurs = bewertungsmodell.bewerte(periode, wertpapier);
-            kurs.setKursValue(bewertungskurs);
+            kurs.setKurs(bewertungskurs);
         }
         kursRepository.save(kurseZuBewerten);
     }

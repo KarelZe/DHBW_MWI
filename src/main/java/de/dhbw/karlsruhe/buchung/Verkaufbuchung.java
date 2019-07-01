@@ -25,7 +25,7 @@ public class Verkaufbuchung implements Buchungsart {
 
             // Abfrage des Kurses aus Datenbank. Kurs ist einzigartig. Wird Kurs nicht gefunden ist er 0.
             Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
-            kursOptional.ifPresent(k -> buchung.setVolumen(-(k.getKursValue() * bezugsgroesse)));
+            kursOptional.ifPresent(k -> buchung.setVolumen(-(k.getKurs() * bezugsgroesse)));
 
             // Erfassung der Saldenveränderung auf Konto. Auf Depot wird Gegenwert ex Gebühren gutgeschrieben.
             buchung.setVeraenderungDepot(buchung.getVolumen());
@@ -36,7 +36,7 @@ public class Verkaufbuchung implements Buchungsart {
             return buchung;
         } else if (wertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_FESTGELD) {
             Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
-            kursOptional.ifPresent(k -> buchung.setVolumen(-(k.getKursValue() * bezugsgroesse)));
+            kursOptional.ifPresent(k -> buchung.setVolumen(-(k.getKurs() * bezugsgroesse)));
             buchung.setVeraenderungFestgeld(buchung.getVolumen());
             buchung.setVeraenderungZahlungsmittelkonto(+(-buchung.getVolumen() * (1 - (buchung.getOrdergebuehr() / 100))));
             return buchung;

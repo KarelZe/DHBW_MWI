@@ -54,10 +54,10 @@ public class PeriodenDetailController implements ControlledScreen {
     }
 
     /**
-     * Methode für den Wechsel von aktuellem Screen auf Login Screen.
+     * Methode für den Wechsel von aktuellem Screen auf Periode Anlegen Screen.
      */
     public void changePage(){
-        screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
-        screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
+        screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
+        screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
     }
 }

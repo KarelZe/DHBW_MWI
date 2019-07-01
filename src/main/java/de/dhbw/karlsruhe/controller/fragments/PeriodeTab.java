@@ -109,7 +109,7 @@ public class PeriodeTab extends Tab {
         model.save(anleiheNachAenderung);
 
         for(Kurs aktie : aktieNachAenderung) {
-            if(aktie.getKursValue() <= 0) { // Unternehmen ist pleite (Definition pleite: Aktienkurs == 0)
+            if (aktie.getKurs() <= 0) { // Unternehmen ist pleite (Definition pleite: Aktienkurs == 0)
                 Unternehmen unternehmen = aktie.getWertpapier().getUnternehmen();
 
                 for(Kurs anleihe : anleiheNachAenderung) { //Prüfung, ob für insolventes Unternehmen eine Anleihe existiert
