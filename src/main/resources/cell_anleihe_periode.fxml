@@ -14,8 +14,8 @@
             <Label fx:id="lblName" text="Bezeichnung" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <Label fx:id="lblSpread" text="Spread in BP:"/>
             <TextField fx:id="txtSpread" promptText="Kurs"/>
-            <Label fx:id="lblKursInsolvenz" text="Insolvenzkurs in %:"/>
-            <TextField fx:id="txtKursInsolvenz" promptText="Insolvenzkurs"/>
+            <Label fx:id="lblKursManuell" text="Manueller Kurs in %:"/>
+            <TextField fx:id="txtKursManuell" promptText="Manueller Kurs"/>
         </HBox>
     </graphic>
 </fx:root>

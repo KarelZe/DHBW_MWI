@@ -243,6 +243,7 @@ public class SpielAnlegenController implements ControlledScreen {
         optionalRolle.ifPresent(spielleiter::setRolle);
         spielleiter.setSpiel(this.neuesSpiel);
         BenutzerRepository.getInstanz().save(spielleiter);
+        AktuelleSpieldaten.getInstanz().setBenutzer(spielleiter);
     }
 
     /**

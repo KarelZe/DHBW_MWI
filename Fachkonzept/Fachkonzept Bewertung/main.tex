@@ -93,7 +93,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \hfuzz=20pt
 
 \title{Fachkonzept für die Bewertung von Finanzanlagen und die Verbuchung von Kapitalerträgen in der Software Anika}
-\author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsuhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsuhe.de}}
+\author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsruhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsruhe.de}}
 
 \addbibresource{bib.bib}
 
@@ -184,12 +184,16 @@ Im Folgenden wird beschrieben, wie die Finanzanlagen in der Software \textit{Ani
 \label{sec:bewertung_von_aktien}
 Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den Teilnehmern gehandelt werden können.
 Der rechnerische Kurs dieser Aktien wird von der Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode berechnet und dem Spielleiter in einer Übersicht dargestellt.
-%Die Methodik, wie sich dieser Aktienkurs berechnet wird, ist dabei grundsätzlich konfigurierbar.
 Dieser Aktienkurs beinhaltet die vergangenen Dividendenauszahlungen. Auch zukünftige Dividenden werden nicht ausgeschüttet, sondern wirken sich positiv auf den Kurs aus. Dies führt dazu, dass die Software \textit{Anika} die Dividendenauszahlungen nicht gesondert berücksichtigen muss.
+
+Im Insolvenzfall eines Planspielunternehmens ist der Kurs mit 0 zu pflegen.
+
 %Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Spielleiter in einer Übersicht dargestellt. 
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
 Bei dem Handel mit Aktien wird neben deren Kurswert eine vom Spielleiter eingestellte Ordergebühr\footnote{Diese Ordergebühr wird in Prozent angegeben.} fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
+
+Die Anwendung \textit{Anika} weißt Aktienkurse in \textit{Stücknotierung} aus.
 
 \subsection{Bewertung von Floating Rate Notes}
 \label{sec:bewertung_von_floating_rate_notes}
@@ -208,14 +212,6 @@ In diesem Zusammenhang soll auf einige Besonderheiten aus Definition \ref{def:fl
 	\item Der Zinskupon referenziert den Kapitalmarktzins, da er der einzige Referenzzins in der Software ist. Der bei Emission erfasste Spreadaufschlag auf den Referenzzins bleibt für die Dauer des Spiels konstant.
 	\item Die Einschränkung, dass Zinszahlungen einmalig zum Periodenultimo erfolgen, hebt die Notwendigkeit mehrerer Zinsbuchungen je Periode auf.
 \end{itemize}
-
-
-% Im hier betrachteten (und einfachsten) Fall gilt für die Zahlung in $t_i$ dass ihre Höhe in $t_{i-1}$ (\textit{reset date}) wird, die Zahlung selbst dagegen in $t_i$ (\textit{payment date}) erfolgt. Dies führt dazu, dass man den Wert der viarablen zinszahlungen und den WERt der variable verzinslcihen Anleihe ohne Zugrundelgung eines Zinsmodells bestimmen kann, sie also unabhängig von dem unterstellten Verhaltne der zinsen über die Zeit sind. DAs soll im Folgenden gezeigt werden. (aus Zinsderivate Branger \& Schlag, ISBN: 3-540-212228-0) Insgesamt ist das Buch aber schlecht, weil es keinen Spread und auch keine Bonitätsveränderung berücksichtigt.
-
-% Der Wert einer \gls{FRN} mit einem Spread von $s=0$ entspricht der der Wert der \gls{FRN} dem Nennwert der \gls{FRN} ohne Zinskupons \autocite[][S.~52~f.]{veronesi_fixed_2010}. Dies ist auf \glqq Zahlungsstromeffekte\grqq~und \glqq Diskontierungseffekte\grqq~zurückzuführen, die sich gegenseitig ausgleichen \autocite[][S.~54]{veronesi_fixed_2010}. Höhere Zinszahlungen -- resultierend aus einer Zinserhöhung -- werden durch einen höheren Diskontierungssätze kompensiert.
-
-% Es handelt sich dabei um einen Spezialfall, der die Anforderungen von \textit{Anika} nicht vollständig abdeckt, da zwar eine Bepreisung zum Zinszahlungstermin erfolgt, der Spread aber auch andere Werte annehmen kann.
-
 
 Die Bewertung der \gls{FRN} erfordert ein Bewertungsmodell. Ein Modell für die Bewertung der \gls{FRN} ist in \textcite[][S.~31~f.]{alexander_market_2008} dokumentiert. 
 Es ermöglicht die Berpeisung von \glspl{FRN} mit einem Spread $\neq0$ zu einem beliebigen Bewertungstichtag.
@@ -236,6 +232,8 @@ Wie oben ersichtlich, zerlegt \textcite[][31]{alexander_market_2008} die \gls{FR
 Da in der Anwendung \textit{Anika} ausschließlich der Kapitalmarktzinssatz für die aktuelle Periode vorliegt, erfolgt die Diskontierung mittels Kapitalmarktzinssatzes erhöht um einen emittentenindividuellen Bonitätsaufschlag, der sich aus dem Rating je Periode ableitet. Die Diskontierungssätze sind dabei über alle Laufzeiten gleich.
 
 Die Anwendung \textit{Anika} lässt darüber hinaus zu, den rechnerischen Kurs einer \gls{FRN} durch einen manuellen Kurs zu überschreiben. Dies ist insbesondere im Insolvenzfall eines Unternehmens sinnvoll.
+
+Die Anwendung \textit{Anika} weißt Anleihekurse in \textit{Prozentnotierung} aus.
 
 Nachfolgend wird die exemplarische Bewertung einer \gls{FRN} demonstriert\footnote{Nachfolgendes Beispiel ist aus \textcite[][32]{alexander_market_2008} adaptiert.}. 
 
@@ -295,6 +293,7 @@ Die prozentuale Veränderung von $P_0$ auf $P_1$ ergibt damit aus $-\frac{2.5}{6
 \end{definition}
 
 Eine Bewertung des \gls{ETF} ist deshalb erst dann möglich, wenn alle im \gls{GMAX} enthaltenen Aktienkurse vorliegen. Aufgrund der in Beispiel~\ref{def:etf} gegebenen Ausgestaltung entspricht der Kurs des \glspl{ETF} dem Preis des \gls{GMAX} in Euro. 
+Die Anwendung \textit{Anika} weißt \gls{ETF}-Kurse in \textit{Stücknotierung} aus.
 
 \subsection{Bewertung von Festgeld}
 \label{sec:bewertung_von_festgeldern}
@@ -308,7 +307,8 @@ Die Ausgestaltung von Festgeldern in der Software \textit{Anika} unterscheidet s
 	Das Festgeld wird mit dem periodebanhängigen Kapitalmarktzinssatz verzinst und hat eine Laufzeit von einer Periode mit automatischer Prolongation um eine weitere Periode. Teilverfügungen, vollständige Verfügungen und Aufstockungen sind jederzeit durch den Teilnehmer ohne Vorfälligkeitsentschädigung möglich. 
 \end{definition}
 
-Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet. Bei dem Kauf bzw. Verkauf des Festgeldes wird jedoch im Gegensatz zu den anderen Finanzanlagen keine Ordergebühr fällig.
+Weil die Festgelder mit dem jeweiligen Kapitalmarktzinssatz verzinst werden, werden sie mit dem jeweiligen Kapitalsaldo bewertet. 
+Festgelder unterliegen als klassische Finanzanlage keinen Kurswertrisiken. Es gilt damit ein theoretischer Kurs von 100~\%.
 
 \section{Ermittlung der Kapitalerträge}
 \label{sec:ermittlung_von_wertpapierertraegen}
