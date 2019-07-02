@@ -37,7 +37,7 @@ public class BenutzerDepotController implements ControlledScreen {
 
     @FXML
     private void initialize() {
-        long teilnehmerID = AktuelleSpieldaten.getInstanz().getTeilnehmer().getId();
+        long teilnehmerID = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
         long periodeID = findAktuellePeriode().getId();
         depotAktien = PortfolioFassade.getInstanz().getAktienPositionen(teilnehmerID, periodeID);
         depotAnleihen = PortfolioFassade.getInstanz().getAnleihePositionen(teilnehmerID, periodeID);
@@ -68,4 +68,3 @@ public class BenutzerDepotController implements ControlledScreen {
 
 }
 
-}
