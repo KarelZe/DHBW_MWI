@@ -31,7 +31,7 @@
             <Insets left="90.0" right="90.0"/>
         </VBox.margin>
     </Label>
-    <PasswordField fx:id="passwortFeld" promptText="Neues Passwort">
+    <PasswordField fx:id="passwortFeld">
         <VBox.margin>
             <Insets left="90.0" right="90.0"/>
         </VBox.margin>
@@ -41,7 +41,7 @@
             <Insets left="90.0" right="90.0"/>
         </VBox.margin>
     </Label>
-    <PasswordField fx:id="passwortBestaetigenFeld" promptText="Neues Passwort">
+    <PasswordField fx:id="passwortBestaetigenFeld">
         <VBox.margin>
             <Insets left="90.0" right="90.0"/>
         </VBox.margin>
@@ -56,8 +56,8 @@
             <Insets left="90.0" right="90.0"/>
         </VBox.margin>
     </ComboBox>
-    <Button layoutX="21.0" layoutY="280.0" mnemonicParsing="false" onAction="#aktualisieren" prefHeight="52.0"
-            prefWidth="208.0" text="Aktualisieren">
+    <Button alignment="CENTER" contentDisplay="RIGHT" defaultButton="true" maxWidth="1.7976931348623157E308"
+            mnemonicParsing="false" onAction="#aktualisieren" text="Aktualisieren">
         <VBox.margin>
             <Insets left="90.0" right="90.0" top="20.0"/>
         </VBox.margin>

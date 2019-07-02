@@ -20,6 +20,7 @@
         <property name="current_session_context_class">
             thread
         </property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <mapping class="de.dhbw.karlsruhe.model.jpa.Benutzer"/>
         <mapping class="de.dhbw.karlsruhe.model.jpa.Unternehmen"/>
         <mapping class="de.dhbw.karlsruhe.model.jpa.Rolle"/>

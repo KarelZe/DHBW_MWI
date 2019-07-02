@@ -39,22 +39,9 @@ public class LoginController implements ControlledScreen {
         teilnehmer.ifPresentOrElse(t -> {
                     System.out.println(t + " @ " + t.getUnternehmen() + " $ " + t.getRolle());
                     AktuelleSpieldaten.getInstanz().setBenutzer(t);
-                    //ToDo: Übersichts-Screen anzeigen
-                    // TODO: Ersetzen durch Filter oder Map? https://www.callicoder.com/java-8-optional-tutorial/
-                    if (AktuelleSpieldaten.getInstanz().getBenutzer().getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
-                        //screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+                    if (t.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
-
-                    } else {
-                        Alert alert;
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setHeaderText(null);
-                        alert.setTitle("Login");
-                        alert.setContentText("Login erfolgreich.");
-                        alert.showAndWait();
-                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN, ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN_FILE);
-                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_BEARBEITEN);
                     }
                 },
                 () -> {
