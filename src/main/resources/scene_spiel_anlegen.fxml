@@ -11,12 +11,12 @@
       fx:controller="de.dhbw.karlsruhe.controller.SpielAnlegenController">
   <GridPane alignment="CENTER" prefHeight="35.0" prefWidth="40.0">
     <children>
-      <TextField fx:id="txtStartkapital" promptText="Bsp. 10000" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <TextField fx:id="txtStartkapital" GridPane.columnIndex="1" GridPane.rowIndex="0">
         <GridPane.margin>
           <Insets/>
         </GridPane.margin>
       </TextField>
-      <Label text="Startkapital (€) " GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <Label text="Startkapital" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <GridPane.margin>
           <Insets/>
         </GridPane.margin>

@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.helper.ConverterHelper;
 import de.dhbw.karlsruhe.model.UnternehmenRepository;
 import de.dhbw.karlsruhe.model.jpa.Unternehmen;
@@ -80,7 +81,8 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     @FXML
     private void initialize() {
         txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
-        txtEmissionsspread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setEmissionszins(Double.valueOf(newValue)));
+        txtEmissionsspread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setEmissionszins(TextFormatHandler.getPercentageFieldValue(txtEmissionsspread)));
+        txtEmissionsspread.setTextFormatter(TextFormatHandler.percentageFormatter());
 
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);
