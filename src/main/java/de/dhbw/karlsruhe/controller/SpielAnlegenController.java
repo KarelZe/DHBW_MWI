@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.helper.ColorHelper;
 import de.dhbw.karlsruhe.helper.ConstantsHelper;
 import de.dhbw.karlsruhe.helper.EncryptionHelper;
@@ -47,8 +48,7 @@ public class SpielAnlegenController implements ControlledScreen {
         //Das neu angelegte Spiel wird immer auf AKTIV gesetzt
         this.neuesSpiel = new Spiel();
         try {
-
-            double startkapital = Double.valueOf(txtStartkapital.getText());
+            double startkapital = TextFormatHandler.getCurrencyFieldValue(txtStartkapital);
             if(startkapital > 0.0) {
                 this.neuesSpiel.setStartkapital(startkapital);
 
@@ -333,5 +333,10 @@ public class SpielAnlegenController implements ControlledScreen {
        /* List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
         List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
         KursRepository.getInstanz().save(kurse);*/
+    }
+
+    @FXML
+    private void initialize(){
+        txtStartkapital.setTextFormatter(TextFormatHandler.currencyFormatter());
     }
 }
