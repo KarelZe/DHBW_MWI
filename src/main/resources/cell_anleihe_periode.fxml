@@ -14,7 +14,7 @@
             <Label fx:id="lblSpread" text="Spread:" />
             <TextField fx:id="txtSpread" promptText="Kurs" />
             <Label fx:id="lblKursManuell" text="Manueller Kurs:" />
-            <TextField fx:id="txtKursManuell" promptText="Manueller Kurs" />
+            <TextField fx:id="txtKursManuell" promptText="Manueller Kurs:"/>
         </HBox>
     </graphic>
 </fx:root>
