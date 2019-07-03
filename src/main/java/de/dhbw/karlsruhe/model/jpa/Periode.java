@@ -29,9 +29,7 @@ public class Periode {
     @OneToMany(mappedBy = "periode", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Kurs> KursSet;
 
-    @Column(name = "ordergebuehr_in_prozent")
     private double ordergebuehr;
-    @Column(name = "kapitalmarktzins_in_prozent")
     private double kapitalmarktzinssatz;
 
     public Periode(Spiel spiel, double ordergebuehr, double kapitalmarktzinssatz) {

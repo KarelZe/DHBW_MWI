@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller;
 
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
@@ -14,8 +15,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.util.converter.PercentageStringConverter;
+import net.bytebuddy.asm.Advice;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class PeriodeAnlegenController implements ControlledScreen {
@@ -32,6 +39,8 @@ public class PeriodeAnlegenController implements ControlledScreen {
     @FXML
     private TextField txtKapitalmarktzins, txtOrdergebuehr;
 
+    private NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.GERMANY);
+
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
@@ -40,18 +49,12 @@ public class PeriodeAnlegenController implements ControlledScreen {
     @FXML
     private void doPeriodeAnlegen(ActionEvent event) {
         double ordergebuehr, kapitalmarktzins;
-        try {
-            ordergebuehr = Double.parseDouble(txtOrdergebuehr.getText()) / 100.00d;
-            kapitalmarktzins = Double.parseDouble(txtKapitalmarktzins.getText()) / 100.00d;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ung\u00fcltige Eingabe");
-            alert.setHeaderText(null);
-            alert.setContentText("Bitte geben Sie Zahlen ein.");
-            alert.showAndWait();
-            return;
-        }
+        // Lese Eingabewerte aus und konvertiere in 5 % -> 0.05
+        kapitalmarktzins = TextFormatHandler.getPercentageFieldValue(txtKapitalmarktzins);
+        ordergebuehr = TextFormatHandler.getPercentageFieldValue(txtOrdergebuehr);
+        kapitalmarktzins *= 0.01d;
+        ordergebuehr *= 0.01d;
+        System.out.println("{" + ordergebuehr + "," + kapitalmarktzins + "}");
 
         if (ordergebuehr < 0 || kapitalmarktzins < 0) { //Ordergebühr oder Kapitalmarkzins < 0
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -71,7 +74,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
         }
 
 
-        Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(),  ordergebuehr, kapitalmarktzins);
+        Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(), ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
         //Kurs-Objekt von Aktien und Anleihen erzeugen, sodass dieser in der nachfolgenden Übersicht angezeigt werden
@@ -87,6 +90,9 @@ public class PeriodeAnlegenController implements ControlledScreen {
         BooleanBinding booleanBind = Bindings.or(txtKapitalmarktzins.textProperty().isEmpty(),
                 txtOrdergebuehr.textProperty().isEmpty());
         btnAnlegen.disableProperty().bind(booleanBind);
+        // Formatiere Eingabewerte
+        txtOrdergebuehr.setTextFormatter(TextFormatHandler.percentageFormatter());
+        txtKapitalmarktzins.setTextFormatter(TextFormatHandler.percentageFormatter());
 
     }
 
