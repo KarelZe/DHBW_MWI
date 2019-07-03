@@ -8,6 +8,7 @@ import de.dhbw.karlsruhe.model.jpa.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
@@ -24,6 +25,8 @@ public class SpielAnlegenController implements ControlledScreen {
 
     private Spiel neuesSpiel;
 
+    @FXML
+    private Label labelTxt;
 
     private UnternehmenRepository unternehmenRepository = UnternehmenRepository.getInstanz();
 
@@ -32,6 +35,7 @@ public class SpielAnlegenController implements ControlledScreen {
     private WertpapierArtRepository wertpapierArtRepository = WertpapierArtRepository.getInstanz();
 
     private TransaktionsArtRepository transaktionsArtRepository = TransaktionsArtRepository.getInstanz();
+
 
     /**
      * Eventhandler für Spiel-Anlagen-Button
@@ -43,11 +47,13 @@ public class SpielAnlegenController implements ControlledScreen {
         //Das neu angelegte Spiel wird immer auf AKTIV gesetzt
         this.neuesSpiel = new Spiel();
         try {
+
             double startkapital = Double.valueOf(txtStartkapital.getText());
             if(startkapital > 0.0) {
-                txtStartkapital.getStyleClass().removeAll("text-field-correct, focus");
-                txtStartkapital.getStyleClass().add(".text-field-correct");
                 this.neuesSpiel.setStartkapital(startkapital);
+
+                //Methode macht noch nicht das was es soll
+                this.textAnzeigen();
             }
             else { //Startkapital <= 0.0
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -66,6 +72,7 @@ public class SpielAnlegenController implements ControlledScreen {
                 SpielRepository.getInstanz().save(AktuelleSpieldaten.getInstanz().getSpiel());
             }
 
+
             initializeSpielInDB();
 
             screenController.loadScreen(ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN, ScreensFramework.SCREEN_UNTERNEHMEN_ANLEGEN_FILE);
@@ -81,6 +88,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
 
     }
+
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
@@ -102,6 +110,11 @@ public class SpielAnlegenController implements ControlledScreen {
         insertUnternehmenInDB();
         insertWertpapiereInDB();
         insertFirstPeriodeInDB();
+    }
+
+    private void textAnzeigen() {
+        labelTxt.setVisible(true);
+        labelTxt.setText("Das Spiel wird erstellt...");
     }
 
 

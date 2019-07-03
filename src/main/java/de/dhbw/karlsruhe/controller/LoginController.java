@@ -43,6 +43,11 @@ public class LoginController implements ControlledScreen {
                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
                     }
+
+                    if (t.getRolle().getId() == Rolle.ROLLE_TEILNEHMER) {
+                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
+                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
+                    }
                 },
                 () -> {
                     Alert alert;

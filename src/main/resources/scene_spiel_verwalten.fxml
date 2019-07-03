@@ -9,19 +9,19 @@
       fx:controller="de.dhbw.karlsruhe.controller.SpielVerwaltenController">
     <ComboBox fx:id="cmbSpiele" maxWidth="1.7976931348623157E308">
         <VBox.margin>
-            <Insets/>
+            <Insets bottom="25.0" top="240.0"/>
         </VBox.margin>
     </ComboBox>
     <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#doSelektiertesSpielSpeichern"
             text="Spiel laden">
         <VBox.margin>
-            <Insets/>
+            <Insets bottom="5.0"/>
         </VBox.margin>
     </Button>
     <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#doSelektiertesSpielLoeschen"
             text="Ausgewähltes Spiel löschen" textAlignment="CENTER">
         <VBox.margin>
-            <Insets/>
+            <Insets bottom="10.0"/>
         </VBox.margin>
     </Button>
     <padding>
