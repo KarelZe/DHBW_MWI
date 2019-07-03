@@ -58,7 +58,7 @@
 }
 
 .text-field-correct {
-    -fx-text-fill: green;
+    -fx-text-fill: orange;
     -fx-font-size: 12pt;
     -jfx-focus-color: -fx-secondary;
     -fx-background-color: -fx-secondary;

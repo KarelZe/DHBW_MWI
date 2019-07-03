@@ -5,18 +5,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="412.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
       fx:controller="de.dhbw.karlsruhe.controller.SpielAnlegenController">
   <GridPane alignment="CENTER" prefHeight="35.0" prefWidth="40.0">
     <children>
-      <TextField fx:id="txtStartkapital" promptText="bsp. 10000" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <TextField fx:id="txtStartkapital" promptText="Bsp. 10000" GridPane.columnIndex="1" GridPane.rowIndex="0">
         <GridPane.margin>
           <Insets/>
         </GridPane.margin>
       </TextField>
-      <Label text="Startkapital in €:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <Label text="Startkapital (€) " GridPane.columnIndex="0" GridPane.rowIndex="0">
         <GridPane.margin>
           <Insets/>
         </GridPane.margin>
@@ -42,9 +42,12 @@
       <Insets bottom="20.0" left="90.0" top="20.0"/>
     </VBox.margin>
   </Button>
-  <Text fx:id="textSetladen" strokeType="OUTSIDE" strokeWidth="0.0">
+  <Label id="labelTxt" fx:id="labelTxt" textFill="#1de107">
     <VBox.margin>
       <Insets left="90.0"/>
     </VBox.margin>
-  </Text>
+    <font>
+      <Font name="System Bold Italic" size="15.0"/>
+    </font>
+  </Label>
 </VBox>

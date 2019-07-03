@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-          minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.172-ea"
-          fx:controller="de.dhbw.karlsruhe.controller.WertpapierKaufenController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="498.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      fx:controller="de.dhbw.karlsruhe.controller.WertpapierKaufenController">
     <children>
-        <Label fx:id="lblAuswahl" text="Auswahl Wertpapier:" GridPane.rowIndex="1"/>
-        <ComboBox fx:id="cbWertpapierAuswahl" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
-        <Label fx:id="lbAnzahl" text="Anzahl:" GridPane.rowIndex="2"/>
-        <TextField fx:id="txtAnzahl" maxWidth="125.0" onAction="#doBerechneKosten" prefHeight="25.0" prefWidth="100.0"
-                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <Label fx:id="lblGesamtKosten" text="Gesamtkosten:" GridPane.rowIndex="5"/>
-        <Label fx:id="lblGesamtKostenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-        <Button fx:id="btnKaufen" mnemonicParsing="false" onAction="#doWertpapierKaufen" text="Kaufen"
-                GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6"/>
-        <Label fx:id="lbZahlungsmittelSaldo" text="0" GridPane.columnIndex="1"/>
-        <Label fx:id="lbZahlungsmittelkonto" text="Zahlungsmittelkonto:"/>
-        <Label fx:id="lblOrdervolumen" text="Ordervolumen:" GridPane.rowIndex="3"/>
-        <Label fx:id="lblOrdervolumenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <Label fx:id="lblOrderGebuehren" text="Ordergebühren:" GridPane.rowIndex="4"/>
-        <Label fx:id="lblOrderGebuehrenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="380.0" prefWidth="435.0">
+            <children>
+                <Label fx:id="lblAuswahl" text="Auswahl Wertpapier:" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cbWertpapierAuswahl" prefHeight="31.0" prefWidth="124.0" GridPane.columnIndex="1"
+                          GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
+                <Label fx:id="lbAnzahl" text="Anzahl:" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtAnzahl" maxWidth="125.0" onAction="#doBerechneKosten" prefHeight="25.0"
+                           prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="lblGesamtKosten" text="Gesamtkosten:" GridPane.rowIndex="5"/>
+                <Label fx:id="lblGesamtKostenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label fx:id="lbZahlungsmittelSaldo" text="0" GridPane.columnIndex="1"/>
+                <Label fx:id="lbZahlungsmittelkonto" text="Zahlungsmittelkonto:"/>
+                <Label fx:id="lblOrdervolumen" text="Ordervolumen:" GridPane.rowIndex="3"/>
+                <Label fx:id="lblOrdervolumenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label fx:id="lblOrderGebuehren" text="Ordergebühren:" GridPane.rowIndex="4"/>
+                <Label fx:id="lblOrderGebuehrenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <VBox.margin>
+                <Insets left="90.0" top="60.0"/>
+            </VBox.margin>
+        </GridPane>
+        <Button fx:id="btnKaufen" mnemonicParsing="false" onAction="#doWertpapierKaufen" text="Kaufen">
+            <VBox.margin>
+                <Insets left="90.0"/>
+            </VBox.margin>
+        </Button>
     </children>
-    <columnConstraints>
-        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
-        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints vgrow="SOMETIMES"/>
-        <RowConstraints vgrow="SOMETIMES"/>
-        <RowConstraints vgrow="SOMETIMES"/>
-        <RowConstraints vgrow="SOMETIMES"/>
-        <RowConstraints vgrow="SOMETIMES"/>
-        <RowConstraints vgrow="SOMETIMES"/>
-        <RowConstraints vgrow="SOMETIMES"/>
-    </rowConstraints>
-</GridPane>
-
+</VBox>
