@@ -3,28 +3,26 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.ListCell"
-         xmlns="http://javafx.com/javafx/8.0.172-ea">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx/8.0.172-ea">
     <graphic>
-        <HBox spacing="5.0">
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
             <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Bezeichnung der Aktie"/>
+                    <Tooltip text="Bezeichnung der Aktie" />
                 </tooltip>
             </TextField>
             <ComboBox fx:id="cmbUnternehmen" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Emittent der Aktie"/>
+                    <Tooltip text="Emittent der Aktie" />
                 </tooltip>
             </ComboBox>
-            <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="3"
-                    GridPane.rowIndex="1">
+            <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Aktie löschen"/>
+                    <Tooltip text="Aktie löschen" />
                 </tooltip>
             </Button>
             <padding>
-                <Insets bottom="2.5" right="5.0" top="2.5"/>
+                <Insets bottom="2.5" right="5.0" top="2.5" />
             </padding>
         </HBox>
     </graphic>

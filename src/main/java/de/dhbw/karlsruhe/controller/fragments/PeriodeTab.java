@@ -7,13 +7,11 @@ import de.dhbw.karlsruhe.controller.factory.AnleihePeriodeCellFactory;
 import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Unternehmen;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -107,24 +105,6 @@ public class PeriodeTab extends Tab {
 
         model.save(aktieNachAenderung);
         model.save(anleiheNachAenderung);
-
-        for(Kurs aktie : aktieNachAenderung) {
-            if (aktie.getKurs() <= 0) { // Unternehmen ist pleite (Definition pleite: Aktienkurs == 0)
-                Unternehmen unternehmen = aktie.getWertpapier().getUnternehmen();
-
-                for(Kurs anleihe : anleiheNachAenderung) { //Prüfung, ob für insolventes Unternehmen eine Anleihe existiert
-                    if(anleihe.getWertpapier().getUnternehmen().getId() == unternehmen.getId()) { //Für insolventes Unternehmen existiert eine Anleihe
-                        //ToDo Markus/Christian: Nennwert auf Insolvenzquote reduzieren WEITER MACHEN
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Unternehmen insolvent");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Sie haben bei dem Unternehmen " + unternehmen.getName() + " eingegeben, dass es insolvent ist. " +
-                                "Bitte geben Sie daher eine Insolvenzquote ein, auf die der Nennwert der Anleihe reduziert werden soll.");
-                        alert.showAndWait();
-                    }
-                }
-            }
-        }
 
         btnSpeichern.setVisible(true);
         btnAbschliessen.setVisible(true);
