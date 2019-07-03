@@ -23,11 +23,11 @@ import java.util.logging.Logger;
 public class TextFormatHandler {
 
     private static final double DEFAULT_VALUE = 0.00d;
-    private static final String CURRENCY_SYMBOL = "Rs"; // LKR Currency
+    private static final String CURRENCY_SYMBOL = "\u20ac"; // LKR Currency
     private static final String PRECENTAGE_SYMBOL = "%";
     private static final DecimalFormatSymbols GERMANY = new DecimalFormatSymbols(Locale.GERMANY );
     public static final DecimalFormat CURRENCY_DECIMAL_FORMAT
-            = new DecimalFormat(CURRENCY_SYMBOL + "###,##0.00", GERMANY);
+            = new DecimalFormat( "###,##0.00"+CURRENCY_SYMBOL, GERMANY);
 
     public static final DecimalFormat PRECENTAGE_DECIMAL_FORMAT = new DecimalFormat("#0.00" + PRECENTAGE_SYMBOL, GERMANY);
 

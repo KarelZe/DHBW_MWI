@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.helper.NumberHelper;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import javafx.fxml.FXML;
@@ -74,5 +75,6 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
     private void initialize() {
         txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(NumberHelper.parseDouble(newValue, 0))
         );
+        txtKurs.setTextFormatter(TextFormatHandler.currencyFormatter());
     }
 }
