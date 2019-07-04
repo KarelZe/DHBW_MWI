@@ -81,6 +81,30 @@ public class PortfolioFassade {
         return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungFestgeld).sum();
     }
 
+    //Todo kommentieren Raphael
+    public double getEtfSaldo(long teilnehmerId) {
+        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        return buchungenTeilnehmer.stream()
+                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF)
+                .mapToDouble(Buchung::getVeraenderungDepot).sum();
+    }
+
+    public double getAktienSaldo(long teilnehmerId) {
+        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        return buchungenTeilnehmer.stream()
+                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE)
+                .mapToDouble(Buchung::getVeraenderungDepot).sum();
+    }
+
+    public double getAnleihenSaldo(long teilnehmerId) {
+        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        return buchungenTeilnehmer.stream()
+                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE)
+                .mapToDouble(Buchung::getVeraenderungDepot).sum();
+    }
+
+
+
     /**
      * Methode gibt den aktuellen Saldo eines Teilnehmers bestehend aus Zahlungsmittelkonto-, Festgeld- und Depotguthaben zurück.
      * @param teilnehmerId Id des Teilnehmers
