@@ -24,46 +24,48 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
     public double bewerte(Periode periode, Wertpapier wertpapier) {
 
         int bisherGespieltePerioden = PeriodenRepository.getInstanz().findAllBySpieleId(periode.getSpiel().getId()).size() - 1;
-        //int restlaufzeit = 4;
         int restlaufzeit = 10 - bisherGespieltePerioden;
 
-        // Aktueller Spread des Emittenten
-        //Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
-        double constantSpread = 0.0;
-        //if (kursOptional.isPresent())
-        //    constantSpread = kursOptional.get().getSpread();
 
-        double emissionszins = wertpapier.getEmissionszins();
+        // Aktueller Spread des Emittenten; vorerst unberücksichtigt
+        double emittentenspread = 0.0;
+
+        double emissionsspread = wertpapier.getEmissionsspread();
         double kapitalmarktzinssatz = periode.getKapitalmarktzinssatz();
+        System.out.println("restlaufzeit: " + restlaufzeit);
+        System.out.println("emissionsspread: " + emissionsspread);
+        System.out.println("kapitalmarktzins: " + kapitalmarktzinssatz);
 
-        // Konstruiere risikobehaftet Zinskurve; Starte bei Index 1
+        // Konstruiere risikobehaftete Zinskurve; Starte bei Index 1
         ArrayList<Double> kupon = new ArrayList<>();
         kupon.add(0.0d);
         for (int i = 1; i <= restlaufzeit; i++) {
-            kupon.add(kapitalmarktzinssatz + constantSpread);
+            kupon.add(kapitalmarktzinssatz + emittentenspread);
         }
 
-        // Konstruiere Cashflow; Starte bei Index 1
-        ArrayList<Double> cashflowFix = new ArrayList<>();
-        cashflowFix.add(0.0d);
+        // Konstruiere Zahlungsstrom; Starte bei Index 1
+        ArrayList<Double> zahlungsstromFest = new ArrayList<>();
+        zahlungsstromFest.add(0.0d);
 
         // Gem. Alexander (2008, S. 11)
         for (int i = 1; i <= restlaufzeit; i++) {
-            cashflowFix.add(i <= restlaufzeit - 1 ? 100.0d * emissionszins : 100.0d * (1 + emissionszins));
+            zahlungsstromFest.add(i <= restlaufzeit - 1 ? 100.0d * emissionsspread : 100.0d * (1.0d + emissionsspread));
         }
-
         // Bewertung Festzinsanleihe
-        double presentValueStraightBond = 0.0d;
+        ArrayList<Double> zahlungsstromDiskontiert = new ArrayList<>();
         for (int i = 1; i <= restlaufzeit; i++) {
-            double discountedCashflow = cashflowFix.get(i) / Math.pow(kupon.get(i), i);
-            presentValueStraightBond += discountedCashflow;
+            double zahlung = zahlungsstromFest.get(i) / Math.pow(1+kupon.get(i), i);
+            zahlungsstromDiskontiert.add(zahlung);
         }
+        double barwertStandardAnleihe = zahlungsstromDiskontiert.stream().mapToDouble(z -> z).sum();
 
         // Bewertung Nullkuponanleihe
-        double presentValueZeroBond = 100.0d / Math.pow(1.0d + kupon.get(restlaufzeit), restlaufzeit);
+        double barwertZeroBond = 100.0d / Math.pow(1.0d + kupon.get(restlaufzeit), restlaufzeit);
+        // Bewertung variable Zahlung
+        double variableZahlung = 100.00d * (1.0d + kupon.get(1)) / (1.0d + kupon.get(1));
 
         // Gem. Alexander (2008, S. 32)
-        return presentValueStraightBond - presentValueZeroBond + 100.00d;
+        return (barwertStandardAnleihe - barwertZeroBond) + variableZahlung;
     }
 
 
