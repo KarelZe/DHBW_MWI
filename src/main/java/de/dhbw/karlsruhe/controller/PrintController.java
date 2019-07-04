@@ -64,9 +64,9 @@ public class PrintController implements ControlledScreen {
 
         Node node = tvDruckansicht;
         double scaleX = node.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
-        double scaleY = node.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
+        double scaleY =  node.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
         node.getTransforms().add(new Scale(scaleX, scaleY));
-
+        node.getStyleClass().clear();
         PrinterJob job = PrinterJob.createPrinterJob();
         if (job != null && job.showPrintDialog(node.getScene().getWindow())){
             boolean success = job.printPage(node);
@@ -74,6 +74,7 @@ public class PrintController implements ControlledScreen {
                 job.endJob();
             }
         }
+        node.getTransforms().clear();
     }
 
     public void doHistorie(){
