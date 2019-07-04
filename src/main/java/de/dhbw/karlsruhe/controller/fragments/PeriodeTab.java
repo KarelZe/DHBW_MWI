@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -104,6 +105,33 @@ public class PeriodeTab extends Tab {
     private void doSpeichern() {
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
         ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
+
+
+        /* Überprüfe Eingaben auf Gültigkeit. Aktienkurse sind stücknotiert (€) / Anleihekurse sind prozentnotiert (%),
+        daher Unterscheidung.*/
+        boolean ungueltigerAktienkurs = false;
+        boolean ungueltigerManuellerKurs = false;
+
+        for (Kurs k : aktieNachAenderung) {
+            if (k.getKurs() < 0) ungueltigerAktienkurs = true;
+        }
+        for (Kurs k : anleiheNachAenderung) {
+            if (k.getManuellerKurs() < 0) ungueltigerManuellerKurs = true;
+        }
+
+        if (ungueltigerManuellerKurs || ungueltigerAktienkurs) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setHeaderText(null);
+            if (ungueltigerAktienkurs && ungueltigerManuellerKurs)
+                alert.setContentText("Ein Aktienkurs muss >= 0 \u20ac sein und \nein Anleihekurs muss >= 0 % sein.");
+            else if (ungueltigerManuellerKurs)
+                alert.setContentText("Ein Anleihekurs muss >= 0 % sein.");
+            else
+                alert.setContentText("Ein Aktienkurs muss >= 0 \u20ac sein.");
+           alert.showAndWait();
+            return;
+        }
 
         model.save(aktieNachAenderung);
         model.save(anleiheNachAenderung);
