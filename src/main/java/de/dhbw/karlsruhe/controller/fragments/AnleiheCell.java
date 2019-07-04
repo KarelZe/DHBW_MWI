@@ -65,7 +65,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
         if (wertpapier != null) {
             cmbUnternehmen.getSelectionModel().select(wertpapier.getUnternehmen());
             txtName.setText(wertpapier.getName());
-            txtEmissionsspread.setText(TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(wertpapier.getEmissionszins()));
+            txtEmissionsspread.setText(TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(wertpapier.getEmissionsspread()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -82,7 +82,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     private void initialize() {
         txtEmissionsspread.setTextFormatter(TextFormatHandler.percentageFormatter());
         txtName.textProperty().addListener((observable, oldValue, newValue) -> getItem().setName(newValue));
-        txtEmissionsspread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setEmissionszins(TextFormatHandler.getPercentageFieldValue(newValue)));
+        txtEmissionsspread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setEmissionsspread(TextFormatHandler.getPercentageFieldValue(newValue)));
 
         ArrayList<Unternehmen> unternehmen = new ArrayList<>(UnternehmenRepository.getInstanz().findByUnternehmenArt(Unternehmen.UNTERNEHMEN_TEILNEHMER));
         ObservableList<Unternehmen> unternehmenComboBox = FXCollections.observableArrayList(unternehmen);

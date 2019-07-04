@@ -39,7 +39,7 @@ public class Wertpapier {
 
     private double nennwert; //optional (Anleihen)
 
-    private double emissionszins; //optional (Anleihen)
+    private double emissionsspread; //optional (Anleihen)
 
     private int faelligkeit_periode; //optional (Anleihen)
 
@@ -85,12 +85,12 @@ public class Wertpapier {
         this.nennwert = nennwert;
     }
 
-    public double getEmissionszins() {
-        return emissionszins;
+    public double getEmissionsspread() {
+        return emissionsspread;
     }
 
-    public void setEmissionszins(double emissionszins) {
-        this.emissionszins = emissionszins;
+    public void setEmissionsspread(double emissionsspread) {
+        this.emissionsspread = emissionsspread;
     }
 
     public int getFaelligkeit_periode() {
@@ -150,7 +150,7 @@ public class Wertpapier {
                 ", spiel=" + spiel +
                 ", name='" + name + '\'' +
                 ", nennwert=" + nennwert +
-                ", emissionszins=" + emissionszins +
+                ", emissionsspread=" + emissionsspread +
                 ", faelligkeit_periode=" + faelligkeit_periode +
                 ", emission_periode=" + emission_periode +
                 '}';
