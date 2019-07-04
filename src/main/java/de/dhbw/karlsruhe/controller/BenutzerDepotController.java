@@ -71,8 +71,7 @@ public class BenutzerDepotController implements ControlledScreen {
         }
 
         // PoC
-        ArrayList<Double> renditeinPerioden = new ArrayList<>(Arrays.asList(12.0, 22.0, 33.0));
-        //table.getItems().add(createRow("Gesamtdepotwert", 3000 + " \u20AC", 34 + " %", castDoubleListToStringList(renditeinPerioden)));
+        ArrayList<Double> renditeinPerioden = new ArrayList<>(Arrays.asList(0.0, 0.0, 0.0));
 
         // Erste Reihe
         createGesamdepotwertRow(renditeinPerioden);
@@ -106,10 +105,8 @@ public class BenutzerDepotController implements ControlledScreen {
 
     private void createGesamdepotwertRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        saldo = saldo + PortfolioFassade.getInstanz().getFestgeldSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
 
-
-        table.getItems().add(createRow("Gesamtdepotwert", String.format("%.2f", saldo) + " \u20AC", 35 + " %", castDoubleListToStringList(renditeinPerioden)));
+        table.getItems().add(createRow("Gesamtdepotwert", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
 
     }
 
@@ -126,22 +123,22 @@ public class BenutzerDepotController implements ControlledScreen {
 
     private void createFestgeldRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getFestgeldSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("Festgeld", String.format("%.2f", saldo) + " \u20AC", 34 + " %", castDoubleListToStringList(renditeinPerioden)));
+        table.getItems().add(createRow("Festgeld", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
     private void createEtfRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getFestgeldSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("ETF", String.format("%.2f", saldo) + " \u20AC", 34 + " %", castDoubleListToStringList(renditeinPerioden)));
+        double saldo = PortfolioFassade.getInstanz().getEtfSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+        table.getItems().add(createRow("ETF", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
     private void createAktienGesamtRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", 34 + " %", castDoubleListToStringList(renditeinPerioden)));
+        double saldo = PortfolioFassade.getInstanz().getAktienSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+        table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
     private void createAnleihenGesamtRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("Anleihen", String.format("%.2f", saldo) + " \u20AC", 34 + " %", castDoubleListToStringList(renditeinPerioden)));
+        double saldo = PortfolioFassade.getInstanz().getAnleihenSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+        table.getItems().add(createRow("Anleihen", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
 
