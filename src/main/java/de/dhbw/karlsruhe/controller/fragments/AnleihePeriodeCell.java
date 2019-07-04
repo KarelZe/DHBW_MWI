@@ -1,6 +1,6 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
-import de.dhbw.karlsruhe.helper.NumberHelper;
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,8 +59,8 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
 
         if (kurs != null) {
             lblName.setText(kurs.getWertpapier().getName());
-            txtSpread.setText(kurs.getSpread() == null ? "0" : String.valueOf(kurs.getSpread()));
-            txtKursManuell.setText(String.valueOf(kurs.getManuellerKurs()));
+            txtSpread.setText(kurs.getSpread() == null ? TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(0.0) : TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(kurs.getSpread()));
+            txtKursManuell.setText(kurs.getManuellerKurs() == null ? TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(0.0) : TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(kurs.getManuellerKurs()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -75,9 +75,9 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
      */
     @FXML
     private void initialize() {
-        // txtSpread.setTextFormatter(TextFormatHandler.percentageFormatter());
-        // txtKursManuell.setTextFormatter(TextFormatHandler.percentageFormatter());
-        txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(NumberHelper.parseDouble(newValue, 0)));
-        txtKursManuell.textProperty().addListener((observable, oldValue, newValue) -> getItem().setManuellerKurs(NumberHelper.parseDouble(newValue, 0)));
+        txtSpread.setTextFormatter(TextFormatHandler.percentageFormatter());
+        txtKursManuell.setTextFormatter(TextFormatHandler.percentageFormatter());
+        txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(TextFormatHandler.getPercentageFieldValue(newValue)));
+        txtKursManuell.textProperty().addListener((observable, oldValue, newValue) -> getItem().setManuellerKurs(TextFormatHandler.getPercentageFieldValue(newValue)));
     }
 }

@@ -24,12 +24,12 @@ public class TextFormatHandler {
 
     private static final double DEFAULT_VALUE = 0.00d;
     private static final String CURRENCY_SYMBOL = "\u20ac"; // LKR Currency
-    private static final String PRECENTAGE_SYMBOL = "%";
+    private static final String PERCENTAGE_SYMBOL = "%";
     private static final DecimalFormatSymbols GERMANY = new DecimalFormatSymbols(Locale.GERMANY );
     public static final DecimalFormat CURRENCY_DECIMAL_FORMAT
             = new DecimalFormat( "###,##0.00"+CURRENCY_SYMBOL, GERMANY);
 
-    public static final DecimalFormat PRECENTAGE_DECIMAL_FORMAT = new DecimalFormat("#0.00" + PRECENTAGE_SYMBOL, GERMANY);
+    public static final DecimalFormat PERCENTAGE_DECIMAL_FORMAT = new DecimalFormat("##0.00" + PERCENTAGE_SYMBOL, GERMANY);
 
     public static TextFormatter<Double> currencyFormatter() {
 
@@ -77,24 +77,34 @@ public class TextFormatHandler {
         return 0.0;
     }
 
+    public static Double getPercentageFieldValue(String value) {
+        try {
+            return PERCENTAGE_DECIMAL_FORMAT.parse(value).doubleValue();
+        } catch (ParseException ex) {
+            Logger.getLogger(TextFormatHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0.0;
+    }
+
+
     public static TextFormatter<Double> percentageFormatter() {
         return new TextFormatter<Double>(new StringConverter<Double>() {
             @Override
             public String toString(Double value) {
-                return PRECENTAGE_DECIMAL_FORMAT.format(value);
+                return PERCENTAGE_DECIMAL_FORMAT.format(value);
             }
 
             @Override
             public Double fromString(String string) {
                 try {
-                    return PRECENTAGE_DECIMAL_FORMAT.parse(string).doubleValue();
+                    return PERCENTAGE_DECIMAL_FORMAT.parse(string).doubleValue();
                 } catch (ParseException e) {
                     return Double.NaN;
                 }
             }
         }, DEFAULT_VALUE, change -> {
             try {
-                PRECENTAGE_DECIMAL_FORMAT.parse(change.getControlNewText());
+                PERCENTAGE_DECIMAL_FORMAT.parse(change.getControlNewText());
                 return change;
             } catch (ParseException e) {
                 return null;
@@ -104,7 +114,7 @@ public class TextFormatHandler {
 
     public static Double getPercentageFieldValue(TextField textField) {
         try {
-            return PRECENTAGE_DECIMAL_FORMAT.parse(textField.getText()).doubleValue() * 100;
+            return PERCENTAGE_DECIMAL_FORMAT.parse(textField.getText()).doubleValue() * 100;
         } catch (ParseException ex) {
             Logger.getLogger(TextFormatHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
