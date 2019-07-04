@@ -78,7 +78,7 @@ public class PortfolioFassade {
      */
     public double getFestgeldSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungZahlungsmittelkonto).sum();
+        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungFestgeld).sum();
     }
 
     /**

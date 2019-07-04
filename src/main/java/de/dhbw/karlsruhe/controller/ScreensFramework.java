@@ -46,6 +46,7 @@ public class ScreensFramework extends Application implements InvalidationListene
     public static final String SCREEN_TEILNEHMER_HISTORIE = "teilnehmer_historie";
     public static final String SCREEN_WERTPAPIER_KAUFEN = "wertpapier_kaufen";
     public static final String SCREEN_WERTPAPIER_VERKAUFEN = "wertpapier_verkaufen";
+    public static final String SCREEN_BENUTZER_DEPOT = "depot_uebersicht";
 
     public static final String SCREEN_LOGIN_FILE = "scene_login.fxml";
     public static final String SCREEN_REGISTER_FILE = "scene_register.fxml";
@@ -62,9 +63,10 @@ public class ScreensFramework extends Application implements InvalidationListene
     public static final String SCREEN_TEILNEHMER_HISTORIE_FILE = "scene_teilnehmer_historie.fxml";
     public static final String SCREEN_WERTPAPIER_KAUFEN_FILE = "scene_wertpapier_kaufen.fxml";
     public static final String SCREEN_WERTPAPIER_VERKAUFEN_FILE = "scene_wertpapier_verkaufen.fxml";
+    public static final String SCREEN_BENUTZER_DEPOT_FILE = "scene_benutzer_depot.fxml";
 
     private Menu mTeilnehmer, mAdministration, mAuswertung, mSpiel;
-    private MenuItem mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen, mIteilnehmerRegistrieren, mIteilnehmerLogin, mIteilnehmerBearbeiten;
+    private MenuItem mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen, mIteilnehmerRegistrieren, mIteilnehmerLogin, mIteilnehmerBearbeiten, mIBenutzerDepot;
     private Button btnLogout;
     private ScreenController screenController = new ScreenController();
 
@@ -118,9 +120,10 @@ public class ScreensFramework extends Application implements InvalidationListene
         mIteilnehmerHistorie = new MenuItem("Transaktionshistorie anzeigen");
         mIwertpapierKaufen = new MenuItem("Wertpapier kaufen");
         mIwertpapierVerkaufen = new MenuItem("Wertpapier verkaufen");
+        mIBenutzerDepot = new MenuItem("Depot\u00fcbersicht");
 
         //Menüpunkt zum Menü hinzufügen
-        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerBearbeiten, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen);
+        mTeilnehmer.getItems().addAll(mIteilnehmerLogin, mIteilnehmerRegistrieren, mIteilnehmerBearbeiten, mIteilnehmerHistorie, mIwertpapierKaufen, mIwertpapierVerkaufen, mIBenutzerDepot);
 
         mSpiel = new Menu("Spiel");
         MenuItem mIspielInitialisieren = new MenuItem("Spiel initialisieren");
@@ -224,6 +227,10 @@ public class ScreensFramework extends Application implements InvalidationListene
             screenController.loadScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN, ScreensFramework.SCREEN_SPIEL_ANLEGEN_FILE);
             screenController.setScreen(ScreensFramework.SCREEN_SPIEL_ANLEGEN);
         });
+        mIBenutzerDepot.setOnAction(e -> {
+            screenController.loadScreen(ScreensFramework.SCREEN_BENUTZER_DEPOT, ScreensFramework.SCREEN_BENUTZER_DEPOT_FILE);
+            screenController.setScreen(ScreensFramework.SCREEN_BENUTZER_DEPOT);
+        });
 
         // CSS laden
         scene.getStylesheets().add(getClass().getClassLoader().getResource("styles.css").toExternalForm());
@@ -265,6 +272,7 @@ public class ScreensFramework extends Application implements InvalidationListene
         mIwertpapierKaufen.setDisable(true);
         mIwertpapierVerkaufen.setDisable(true);
         mIteilnehmerBearbeiten.setDisable(true);
+        mIBenutzerDepot.setDisable(true);
         // setze initialen Stand. Diese Einträge erfordern keine besonderen Berechtigungen.
         mIteilnehmerLogin.setDisable(false);
         mIteilnehmerRegistrieren.setDisable(false);
@@ -282,6 +290,7 @@ public class ScreensFramework extends Application implements InvalidationListene
                 mIteilnehmerHistorie.setDisable(false);
                 mIwertpapierKaufen.setDisable(false);
                 mIwertpapierVerkaufen.setDisable(false);
+                mIBenutzerDepot.setDisable(false);
                 mIteilnehmerRegistrieren.setDisable(true);
                 mIteilnehmerLogin.setDisable(true);
                 btnLogout.setDisable(false);
