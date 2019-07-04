@@ -1,6 +1,6 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
-import de.dhbw.karlsruhe.helper.NumberHelper;
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,10 +54,10 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
     @Override
     public void updateItem(Kurs kurs, boolean empty) {
         super.updateItem(kurs, empty);
-
+        System.out.println(kurs);
         if (kurs != null) {
             lblName.setText(kurs.getWertpapier().getName());
-            txtKurs.setText(String.valueOf(kurs.getKurs()));
+            txtKurs.setText(TextFormatHandler.CURRENCY_DECIMAL_FORMAT.format(kurs.getKurs()));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -72,7 +72,7 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
      */
     @FXML
     private void initialize() {
-        txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(NumberHelper.parseDouble(newValue, 0))
-        );
+        txtKurs.setTextFormatter(TextFormatHandler.currencyFormatter());
+        txtKurs.textProperty().addListener((observable, oldValue, newValue) -> getItem().setKurs(TextFormatHandler.getCurrencyFieldValue(newValue)));
     }
 }

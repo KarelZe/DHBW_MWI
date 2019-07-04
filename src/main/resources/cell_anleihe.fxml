@@ -4,33 +4,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.ListCell"
-         xmlns="http://javafx.com/javafx/8.0.172-ea">
+         xmlns="http://javafx.com/javafx/11.0.1">
     <graphic>
-        <HBox spacing="5.0">
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <Label text="Bezeichnung:"/>
             <TextField fx:id="txtName" promptText="Bezeichnung" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Bezeichnung der Anleihe"/>
+                    <Tooltip text="Bezeichnung der Anleihe" />
                 </tooltip>
             </TextField>
-            <ComboBox fx:id="cmbUnternehmen" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label text="Unternehmen:"/>
+            <ComboBox fx:id="cmbUnternehmen" GridPane.columnIndex="2" prefWidth="200" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Bezeichnung der Anleihe"/>
+                    <Tooltip text="Emittent der Anleihe"/>
                 </tooltip>
             </ComboBox>
-            <TextField fx:id="txtEmissionsspread" promptText="Emissionsspread" GridPane.columnIndex="3"
-                       GridPane.rowIndex="1">
+            <Label text="Emissionsspread:"/>
+            <TextField fx:id="txtEmissionsspread" promptText="Emissionsspread" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Spread der Anleihe"/>
+                    <Tooltip text="Spread der Anleihe" />
                 </tooltip>
             </TextField>
-            <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="4"
-                    GridPane.rowIndex="1">
+            <Button fx:id="btnLoeschen" mnemonicParsing="false" text="-" GridPane.columnIndex="4" GridPane.rowIndex="1">
                 <tooltip>
-                    <Tooltip text="Anleihe löschen"/>
+                    <Tooltip text="Anleihe löschen" />
                 </tooltip>
             </Button>
             <padding>
-                <Insets bottom="2.5" right="5.0" top="2.5"/>
+                <Insets bottom="2.5" right="5.0" top="2.5" />
             </padding>
         </HBox>
     </graphic>
