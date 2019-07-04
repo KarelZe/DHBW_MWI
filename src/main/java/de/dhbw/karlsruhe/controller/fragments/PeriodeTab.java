@@ -116,7 +116,7 @@ public class PeriodeTab extends Tab {
             if (k.getKurs() < 0) ungueltigerAktienkurs = true;
         }
         for (Kurs k : anleiheNachAenderung) {
-            if (k.getManuellerKurs() < 0) ungueltigerManuellerKurs = true;
+            if (k.getManuellerKurs() != null && k.getManuellerKurs() < 0) ungueltigerManuellerKurs = true;
         }
 
         if (ungueltigerManuellerKurs || ungueltigerAktienkurs) {
