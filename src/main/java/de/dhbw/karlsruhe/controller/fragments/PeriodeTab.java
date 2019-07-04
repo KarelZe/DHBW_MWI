@@ -84,6 +84,8 @@ public class PeriodeTab extends Tab {
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).forEach(k -> aktieInitial.add(k));
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).forEach(k -> anleiheInitial.add(k));
 
+        System.out.println(aktieInitial);
+
         aktieObserverableList.addAll(aktieInitial);
         lstVwAktie.setItems(aktieObserverableList);
         lstVwAktie.setCellFactory(new AktienPeriodeCellFactory());

@@ -1,6 +1,6 @@
 package de.dhbw.karlsruhe.controller.fragments;
 
-import de.dhbw.karlsruhe.handler.TextFormatHandler;
+import de.dhbw.karlsruhe.helper.NumberHelper;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,10 +75,9 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
      */
     @FXML
     private void initialize() {
-        // Konvertiere BP in %
-        txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(TextFormatHandler.getPercentageFieldValue(txtSpread)));
-        txtKursManuell.textProperty().addListener((observable, oldValue, newValue) -> getItem().setManuellerKurs(TextFormatHandler.getPercentageFieldValue(txtKursManuell)));
-        txtSpread.setTextFormatter(TextFormatHandler.percentageFormatter());
-        txtKursManuell.setTextFormatter(TextFormatHandler.percentageFormatter());
+        // txtSpread.setTextFormatter(TextFormatHandler.percentageFormatter());
+        // txtKursManuell.setTextFormatter(TextFormatHandler.percentageFormatter());
+        txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(NumberHelper.parseDouble(newValue, 0)));
+        txtKursManuell.textProperty().addListener((observable, oldValue, newValue) -> getItem().setManuellerKurs(NumberHelper.parseDouble(newValue, 0)));
     }
 }
