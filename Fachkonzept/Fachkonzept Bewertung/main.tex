@@ -93,7 +93,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \hfuzz=20pt
 
 \title{Fachkonzept für die Bewertung von Finanzanlagen und die Verbuchung von Kapitalerträgen in der Software Anika}
-\author{Markus Bilz\thanks{markus.bilz@student.dhbw-karlsruhe.de}, Christian Fix\thanks{christian.fix@student.dhbw-karlsruhe.de}}
+\author{Markus Bilz, Christian Fix}
 
 \addbibresource{bib.bib}
 
@@ -111,7 +111,7 @@ pdfkeywords={Anleihebewertung, Aktienbewertung}
 \maketitle
 
 \section{Überblick}
-Im Rahmen des MWI-Projektes soll die bereits in der DHBW Karlsruhe eingesetzte Planspielsoftware \textit{TOPSIM} um eine zusätzliche autarke Wertpapierkomponente mit dem Namen \textit{Anika} erweitert werden, um den Teilnehmern die Möglichkeit zu bieten, mit einem fiktiven Kapital Finanzanlagen zu erwerben.
+Im Rahmen des MWI-Projektes soll die bereits in der DHBW Karlsruhe eingesetzte Planspielsoftware \textit{TOPSIM} um eine zusätzliche autarke Wertpapierkomponente mit dem Namen \textit{Anika} erweitert werden, um den Teilnehmern die Möglichkeit zu bieten, Finanzanlagen mit einem fiktiven Kapital zu erwerben.
 
 Die Software \textit{Anika} soll dabei den Handel folgender Finanzanlagen unterstützen:
 \begin{enumerate}
@@ -121,7 +121,7 @@ Die Software \textit{Anika} soll dabei den Handel folgender Finanzanlagen unters
 	\item Festgeld
 \end{enumerate}
 
-Um sicherzustellen, dass diese Finanzanlagen möglichst realistisch und fair bewertet werden, wurde dieses Fachkonzept erstellt, das definiert, wie deren Bewertung und Ausschüttungen in dieser Software durchgeführt werden soll.
+Um sicherzustellen, dass diese Finanzanlagen möglichst realistisch und fair bewertet werden, wurde dieses Fachkonzept erstellt, das definiert, wie deren Bewertung und Ausschüttungen durchgeführt werden soll.
 Weil \textit{Anika} kein dediziertes Handelssystem implementiert, das die Handelsaktivitäten einzelner Marktteilnehmer in der Kursbildung von Wertpapieren berücksichtigt, werden dafür ausschließlich rechnerische Kurswerte verwendet, die auf der Grundlage finanzmathematischer Modelle ermittelt wird.
 
 %Nachfolgende Kapitel gehen detailliert auf die Bewertung obiger Anlagearten ein. Zunächst wird jedoch der Zeitpunkt und das Vorgehen hinsichtlich der Bewertung von Finanzanlagen thematisiert.
@@ -186,9 +186,7 @@ Die Planspielunternehmen firmieren als Aktiengesellschaft, deren Aktien von den 
 Der rechnerische Kurs dieser Aktien wird von der Planspielsoftware \textit{TOPSIM} auf der Basis einiger Einflussfaktoren wie beispielsweise dem Eigenkapital oder dem Jahresüberschuss der vergangenen Periode berechnet und dem Spielleiter in einer Übersicht dargestellt.
 Dieser Aktienkurs beinhaltet die vergangenen Dividendenauszahlungen. Auch zukünftige Dividenden werden nicht ausgeschüttet, sondern wirken sich positiv auf den Kurs aus. Dies führt dazu, dass die Software \textit{Anika} die Dividendenauszahlungen nicht gesondert berücksichtigen muss.
 
-Im Insolvenzfall eines Planspielunternehmens ist der Kurs mit 0 zu pflegen.
-
-%Die Aktienkurse der Planspielunternehmen werden \textit{ex post} Periode ermittelt und dem Spielleiter in einer Übersicht dargestellt. 
+Im Insolvenzfall eines Planspielunternehmens soll der Aktienkurs analog zu dem Planspiel mit 0 erfasst werden. Dies führt dazu, dass keine weiteren Aktien dieses Unternehmens gekauft werden können. 
 
 Gemäß Kapitel \ref{sec:zeitpunkt_und_durchfuehrung_der_bewertung_buchung} ist der Aktienkurs der Vorperiode der Bewertungskurs der Folgeperiode.
 Bei dem Handel mit Aktien wird neben deren Kurswert eine vom Spielleiter eingestellte Ordergebühr\footnote{Diese Ordergebühr wird in Prozent angegeben.} fällig. Eine in der Realität oft auftretende Brief-Geld-Spanne existiert hingegen nicht.
@@ -197,7 +195,7 @@ Die Anwendung \textit{Anika} weist Aktienkurse in \textit{Stücknotierung} aus.
 
 \subsection{Bewertung von Floating Rate Notes}
 \label{sec:bewertung_von_floating_rate_notes}
-\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlags zusammen \autocite[][374]{fabozzi_handbook_2005}. In diesem Zusammenhang ist wichtig festzuhalten, dass sich zwar der Referenzzins über die Laufzeit verändert, der Aufschlag auf den Referenzzins bleibt jedoch konstant.
+\glspl{FRN} sind Anleihen mit einem über die Laufzeit veränderlichen Zinskupon \autocite[][373]{fabozzi_handbook_2005}. Der Zinskupon setzt sich dabei aus einem Referenzzins und einen von der Bonität des Emittenten abhängigen Zinsaufschlags zusammen \autocite[][374]{fabozzi_handbook_2005}. In diesem Zusammenhang ist wichtig festzuhalten, dass sich zwar der Referenzzins über die Laufzeit verändert, der Aufschlag auf den Referenzzins jedoch konstant bleibt.
 
 Weil Anleihen kein Bestandteil der Anwendung \textit{TOPSIM} sind, ist eine Bewertung durch die Anwendung \textit{Anika} notwendig. \gls{FRN} werden gemäß Definition \ref{def:floater} in der Anwendung \textit{Anika} aufgelegt.
 
@@ -224,10 +222,10 @@ Der Zinskupon setzt sich dabei aus einem Refrenzzins und einem Spread bei Emissi
 
 Der Preis der \gls{FRN} $P_{s}^{m}$ mit Spread $s$ und Fälligkeit $m$ ergibt sich damit als:
 \begin{align*}
-	P_{t+T}^{s}&=(\underbrace{B_{t+T}^{s}}_\text{Standardanleihe}-\underbrace{B_{t+T}^{0}}_\text{Nullkuponanleihe})+\underbrace{100(1+c - s)(1+t R_{0})^{-1}}_\text{Variabler Cashflow}\\
+	P_{t+T}^{s}&=(\underbrace{B_{t+T}^{s}}_\text{Standardanleihe}-\underbrace{B_{t+T}^{0}}_\text{Nullkuponanleihe})+\underbrace{100 * (1+c - s) * (1+t * R_{0})^{-1}}_\text{Variabler Cashflow}\\
 \end{align*}
 % Obacht, Formel im Original ist falsch ist Teil des Errata http://carolalexander.org/publish/download/MRA_III_Revisions_1.pdf
-Wie oben ersichtlich, zerlegt \textcite[][31]{alexander_market_2008} die \gls{FRN} in einen fest- und einen variabelverzinslichen Zahlungsstrom. Der festverzinsliche Zahlungsstrom umfasst dabei die diskontierten Zahlungen auf den Spread $s$ zu den Zeitpunkt $t, t+1, \ldots, t+T$. Sie bildet den festverzinslichen Zahlungsstrom in Form einer Standardanleihe $B_{t+T}^{s}$ ab, reduziert den Barwert aber um den Barwert einer Nullkuponanleihe $B_{t+T}^{0}$, da der festverzinsliche Zahlungsstrom keine Tilgung bei Fälligkeit enthält. Die Bewertung der Nullkuponanleihe und der Festzinsanleihe erfolgt durch Diskontierung, wie in \textcite[][11]{alexander_market_2008} beschrieben. Weiterhin diskontiert sie die zukünftigen, variabel verzinslichen Zinszahlungen an den Zeitpunkten $t+1, t+2, \ldots, t+T$ und die Tilgung in $t+T$  zum Zeitpunkt ab. 
+Wie der obrigen Formel entnommen werden kann, zerlegt \textcite[][31]{alexander_market_2008} die \gls{FRN} in einen fest- und einen variabelverzinslichen Zahlungsstrom. Der festverzinsliche Zahlungsstrom umfasst dabei die diskontierten Zahlungen auf den Spread $s$ zu den Zeitpunkt $t, t+1, \ldots, t+T$. Sie bildet den festverzinslichen Zahlungsstrom in Form einer Standardanleihe $B_{t+T}^{s}$ ab, reduziert den Barwert aber um den Barwert einer Nullkuponanleihe $B_{t+T}^{0}$, da der festverzinsliche Zahlungsstrom keine Tilgung bei Fälligkeit enthält. Die Bewertung der Nullkuponanleihe und der Festzinsanleihe erfolgt durch Diskontierung, wie in \textcite[][11]{alexander_market_2008} beschrieben. Weiterhin diskontiert sie die zukünftigen, variabel verzinslichen Zinszahlungen an den Zeitpunkten $t+1, t+2, \ldots, t+T$ und die Tilgung in $t+T$  zum Zeitpunkt ab. 
 
 Da in der Anwendung \textit{Anika} ausschließlich der Kapitalmarktzinssatz für die aktuelle Periode vorliegt, erfolgt die Diskontierung mittels Kapitalmarktzinssatzes erhöht um einen emittentenindividuellen Bonitätsaufschlag, der sich aus dem Rating je Periode ableitet. Die Diskontierungssätze sind dabei über alle Laufzeiten gleich.
 
@@ -239,13 +237,13 @@ Nachfolgend wird die exemplarische Bewertung einer \gls{FRN} demonstriert\footno
 
 \begin{example}
 	Bewertet wird ein \gls{FRN} mit einem jährlichen Zinskupon, der sich aus dem Kapitalmarktzins plus 60 Basispunkten zusammensetzt. Die Bewertung erfolgt an einem Zinszahlungstermin. Der Kapitalmarktzins zum Bewertungszeitpunkt beträgt 5~\%.
-	Die Diskontierung erfolgt mit dem Kapitalmarktzins ohne Spread.
+	Die Diskontierung erfolgt mit dem Kapitalmarktzins und einem Spread von 0 \%.
 
 	\begin{align*}
-		P_{t+T}^{s}&=\left(B_{t+T}^{s}-B_{t+T}^{0}\right)+100(1+c - s)\left(1+t R_{0}\right)^{-1}\\
+		P_{t+T}^{s}&=\left(B_{t+T}^{s}-B_{t+T}^{0}\right)+100 * (1+c - s)\left(1+t * R_{0}\right)^{-1}\\
 		B_{t+T}^{s}&=\frac{0.60}{1.05}+\frac{0.60}{1.05^2}+\frac{0.60}{1.05^3}+\frac{100.60}{1.05^4}=84.40\\
 		B_{t+T}^{0}&=\frac{100}{1.05^4}=82.27\\
-		P_{t+T}^{s}&= (84.40-82.27) + 100(1+0.056 - 0.006) (1+0.05)^{-1} = 102.13\\
+		P_{t+T}^{s}&= (84.40-82.27) + 100 * (1+0.056 - 0.006) * (1+0.05)^{-1} = 102.13\\
 	\end{align*}
 
 	Da eine Zerlegung in einen festen und einen variablen Zahlungsstrom erfolgt, ist zunächst die Festzinsanleihe und die Nullkuponanleihe (erster Term) zu bewerten.
@@ -347,7 +345,7 @@ Die Berechnung der Zinserträge der \gls{FRN} erfolgt damit bezogen auf den Nenn
 	
 	Die Kuponzahlung $c_t$ ergibt sich wiefolgt:
 
-	$c_t= 100 (0.01 + 0.02) = 3 $ Euro
+	$c_t= 100 * (0.01 + 0.02) = 3 $ Euro
 \end{example}
 \clearpage
 \printbibliography[title={Literatur}]
