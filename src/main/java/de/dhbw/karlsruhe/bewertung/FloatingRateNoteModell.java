@@ -1,10 +1,13 @@
 package de.dhbw.karlsruhe.bewertung;
 
+import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
+import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Konkrete Implementierung des Bewertungsmodells für die Bewertung von Floating Rate Notes (FRN).
@@ -26,21 +29,23 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
         int bisherGespieltePerioden = PeriodenRepository.getInstanz().findAllBySpieleId(periode.getSpiel().getId()).size() - 1;
         int restlaufzeit = 10 - bisherGespieltePerioden;
 
-
-        // Aktueller Spread des Emittenten; vorerst unberücksichtigt
-        double emittentenspread = 0.0;
-
+        Optional<Kurs> kursOptional =  KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(),wertpapier.getId());
+        // Spread des Emittenten bei Emission
         double emissionsspread = wertpapier.getEmissionsspread();
+        // Aktueller Spread des Emittenten zum Zeitpunkt der Bewertung
+        double spread = kursOptional.orElse(new Kurs()).getSpread();
         double kapitalmarktzinssatz = periode.getKapitalmarktzinssatz();
+
         System.out.println("restlaufzeit: " + restlaufzeit);
+        System.out.println("spread:" + spread);
         System.out.println("emissionsspread: " + emissionsspread);
         System.out.println("kapitalmarktzins: " + kapitalmarktzinssatz);
 
         // Konstruiere risikobehaftete Zinskurve; Starte bei Index 1
-        ArrayList<Double> kupon = new ArrayList<>();
-        kupon.add(0.0d);
+        ArrayList<Double> zinskurve = new ArrayList<>();
+        zinskurve.add(0.0d);
         for (int i = 1; i <= restlaufzeit; i++) {
-            kupon.add(kapitalmarktzinssatz + emittentenspread);
+            zinskurve.add(kapitalmarktzinssatz + spread);
         }
 
         // Konstruiere Zahlungsstrom; Starte bei Index 1
@@ -54,16 +59,20 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
         // Bewertung Festzinsanleihe
         ArrayList<Double> zahlungsstromDiskontiert = new ArrayList<>();
         for (int i = 1; i <= restlaufzeit; i++) {
-            double zahlung = zahlungsstromFest.get(i) / Math.pow(1+kupon.get(i), i);
+            double zahlung = zahlungsstromFest.get(i) / Math.pow(1+zinskurve.get(i), i);
             zahlungsstromDiskontiert.add(zahlung);
         }
         double barwertStandardAnleihe = zahlungsstromDiskontiert.stream().mapToDouble(z -> z).sum();
 
-        // Bewertung Nullkuponanleihe
-        double barwertZeroBond = 100.0d / Math.pow(1.0d + kupon.get(restlaufzeit), restlaufzeit);
-        // Bewertung variable Zahlung
-        double variableZahlung = 100.00d * (1.0d + kupon.get(1)) / (1.0d + kupon.get(1));
+        System.out.println("Zahlungsstrom fest"+zahlungsstromDiskontiert);
 
+        // Bewertung Nullkuponanleihe
+        double barwertZeroBond = 100.0d / Math.pow(1.0d + zinskurve.get(restlaufzeit), restlaufzeit);
+        // Bewertung variable Zahlung
+        double variableZahlung = 100.00d * (1.0d + kapitalmarktzinssatz) / (1.0d + zinskurve.get(1));
+
+        System.out.println("Zerobond" + barwertZeroBond);
+        System.out.println("variabel" + variableZahlung);
         // Gem. Alexander (2008, S. 32)
         return (barwertStandardAnleihe - barwertZeroBond) + variableZahlung;
     }
