@@ -1,9 +1,9 @@
 package de.dhbw.karlsruhe.buchung;
 
-import de.dhbw.karlsruhe.model.jpa.Benutzer;
-import de.dhbw.karlsruhe.model.jpa.Buchung;
-import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+import de.dhbw.karlsruhe.model.TransaktionsArtRepository;
+import de.dhbw.karlsruhe.model.jpa.*;
+
+import java.util.Optional;
 
 /**
  * Konkrete Implementierung der Buchungsart für Zinserträge aus Anleihen.
@@ -32,6 +32,10 @@ public class ZinsbuchungAnleihe implements Buchungsart {
         double zinsgutschrift = bezugsgroesse * (wertpapier.getEmissionsspread() + periode.getKapitalmarktzinssatz());
         buchung.setVolumen(zinsgutschrift);
         buchung.setVeraenderungZahlungsmittelkonto(+zinsgutschrift);
+
+        Optional<TransaktionsArt> transaktionsArt = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
+        transaktionsArt.ifPresent(buchung::setTransaktionsArt);
+
         return buchung;
     }
 }
