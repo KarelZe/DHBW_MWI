@@ -205,6 +205,26 @@ public class PortfolioFassade {
 
     }
 
+    public List<Portfolioposition> getKaufPortfoliopositionen(long teilnehmerId, long periodenId) {
+        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
+        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        buchungen = buchungen.stream().filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_KAUFEN).collect(toList());
+        Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
+        // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
+        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
+
+    }
+
+    public List<Portfolioposition> getVerkaufPortfoliopositionen(long teilnehmerId, long periodenId) {
+        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
+        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        buchungen = buchungen.stream().filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN).collect(toList());
+        Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
+        // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
+        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
+
+    }
+
     /**
      * // TODO: Raphael kommentieren
      *
