@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -182,6 +183,10 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     @Override
     public void delete(Wertpapier wertpapier) {
         delete(List.of(wertpapier));
+    }
+
+    public Wertpapier findByWertpapierArt(long wertpapierArtId) {
+        return findAll().stream().filter(w -> w.getWertpapierArt().getId() == wertpapierArtId).findAny().orElseThrow(NoSuchElementException::new);
     }
 
 }

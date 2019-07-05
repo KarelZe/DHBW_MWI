@@ -128,7 +128,7 @@ public class BenutzerDepotController implements ControlledScreen {
     }
 
     private void createEtfRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getEtfSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+        double saldo = PortfolioFassade.getInstanz().getEtfSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId());
         table.getItems().add(createRow("ETF", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 

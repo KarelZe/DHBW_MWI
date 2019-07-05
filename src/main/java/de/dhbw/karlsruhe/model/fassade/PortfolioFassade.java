@@ -7,7 +7,6 @@ import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -83,18 +82,32 @@ public class PortfolioFassade {
     }
 
     //Todo kommentieren Raphael
-    public double getEtfSaldo(long teilnehmerId) {
+    public double getEtfSaldo(long teilnehmerId, long periodenId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
         return buchungenTeilnehmer.stream()
                 .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF)
                 .mapToDouble(Buchung::getVeraenderungDepot).sum();
+/*        buchungenTeilnehmer = buchungenTeilnehmer.stream().filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF).collect(toList());
+        long vorhandeneStueckzahl = 0;
+        for (Buchung b: buchungenTeilnehmer) {
+            if(b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_KAUFEN) {
+                vorhandeneStueckzahl += b.getStueckzahl();
+            } else if(b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN){
+                vorhandeneStueckzahl -= b.getStueckzahl();
+            }
+        }
+        return vorhandeneStueckzahl *
+                KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId,
+                        WertpapierRepository.getInstanz().findByWertpapierArt(WertpapierArt.WERTPAPIER_ETF).getId())
+                        .orElseThrow(NoSuchElementException::new).getKurs();*/
     }
 
     public double getAktienSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream()
-                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE)
-                .mapToDouble(Buchung::getVeraenderungDepot).sum();
+        buchungenTeilnehmer = buchungenTeilnehmer.stream()
+                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).collect(Collectors.toList());
+
+        throw new UnsupportedOperationException("fertig implementieren");
     }
 
     public double getAnleihenSaldo(long teilnehmerId) {
@@ -188,6 +201,8 @@ public class PortfolioFassade {
         Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
         // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
         return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
+
+
     }
 
     /**
@@ -222,38 +237,39 @@ public class PortfolioFassade {
     }
 
     public double getRenditeDepot(long teilnehmerId, long periodenId, long wertpapierId) {
-        return 0;
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public double getRenditeFestgeld(long teilnehmerId, long periodenId, long wertpapierId) {
-        return 0;
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public double getRenditeEtf(long teilnehmerId, long periodenId, long wertpapierId) {
-        return 0;
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public double getRenditeAnleihenGesamt(long teilnehmerId, long periodenId, long wertpapierId) {
-        return 0;
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public double getRenditeAktienGesamt(long teilnehmerId, long periodenId) {
-        double rendite = 0;
+/*        double rendite = 0;
         ArrayList<Portfolioposition> portfoliopositionen = new ArrayList<>(getAktienPositionen(teilnehmerId, periodenId));
 
         for (Portfolioposition p : portfoliopositionen) {
             rendite += getRenditeAktie(teilnehmerId, periodenId, p.getWertpapier().getId());
         }
 
-        return rendite;
+        return rendite;*/
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public double getRenditeAnleihe(long teilnehmerId, long periodenId, long wertpapierId) {
-        return 0;
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public double getRenditeAktie(long teilnehmerId, long periodenId, long wertpapierId) {
-        double gezahlt = 0;
+/*      double gezahlt = 0;
         double depotstand = 0;
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
         buchungen = buchungen.stream().filter(b -> b.getWertpapier().getId() == wertpapierId)
@@ -263,6 +279,9 @@ public class PortfolioFassade {
             gezahlt += b.getVeraenderungZahlungsmittelkonto();
             depotstand += b.getVeraenderungDepot();
         }
-        return gezahlt + depotstand;
+        return gezahlt + depotstand;*/
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
+
+
 }
