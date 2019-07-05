@@ -1,9 +1,9 @@
 package de.dhbw.karlsruhe.buchung;
 
-import de.dhbw.karlsruhe.model.jpa.Benutzer;
-import de.dhbw.karlsruhe.model.jpa.Buchung;
-import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+import de.dhbw.karlsruhe.model.TransaktionsArtRepository;
+import de.dhbw.karlsruhe.model.jpa.*;
+
+import java.util.Optional;
 
 
 /**
@@ -31,6 +31,10 @@ public class ZinsbuchungFestgeld implements Buchungsart {
         double betrag = bezugsgroesse * periode.getKapitalmarktzinssatz();
         buchung.setVolumen(betrag);
         buchung.setVeraenderungZahlungsmittelkonto(+betrag);
+
+        Optional<TransaktionsArt> transaktionsArt = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
+        transaktionsArt.ifPresent(buchung::setTransaktionsArt);
+
         return buchung;
     }
 }

@@ -74,7 +74,7 @@ public class Periodenabschluss {
 
             //Festgeld (Zinsbuchung)
             List<Portfolioposition> festgeldPositionen = portfolioFassade.getFestgeldPositionen(benutzer.getId(), periode.getId());
-            Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
+            Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
             for (Portfolioposition portfolioposition : festgeldPositionen) {
                 Buchung zinsbuchungFestgelt = buchungsart.create(periode, benutzer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
                 buchungen.add(zinsbuchungFestgelt);
@@ -82,7 +82,7 @@ public class Periodenabschluss {
 
             //Floater (Zinsbuchung)
             List<Portfolioposition> anleihenPositionen = portfolioFassade.getAnleihePositionen(benutzer.getId(), periode.getId());
-            buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
+            buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
             for (Portfolioposition portfolioposition : anleihenPositionen) {
                 Buchung zinsbuchungFloater = buchungsart.create(periode, benutzer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
                 buchungen.add(zinsbuchungFloater);
