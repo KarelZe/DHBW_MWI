@@ -106,6 +106,7 @@ public class BenutzerDepotController implements ControlledScreen {
     private void createGesamdepotwertRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
 
+
         table.getItems().add(createRow("Gesamtdepotwert", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
 
     }
@@ -132,8 +133,11 @@ public class BenutzerDepotController implements ControlledScreen {
     }
 
     private void createAktienGesamtRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getAktienSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
+        long benutzerId = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
+        double saldo = PortfolioFassade.getInstanz().getAktienSaldo(benutzerId);
+        double rendite = PortfolioFassade.getInstanz().getRenditeAktienGesamt(benutzerId, findAktuellePeriode().getId());
+
+        table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", rendite + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
     private void createAnleihenGesamtRow(ArrayList<Double> renditeinPerioden) {

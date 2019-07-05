@@ -198,7 +198,7 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         aktuelleOrderGebuehr = findAktuelleOrdergebuehr(aktuellePeriode);
         wertpapierKursValue = findWertpapierKursValue(aktuellePeriode, selectedWertpapier);
         orderVolumen = wertpapierKursValue * anzahlZuVerkaufen;
-        orderGesamtErloes = orderVolumen * (1 - (aktuelleOrderGebuehr / 100));
+        orderGesamtErloes = orderVolumen * (1 - (aktuelleOrderGebuehr / 100));     //todo fix raphael
         lblOrdervolumenDisplay.setText(String.format("%.2f", orderVolumen) + "\u20ac");
         lblOrderGebuehrenDisplay.setText(String.format("%.2f", orderVolumen * aktuelleOrderGebuehr / 100) + "\u20ac");
         lblGesamtErloesDisplay.setText(String.format("%.2f", orderGesamtErloes) + "\u20ac");

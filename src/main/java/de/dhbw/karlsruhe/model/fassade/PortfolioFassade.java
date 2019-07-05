@@ -7,6 +7,7 @@ import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -220,5 +221,48 @@ public class PortfolioFassade {
                     - verkaufBuchungenMap.get(WertpapierRepository.getInstanz().findById(wertpapierId).orElseThrow(NoSuchElementException::new));
     }
 
+    public double getRenditeDepot(long teilnehmerId, long periodenId, long wertpapierId) {
+        return 0;
+    }
 
+    public double getRenditeFestgeld(long teilnehmerId, long periodenId, long wertpapierId) {
+        return 0;
+    }
+
+    public double getRenditeEtf(long teilnehmerId, long periodenId, long wertpapierId) {
+        return 0;
+    }
+
+    public double getRenditeAnleihenGesamt(long teilnehmerId, long periodenId, long wertpapierId) {
+        return 0;
+    }
+
+    public double getRenditeAktienGesamt(long teilnehmerId, long periodenId) {
+        double rendite = 0;
+        ArrayList<Portfolioposition> portfoliopositionen = new ArrayList<>(getAktienPositionen(teilnehmerId, periodenId));
+
+        for (Portfolioposition p : portfoliopositionen) {
+            rendite += getRenditeAktie(teilnehmerId, periodenId, p.getWertpapier().getId());
+        }
+
+        return rendite;
+    }
+
+    public double getRenditeAnleihe(long teilnehmerId, long periodenId, long wertpapierId) {
+        return 0;
+    }
+
+    public double getRenditeAktie(long teilnehmerId, long periodenId, long wertpapierId) {
+        double gezahlt = 0;
+        double depotstand = 0;
+        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+        buchungen = buchungen.stream().filter(b -> b.getWertpapier().getId() == wertpapierId)
+                .filter(b -> b.getPeriode().getId() <= periodenId)
+                .collect(toList());
+        for (Buchung b : buchungen) {
+            gezahlt += b.getVeraenderungZahlungsmittelkonto();
+            depotstand += b.getVeraenderungDepot();
+        }
+        return gezahlt + depotstand;
+    }
 }
