@@ -87,7 +87,7 @@ public class WertpapierVerkaufenController implements ControlledScreen {
     }
 
     private double findAktuelleOrdergebuehr(Periode aktuellePeriode) throws NoSuchElementException {
-        return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr();
+        return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr() * 100;
     }
 
     private double findWertpapierKursValue(Periode aktuellePeriode, Wertpapier selectedWertpapier) throws NoSuchElementException {

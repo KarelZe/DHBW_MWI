@@ -32,14 +32,14 @@ public class Kaufbuchung implements Buchungsart {
             buchung.setVeraenderungDepot(+buchung.getVolumen());
 
             // Auf Zahlungsmittelkonto werden Gebühren als auch der Gegenwert aus der Buchung belastet.
-            buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() / 100 + 1)));
+            buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() + 1)));
 
             return buchung;
         } else if (wertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_FESTGELD) {
             Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
             kursOptional.ifPresent(k -> buchung.setVolumen(k.getKurs() * bezugsgroesse));
             buchung.setVeraenderungFestgeld(+buchung.getVolumen());
-            buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() / 100 + 1)));
+            buchung.setVeraenderungZahlungsmittelkonto(-(buchung.getVolumen() * (buchung.getOrdergebuehr() + 1)));
             return buchung;
 
         } else {
