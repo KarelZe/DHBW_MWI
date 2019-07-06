@@ -60,7 +60,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
         if (kurs != null) {
             lblName.setText(kurs.getWertpapier().getName());
             txtSpread.setText(kurs.getSpread() == null ? TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(0.0) : TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(kurs.getSpread()));
-            txtKursManuell.setText(kurs.getManuellerKurs() == null ? TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(0.0) : TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(kurs.getManuellerKurs()));
+            txtKursManuell.setText(kurs.getManuellerKurs() == null ? TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(0.0) : TextFormatHandler.PERCENTAGE_DECIMAL_FORMAT.format(kurs.getManuellerKurs()*0.01d));
             setText(null);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         } else {
@@ -78,6 +78,6 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
         txtSpread.setTextFormatter(TextFormatHandler.percentageFormatter());
         txtKursManuell.setTextFormatter(TextFormatHandler.percentageFormatter());
         txtSpread.textProperty().addListener((observable, oldValue, newValue) -> getItem().setSpread(TextFormatHandler.getPercentageFieldValue(newValue)));
-        txtKursManuell.textProperty().addListener((observable, oldValue, newValue) -> getItem().setManuellerKurs(TextFormatHandler.getPercentageFieldValue(newValue)));
+        txtKursManuell.textProperty().addListener((observable, oldValue, newValue) -> getItem().setManuellerKurs(TextFormatHandler.getPercentageFieldValue(newValue) * 100.0d));
     }
 }
