@@ -71,28 +71,14 @@ public class Periodenabschluss {
         ArrayList<Buchung> buchungen = new ArrayList<>();
 
         for (Benutzer benutzer : alleBenutzer) {
-            //TODO: Christian Testen für #40
-            List<Portfolioposition> wertpapierePositionen = portfolioFassade.getPortfoliopositionen(benutzer.getId(), periode.getId());
-            for(Portfolioposition wertpapierPosition : wertpapierePositionen) {
-                if(wertpapierPosition.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_FESTGELD) {
-                    Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
-                    Buchung zinsbuchungFestgelt = buchungsart.create(periode, benutzer, wertpapierPosition.getWertpapier(), wertpapierPosition.getBezugsgroesse());
-                    buchungen.add(zinsbuchungFestgelt);
-                }
-                else if(wertpapierPosition.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE) {
-                    Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
-                    Buchung zinsbuchungFloater = buchungsart.create(periode, benutzer, wertpapierPosition.getWertpapier(), wertpapierPosition.getBezugsgroesse());
-                    buchungen.add(zinsbuchungFloater);
-                }
-            }
-
 
             //Festgeld (Zinsbuchung)
-            /*Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
-            Buchung zinsbuchungFestgelt = buchungsart.create(periode, benutzer, wertpapier, stueckzahl);
-            buchungen.add(zinsbuchungFestgelt);
-
-
+            List<Portfolioposition> festgeldPositionen = portfolioFassade.getFestgeldPositionen(benutzer.getId(), periode.getId());
+            Buchungsart buchungsart = buchungsFactory.create(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);
+            for (Portfolioposition portfolioposition : festgeldPositionen) {
+                Buchung zinsbuchungFestgelt = buchungsart.create(periode, benutzer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
+                buchungen.add(zinsbuchungFestgelt);
+            }
 
             //Floater (Zinsbuchung)
             List<Portfolioposition> anleihenPositionen = portfolioFassade.getAnleihePositionen(benutzer.getId(), periode.getId());
@@ -100,7 +86,7 @@ public class Periodenabschluss {
             for (Portfolioposition portfolioposition : anleihenPositionen) {
                 Buchung zinsbuchungFloater = buchungsart.create(periode, benutzer, portfolioposition.getWertpapier(), portfolioposition.getBezugsgroesse());
                 buchungen.add(zinsbuchungFloater);
-            }*/
+            }
         }
         BuchungRepository.getInstanz().save(buchungen);
     }

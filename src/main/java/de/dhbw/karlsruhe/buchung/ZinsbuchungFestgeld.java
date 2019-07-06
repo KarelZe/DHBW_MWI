@@ -29,7 +29,8 @@ public class ZinsbuchungFestgeld implements Buchungsart {
         buchung.setBenutzer(benutzer);
         buchung.setWertpapier(wertpapier);
         double betrag = bezugsgroesse * periode.getKapitalmarktzinssatz();
-        buchung.setVolumen(betrag);
+        //Zinsbuchung führt zu keiner Veränderung des Bestands an Anleihen
+        buchung.setVolumen(0);
         buchung.setVeraenderungZahlungsmittelkonto(+betrag);
 
         Optional<TransaktionsArt> transaktionsArt = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_FESTGELD);

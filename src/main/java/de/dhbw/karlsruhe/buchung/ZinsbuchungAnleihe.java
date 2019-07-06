@@ -30,7 +30,8 @@ public class ZinsbuchungAnleihe implements Buchungsart {
         buchung.setWertpapier(wertpapier);
         // Berechne aus Nominalvolumen * (Emissionsspread + Kapitalmarktzins).
         double zinsgutschrift = bezugsgroesse * (wertpapier.getEmissionsspread() + periode.getKapitalmarktzinssatz());
-        buchung.setVolumen(zinsgutschrift);
+        // Zinsbuchung führt zu keiner Veränderung des Bestands an Anleihen
+        buchung.setVolumen(0);
         buchung.setVeraenderungZahlungsmittelkonto(+zinsgutschrift);
 
         Optional<TransaktionsArt> transaktionsArt = TransaktionsArtRepository.getInstanz().findById(TransaktionsArt.TRANSAKTIONSART_ZINSGUTSCHRIFT_WERTPAPIER);
