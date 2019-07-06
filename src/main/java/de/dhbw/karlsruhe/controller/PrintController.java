@@ -63,10 +63,14 @@ public class PrintController implements ControlledScreen {
         // Wird Trotzdem noch verändert
 
         Node node = tvDruckansicht;
+        /**
+        Alle Veränderungen an der Node führen auch dazu, dass die node in der Benutzeroberfläche verändert wird
+         *//*
         double scaleX = node.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
         double scaleY =  node.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
         node.getTransforms().add(new Scale(scaleX, scaleY));
-        node.getStyleClass().clear();
+        ode.getStyleClass().clear();
+         */
         PrinterJob job = PrinterJob.createPrinterJob();
         if (job != null && job.showPrintDialog(node.getScene().getWindow())){
             boolean success = job.printPage(node);

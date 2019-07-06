@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import de.dhbw.karlsruhe.controller.factory.HistorieCellFactory?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.PrintController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.karlsruhe.controller.PrintController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -21,7 +21,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
       <RowConstraints />
     </rowConstraints>
-    <TableView fx:id="tvDruckansicht" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+    <TableView fx:id="tvDruckansicht" editable="true" prefHeight="600.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
             <TableColumn fx:id="tblColId" prefWidth="102.0" text="ID">
                 <cellValueFactory>
