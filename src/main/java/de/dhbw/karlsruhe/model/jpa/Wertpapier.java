@@ -37,8 +37,6 @@ public class Wertpapier {
 
     private String name;
 
-    private double nennwert; //optional (Anleihen)
-
     private double emissionsspread; //optional (Anleihen)
 
     private int faelligkeit_periode; //optional (Anleihen)
@@ -75,14 +73,6 @@ public class Wertpapier {
 
     public void setUnternehmen(Unternehmen unternehmen) {
         this.unternehmen = unternehmen;
-    }
-
-    public double getNennwert() {
-        return nennwert;
-    }
-
-    public void setNennwert(double nennwert) {
-        this.nennwert = nennwert;
     }
 
     public double getEmissionsspread() {
@@ -149,7 +139,6 @@ public class Wertpapier {
                 ", unternehmen=" + unternehmen +
                 ", spiel=" + spiel +
                 ", name='" + name + '\'' +
-                ", nennwert=" + nennwert +
                 ", emissionsspread=" + emissionsspread +
                 ", faelligkeit_periode=" + faelligkeit_periode +
                 ", emission_periode=" + emission_periode +
