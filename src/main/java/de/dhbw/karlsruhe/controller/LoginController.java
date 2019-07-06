@@ -45,8 +45,8 @@ public class LoginController implements ControlledScreen {
                     }
 
                     if (t.getRolle().getId() == Rolle.ROLLE_TEILNEHMER) {
-                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
-                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
+                        screenController.loadScreen(ScreensFramework.SCREEN_BENUTZER_DEPOT, ScreensFramework.SCREEN_BENUTZER_DEPOT_FILE);
+                        screenController.setScreen(ScreensFramework.SCREEN_BENUTZER_DEPOT);
                     }
                 },
                 () -> {

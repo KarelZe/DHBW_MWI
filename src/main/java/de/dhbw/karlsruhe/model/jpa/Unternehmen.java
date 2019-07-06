@@ -25,6 +25,7 @@ public class Unternehmen {
     public static final int UNTERNEHMEN_TEILNEHMER = 1;
     public static final int UNTERNEHMEN_KAPITALANLAGEGESELLSCHAFT = 2;
     public static final int UNTERNEHMEN_BANK = 3;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
