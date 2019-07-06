@@ -149,7 +149,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Benutzer where id = :id";
+            String queryString = "from Benutzer where id = :id"; //Einschränkung auf Spiel nicht notwendig, da BenutzerID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();

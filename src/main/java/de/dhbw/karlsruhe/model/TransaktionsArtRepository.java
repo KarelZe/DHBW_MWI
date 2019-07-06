@@ -105,7 +105,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
         ArrayList<TransaktionsArt> transaktionsArten = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from TransaktionsArt";
+            String queryString = "from TransaktionsArt"; //Einschränkung auf Spiel nicht notwendig, da TransaktionsArt unabhängig von Spiel ist
             Query query = session.createQuery(queryString);
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.

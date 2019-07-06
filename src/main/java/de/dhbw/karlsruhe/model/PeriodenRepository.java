@@ -146,7 +146,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Periode where id = :id";
+            String queryString = "from Periode where id = :id"; //Einschränkung auf Spiel nicht notwendig, da PeriodeID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();

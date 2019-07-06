@@ -6,6 +6,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Model, um die Bestenliste aller Benutzer eines Spiels darstellen zu können
+ * @author Jan Carlos Riecken
+ */
 public class BenutzerPrintModel {
     private SimpleLongProperty id;
     private SimpleStringProperty vorname;

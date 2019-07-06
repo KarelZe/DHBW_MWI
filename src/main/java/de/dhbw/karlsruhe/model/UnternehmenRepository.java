@@ -147,7 +147,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Unternehmen where id = :id";
+            String queryString = "from Unternehmen where id = :id"; //Einschränkung auf Spiel nicht notwendig, da UnternehmenID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();

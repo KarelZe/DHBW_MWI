@@ -5,6 +5,7 @@ import de.dhbw.karlsruhe.helper.HibernateHelper;
 import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
+import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -80,7 +81,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Buchung where id = :id";
+            String queryString = "from Buchung where id = :id"; //Einschränkung auf Spiel nicht notwendig, da BuchungID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();
@@ -95,34 +96,6 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         return Optional.empty();
     }
 
-
-    /**
-     * Gibt alle Buchungen, die für die übergebene TransaktionsArt vorhanden sind, zurück
-     * @param transaktionsArt TransaktionsArt
-     * @return Liste aller Buchungen
-     * @author Christian Fix
-     */
-    public ArrayList<Buchung> findByTransaktionsArt(long transaktionsArt) {
-        Transaction tx = null;
-        ArrayList<Buchung> buchungen = new ArrayList<>();
-        try (Session session = HibernateHelper.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            String queryString = "from Buchung where transaktionsart_id = :transaktionsArt";
-            Query query = session.createQuery(queryString);
-            query.setParameter("transaktionsArt", transaktionsArt);
-            tx.commit();
-            // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
-            for (final Object o : query.list()) {
-                buchungen.add((Buchung) o);
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            if (tx != null)
-                tx.rollback();
-        }
-        return buchungen;
-    }
-
     /**
      * Abfrage aller {@link Buchung Buchungen} Objekte in der Datenbank.
      *
@@ -135,12 +108,16 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         ArrayList<Buchung> buchungen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Buchung";
-            Query query = session.createQuery(queryString);
-            tx.commit();
-            // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
-            for (final Object o : query.list()) {
-                buchungen.add((Buchung) o);
+            List<Periode> allePerioden = PeriodenRepository.getInstanz().findAll();
+            for(Periode periode : allePerioden) {
+                String queryString = "from Buchung where periode =: periode";
+                Query query = session.createQuery(queryString);
+                query.setParameter("periode", periode);
+                tx.commit();
+                // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
+                for (final Object o : query.list()) {
+                    buchungen.add((Buchung) o);
+                }
             }
         } catch (HibernateException e) {
             e.printStackTrace();

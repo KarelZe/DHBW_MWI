@@ -5,6 +5,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Model, um die Transaktionshistorie in der GUI anzuzeigen
+ * @author Jan Carlos Riecken
+ */
 public class HistorieViewModel {
     private SimpleLongProperty id;
     private SimpleStringProperty kaufart, wertpapierart, unternehmen;

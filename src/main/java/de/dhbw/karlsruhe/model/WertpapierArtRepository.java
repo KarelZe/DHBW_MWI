@@ -106,7 +106,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
         ArrayList<WertpapierArt> wertpapierArten = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from WertpapierArt";
+            String queryString = "from WertpapierArt"; //Einschränkung auf Spiel nicht notwendig, da WertpapierArt unabhängig von Spiel ist
             Query query = session.createQuery(queryString);
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.

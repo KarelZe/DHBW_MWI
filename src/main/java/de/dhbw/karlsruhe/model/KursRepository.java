@@ -138,7 +138,7 @@ public class KursRepository implements CrudRepository<Kurs> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Kurs where id = :id";
+            String queryString = "from Kurs where id = :id"; //Einschränkung auf Spiel nicht notwendig, da BuchungID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();
@@ -164,7 +164,7 @@ public class KursRepository implements CrudRepository<Kurs> {
         ArrayList<Kurs> kurse = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Kurs where periode_id = :periode_id";
+            String queryString = "from Kurs where periode_id = :periode_id"; //Einschränkung auf Spiel nicht notwendig, da PeriodeID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("periode_id", periodeId);
             tx.commit();
@@ -193,7 +193,7 @@ public class KursRepository implements CrudRepository<Kurs> {
         ArrayList<Kurs> kurse = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Kurs where periode_id = :periode_id and wertpapier_id = :wertpapier_id";
+            String queryString = "from Kurs where periode_id = :periode_id and wertpapier_id = :wertpapier_id"; //Einschränkung auf Spiel nicht notwendig, da PeriodeID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("periode_id", periodeId);
             query.setParameter("wertpapier_id", wertpapierId);

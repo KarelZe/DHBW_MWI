@@ -4,6 +4,10 @@ import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Model, um einen Benutzer in der GUI anzeigen zu können
+ * @author Christian Fix
+ */
 public class BenutzerViewModel {
     private SimpleLongProperty id;
     private SimpleStringProperty vorname;

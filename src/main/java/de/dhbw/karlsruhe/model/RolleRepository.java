@@ -142,7 +142,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
         Rolle rolle = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Rolle WHERE id =: id";
+            String queryString = "from Rolle WHERE id =: id"; //Einschränkung auf Spiel nicht notwendig, da RolleID spielübergreifend eindeutig ist
             Query query = session.createQuery(queryString);
             query.setParameter("id", id);
             tx.commit();
@@ -169,7 +169,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
         ArrayList<Rolle> rollen = new ArrayList<>();
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-            String queryString = "from Rolle";
+            String queryString = "from Rolle"; //Einschränkung auf Spiel nicht notwendig, da Rolle unabhängig vom Spiel ist
             Query query = session.createQuery(queryString);
             tx.commit();
             // Typen-Sichere Konvertierung. Siehe z. B. https://stackoverflow.com/a/15913247.
