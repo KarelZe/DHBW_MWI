@@ -114,23 +114,17 @@
     -fx-pref-height : 60;
     -fx-max-height : 60;
 }
-
-.settings-tab{
-    -fx-background-color: derive(-fx-primary, 10%);
-    -fx-padding: 5px 20px 5px 20px;
+/*
+Aktiver Tab
+Adaptiert von https://stackoverflow.com/a/49832255
+*/
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 1, 1;
+    -fx-border-color: -fx-dhbw;
+    -fx-border-insets: -4 -4 -6 -5, -2 -2 -5 -3;
+    -fx-border-radius: 2, 1;
 }
 
-.settings-tab:selected{
-    -fx-background-color: -fx-secondary;
-}
-
-.settings-tab:selected .tab-label{
-    -fx-text-fill: -fx-primary;
-}
-
-.settings-tab .tab-header-background{
-    -fx-background-color: derive(-fx-primary, -50%);
-}
 /*Menu bar Styling*/
 .menu-bar{
     -fx-font-size: 14;
