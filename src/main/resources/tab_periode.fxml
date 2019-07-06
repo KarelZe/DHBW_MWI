@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <fx:root type="javafx.scene.control.Tab" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox fx:id="vboxPeriode">
+    <VBox fx:id="vboxPeriode" spacing="5.0">
         <Label fx:id="lblAktie" text="Aktie">
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </Label>
         <ListView fx:id="lstVwAktie">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin></ListView>
-        <Label fx:id="lblAnleihe" text="Anleihe">
             <VBox.margin>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets />
             </VBox.margin>
+        </ListView>
+        <Label fx:id="lblAnleihe" text="Anleihe">
         </Label>
         <ListView fx:id="lstVwAnleihe">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin></ListView>
-        <Button fx:id="btnSpeichern" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="true" text="Speichern">
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" />
-         </VBox.margin></Button>
-        <Button fx:id="btnAbschliessen" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="true" text="Periode abschließen">
-         <padding>
-            <Insets bottom="5.0" left="10.0" />
-         </padding>
-         <VBox.margin>
-            <Insets bottom="10.0" left="10.0" />
-         </VBox.margin></Button>
+        </ListView>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <Button fx:id="btnBewerten" alignment="CENTER" contentDisplay="CENTER" text="Periode bewerten">
+            </Button>
+            <Button fx:id="btnVerbuchen" alignment="CENTER" contentDisplay="CENTER" text="Periode verbuchen">
+            </Button>
+        </HBox>
       <padding>
-         <Insets right="5.0" />
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </padding>
     </VBox>
 </fx:root>

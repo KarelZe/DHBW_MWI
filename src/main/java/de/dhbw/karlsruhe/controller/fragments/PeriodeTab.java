@@ -5,6 +5,7 @@ import de.dhbw.karlsruhe.controller.ScreenController;
 import de.dhbw.karlsruhe.controller.factory.AktienPeriodeCellFactory;
 import de.dhbw.karlsruhe.controller.factory.AnleihePeriodeCellFactory;
 import de.dhbw.karlsruhe.model.KursRepository;
+import de.dhbw.karlsruhe.model.PeriodenRepository;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
@@ -12,14 +13,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Diese Klasse erzeugt einen Tab mit Perioden.
@@ -35,9 +34,9 @@ public class PeriodeTab extends Tab {
     @FXML
     public ListView<Kurs> lstVwAnleihe;
     @FXML
-    public Button btnSpeichern;
+    public Button btnBewerten;
     @FXML
-    public Button btnAbschliessen;
+    public Button btnVerbuchen;
 
     private ObservableList<Kurs> anleiheObserverableList = FXCollections.observableArrayList();
     private ArrayList<Kurs> anleiheInitial = new ArrayList<>();
@@ -74,8 +73,8 @@ public class PeriodeTab extends Tab {
     @FXML
     private void initialize() {
         setContent(vboxPeriode);
-        btnSpeichern.setOnAction(event -> doSpeichern());
-        btnAbschliessen.setOnAction(event -> doAbschliessen());
+        btnBewerten.setOnAction(event -> doBewerten());
+        btnVerbuchen.setOnAction(event -> doVerbuchen());
 
         // Frage alle Wertpapiere in DB ab und filtere nach Typ
         model = KursRepository.getInstanz();
@@ -85,8 +84,6 @@ public class PeriodeTab extends Tab {
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).forEach(k -> aktieInitial.add(k));
         kurs.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).forEach(k -> anleiheInitial.add(k));
 
-        System.out.println(aktieInitial);
-
         aktieObserverableList.addAll(aktieInitial);
         lstVwAktie.setItems(aktieObserverableList);
         lstVwAktie.setCellFactory(new AktienPeriodeCellFactory());
@@ -95,14 +92,15 @@ public class PeriodeTab extends Tab {
         lstVwAnleihe.setItems(anleiheObserverableList);
         lstVwAnleihe.setCellFactory(new AnleihePeriodeCellFactory());
 
-        btnSpeichern.setVisible(true);
-        btnAbschliessen.setVisible(false);
+        // Sofern eine Periode abgeschlossen ist, kann sie nicht mehr bearbeitet werden
+        if(periode.getIst_aktiv() == Periode.PERIODE_INAKTIV)
+            this.setDisable(true);
     }
 
     /**
      * Diese Methode implementiert eine Speicherfunktionalität für die Kurse der Periode.
      */
-    private void doSpeichern() {
+    private void doBewerten() {
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
         ArrayList<Kurs> anleiheNachAenderung = new ArrayList<>(anleiheObserverableList);
 
@@ -143,21 +141,36 @@ public class PeriodeTab extends Tab {
         model.save(aktieNachAenderung);
         model.save(anleiheNachAenderung);
 
-        btnSpeichern.setVisible(true);
-        btnAbschliessen.setVisible(true);
+        Periodenabschluss periodenabschluss = new Periodenabschluss();
+        periodenabschluss.periodeBewerten(periode);
     }
 
     /**
      * Diese Methode erlaubt die Verbuchung und die Bewertung der Periode.
      */
-    private void doAbschliessen() {
+    private void doVerbuchen() {
 
+        // Erzeuge Dialog für Nachfrage vor Bewertung
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Periode abschlie\u00dfen");
+        alert.setContentText("Wollen Sie die Periode irreversibel abschlie\u00dfen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.CANCEL) {
+            return;
+        }
+
+        // Periode nach Speichern auf inaktiv setzen
+        periode.setIst_aktiv(Periode.PERIODE_INAKTIV);
+        PeriodenRepository.getInstanz().save(periode);
+        this.setDisable(true);
+
+        // Periode bewerten und verbuchen
         Periodenabschluss periodenabschluss = new Periodenabschluss();
         periodenabschluss.periodeAbschliessen(periode);
 
         ScreenController.myPeriodeControllerHandle.changePage();
 
-        btnSpeichern.setVisible(false);
-        btnAbschliessen.setVisible(false);
     }
 }

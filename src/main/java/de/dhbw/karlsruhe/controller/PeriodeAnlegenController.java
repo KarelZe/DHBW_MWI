@@ -68,6 +68,7 @@ public class PeriodeAnlegenController implements ControlledScreen {
         }
 
         Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(), ordergebuehr, kapitalmarktzins);
+        periode.setIst_aktiv(Periode.PERIODE_AKTIV);
         periodenRepository.save(periode);
 
         //Kurs-Objekt von Aktien und Anleihen erzeugen, sodass dieser in der nachfolgenden Übersicht angezeigt werden

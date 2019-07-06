@@ -18,6 +18,9 @@ import java.util.Set;
  */
 @Entity
 public class Periode {
+
+    public static final int PERIODE_AKTIV = 1;
+    public static final int PERIODE_INAKTIV = 0;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -31,6 +34,7 @@ public class Periode {
 
     private double ordergebuehr;
     private double kapitalmarktzinssatz;
+    private int ist_aktiv;
 
     public Periode(Spiel spiel, double ordergebuehr, double kapitalmarktzinssatz) {
         this.spiel = spiel;
@@ -77,6 +81,13 @@ public class Periode {
         this.kapitalmarktzinssatz = kapitalmarktzinssatzInProzent;
     }
 
+    public int getIst_aktiv() {
+        return ist_aktiv;
+    }
+
+    public void setIst_aktiv(int ist_aktiv) {
+        this.ist_aktiv = ist_aktiv;
+    }
 
     @Override
     public String toString() {

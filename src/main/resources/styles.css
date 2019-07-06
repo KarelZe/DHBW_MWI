@@ -349,3 +349,8 @@ Adaptiert von https://stackoverflow.com/a/49832255
 .color-picker .color-picker-label .text {
     visibility: false;
 }
+
+/* Tab*/
+Tab:disabled, .Tab:disabled > * {
+  -fx-opacity: 1;
+}

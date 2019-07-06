@@ -20,6 +20,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 /**
  * Diese Klasse stellt den Einstiegspunkt für die Anwendung dar. Sie verwaltet hierfür die Referenzen auf
  * alle Scenees der Anwendung. Sie implementiert den {@code ScreenController} für den Wechsel und
@@ -91,6 +93,8 @@ public class ScreensFramework extends Application implements InvalidationListene
     @Override
     public void start(Stage primaryStage) {
 
+        // Setzt die Sprach-Einstellungen Programmweit für z. B. Dialoge
+        Locale.setDefault(Locale.GERMANY);
 
         AktuelleSpieldaten aktuelleSpieldaten = AktuelleSpieldaten.getInstanz();
         aktuelleSpieldaten.addListener(this);

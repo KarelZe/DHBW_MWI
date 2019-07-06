@@ -40,7 +40,7 @@ public class Periodenabschluss {
      * Die Umsetzung erfolgt anhand des Factory Patterns (GOF).
      * @param periode zu bewertende Periode
      */
-    private void periodeBewerten(Periode periode) {
+    public void periodeBewerten(Periode periode) {
         KursRepository kursRepository = KursRepository.getInstanz();
         List<Kurs> kurse = kursRepository.findByPeriodenId(periode.getId());
         List<Kurs> kurseZuBewerten = kurse.stream().filter(
