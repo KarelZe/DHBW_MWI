@@ -350,7 +350,7 @@ Adaptiert von https://stackoverflow.com/a/49832255
     visibility: false;
 }
 
-/* Tab*/
-Tab:disabled, .Tab:disabled > * {
+/* VBox*/
+VBox:disabled, VBox:disabled > * {
   -fx-opacity: 1;
 }

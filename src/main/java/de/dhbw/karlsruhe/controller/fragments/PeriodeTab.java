@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -34,9 +35,11 @@ public class PeriodeTab extends Tab {
     @FXML
     public ListView<Kurs> lstVwAnleihe;
     @FXML
-    public Button btnBewerten;
+    public Button btnBewerten, btnVerbuchen;
     @FXML
-    public Button btnVerbuchen;
+    public Pane grpPeriode;
+    @FXML
+    private Label lblAktie, lblAnleihe;
 
     private ObservableList<Kurs> anleiheObserverableList = FXCollections.observableArrayList();
     private ArrayList<Kurs> anleiheInitial = new ArrayList<>();
@@ -93,8 +96,9 @@ public class PeriodeTab extends Tab {
         lstVwAnleihe.setCellFactory(new AnleihePeriodeCellFactory());
 
         // Sofern eine Periode abgeschlossen ist, kann sie nicht mehr bearbeitet werden
-        if(periode.getIst_aktiv() == Periode.PERIODE_INAKTIV)
-            this.setDisable(true);
+        if(periode.getIst_aktiv() == Periode.PERIODE_INAKTIV) {
+            setContentDisabled();
+        }
     }
 
     /**
@@ -164,13 +168,22 @@ public class PeriodeTab extends Tab {
         // Periode nach Speichern auf inaktiv setzen
         periode.setIst_aktiv(Periode.PERIODE_INAKTIV);
         PeriodenRepository.getInstanz().save(periode);
-        this.setDisable(true);
-
+        setContentDisabled();
         // Periode bewerten und verbuchen
         Periodenabschluss periodenabschluss = new Periodenabschluss();
         periodenabschluss.periodeAbschliessen(periode);
 
         ScreenController.myPeriodeControllerHandle.changePage();
 
+    }
+
+    private void setContentDisabled(){
+        vboxPeriode.setDisable(true);
+        lblAktie.setDisable(true);
+        lblAnleihe.setDisable(true);
+        btnBewerten.setDisable(true);
+        btnVerbuchen.setDisable(true);
+        lstVwAktie.setDisable(true);
+        lstVwAnleihe.setDisable(true);
     }
 }
