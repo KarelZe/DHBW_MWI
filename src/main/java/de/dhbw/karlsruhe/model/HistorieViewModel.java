@@ -1,5 +1,6 @@
 package de.dhbw.karlsruhe.model;
 
+import de.dhbw.karlsruhe.handler.TextFormatHandler;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -24,7 +25,7 @@ public class HistorieViewModel {
         this.kaufart = new SimpleStringProperty(kaufart);
         this.wertpapierart = new SimpleStringProperty(wertpapierart);
         this.unternehmen = new SimpleStringProperty(unternehmen);
-        this.volume = new SimpleDoubleProperty(volume);
+        this.volume = new SimpleDoubleProperty(volume.intValue());
     }
 
     public long getId() {
