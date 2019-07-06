@@ -39,9 +39,8 @@ public class Kurs {
 
     private double kurs;
 
-    // Double, da null. Siehe https://stackoverflow.com/questions/3154582/why-do-i-get-a-null-value-was-assigned-to-a-property-of-primitive-type-setter-o/13906763
+    // Double, da optional für einzelne Wertpapiere wie Aktien. Siehe https://stackoverflow.com/questions/3154582/why-do-i-get-a-null-value-was-assigned-to-a-property-of-primitive-type-setter-o/13906763
     private Double spread;
-
     private Double manuellerKurs;
 
     public Kurs(Periode periode, Wertpapier wertpapier) {
