@@ -43,14 +43,13 @@ public class PeriodenDetailController implements ControlledScreen {
     private void initialize() {
         PeriodenRepository periodenModel = PeriodenRepository.getInstanz();
         perioden = new ArrayList<>(periodenModel.findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()));
-        IntStream.rangeClosed(1, perioden.size()).forEach(p -> {
-            Periode periode = perioden.get(p - 1);
-            //Null wird ausgelassen, da es sich hier um eine Periode handelt, die mit Start des Siels erzeugt wird.
-            // TODO: Prüfen, ob das nicht einfacher geht, indem Range bei zwei beginnt?
-            if(p!=1){
-                tbPerioden.getTabs().add(new PeriodeTab("Periode " + (p-1), periode));
-            }
+        //Periode 0 wird ausgelassen, da es sich hier um eine Periode handelt, die mit Start des Siels erzeugt wird.
+        IntStream.rangeClosed(1, perioden.size()-1).forEach(p -> {
+            Periode periode = perioden.get(p);
+            tbPerioden.getTabs().add(new PeriodeTab("Periode " + (p), periode));
         });
+        int indexAktivePeriode = tbPerioden.getTabs().size() - 1;
+        tbPerioden.getSelectionModel().select(indexAktivePeriode);
     }
 
     /**

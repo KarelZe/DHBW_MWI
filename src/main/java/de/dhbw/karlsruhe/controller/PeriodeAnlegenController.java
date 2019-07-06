@@ -8,6 +8,7 @@ import de.dhbw.karlsruhe.model.WertpapierRepository;
 import de.dhbw.karlsruhe.model.jpa.Kurs;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
@@ -52,30 +53,30 @@ public class PeriodeAnlegenController implements ControlledScreen {
         ordergebuehr *= 0.01d;
         System.out.println("{" + ordergebuehr + "," + kapitalmarktzins + "}");
 
-        if (ordergebuehr < 0 || kapitalmarktzins < 0) { //Ordergebühr oder Kapitalmarkzins < 0
+        if (ordergebuehr < 0 || kapitalmarktzins < 0 || ordergebuehr > 0.5 || kapitalmarktzins > 0.5) {
+            StringBuilder fehlermeldung = new StringBuilder();
+            if (ordergebuehr < 0 || ordergebuehr > 0.5)
+                fehlermeldung.append("Die Ordergeb\u00fchr muss zwischen - 50 % und + 50 % liegen.\n");
+            if (kapitalmarktzins < 0 || kapitalmarktzins > 0.5)
+                fehlermeldung.append("Der Kapitalmarktzins muss zwischen - 50 % und + 50 % liegen.\n");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setContentText(fehlermeldung.toString());
             alert.setHeaderText(null);
-            alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen nicht negativ sein.");
             alert.showAndWait();
             return;
         }
-        if (ordergebuehr > 0.5 || kapitalmarktzins > 0.5) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Ung\u00fcltige Eingabe");
-            alert.setContentText("Die Ordergeb\u00fchr und der Kapitalmarktzinssatz d\u00fcrfen maximal 50 % betragen.");
-            alert.showAndWait();
-            return;
-        }
-
 
         Periode periode = new Periode(AktuelleSpieldaten.getInstanz().getSpiel(), ordergebuehr, kapitalmarktzins);
         periodenRepository.save(periode);
 
         //Kurs-Objekt von Aktien und Anleihen erzeugen, sodass dieser in der nachfolgenden Übersicht angezeigt werden
         List<Wertpapier> wertpapiere = wertpapierRepository.findAll();
+
         List<Kurs> kurse = wertpapiere.stream().map(wertpapier -> new Kurs(periode, wertpapier)).collect(Collectors.toList());
+        // Spread ist nullable Initialisiere Spread bei Anleihen mit 0.
+        kurse.stream().filter(k -> k.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE).forEach(kurs -> kurs.setSpread(0.0d));
+
         kursRepository.save(kurse);
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL, ScreensFramework.SCREEN_PERIODEN_DETAIL_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);

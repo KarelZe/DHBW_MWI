@@ -111,6 +111,7 @@ public class PeriodeTab extends Tab {
         daher Unterscheidung.*/
         boolean ungueltigerAktienkurs = false;
         boolean ungueltigerManuellerKurs = false;
+        boolean ungueltigerSpread = false;
 
         for (Kurs k : aktieNachAenderung) {
             if (k.getKurs() < 0) ungueltigerAktienkurs = true;
@@ -119,17 +120,23 @@ public class PeriodeTab extends Tab {
             if (k.getManuellerKurs() != null && k.getManuellerKurs() < 0) ungueltigerManuellerKurs = true;
         }
 
-        if (ungueltigerManuellerKurs || ungueltigerAktienkurs) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ung\u00fcltige Eingabe");
-            alert.setHeaderText(null);
-            if (ungueltigerAktienkurs && ungueltigerManuellerKurs)
-                alert.setContentText("Ein Aktienkurs muss >= 0 \u20ac sein und \nein Anleihekurs muss >= 0 % sein.");
-            else if (ungueltigerManuellerKurs)
-                alert.setContentText("Ein Anleihekurs muss >= 0 % sein.");
-            else
-                alert.setContentText("Ein Aktienkurs muss >= 0 \u20ac sein.");
-           alert.showAndWait();
+        for (Kurs k : anleiheNachAenderung) {
+            if (k.getSpread() == null ||  k.getSpread() < -0.5 || k.getSpread() > 0.5) ungueltigerSpread = true;
+        }
+
+        if(ungueltigerAktienkurs || ungueltigerManuellerKurs || ungueltigerSpread) {
+            StringBuilder fehlermeldung = new StringBuilder();
+                if (ungueltigerAktienkurs)
+                    fehlermeldung.append("Ein Aktienkurs muss >= 0 \u20ac sein.\n");
+                if (ungueltigerManuellerKurs)
+                    fehlermeldung.append("Ein Anleihekurs muss >= 0 % sein.\n");
+                if (ungueltigerSpread)
+                    fehlermeldung.append("Ein Spread muss zwischen - 50 % und + 50 % liegen.\n");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ung\u00fcltige Eingabe");
+                alert.setContentText(fehlermeldung.toString());
+                alert.setHeaderText(null);
+                alert.showAndWait();
             return;
         }
 
