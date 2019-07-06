@@ -196,12 +196,17 @@ public class PortfolioFassade {
      */
     public List<Portfolioposition> getPortfoliopositionen(long teilnehmerId, long periodenId) {
 
-/*        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
+        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
         // Beschränke die Auswahl auf alle Transaktionen bis einschließlich zur abzufragenden Periode, dies ist notwendig, um auch umsatzlose Portfolios zu erfassen und summiere alle Transaktionen je Wertpapierposition
         Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
         // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
-        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());*/
+        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
+
+
+    }
+
+    public List<Portfolioposition> getPortfoliopositionenStueckzahl(long teilnehmerId, long periodenId) {
 
         BuchungRepository buchungRepository = BuchungRepository.getInstanz();
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
