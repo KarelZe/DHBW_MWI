@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 /**
  * Diese Klasse ist der Controller für die Pflege der Perioden.
  *
- * @author Markus Bilz
+ * @author Markus Bilz, Jan Carlos Riecken
  */
 
 public class PeriodenDetailController implements ControlledScreen {
