@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *Klasse ist Controller für die Historien Ansicht
- * @author Jan Carlos Riecken
+ * Controller für die Transaktionshistorie
+ * @author Raphael Winkler
  */
 public class TeilnehmerHistorieController implements ControlledScreen {
+
     public static Long teilnehmerID;
     @FXML
     TableView<HistorieViewModel> tvHistorie;
@@ -31,11 +32,12 @@ public class TeilnehmerHistorieController implements ControlledScreen {
     TableColumn<HistorieViewModel, String> tblColType;
     @FXML
     TableColumn<HistorieViewModel, Double> tblColUnternehmen;
+
     private ScreenController screenController;
 
     /**
-     *Initialisierung
-     * @author Jan Carlos Riecken
+     * Initialisierung
+     * @author Raphael Winkler
      */
     @FXML
     private void initialize() {
@@ -52,6 +54,11 @@ public class TeilnehmerHistorieController implements ControlledScreen {
         tvHistorie.setItems(observableList);
     }
 
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;

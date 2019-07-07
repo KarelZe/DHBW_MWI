@@ -38,7 +38,7 @@ public class PeriodenDetailController implements ControlledScreen {
      * spätere Verwendung. Sie erzeugt dynamisch alle sichtbaren Tabs für die Perioden eines Spiels.
      * Dabei werden alle Perioden mit Ausnahme einer Periode, die bei Initialisierung des Spiels zur Verbuchung des
      * Startkapitals erzeugt wird, angelegt.
-     * @author Markus Bilz, Jan Carlos Riekcen
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {
