@@ -35,6 +35,7 @@ public class KursRepository implements CrudRepository<Kurs> {
     /**
      * Gibt Instanz des {@link KursRepository KursRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link KursRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -48,6 +49,7 @@ public class KursRepository implements CrudRepository<Kurs> {
     /**
      * Speichert ein {@link Kurs} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param kurs {@link Kurs} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -96,6 +98,7 @@ public class KursRepository implements CrudRepository<Kurs> {
 
     /**
      * Löscht eine Liste von {@link Kurs} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param kurse Liste von {@link Kurs} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -114,8 +117,10 @@ public class KursRepository implements CrudRepository<Kurs> {
                 tx.rollback();
         }
     }
+
     /**
      * Frägt das Vorhandensein eines {@link Kurs} Objekts in der Datenbank ab.
+     *
      * @param id Id des abzufragenden {@link Kurs Kurses}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -124,6 +129,7 @@ public class KursRepository implements CrudRepository<Kurs> {
     public boolean existsById(long id) {
         return findById(id).isPresent();
     }
+
     /**
      * Abfrage eines {@link Kurs} Objekts anhand der Id des {@link Kurs Kurses} in der Datenbank.
      * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
@@ -152,9 +158,11 @@ public class KursRepository implements CrudRepository<Kurs> {
         }
         return Optional.empty();
     }
+
     /**
      * Abfrage aller {@link Kurs} Objekte einer Periode anhand der Id einer {@link Periode} in der Datenbank.
      * Je {@link Wertpapier} existiert dabei maximal ein {@link Kurs}.
+     *
      * @param periodeId Id der {@link Periode}
      * @return Liste mit {@link Kurs} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
@@ -183,7 +191,7 @@ public class KursRepository implements CrudRepository<Kurs> {
      * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
      * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
      *
-     * @param periodeId Id der relevanten {@link Periode}
+     * @param periodeId    Id der relevanten {@link Periode}
      * @param wertpapierId Id des relevanten {@link Wertpapier Wertpapiers}
      * @return Optional ist ein Container für einen {@link Kurs}, um vereinfacht das Vorhandensein des {@link Kurs Kurses} zu prüfen.
      * @author Christian Fix, Markus Bilz
@@ -208,8 +216,10 @@ public class KursRepository implements CrudRepository<Kurs> {
         }
         return Optional.empty();
     }
+
     /**
      * Abfrage aller {@link Kurs} Objekte in der Datenbank.
+     *
      * @return {@code null}
      * @throws UnsupportedOperationException Noch nicht implementiert.
      * @author Christian Fix, Markus Bilz

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 /**
  * Gemeinsames, standardisiertes Interface zur Implementierung durch alle Repositories
+ *
  * @param <T> Objekt des PoJos
  * @author Chrisitian Fix, Markus Bilz
  */
@@ -12,10 +13,12 @@ public interface CrudRepository<T> {
     /**
      * Speichert ein Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param entity Objekt zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
     void save(T entity);
+
     /**
      * Speichert eine Liste von Objekten in der Datenbank.
      *
@@ -23,32 +26,41 @@ public interface CrudRepository<T> {
      * @author Christian Fix, Markus Bilz
      */
     void save(List<T> entities);
+
     /**
      * Gibt die Anzahl an Objekten in der Datenbank zurück.
+     *
      * @return Anzahl an Objekten.
      * @author Christian Fix, Markus Bilz
      */
     long count();
+
     /**
      * Löscht ein Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param entity zu löschendes Objekt.
      * @author Christian Fix, Markus Bilz
      */
     void delete(T entity);
+
     /**
      * Löscht eine Liste von Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param entities Liste von Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
     void delete(List<T> entities);
+
     /**
      * Frägt das Vorhandensein eines Objekts in der Datenbank ab.
-     * @param  id Id des abzufragenden Objekts
+     *
+     * @param id Id des abzufragenden Objekts
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
      */
     boolean existsById(long id);
+
     /**
      * Abfrage eines Objekts anhand der Id des Objekts in der Datenbank.
      * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
@@ -59,8 +71,10 @@ public interface CrudRepository<T> {
      * @author Christian Fix, Markus Bilz
      */
     Optional<T> findById(long id);
+
     /**
      * Abfrage aller Objekte in der Datenbank.
+     *
      * @return Liste mit Objekten; gegebenenfalls leer.
      * @author Christian Fix
      */

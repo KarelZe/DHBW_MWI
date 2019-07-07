@@ -14,9 +14,10 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 public interface Buchungsart {
     /**
      * Implementierung des Factory Patterns (GOF).
-     * @param periode    Periode, in der die Transaktion erfolgt
-     * @param benutzer Benutzer, auf dessen Namen die Buchung erfolgt
-     * @param wertpapier Wertpapier, das in Buchung involviert ist.
+     *
+     * @param periode       Periode, in der die Transaktion erfolgt
+     * @param benutzer      Benutzer, auf dessen Namen die Buchung erfolgt
+     * @param wertpapier    Wertpapier, das in Buchung involviert ist.
      * @param bezugsgroesse Bezugsgroesse, z. B. Nominalvolumen oder Anzahl
      * @return buchung Buchungsobjekt mit Buchungsdaten oder
      */

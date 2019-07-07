@@ -14,6 +14,7 @@ public interface Bewertungsmodell {
      * Implementierung des Factory Patterns (GOF).
      * Methode dient zur Berechnung eines Kurses für eine Periode.
      * Fachliche Grundlage ist das Fachkonzept Bewertung von Finanzanlagen und Verbuchung von Kapitalerträgen
+     *
      * @param periode    Periode, für die eine Bewertung erfolgen soll.
      * @param wertpapier Wertpapier, das zu bewerten ist.
      * @return Kurs des Wertpapiers

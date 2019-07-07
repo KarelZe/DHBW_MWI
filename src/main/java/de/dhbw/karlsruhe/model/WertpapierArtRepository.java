@@ -33,6 +33,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
     /**
      * Gibt Instanz des {@link WertpapierArtRepository WertpapierArtRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link WertpapierArtRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -56,6 +57,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
 
     /**
      * Frägt das Vorhandensein eines {@link WertpapierArt} Objekts in der Datenbank ab.
+     *
      * @param id Id der abzufragenden {@link WertpapierArt}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -97,6 +99,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
 
     /**
      * Abfrage aller {@link WertpapierArt} Objekte in der Datenbank.
+     *
      * @return Liste mit {@link WertpapierArt} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
      */
@@ -146,6 +149,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
     /**
      * Speichert ein {@link WertpapierArt} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param wertpapierArt {@link WertpapierArt} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -156,6 +160,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
 
     /**
      * Löscht eine Liste von {@link WertpapierArt} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param wertpapierArt Liste von {@link WertpapierArt} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -178,6 +183,7 @@ public class WertpapierArtRepository implements CrudRepository<WertpapierArt> {
     /**
      * Löscht ein {@link WertpapierArt} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param wertpapierArt zu löschende {@link WertpapierArt}.
      * @author Christian Fix, Markus Bilz
      */

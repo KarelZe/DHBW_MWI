@@ -12,8 +12,9 @@ import java.util.HashMap;
  * Diese Klasse ist Teil eines Frameworks zum Laden und Entladen von Screens.
  * Das Framework folgt dabei der Idee, dass Screens wiederverwendet werden können und
  * damit eine Neuerzeugung bei Wechsel eines Screens entfällt. Die Implementierung ist adaptiert von:
- * @see <a href="http://youtube.com">https://www.youtube.com/watch?v=5GsdaZWDcdY</a>
+ *
  * @author Markus Bilz, Christian Fix
+ * @see <a href="http://youtube.com">https://www.youtube.com/watch?v=5GsdaZWDcdY</a>
  */
 
 public class ScreenController extends StackPane {
@@ -36,7 +37,8 @@ public class ScreenController extends StackPane {
 
     /**
      * Methode zum Laden eines Screens.
-     * @param name Fachlicher Name
+     *
+     * @param name     Fachlicher Name
      * @param resource Technischer Name der FXML-Datei
      */
     void loadScreen(String name, String resource) {
@@ -63,6 +65,7 @@ public class ScreenController extends StackPane {
 
     /**
      * Methode zum Setzen des ausgewählten Screens auf die Stage.
+     *
      * @param name Fachlicher Name
      */
     public void setScreen(final String name) {
@@ -80,6 +83,7 @@ public class ScreenController extends StackPane {
 
     /**
      * Methode zum Entladen eines Screens.
+     *
      * @param name Fachlicher Name
      */
     void unloadScreen(String name) {

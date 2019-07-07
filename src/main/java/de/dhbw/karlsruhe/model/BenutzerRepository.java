@@ -37,6 +37,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
     /**
      * Gibt Instanz des {@link BenutzerRepository BenutzerRepository} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link BenutzerRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -50,6 +51,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
     /**
      * Speichert ein {@link Benutzer} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param benutzer {@link Benutzer} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -94,6 +96,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
     /**
      * Löscht ein {@link Benutzer} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param benutzer zu löschender {@link Benutzer}.
      * @author Christian Fix, Markus Bilz
      */
@@ -126,6 +129,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
 
     /**
      * Frägt das Vorhandensein eines {@link Benutzer} Objekts in der Datenbank ab.
+     *
      * @param id Id der abzufragenden {@link Benutzer}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -200,10 +204,10 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
      * Abfrage eines {@link Benutzer Benutzers} aus der Datenbank.
      * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
      * sodass keine Daten von {@link Benutzer Benutzers} fremder Spiele preisgegeben werden.
-     *
+     * <p>
      * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
      * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
-     *
+     * <p>
      * Mögliche Testdaten umfassen {@code benutzername = admin}.
      *
      * @param benutzername Benuztername des zu findenden {@link Benutzer Benutzers}
@@ -236,6 +240,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
      * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
      * sodass keine Daten von {@link Benutzer Benutzern} fremder Spiele preisgegeben werden.
      * Es findet dabei eine Einschränkung auf {@link Benutzer} mit der {@code Rolle = ROLLE_TEILNEHMER} statt.
+     *
      * @return Liste mit {@link Benutzer} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
      */
@@ -267,6 +272,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
      * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
      * sodass keine Daten von {@link Benutzer Benutzern} fremder Spiele preisgegeben werden.
      * Es findet dabei eine Einschränkung auf {@link Benutzer} mit der {@code Rolle = ROLLE_TEILNEHMER} statt.
+     *
      * @param unternehmensId Id des {@link Unternehmen Unternehmens}
      * @return Liste mit {@link Benutzer} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz

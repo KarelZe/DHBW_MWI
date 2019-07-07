@@ -26,6 +26,7 @@ public class LoginController implements ControlledScreen {
 
     /**
      * Eventhandler für den Login-Button
+     *
      * @param event
      */
     @FXML
@@ -40,8 +41,8 @@ public class LoginController implements ControlledScreen {
                     System.out.println(t + " @ " + t.getUnternehmen() + " $ " + t.getRolle());
                     AktuelleSpieldaten.getInstanz().setBenutzer(t);
                     if (t.getRolle().getId() == Rolle.ROLLE_SPIELLEITER) {
-                       screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
-                       screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
+                        screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT, ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT_FILE);
+                        screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_UEBERSICHT);
                     }
 
                     if (t.getRolle().getId() == Rolle.ROLLE_TEILNEHMER) {
@@ -72,6 +73,7 @@ public class LoginController implements ControlledScreen {
 
     /**
      * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
      * @param screenPage Controller des Screens
      */
     @Override

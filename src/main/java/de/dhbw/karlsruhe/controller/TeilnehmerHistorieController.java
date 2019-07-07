@@ -14,9 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-
-
-public class TeilnehmerHistorieController implements ControlledScreen{
+public class TeilnehmerHistorieController implements ControlledScreen {
+    public static Long teilnehmerID;
     @FXML
     TableView<HistorieViewModel> tvHistorie;
     @FXML
@@ -29,11 +28,7 @@ public class TeilnehmerHistorieController implements ControlledScreen{
     TableColumn<HistorieViewModel, String> tblColType;
     @FXML
     TableColumn<HistorieViewModel, Double> tblColUnternehmen;
-
     private ScreenController screenController;
-    public static Long teilnehmerID;
-
-
 
     @FXML
     private void initialize() {

@@ -16,9 +16,10 @@ public class ZinsbuchungAnleihe implements Buchungsart {
      * Methode zur Erzeugung von Zinsbuchungen aus Floating Rate Notes.
      * Die Verbuchung von Zinsgutschriften erfolgt gemäß Fachkonzept Bewertung und Verbuchung
      * von Kapitelerträgen Kapitel 5.3 beschrieben.
-     * @param periode      Periode, in der die Transaktion erfolgt
-     * @param benutzer   Benutzer, auf dessen Namen die Buchung erfolgt
-     * @param wertpapier   Wertpapier, das in Buchung involviert ist.
+     *
+     * @param periode       Periode, in der die Transaktion erfolgt
+     * @param benutzer      Benutzer, auf dessen Namen die Buchung erfolgt
+     * @param wertpapier    Wertpapier, das in Buchung involviert ist.
      * @param bezugsgroesse Bezugsgroesse, z. B. Nominalvolumen oder Saldo.
      * @return Zinsbuchung von Anleihe
      */

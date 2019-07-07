@@ -15,7 +15,8 @@ public class Portfolioposition {
 
     /**
      * Kontruktor für die Erzeugung einer {@link Portfolioposition}.
-     * @param wertpapier Wertpapier der {@link Portfolioposition}
+     *
+     * @param wertpapier    Wertpapier der {@link Portfolioposition}
      * @param bezugsgroesse Stückzahl oder Nennwert der Wertpapierposition
      */
     public Portfolioposition(Wertpapier wertpapier, double bezugsgroesse) {

@@ -35,6 +35,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
     /**
      * Gibt Instanz des {@link UnternehmenRepository UnternehemensRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link UnternehmenRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -49,6 +50,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
     /**
      * Speichert ein {@link Unternehmen Unternehmens} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param unternehmen {@link Unternehmen} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -93,6 +95,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
     /**
      * Löscht ein {@link Unternehmen} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param unternehmen zu löschende {@link Unternehmen}.
      * @author Christian Fix, Markus Bilz
      */
@@ -103,6 +106,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
 
     /**
      * Löscht eine Liste von {@link Unternehmen Unternehmens} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param unternehmen Liste von {@link Unternehmen Unternehmens} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -124,6 +128,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
 
     /**
      * Frägt das Vorhandensein eines {@link Unternehmen Unternehmens} Objekts in der Datenbank ab.
+     *
      * @param id Id des abzufragenden {@link Unternehmen Unternehmens}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -167,6 +172,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
      * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
      * sodass keine Daten von {@link Unternehmen} fremder Spiele preisgegeben werden.
      * Die Unternehmensart ist in der Klasse {@link Unternehmen} dokumentiert.
+     *
      * @param unternehmenArt Art des {@link Unternehmen Unternehmens} z. B. {@code 1}
      * @return Liste mit {@link Unternehmen Unternehmens} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
@@ -199,6 +205,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
      * sodass keine Daten von {@link Unternehmen} fremder Spiele preisgegeben werden.
      * Die Ergebnismenge kann dabei Planspielunternehmen als auch Dummy-Unternehmen für die Emission des ETFs o. Ä.
      * enthalten.
+     *
      * @return Liste mit {@link Unternehmen Unternehmens} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
      */
@@ -230,6 +237,7 @@ public class UnternehmenRepository implements CrudRepository<Unternehmen> {
      * sodass keine Daten von {@link Unternehmen} fremder Spiele preisgegeben werden.
      * Die Ergebnismenge enthält dabei nur {@link Unternehmen} mit der {@code UnternehmenArt = UNTERNEHMEN_TEILNEHMER}
      * und damit keine Dummy-Unternehmen für beispielsweise die Emission von ETFs.
+     *
      * @return Liste mit {@link Unternehmen Unternehmens} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
      */

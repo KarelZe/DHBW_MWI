@@ -18,6 +18,7 @@ public class HibernateHelper {
 
     /**
      * Hilfsmethode zur Konfiguration der {@code SessionFactory}.
+     *
      * @return SessionFactory
      */
     private static SessionFactory buildSessionFactory() {
@@ -34,6 +35,7 @@ public class HibernateHelper {
 
     /**
      * Methode zur Erzeugung einer gemeinsamen Instanz der {@code SessionFactory}.
+     *
      * @return instanz
      */
     public static SessionFactory getSessionFactory() {

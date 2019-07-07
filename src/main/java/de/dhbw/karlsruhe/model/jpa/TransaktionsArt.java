@@ -22,6 +22,7 @@ import java.util.List;
  * Die Unterscheidung nach {@code TransaktionsArt} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
  * differenzierte optische Darstellung unterschiedlicher Buchungen im UI.
  * </p>
+ *
  * @author Markus Bilz, Christian Fix
  */
 @Entity

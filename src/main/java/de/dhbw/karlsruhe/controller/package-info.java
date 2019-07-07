@@ -1,6 +1,6 @@
 /**
  * Dieses Paket enthält Klassen für die Steuerung des UI.
- *
+ * <p>
  * Implementierung des MVC-Patterns.
  *
  * @author Markus Bilz, Christian Fix, Raphael Winkler, Jan Carlos Riecken, Max Schwaab

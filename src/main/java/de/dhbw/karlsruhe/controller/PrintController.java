@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.transform.Scale;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +35,9 @@ public class PrintController implements ControlledScreen {
     private ScreenController screenController;
 
     @Override
-    public void setScreenParent(ScreenController screenPage) {this.screenController = screenPage; }
+    public void setScreenParent(ScreenController screenPage) {
+        this.screenController = screenPage;
+    }
 
     /**
      * Initialize Methode von JavaFX. Siehe hierzu https://stackoverflow.com/a/51392331
@@ -55,7 +56,7 @@ public class PrintController implements ControlledScreen {
      * Die Ausgabe erfolgt auf einem DIN-A4 Blatt, im Querformat mit einem Standard-Seitenrand.
      * Implementierung ist adaptiert von https://dzone.com/articles/introduction-example-javafx-8
      */
-    public void doPrint(){
+    public void doPrint() {
         Printer drucker = Printer.getDefaultPrinter();
         PageLayout pageLayout = drucker.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
 
@@ -64,7 +65,7 @@ public class PrintController implements ControlledScreen {
 
         Node node = tvDruckansicht;
         /**
-        Alle Veränderungen an der Node führen auch dazu, dass die node in der Benutzeroberfläche verändert wird
+         Alle Veränderungen an der Node führen auch dazu, dass die node in der Benutzeroberfläche verändert wird
          *//*
         double scaleX = node.getBoundsInParent().getWidth() / pageLayout.getPrintableWidth();
         double scaleY =  node.getBoundsInParent().getHeight() / pageLayout.getPrintableHeight();
@@ -72,7 +73,7 @@ public class PrintController implements ControlledScreen {
         ode.getStyleClass().clear();
          */
         PrinterJob job = PrinterJob.createPrinterJob();
-        if (job != null && job.showPrintDialog(node.getScene().getWindow())){
+        if (job != null && job.showPrintDialog(node.getScene().getWindow())) {
             boolean success = job.printPage(node);
             if (success) {
                 job.endJob();
@@ -81,13 +82,13 @@ public class PrintController implements ControlledScreen {
         node.getTransforms().clear();
     }
 
-    public void doHistorie(){
+    public void doHistorie() {
         screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
     }
 
     public void showHistoriewithID(long id) {
-        TeilnehmerHistorieController.teilnehmerID =id;
+        TeilnehmerHistorieController.teilnehmerID = id;
         doHistorie();
     }
 }

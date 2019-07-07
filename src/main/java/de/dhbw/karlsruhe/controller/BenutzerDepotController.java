@@ -26,7 +26,6 @@ public class BenutzerDepotController implements ControlledScreen {
     private TableView<ObservableList<String>> table;
 
 
-
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
@@ -144,12 +143,6 @@ public class BenutzerDepotController implements ControlledScreen {
         double saldo = PortfolioFassade.getInstanz().getAnleihenSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
         table.getItems().add(createRow("Anleihen", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
-
-
-
-
-
-
 
 
     private double calcRendite(long teilnehmerID, long periodeID, Portfolioposition portfolioposition) {

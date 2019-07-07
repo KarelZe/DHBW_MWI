@@ -26,16 +26,15 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
     @FXML
     private TableView<TabellenInhalt> tvInvestmentUebersicht;
+    private List<TableColumn<TabellenInhalt, String>> tabellenZeilen = new ArrayList<>();
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
-    private List<TableColumn<TabellenInhalt, String>> tabellenZeilen = new ArrayList<>();
-
     @FXML
-    public void initialize(){
+    public void initialize() {
         cbPeriodenAuswahl.setItems(FXCollections.observableArrayList(new ArrayList<Periode>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()))));
         cbPeriodenAuswahl.setValue(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new)); //setze aktuelle Periode
         cbPeriodenAuswahl.setConverter(new ConverterHelper().getPeriodenConverter());
@@ -65,17 +64,17 @@ public class InvestmentUebersichtController implements ControlledScreen {
                 return unternehmensId;
             }
 
-            public void setUnternehmensId(long unternehmensId) {
-                this.unternehmensId = unternehmensId;
-            }
-
             public double getInvestitionssumme() {
                 return investitionssumme;
+            }            public void setUnternehmensId(long unternehmensId) {
+                this.unternehmensId = unternehmensId;
             }
 
             public void setInvestitionssumme(double investitionssumme) {
                 this.investitionssumme = investitionssumme;
             }
+
+
         }
         List<Wertpapier> wertpapiereDesUnternehmens = WertpapierRepository.getInstanz().findAll().stream()
                 .filter(w -> w.getUnternehmen().getId() == unternehmensId)
@@ -113,23 +112,22 @@ public class InvestmentUebersichtController implements ControlledScreen {
                 return unternehmensId;
             }
 
-            public void setUnternehmensId(long unternehmensId) {
-                this.unternehmensId = unternehmensId;
-            }
-
             public double getWertDerWertpapiere() {
                 return wertDerWertpapiere;
+            }            public void setUnternehmensId(long unternehmensId) {
+                this.unternehmensId = unternehmensId;
             }
 
             public void setWertDerWertpapiere(double wertDerWertpapiere) {
                 this.wertDerWertpapiere = wertDerWertpapiere;
             }
+
+
         }
 
 
         //Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().reduce((first, second) -> second).orElseThrow(NoSuchElementException::new);
         //Periode aktuellePeriode = PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
-
 
 
         List<Portfolioposition> aktienDerTeilnehmerDesUnternehmens = new ArrayList<>();

@@ -34,6 +34,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     /**
      * Gibt Instanz des {@link WertpapierRepository WertpapierRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link WertpapierRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -46,6 +47,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
 
     /**
      * Gibt die Anzahl an {@link Wertpapier} Objekten in der Datenbank zurück.
+     *
      * @return Anzahl an {@link Wertpapier Wertpapieren}.
      * @author Christian Fix, Markus Bilz
      */
@@ -55,6 +57,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
 
     /**
      * Frägt das Vorhandensein eines {@link Wertpapier} Objekts in der Datenbank ab.
+     *
      * @param id Id des abzufragenden {@link Wertpapier Wertpapiers}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -92,9 +95,11 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         }
         return Optional.empty();
     }
+
     /**
      * Abfrage aller {@link Wertpapier} Objekte in der Datenbank.
      * Es werden ausschließlich Wertpapiere des aktuell aktiven Spiels zurückgegeben.
+     *
      * @return Liste mit {@link Wertpapier} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
      */
@@ -146,6 +151,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     /**
      * Speichert ein {@link Wertpapier} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param wertpapier {@link Wertpapier} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -153,8 +159,10 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     public void save(Wertpapier wertpapier) {
         save(List.of(wertpapier));
     }
+
     /**
      * Löscht eine Liste von {@link Wertpapier} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param wertpapiere Liste von {@link Wertpapier} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -177,6 +185,7 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
     /**
      * Löscht ein {@link Wertpapier} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param wertpapier zu löschendes {@link Wertpapier}.
      * @author Christian Fix, Markus Bilz
      */

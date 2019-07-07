@@ -33,6 +33,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
     /**
      * Gibt Instanz des {@link TransaktionsArtRepository TransaktionsArtRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link TransaktionsArtRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -56,6 +57,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
 
     /**
      * Frägt das Vorhandensein eines {@link TransaktionsArt} Objekts in der Datenbank ab.
+     *
      * @param id Id der abzufragenden {@link TransaktionsArt}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -96,6 +98,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
 
     /**
      * Abfrage aller {@link TransaktionsArt} Objekte in der Datenbank.
+     *
      * @return Liste mit {@link TransaktionsArt} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz
      */
@@ -146,6 +149,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
     /**
      * Speichert ein {@link TransaktionsArt} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param transaktionsArt {@link TransaktionsArt} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -156,6 +160,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
 
     /**
      * Löscht eine Liste von {@link TransaktionsArt} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param transaktionsArten Liste von {@link TransaktionsArt} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -178,6 +183,7 @@ public class TransaktionsArtRepository implements CrudRepository<TransaktionsArt
     /**
      * Löscht ein {@link TransaktionsArt} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param transaktionsArt zu löschende {@link TransaktionsArt}.
      * @author Christian Fix, Markus Bilz
      */

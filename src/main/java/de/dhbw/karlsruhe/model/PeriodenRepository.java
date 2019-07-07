@@ -34,6 +34,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
     /**
      * Gibt Instanz des {@link PeriodenRepository PeriodenRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link PeriodenRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -47,6 +48,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
     /**
      * Speichert ein {@link Periode} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param periode {@link Periode} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -102,6 +104,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
 
     /**
      * Löscht eine Liste von {@link Periode} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param perioden Liste von {@link Periode} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -123,6 +126,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
 
     /**
      * Frägt das Vorhandensein eines {@link Periode} Objekts in der Datenbank ab.
+     *
      * @param id Id der abzufragenden {@link Periode}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -163,6 +167,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
 
     /**
      * Abfrage aller {@link Periode Perioden} Objekte in der Datenbank.
+     *
      * @throws UnsupportedOperationException Exception, da noch nicht implementiert.
      * @author Christian Fix, Markus Bilz
      */
@@ -173,6 +178,7 @@ public class PeriodenRepository implements CrudRepository<Periode> {
 
     /**
      * Abfrage aller {@link Periode Perioden} eines {@link Spiel Spiels}.
+     *
      * @param spieleId Id des zugehörigen Spiels
      * @return Liste mit {@link Periode} Objekten; gegebenenfalls leer.
      * @author Christian Fix, Markus Bilz

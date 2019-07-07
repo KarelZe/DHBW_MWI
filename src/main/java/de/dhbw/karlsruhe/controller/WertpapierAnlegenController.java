@@ -71,7 +71,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
             return;
         }
 
-        if(aktieNachAenderung.isEmpty() || anleiheNachAenderung.isEmpty()) { //keine Aktie und/oder Anleihe emittiert
+        if (aktieNachAenderung.isEmpty() || anleiheNachAenderung.isEmpty()) { //keine Aktie und/oder Anleihe emittiert
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Wertpapier anlegen");
             alert.setHeaderText(null);
@@ -127,6 +127,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
 
     /**
      * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
      * @param screenPage Controller des Screens
      */
     @Override

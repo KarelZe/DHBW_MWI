@@ -24,6 +24,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
     /**
      * Privater Konstruktor.
      * Implementierung des Singleton Patterns (GOF).
+     *
      * @author Christian Fix, Markus Bilz
      */
     private RolleRepository() {
@@ -32,6 +33,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
     /**
      * Gibt Instanz des {@link RolleRepository RolleRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link RolleRepository}
      * @author Christian Fix, Markus Bilz
      */
@@ -45,6 +47,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
     /**
      * Speichert ein {@link Rolle} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param rolle {@link Rolle} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -70,13 +73,14 @@ public class RolleRepository implements CrudRepository<Rolle> {
      */
     @Override
     public void save(List<Rolle> rollen) {
-        for(Rolle rolle : rollen) {
+        for (Rolle rolle : rollen) {
             save(rolle);
         }
     }
 
     /**
      * Gibt die Anzahl an {@link Rolle} Objekten in der Datenbank zurück.
+     *
      * @return Anzahl an {@link Rolle Rollen}.
      * @author Christian Fix
      */
@@ -88,6 +92,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
     /**
      * Löscht ein {@link Rolle} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param rolle zu löschende {@link Rolle}.
      * @author Christian Fix, Markus Bilz
      */
@@ -98,6 +103,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
 
     /**
      * Löscht eine Liste von {@link Rolle} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param rollen Liste von {@link Rolle} Objekten zur Löschung.
      * @author Christian Fix
      */
@@ -119,6 +125,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
 
     /**
      * Frägt das Vorhandensein eines {@link Rolle} Objekts in der Datenbank ab.
+     *
      * @param id Id der abzufragenden {@link Rolle}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix
@@ -147,7 +154,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
             query.setParameter("id", id);
             tx.commit();
             rolle = (Rolle) query.uniqueResult();
-            if(rolle != null) {
+            if (rolle != null) {
                 return Optional.of(rolle);
             }
         } catch (HibernateException e) {
@@ -160,6 +167,7 @@ public class RolleRepository implements CrudRepository<Rolle> {
 
     /**
      * Abfrage aller {@link Rolle Rollen} Objekte in der Datenbank.
+     *
      * @return Liste mit {@link Rolle} Objekten; gegebenenfalls leer.
      * @author Christian Fix
      */

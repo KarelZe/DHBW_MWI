@@ -14,6 +14,7 @@ public class EncryptionHelper {
 
     /**
      * Methode zur Verschlüsselung eines Strings mittels MD5-Algorithmus.
+     *
      * @param input input im Klartext
      * @return Wert im MD5-Format; im Fehlerfall {@code null}.
      */

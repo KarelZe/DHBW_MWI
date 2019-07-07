@@ -5,13 +5,13 @@ import java.util.Set;
 
 /**
  * <p>
- *  POJO Klasse für die Speicherung eines {@code Benutzer}.
- *  Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
+ * POJO Klasse für die Speicherung eines {@code Benutzer}.
+ * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
  *
  * <p>
- *   Diese Anwendung nutzt {@code Benutzer}, um eine Trennung zwischen einzelnen Investoren zu ermöglichen.
- *   Neben Anlegern sind auch Spielleiter als {@code} abgebildet.
+ * Diese Anwendung nutzt {@code Benutzer}, um eine Trennung zwischen einzelnen Investoren zu ermöglichen.
+ * Neben Anlegern sind auch Spielleiter als {@code} abgebildet.
  * </p>
  *
  * @author Markus Bilz, Christian Fix

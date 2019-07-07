@@ -44,7 +44,7 @@ public class PeriodenDetailController implements ControlledScreen {
         PeriodenRepository periodenModel = PeriodenRepository.getInstanz();
         perioden = new ArrayList<>(periodenModel.findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()));
         //Periode 0 wird ausgelassen, da es sich hier um eine Periode handelt, die mit Start des Siels erzeugt wird.
-        IntStream.rangeClosed(1, perioden.size()-1).forEach(p -> {
+        IntStream.rangeClosed(1, perioden.size() - 1).forEach(p -> {
             Periode periode = perioden.get(p);
             tbPerioden.getTabs().add(new PeriodeTab("Periode " + (p), periode));
         });
@@ -55,7 +55,7 @@ public class PeriodenDetailController implements ControlledScreen {
     /**
      * Methode für den Wechsel von aktuellem Screen auf Periode Anlegen Screen.
      */
-    public void changePage(){
+    public void changePage() {
         screenController.loadScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN, ScreensFramework.SCREEN_PERIODE_ANLEGEN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_PERIODE_ANLEGEN);
     }

@@ -59,7 +59,6 @@ public class WertpapierVerkaufenController implements ControlledScreen {
     private Label lblOrderGebuehrenDisplay;
 
 
-
     private double teilnehmerZahlungsmittelkontoSaldo;
 
     @Override
@@ -204,7 +203,6 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         lblGesamtErloesDisplay.setText(String.format("%.2f", orderGesamtErloes) + "\u20ac");
 
     }
-
 
 
 }

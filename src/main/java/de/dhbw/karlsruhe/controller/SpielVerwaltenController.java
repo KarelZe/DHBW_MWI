@@ -55,20 +55,21 @@ public class SpielVerwaltenController implements ControlledScreen {
     }
 
     //ToDo: Nach Löschvorgang aktivies Spiel automatisch neu setzen?
+
     /**
      * Löscht das vom Spielleiter ausgewählt Spiel aus der Datenbank
      * Die dazugehörigen Einträge, wie Benutzer und Unternehmen des entsprechenden Spiels werden ebenfalls gelöscht
      */
     @FXML
     private void doSelektiertesSpielLoeschen() {
-        Spiel zuLoeschendesSpiel=cmbSpiele.getValue();
+        Spiel zuLoeschendesSpiel = cmbSpiele.getValue();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Spiel l\u00F6schen?");
         alert.setContentText("Soll das Spiel mit der ID " + zuLoeschendesSpiel.getId() + " unwiderruflich gel\u00F6scht werden?");
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK){
-            if(zuLoeschendesSpiel.getIst_aktiv() == Spiel.SPIEL_AKTIV) { //zu löschendes Spiel ist aktiv
+        if (result.get() == ButtonType.OK) {
+            if (zuLoeschendesSpiel.getIst_aktiv() == Spiel.SPIEL_AKTIV) { //zu löschendes Spiel ist aktiv
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Spiel l\u00F6schen nicht m\u00F6glich");
                 alert.setContentText("Es kann kein aktives Spiel gel\u00F6scht werden.");
@@ -94,6 +95,7 @@ public class SpielVerwaltenController implements ControlledScreen {
 
     /**
      * Setzt den screenController
+     *
      * @param screenPage Controller des Screens
      */
     @Override

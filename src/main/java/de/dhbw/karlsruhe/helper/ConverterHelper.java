@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 public class ConverterHelper {
 
     /**
-     *  Konverter für Unternehmensobjekte.
+     * Konverter für Unternehmensobjekte.
      */
     private StringConverter<Unternehmen> unternehmensConverter = new StringConverter<>() {
         /**

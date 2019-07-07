@@ -20,6 +20,7 @@ import static java.util.stream.Collectors.*;
  * zu {@link Portfolioposition Portfoliopositionen} aggregiert werden.
  * Verwendung ist in Verbindung mit {@link Portfolioposition} sinnvoll.
  * Implementierung erfolgt Facade-Patterns (GOF) in Verbindung mit dem Singleton-Patterns (GOF).
+ *
  * @author Markus Bilz, Raphael Winkler
  */
 public class PortfolioFassade {
@@ -29,6 +30,7 @@ public class PortfolioFassade {
 
     /**
      * Implementierung des Singleton-Patterns (GOF).
+     *
      * @author Markus Bilz
      */
     private PortfolioFassade() {
@@ -50,6 +52,7 @@ public class PortfolioFassade {
 
     /**
      * Methode gibt den aktuellen Saldo eines Zahlungsmittelkontos eines Teilnehmers zurück.
+     *
      * @param teilnehmerId Id des Kontoinhabers
      * @return Saldo des Zahlungsmittelkontos
      * @author Markus Bilz
@@ -61,6 +64,7 @@ public class PortfolioFassade {
 
     /**
      * Methode gibt den aktuellen Saldo eines Depots eines Teilnehmers zurück.
+     *
      * @param teilnehmerId Id des Depotinhabers
      * @return Saldo des Depots
      * @author Markus Bilz
@@ -73,6 +77,7 @@ public class PortfolioFassade {
     /**
      * Methode gibt den aktuellen Saldo eines Festgelds für einen Benutzer zurück.
      * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
+     *
      * @param teilnehmerId Id des Festgeldinhabers
      * @return Saldo des Depots.
      * @author Markus Bilz
@@ -119,9 +124,9 @@ public class PortfolioFassade {
     }
 
 
-
     /**
      * Methode gibt den aktuellen Saldo eines Teilnehmers bestehend aus Zahlungsmittelkonto-, Festgeld- und Depotguthaben zurück.
+     *
      * @param teilnehmerId Id des Teilnehmers
      * @return Gesamtsaldo des Benutzer Engagements
      * @author Markus Bilz
@@ -135,8 +140,9 @@ public class PortfolioFassade {
      * Methode gibt den Gesamtbestand an Anleihepositionen bis einschließlich eines bestimmten Periodenstichtags zurück.
      * Neben aktiven Anleihepositionen sind auch Anleihepositionen enthalten, die zwischenzeitlich veräußert wurden und
      * einen Bestand von Null aufweisen.
+     *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden.
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden.
      * @return Liste mit Anleihepositionen
      * @author Markus Bilz
      */
@@ -149,8 +155,9 @@ public class PortfolioFassade {
      * Methode gibt den Gesamtbestand an Aktienpositionen bis einschließlich eines bestimmten Periodenstichtags zurück.
      * Neben aktiven Aktienpositionen sind auch Aktienpositionen, die zwischenzeitlich veräußert wurden und einen Bestand
      * von Null aufweisen.
+     *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden.
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden.
      * @return Liste mit Aktienpositionen
      * @author Markus Bilz
      */
@@ -162,8 +169,9 @@ public class PortfolioFassade {
     /**
      * Methode gibt den Gesamtbestand an ETFs bis einschließlich eines bestimmten Periodenstichtags zurück.
      * Neben aktiven ETF-Positionen werden auch zwischenzeitlich veräußerte Positionen ausgeweien.
+     *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit ETF-Positionen
      * @author Markus Bilz
      */
@@ -175,8 +183,9 @@ public class PortfolioFassade {
     /**
      * Methode gibt den Gesamtbestand an Festgeldpositionen bis einschießlich eines bestimmten eines Periodenstichtags zurück.
      * Neben aktiven Festgeld-Positionen werden auch zwischenzeitlich veräußerte Positionen ausgewiesen.
+     *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Festgeld-Positionen
      * @author Markus Bilz
      */
@@ -189,8 +198,9 @@ public class PortfolioFassade {
      * Methode gibt alle Portfoliopositionen das heißt Festgeld, Zahlungsmittelkonto, Depotpositionen etc. zurück bis
      * einschließlich eines Periodenstichtags zurück. Es werden neben aktiven Portfoliopositionen auch historische
      * Positonen ausgewiesen. Die Ermittlung erfolgt anhand von Buchungen, die dem Benutzer zugeordnet werden können.
+     *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId Periode, bis zu der Buchungen berücksichtigt werden
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Portfolio-Positionen
      * @author Markus Bilz
      */

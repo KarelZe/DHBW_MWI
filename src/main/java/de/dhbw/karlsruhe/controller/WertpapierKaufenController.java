@@ -55,7 +55,6 @@ public class WertpapierKaufenController implements ControlledScreen {
     private Label lblOrderGebuehrenDisplay;
 
 
-
     private double teilnehmerZahlungsmittelkontoSaldo;
 
     @Override

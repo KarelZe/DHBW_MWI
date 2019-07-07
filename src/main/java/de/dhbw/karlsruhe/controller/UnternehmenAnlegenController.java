@@ -56,7 +56,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
             return;
         }
 
-        if(unternehmenNachAenderung.isEmpty()) { //kein Unternehmen angelegt
+        if (unternehmenNachAenderung.isEmpty()) { //kein Unternehmen angelegt
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Unternehmen anlegen");
             alert.setHeaderText(null);
@@ -94,6 +94,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     /**
      * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
      * @param screenPage Controller des Screens
      */
     @Override

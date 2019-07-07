@@ -19,6 +19,7 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
     /**
      * Diese Methode implementiert die Bewertung einer Floating Rate Note.
      * Die Implementierung erfolgt gem. Fachkonzept Bewertung von Finanzanlagen und Verbuchung von Kapitalerträgen.
+     *
      * @param periode    Periode, für die eine Bewertung erfolgen soll.
      * @param wertpapier Wertpapier, das zu bewerten ist.
      * @return Kurs der Floating Rate Note.
@@ -29,7 +30,7 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
         int bisherGespieltePerioden = PeriodenRepository.getInstanz().findAllBySpieleId(periode.getSpiel().getId()).size() - 1;
         int restlaufzeit = 10 - bisherGespieltePerioden;
 
-        Optional<Kurs> kursOptional =  KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(),wertpapier.getId());
+        Optional<Kurs> kursOptional = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periode.getId(), wertpapier.getId());
         // Spread des Emittenten bei Emission
         double emissionsspread = wertpapier.getEmissionsspread();
         // Aktueller Spread des Emittenten zum Zeitpunkt der Bewertung
@@ -59,12 +60,12 @@ public class FloatingRateNoteModell implements Bewertungsmodell {
         // Bewertung Festzinsanleihe
         ArrayList<Double> zahlungsstromDiskontiert = new ArrayList<>();
         for (int i = 1; i <= restlaufzeit; i++) {
-            double zahlung = zahlungsstromFest.get(i) / Math.pow(1+zinskurve.get(i), i);
+            double zahlung = zahlungsstromFest.get(i) / Math.pow(1 + zinskurve.get(i), i);
             zahlungsstromDiskontiert.add(zahlung);
         }
         double barwertStandardAnleihe = zahlungsstromDiskontiert.stream().mapToDouble(z -> z).sum();
 
-        System.out.println("Zahlungsstrom fest"+zahlungsstromDiskontiert);
+        System.out.println("Zahlungsstrom fest" + zahlungsstromDiskontiert);
 
         // Bewertung Nullkuponanleihe
         double barwertZeroBond = 100.0d / Math.pow(1.0d + zinskurve.get(restlaufzeit), restlaufzeit);

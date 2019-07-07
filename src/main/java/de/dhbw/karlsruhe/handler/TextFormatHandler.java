@@ -25,9 +25,9 @@ public class TextFormatHandler {
     private static final double DEFAULT_VALUE = 0.00d;
     private static final String CURRENCY_SYMBOL = "\u20ac"; // LKR Currency
     private static final String PERCENTAGE_SYMBOL = "%";
-    private static final DecimalFormatSymbols GERMANY = new DecimalFormatSymbols(Locale.GERMANY );
+    private static final DecimalFormatSymbols GERMANY = new DecimalFormatSymbols(Locale.GERMANY);
     public static final DecimalFormat CURRENCY_DECIMAL_FORMAT
-            = new DecimalFormat( "###,##0.00"+CURRENCY_SYMBOL, GERMANY);
+            = new DecimalFormat("###,##0.00" + CURRENCY_SYMBOL, GERMANY);
 
     public static final DecimalFormat PERCENTAGE_DECIMAL_FORMAT = new DecimalFormat("##0.00" + PERCENTAGE_SYMBOL, GERMANY);
 

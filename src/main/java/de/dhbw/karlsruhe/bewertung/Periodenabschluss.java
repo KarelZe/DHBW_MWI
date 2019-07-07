@@ -38,6 +38,7 @@ public class Periodenabschluss {
      * erfordern, bewertet. Das heißt, kein Festgeld und auch keine Aktien.
      * Siehe hierzu Fachkonzept Bewertung von Finanzanlagen Kap. 5 und Teilkapitel.
      * Die Umsetzung erfolgt anhand des Factory Patterns (GOF).
+     *
      * @param periode zu bewertende Periode
      */
     public void periodeBewerten(Periode periode) {

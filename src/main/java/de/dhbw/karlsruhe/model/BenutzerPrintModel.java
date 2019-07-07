@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Model, um die Bestenliste aller Benutzer eines Spiels darstellen zu können
+ *
  * @author Jan Carlos Riecken
  */
 public class BenutzerPrintModel {

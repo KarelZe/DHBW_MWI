@@ -20,6 +20,7 @@ import javax.persistence.*;
  * Die Erfassung und Berechnung von Kursen ist in {@link de.dhbw.karlsruhe.buchung.BuchungsFactory}
  * nebst zugehörigem Fachkonzept geregelt.
  * </p>
+ *
  * @author Markus Bilz, Christian Fix
  */
 @Entity

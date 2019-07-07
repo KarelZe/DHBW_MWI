@@ -25,6 +25,7 @@ public class AktuelleSpieldaten implements Observable {
     /**
      * Privater Konstruktor.
      * Implementierung des Singleton Patterns (GOF).
+     *
      * @author Markus Bilz
      */
     private AktuelleSpieldaten() {
@@ -44,6 +45,7 @@ public class AktuelleSpieldaten implements Observable {
 
     /**
      * Methode zum Registrieren eines Listener.
+     *
      * @param listener Listener zur Benachrichtigung
      */
     @Override
@@ -53,6 +55,7 @@ public class AktuelleSpieldaten implements Observable {
 
     /**
      * Methode zum Entfernen eines Listener.
+     *
      * @param listener Listener zum Entfernen
      */
     @Override

@@ -13,6 +13,7 @@ public class BuchungsFactory {
 
     /**
      * Fabrikmethode zur Erzeugung einer Buchung abhängig der TransaktionsArt.
+     *
      * @param transaktionsArt TransaktionsArt der Buchung
      * @return Buchungsart abhängig der TransaktionArt
      * @throws NoSuchElementException Exception, falls TransaktionsArt nicht implementiert ist.

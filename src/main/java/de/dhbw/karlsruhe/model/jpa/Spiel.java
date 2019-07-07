@@ -11,11 +11,12 @@ import java.util.Set;
  * </p>
  *
  * <p>
- *  Diese Anwendung nutzt Spiele um Planspiele einzelner Kurse voneinander zu trennen. Durch die Unterscheidung nach
- *  Spielen ist es möglich, alternative Spiele zu laden und zu einem späteren Zeitpunkt fortzusetzen. Zwischen
- *  einzelnen Spielen besteht keine Abhängigkeit. Jedoch besteht für alle Spiel-Individuellen Daten z. B. Aktienkurse,
- *  Benutzer etc. eine Abhängigkeit zum Spiel.
+ * Diese Anwendung nutzt Spiele um Planspiele einzelner Kurse voneinander zu trennen. Durch die Unterscheidung nach
+ * Spielen ist es möglich, alternative Spiele zu laden und zu einem späteren Zeitpunkt fortzusetzen. Zwischen
+ * einzelnen Spielen besteht keine Abhängigkeit. Jedoch besteht für alle Spiel-Individuellen Daten z. B. Aktienkurse,
+ * Benutzer etc. eine Abhängigkeit zum Spiel.
  * </p>
+ *
  * @author Markus Bilz, Christian Fix
  */
 @Entity
@@ -78,7 +79,7 @@ public class Spiel {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Spiel{" +
                 "Id=" + id +
                 ", Startkapital= " + startkapital +

@@ -33,6 +33,7 @@ public class SpielRepository implements CrudRepository<Spiel> {
     /**
      * Gibt Instanz des {@link SpielRepository SpielRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link SpielRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -73,6 +74,7 @@ public class SpielRepository implements CrudRepository<Spiel> {
     /**
      * Speichert ein {@link Spiel} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param spiel {@link Spiel} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -81,7 +83,7 @@ public class SpielRepository implements CrudRepository<Spiel> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-                session.saveOrUpdate(spiel);
+            session.saveOrUpdate(spiel);
             tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -98,13 +100,14 @@ public class SpielRepository implements CrudRepository<Spiel> {
      */
     @Override
     public void save(List<Spiel> spiele) {
-        for(Spiel spiel : spiele) {
+        for (Spiel spiel : spiele) {
             save(spiel);
         }
     }
 
     /**
      * Gibt die Anzahl an {@link Spiel} Objekten in der Datenbank zurück.
+     *
      * @return Anzahl an {@link Spiel Spielen}.
      * @author Christian Fix, Markus Bilz
      */
@@ -116,6 +119,7 @@ public class SpielRepository implements CrudRepository<Spiel> {
     /**
      * Löscht ein {@link Spiel} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param spiel zu löschendes {@link Spiel}.
      * @author Christian Fix, Markus Bilz
      */
@@ -124,7 +128,7 @@ public class SpielRepository implements CrudRepository<Spiel> {
         Transaction tx = null;
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
-                session.delete(spiel);
+            session.delete(spiel);
             tx.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -135,18 +139,20 @@ public class SpielRepository implements CrudRepository<Spiel> {
 
     /**
      * Löscht eine Liste von {@link Spiel} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param spiele Liste von {@link Spiel} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
     @Override
     public void delete(List<Spiel> spiele) {
-        for(Spiel spiel : spiele) {
+        for (Spiel spiel : spiele) {
             delete(spiele);
         }
     }
 
     /**
      * Frägt das Vorhandensein eines {@link Spiel} Objekts in der Datenbank ab.
+     *
      * @param id Id der abzufragenden {@link Spiel}
      * @return {@code true}, sofern vorhanden; andernfalls {@code false}
      * @author Christian Fix, Markus Bilz
@@ -187,6 +193,7 @@ public class SpielRepository implements CrudRepository<Spiel> {
 
     /**
      * Abfrage aller {@link Spiel Spiele} Objekte in der Datenbank.
+     *
      * @return Liste mit {@link Spiel Spiele} Objekten; andernfalls {@code null}.
      * @author Christian Fix, Markus Bilz
      */

@@ -12,6 +12,7 @@ public class ColorHelper {
 
     /**
      * Diese Methode konvertiert einen String in ein Color-Objekt.
+     *
      * @param farbe Farbe zur Konvertierung
      * @return Color Objekt der Farbe, sofern keine Konvertierung möglich ist, Color Objekt der Farbe Schwarz
      */

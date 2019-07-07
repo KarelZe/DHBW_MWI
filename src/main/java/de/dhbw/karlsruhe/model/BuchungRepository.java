@@ -1,4 +1,3 @@
-
 package de.dhbw.karlsruhe.model;
 
 import de.dhbw.karlsruhe.helper.HibernateHelper;
@@ -6,13 +5,11 @@ import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.jpa.Benutzer;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
 import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +36,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     /**
      * Gibt Instanz des {@link BuchungRepository BuchungRepositories} zurück.
      * Implementierung als Singleton Pattern (GOF).
+     *
      * @return instanz von {@link BuchungRepository}
      * @author Markus Bilz, Christian Fix
      */
@@ -60,7 +58,6 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         return findAll().size();
     }
 
-    // TODO: Richtig mit HQL implementieren, sofern bekannt ist, ob wirklich benötigt
     @Override
     public boolean existsById(long id) {
         return findById(id).isPresent();
@@ -109,7 +106,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
         try (Session session = HibernateHelper.getSessionFactory().openSession()) {
             tx = session.beginTransaction();
             List<Periode> allePerioden = PeriodenRepository.getInstanz().findAll();
-            for(Periode periode : allePerioden) {
+            for (Periode periode : allePerioden) {
                 String queryString = "from Buchung where periode =: periode";
                 Query query = session.createQuery(queryString);
                 query.setParameter("periode", periode);
@@ -153,6 +150,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     /**
      * Speichert ein {@link Buchung Buchungs} Objekt in der Datenbank.
      * Implementierung des Bequemlichkeitsmusters.
+     *
      * @param buchung {@link Buchung} zur Speicherung
      * @author Christian Fix, Markus Bilz
      */
@@ -163,6 +161,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
 
     /**
      * Löscht eine Liste von {@link Buchung Buchungs} Objekten aus der Datenbank, sofern vorhanden.
+     *
      * @param buchungen Liste von {@link Buchung Buchungs} Objekten zur Löschung.
      * @author Christian Fix, Markus Bilz
      */
@@ -186,6 +185,7 @@ public class BuchungRepository implements CrudRepository<Buchung> {
     /**
      * Löscht ein {@link Buchung Buchungs} Objekt aus der Datenbank, sofern vorhanden.
      * Implementierung des Patterns Bequemlichkeitsmethode.
+     *
      * @param buchung zu löschende {@link Buchung}.
      * @author Christian Fix, Markus Bilz
      */
@@ -196,12 +196,13 @@ public class BuchungRepository implements CrudRepository<Buchung> {
 
     /**
      * Abfrage von {@link Buchung Buchungs} Objekten anhand der Id des {@link Benutzer Teilnehmers} in der Datenbank.
+     *
      * @param teilnehmerId Id des Teilnehmers
      * @return Liste mit Buchungen; gegebenfalls leer
+     * @author Christian Fix, Markus Bilz
      * @deprecated ersetzt durch PortfolioFassade {@link PortfolioFassade}.
      * Die PortfolioFassade bietet einen einfacheren Zugriff auf Salden des Teilnehmers, weshalb die Fassade bevorzugt
      * zu verwenden ist, sofern nicht zwingend Buchungen benötigt werden.
-     * @author Christian Fix, Markus Bilz
      */
     @Deprecated
     public List<Buchung> findByTeilnehmerId(long teilnehmerId) {

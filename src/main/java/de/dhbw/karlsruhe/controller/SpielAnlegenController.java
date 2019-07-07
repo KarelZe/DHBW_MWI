@@ -40,6 +40,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Eventhandler für Spiel-Anlagen-Button
+     *
      * @param event
      * @author Christian Fix
      */
@@ -49,13 +50,12 @@ public class SpielAnlegenController implements ControlledScreen {
         this.neuesSpiel = new Spiel();
         try {
             double startkapital = TextFormatHandler.getCurrencyFieldValue(txtStartkapital);
-            if(startkapital > 0.0) {
+            if (startkapital > 0.0) {
                 this.neuesSpiel.setStartkapital(startkapital);
 
                 //Methode macht noch nicht das was es soll
                 this.textAnzeigen();
-            }
-            else { //Startkapital <= 0.0
+            } else { //Startkapital <= 0.0
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Spiel anlegen");
                 alert.setContentText("Das Startkapital muss positiv sein.");
@@ -97,6 +97,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Initialisiert das Spiel in der Datenbank
+     *
      * @author Christian Fix
      */
     private void initializeSpielInDB() {
@@ -120,16 +121,17 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     *
      * @author Christian Fix
      */
     private void insertRollenInDBIfNotExists() {
-        if(RolleRepository.getInstanz().findById(Rolle.ROLLE_TEILNEHMER).isEmpty()) { //Teilnehmerrolle existiert noch nicht in der Datenbank
+        if (RolleRepository.getInstanz().findById(Rolle.ROLLE_TEILNEHMER).isEmpty()) { //Teilnehmerrolle existiert noch nicht in der Datenbank
             Rolle teilnehmerRolle = new Rolle();
             teilnehmerRolle.setName("Benutzer");
             teilnehmerRolle.setId(1);
             RolleRepository.getInstanz().save(teilnehmerRolle);
         }
-        if(RolleRepository.getInstanz().findById(Rolle.ROLLE_SPIELLEITER).isEmpty()) { //Spielleiterrolle existiert noch nicht in der Datenbank
+        if (RolleRepository.getInstanz().findById(Rolle.ROLLE_SPIELLEITER).isEmpty()) { //Spielleiterrolle existiert noch nicht in der Datenbank
             Rolle seminarleiterRolle = new Rolle();
             seminarleiterRolle.setName("Seminarleiter");
             seminarleiterRolle.setId(2);
@@ -139,6 +141,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Legt Wertpapiere in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     *
      * @author Christian Fix
      */
     private void insertWertpapierArtenInDBIfNotExists() {
@@ -191,6 +194,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Legt TransaktionsArten in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
+     *
      * @author Christian Fix
      */
     private void insertTransaktionsArtenInDBIfNotExists() {
@@ -242,8 +246,10 @@ public class SpielAnlegenController implements ControlledScreen {
     }
 
     //TODO: UnternehmensID von Benutzer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
+
     /**
      * Fügt einen Spielleiteraccount in der Datenbank ein
+     *
      * @author Christian Fix
      */
     private void insertAdminInDB() {
@@ -261,6 +267,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Fügt die Unternehmen "GMAX" (für ETF) und "Bank" (für Festgeld) in der Datenbank ein
+     *
      * @author Christian Fix
      */
     private void insertUnternehmenInDB() {
@@ -283,6 +290,7 @@ public class SpielAnlegenController implements ControlledScreen {
 
     /**
      * Fügt die Wertpapiere "ETF", "Festgeld" und "Startkapital" in die Datenbank ein
+     *
      * @author Christian Fix
      */
     private void insertWertpapiereInDB() {
@@ -336,7 +344,7 @@ public class SpielAnlegenController implements ControlledScreen {
     }
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         txtStartkapital.setTextFormatter(TextFormatHandler.currencyFormatter());
     }
 }

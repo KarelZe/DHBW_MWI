@@ -14,6 +14,7 @@ public class LogoutHelper {
 
     /**
      * Methode zum Logout des aktuellen Teilnehmers und Weiterleitung auf den Startbildschirm.
+     *
      * @param screenController screenController des aufrufenden Screens
      */
     public static void logout(ScreenController screenController) {

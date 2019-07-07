@@ -47,7 +47,7 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
             teilnehmer.ifPresentOrElse(t -> {
                 //Ruft über den instanzierten Controllerr von ScreenController mit der ID die Historie auf
                 ScreenController.myPrintControllerHandle.showHistoriewithID(getTableView().getItems().get(getIndex()).getId());
-            },() -> {
+            }, () -> {
                 Alert messageBox = new Alert(Alert.AlertType.ERROR);
                 messageBox.setHeaderText("Es ist ein Fehler aufgetreten");
                 messageBox.showAndWait();

@@ -96,7 +96,7 @@ public class PeriodeTab extends Tab {
         lstVwAnleihe.setCellFactory(new AnleihePeriodeCellFactory());
 
         // Sofern eine Periode abgeschlossen ist, kann sie nicht mehr bearbeitet werden
-        if(periode.getIst_aktiv() == Periode.PERIODE_INAKTIV) {
+        if (periode.getIst_aktiv() == Periode.PERIODE_INAKTIV) {
             setContentDisabled();
         }
     }
@@ -123,22 +123,22 @@ public class PeriodeTab extends Tab {
         }
 
         for (Kurs k : anleiheNachAenderung) {
-            if (k.getSpread() == null ||  k.getSpread() < -0.5 || k.getSpread() > 0.5) ungueltigerSpread = true;
+            if (k.getSpread() == null || k.getSpread() < -0.5 || k.getSpread() > 0.5) ungueltigerSpread = true;
         }
 
-        if(ungueltigerAktienkurs || ungueltigerManuellerKurs || ungueltigerSpread) {
+        if (ungueltigerAktienkurs || ungueltigerManuellerKurs || ungueltigerSpread) {
             StringBuilder fehlermeldung = new StringBuilder();
-                if (ungueltigerAktienkurs)
-                    fehlermeldung.append("Ein Aktienkurs muss >= 0 \u20ac sein.\n");
-                if (ungueltigerManuellerKurs)
-                    fehlermeldung.append("Ein Anleihekurs muss >= 0 % sein.\n");
-                if (ungueltigerSpread)
-                    fehlermeldung.append("Ein Spread muss zwischen - 50 % und + 50 % liegen.\n");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Ung\u00fcltige Eingabe");
-                alert.setContentText(fehlermeldung.toString());
-                alert.setHeaderText(null);
-                alert.showAndWait();
+            if (ungueltigerAktienkurs)
+                fehlermeldung.append("Ein Aktienkurs muss >= 0 \u20ac sein.\n");
+            if (ungueltigerManuellerKurs)
+                fehlermeldung.append("Ein Anleihekurs muss >= 0 % sein.\n");
+            if (ungueltigerSpread)
+                fehlermeldung.append("Ein Spread muss zwischen - 50 % und + 50 % liegen.\n");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ung\u00fcltige Eingabe");
+            alert.setContentText(fehlermeldung.toString());
+            alert.setHeaderText(null);
+            alert.showAndWait();
             return;
         }
 
@@ -177,7 +177,7 @@ public class PeriodeTab extends Tab {
 
     }
 
-    private void setContentDisabled(){
+    private void setContentDisabled() {
         vboxPeriode.setDisable(true);
         lblAktie.setDisable(true);
         lblAnleihe.setDisable(true);

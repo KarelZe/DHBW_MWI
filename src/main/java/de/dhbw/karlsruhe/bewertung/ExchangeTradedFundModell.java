@@ -20,6 +20,7 @@ public class ExchangeTradedFundModell implements Bewertungsmodell {
      * Diese Methode implementiert die Bewertung des Exchange Traded Funds.
      * Die Implementierung folgt dem Fachkonzept Bewertung von Kapitalanlagen Kapitel 4.2.
      * Die Bewertung des ETFs ist erst möglich, nachdem die Aktien des Portfolios bewertet wurden.
+     *
      * @param periode    Periode, für die eine Bewertung erfolgen soll.
      * @param wertpapier Wertpapier, das zu bewerten ist.
      * @return Kurs des ETFs; im Fehlerfall {@code 100.00}.

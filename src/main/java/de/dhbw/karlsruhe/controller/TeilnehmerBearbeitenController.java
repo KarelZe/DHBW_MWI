@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 /**
  * Ermöglicht das Bearbeiten eines bereits registrierten und eingeloggten Teilnehmers durch den Benutzer selbst
+ *
  * @author Max Schwaab
  */
 
@@ -39,6 +40,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
     /**
      * Aktualisiert die Daten eines Teilnehmers in der Datenbank
      * Vorraussetzung: Bestimmte Kriterien sind erfüllt
+     *
      * @param event Event des aufrufenden Buttons
      */
     @FXML
@@ -108,8 +110,6 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
         alert.setContentText("Die Aktualisierung war erfolgreich. Ihr (neuer) Benutzername lautet: " + "\"" + benutzer.getBenutzername() + "\"");
         alert.showAndWait();
 
-        //ToDo: Aktueller Benutzer neu setzen?
-
         System.out.println(benutzer);
 
     }
@@ -131,6 +131,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     /**
      * Setzt den screenController
+     *
      * @param screenPage Controller des Screens
      */
     @Override

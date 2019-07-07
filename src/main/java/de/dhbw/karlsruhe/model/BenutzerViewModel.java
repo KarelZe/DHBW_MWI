@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Model, um einen Benutzer in der GUI anzeigen zu können
+ *
  * @author Christian Fix
  */
 public class BenutzerViewModel {

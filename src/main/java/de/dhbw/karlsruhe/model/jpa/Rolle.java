@@ -14,6 +14,7 @@ import javax.persistence.Id;
  * Die {@code Rolle} wird für die Zugriffssteuerung innerhalb der Anwendung verwendet.
  * So bestehen Funktionalitäten, die nur durch {@code Teilnehhmer} mit einer bestimmten {@code Rolle} zugänglich sind.
  * </p>
+ *
  * @author Markus Bilz, Christian Fix
  */
 @Entity

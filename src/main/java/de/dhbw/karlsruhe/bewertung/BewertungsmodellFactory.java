@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 class BewertungsmodellFactory {
     /**
      * Fabrik Pattern zur Erzeugung von von Bewertungsmodellen
+     *
      * @param wertpapierArt WertpapierArt bspw. Floating Rate Note
      * @return Bewertungsmodell bspw. für Floating Rate Notes
      * @throws NoSuchElementException WertpapierArt ist nicht definiert.
