@@ -14,12 +14,12 @@ import java.util.List;
  * </p>
  *
  * <p>
- * Die Speicherung der {@code TransaktionsArt} in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
+ * Die Speicherung der {@link TransaktionsArt} in der Datenbank erfolgt in einer eigenständigen Tabelle, da sqlite keine Enums unterstützt.
  * Die Datenbank-Tabelle lautet {@code Transaktions_Art}.
  * </p>
  * <p>
  * Die {@code TransaktionsArt} ist vergleichbar mit einem Buchungsschlüssel oder einer Primanota in der Realwelt.
- * Die Unterscheidung nach {@code TransaktionsArt} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
+ * Die Unterscheidung nach {@code TransaktionsArt Transaktionsarten} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
  * differenzierte optische Darstellung unterschiedlicher Buchungen im UI.
  * </p>
  *

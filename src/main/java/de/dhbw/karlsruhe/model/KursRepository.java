@@ -88,7 +88,7 @@ public class KursRepository implements CrudRepository<Kurs> {
      */
     @Override
     public long count() {
-        throw new UnsupportedOperationException();
+        return findAll().size();
     }
 
     @Override

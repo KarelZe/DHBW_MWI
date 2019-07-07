@@ -5,12 +5,13 @@ import java.util.Set;
 
 /**
  * <p>
- * POJO Klasse für die Speicherung einer {@code Periode}.
+ * POJO Klasse für die Speicherung einer {@link Periode}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
+ * 
  * <p>
- * Die Bedeutung einer {@code Periode} ist dabei identisch zu der im Planspiel. Sie repräsentiert einen abgeschlossenen
- * Zeitraum in einem Spiel. Eine Unterscheidung in eine {@code Periode} erfolgt, um Konsistenz zum Planspiel zu erreichen
+ * Die Bedeutung einer {@link Periode} ist dabei identisch zu der im Planspiel. Sie repräsentiert einen abgeschlossenen
+ * Zeitraum in einem Spiel. Eine Unterscheidung in eine {@link Periode} erfolgt, um Konsistenz zum Planspiel zu erreichen
  * und um beispielsweise eine differenzierte Auswertung zu ermöglichen.
  * </p>
  *

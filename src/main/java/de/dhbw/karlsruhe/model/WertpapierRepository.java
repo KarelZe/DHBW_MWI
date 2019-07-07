@@ -194,6 +194,14 @@ public class WertpapierRepository implements CrudRepository<Wertpapier> {
         delete(List.of(wertpapier));
     }
 
+    /**
+     * Abfrage aller {@link Wertpapier} Objekte in der Datenbank nach Wertpapiperart.
+     * Die Wertpapierart ist in der Klasse {@link Wertpapier} dokumentiert.
+     *
+     * @param wertpapierArtId Art des {@link Wertpapier Wertpapierts} z. B. {@code 1}
+     * @return Liste mit {@link Wertpapier} Objekten; gegebenenfalls leer.
+     * @author Christian Fix, Markus Bilz
+     */
     public Wertpapier findByWertpapierArt(long wertpapierArtId) {
         return findAll().stream().filter(w -> w.getWertpapierArt().getId() == wertpapierArtId).findAny().orElseThrow(NoSuchElementException::new);
     }

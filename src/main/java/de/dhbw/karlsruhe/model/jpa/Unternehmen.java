@@ -7,12 +7,12 @@ import java.util.Set;
 
 /**
  * <p>
- * POJO Klasse für die Speicherung eines {@code Unternehmens}.
+ * POJO Klasse für die Speicherung eines {@link Unternehmen Unternehmens}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
  *
  * <p>
- * Ein {@code unternehmen} ist in der Software das Äquivalent zum Planspielunternehmen der Benutzer.
+ * Ein {@link Unternehmen} ist in der Software das Äquivalent zum Planspielunternehmen der Benutzer.
  * Ein Planspielunternehmen kann als Emittent von Aktien und Anleihen auftreten.
  * Neben den Planspielunternehmen bestehen in der Anwendung Dummy-Unternehmen für die Ausgabe von
  * Spielkapital, die Emission des GMAX und die Anlage von Festgeldern.

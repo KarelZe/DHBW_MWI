@@ -8,14 +8,17 @@ import javax.persistence.*;
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * Die Speicherung in der Datenbank erfolgt in der anderslautenden Tabelle {@code Periode_Wertpapier}.
  * </p>
+ * 
  * <p>
- * Grundsätzlich verfügt jedes {@code Wertpapier} je {@code Periode} über einen eindeutigen Kurs unabhängig der
+ * Grundsätzlich verfügt jedes {@link Wertpapier} je {@link Periode} über einen eindeutigen Kurs unabhängig der
  * Art des Wertpapiers. Für Floating Rate Notes wird zusätzlich der Spread gespeichert.
  * </p>
+ * 
  * <p>
- * Ein {@code Kurs} repräsentiert in der Anwendung den Marktwert einer Finanzanlage. Beispielsweise entspricht er
+ * Ein {@link Kurs} repräsentiert in der Anwendung den Marktwert einer Finanzanlage. Beispielsweise entspricht er
  * bei ETFs dem Indexstand oder bei Aktien dem Aktienkurs des Planspielunternehmens.
  * </p>
+ * 
  * <p>
  * Die Erfassung und Berechnung von Kursen ist in {@link de.dhbw.karlsruhe.buchung.BuchungsFactory}
  * nebst zugehörigem Fachkonzept geregelt.
@@ -83,7 +86,7 @@ public class Kurs {
 
     /**
      * Gibt den Kurs eines Wertpapiers zurück. Sollte der Kurs zuvor überschrieben worden sein (z. B. bei Insolvenz),
-     * dann wird der {@code manuellerKurs} zurückgegeben, andernfalls der {@code kurs}.
+     * dann wird der {@code manuellerKurs} zurückgegeben, andernfalls der {@link Kurs}.
      *
      * @return Kurs
      * @author Christian Fix, Markus Bilz

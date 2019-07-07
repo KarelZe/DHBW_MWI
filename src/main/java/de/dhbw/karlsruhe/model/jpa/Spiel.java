@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * <p>
- * POJO Klasse für die Speicherung eines {@code Spiels}.
+ * POJO Klasse für die Speicherung eines {@link Spiel Spiels}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
  *

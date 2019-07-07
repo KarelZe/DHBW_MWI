@@ -10,13 +10,15 @@ import javax.persistence.Table;
  * POJO Klasse für die Speicherung einer {@code WertpapierArt}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * </p>
+ * 
  * <p>
- * Die Speicherung der {@code WertpapierArt} in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
+ * Die Speicherung der {@link WertpapierArt} in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
  * Die Datenbank-Tabelle lautet {@code Wertpapier_Art}.
  * </p>
+ * 
  * <p>
- * Die {@code WertpapierArt} ist vergleichbar mit einer Produktgruppe eines Wertpapiers in der Realwelt.
- * Die Unterscheidung nach {@code WertpapierArt} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
+ * Die {@link WertpapierArt} ist vergleichbar mit einer Produktgruppe eines Wertpapiers in der Realwelt.
+ * Die Unterscheidung nach {@link WertpapierArt} erlaubt eine feingliedrigere Auswertung und ermöglicht damit eine
  * differenzierte optische Darstellung unterschiedlicher Wertpapiere im UI.
  * </p>
  *

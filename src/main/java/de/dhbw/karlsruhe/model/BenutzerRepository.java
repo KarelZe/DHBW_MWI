@@ -174,7 +174,7 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
      * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
      * Mögliche Testdaten umfassen {@code benutzername = admin} und {@code passwort = master}
      *
-     * @param benutzername Benuztername des zu findenden {@link Benutzer Benutzers}
+     * @param benutzername Benutzername des zu findenden {@link Benutzer Benutzers}
      * @param passwort     Passwort des zu findenden {@link Benutzer Benutzers}
      * @return Optional ist ein Container für {@link Benutzer}, um vereinfacht das Vorhandensein der {@link Benutzer} zu prüfen.
      * @author Christian Fix, Markus Bilz
@@ -201,16 +201,21 @@ public class BenutzerRepository implements CrudRepository<Benutzer> {
     }
 
     /**
+     * <p>
      * Abfrage eines {@link Benutzer Benutzers} aus der Datenbank.
      * Es findet dabei eine Einschränkung auf das aktuelle {@link Spiel} statt,
      * sodass keine Daten von {@link Benutzer Benutzers} fremder Spiele preisgegeben werden.
+     * </p>
+     * 
      * <p>
      * Es handelt sich dabei um eine Variante des Null-Objekt-Patterns.
      * Dadurch können Prüfungen auf {@code null}-Werte vereinfacht werden.
+     * </p>
+     * 
      * <p>
      * Mögliche Testdaten umfassen {@code benutzername = admin}.
-     *
-     * @param benutzername Benuztername des zu findenden {@link Benutzer Benutzers}
+     * </p>
+     * @param benutzername Benutzername des zu findenden {@link Benutzer Benutzers}
      * @return Optional ist ein Container für {@link Benutzer}, um vereinfacht das Vorhandensein der {@link Benutzer} zu prüfen.
      * @author Christian Fix, Markus Bilz
      */

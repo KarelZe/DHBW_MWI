@@ -5,14 +5,14 @@ import javax.persistence.Id;
 
 /**
  * <p>
- * POJO Klasse für die Speicherung einer {@code Rolle}.
+ * POJO Klasse für die Speicherung einer {@link Rolle}.
  * Mittels dieser Klasse erfolgt die Transformation von Daten der Tabelle der Datenbank in POJOs und vice versa.
  * Die Speicherung der Rollen in der Datenbank erfolgt in der eigenständigen Tabelle, da sqlite keine Enums unterstützt.
  * </p>
  *
  * <p>
- * Die {@code Rolle} wird für die Zugriffssteuerung innerhalb der Anwendung verwendet.
- * So bestehen Funktionalitäten, die nur durch {@code Teilnehhmer} mit einer bestimmten {@code Rolle} zugänglich sind.
+ * Die {@link Rolle} wird für die Zugriffssteuerung innerhalb der Anwendung verwendet.
+ * So bestehen Funktionalitäten, die nur durch {@link Benutzer} mit einer bestimmten {@link Rolle} zugänglich sind.
  * </p>
  *
  * @author Markus Bilz, Christian Fix
