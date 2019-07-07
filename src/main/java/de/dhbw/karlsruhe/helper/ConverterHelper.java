@@ -25,12 +25,14 @@ public class ConverterHelper {
 
     /**
      * Konverter für Unternehmensobjekte.
+     *
      */
     private StringConverter<Unternehmen> unternehmensConverter = new StringConverter<>() {
         /**
          * Methode zur Umwandlung von Unternehmensobjekten in Strings.
          * @param unternehmen Unternehmensobjekt zur Konvertierung.
-         * @return String mit Aufbau {@code Unternehmen 1 [id: 0]}; im Fehlerfall {@code ''}
+         * @return {@link String} mit Aufbau {@code Unternehmen 1 [id: 0]}; im Fehlerfall {@code ''}
+         * @author Markus Bilz, Christian Fix
          */
         @Override
         public String toString(Unternehmen unternehmen) {
@@ -39,8 +41,9 @@ public class ConverterHelper {
 
         /**
          * Methode zur Umwandlung von Strings in Unternehmensobjekte.
-         * @param unternehmen String zur Konvertierung.
+         * @param unternehmen {@link String} zur Konvertierung.
          * @return {@code null}
+         * @author Markus Bilz, Christian Fix
          */
         @Override
         public Unternehmen fromString(String unternehmen) {
@@ -49,6 +52,7 @@ public class ConverterHelper {
     };
     /**
      * Konverter für Spieleobjekte.
+     *
      */
     private StringConverter<Spiel> spieleConverter = new StringConverter<>() {
 
@@ -56,6 +60,7 @@ public class ConverterHelper {
          * Methode zur Umwandlung von Spieleobjekten in Strings
          * @param spiel Spielobjekt zur Konvertierung.
          * @return String mit Aufbau {@code Spiel 1 (erstellt am 01.01.1990) (aktiv)}; im Fehlerfall {@code ''}
+         * @author Christian Fix
          */
         @Override
         public String toString(Spiel spiel) {
@@ -78,8 +83,9 @@ public class ConverterHelper {
 
         /**
          * Methode zur Umwandlung von Strings in Spielobjekte.
-         * @param spiel String zur Konvertierung.
+         * @param spiel {@link String} zur Konvertierung.
          * @return {@code null}
+         * @author Christian Fix
          */
         @Override
         public Spiel fromString(String spiel) {
@@ -93,8 +99,9 @@ public class ConverterHelper {
     private StringConverter<Periode> periodenConverter = new StringConverter<>() {
         /**
          * Methode zur Umwandlung von Perioden in Strings.
-         * @param periode Periode zur Konvertierung
-         * @return String mit Aufbau {@code [id: 1]}; im Fehlerfall {@code ''}
+         * @param periode {@link Periode} zur Konvertierung
+         * @return {@link String} mit Aufbau {@code [id: 1]}; im Fehlerfall {@code ''}
+         * @author Raphael Winkler
          */
         @Override
         public String toString(Periode periode) {
@@ -103,8 +110,9 @@ public class ConverterHelper {
 
         /**
          * Methode zur Umwandlung von Strings in Periodenobjekte.
-         * @param periode String zur Konvertierung.
+         * @param periode {@link String} zur Konvertierung.
          * @return {@code null}
+         * @author Raphael Winkler
          */
         @Override
         public Periode fromString(String periode) {
@@ -113,15 +121,27 @@ public class ConverterHelper {
     };
 
 
-    //+++++++++++++++Wertpapier++++++++++++++++++++++
+    /**
+     * Konverter für Wertpapierobjekte.
+     */
     private StringConverter<Wertpapier> wertpapierConverter = new StringConverter<>() {
-
+        /**
+         * Methode zur Umwandlung von Wertpapieren in Strings.
+         * @param wertpapier {@link Wertpapier} zur Konvertierung
+         * @return {@link String} mit Aufbau {@code Aktien 1 ( Unternehmen 1 - Aktie ) | Kurs: 100.00 €}; im Fehlerfall {@code ''}
+         * @author Raphael Winkler
+         */
         @Override
         public String toString(Wertpapier wertpapier) {
             return wertpapier != null ? wertpapier.getName() + " (" + wertpapier.getUnternehmen().getName() + " - " + wertpapier.getWertpapierArt().getName() + ")"
                     + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "\u20ac" : "";
         }
-
+        /**
+         * Methode zur Umwandlung von Strings in Periodenobjekte.
+         * @param id {link String} zur Konvertierung.
+         * @return {@code null}
+         * @author Raphael Winkler
+         */
         @Override
         public Wertpapier fromString(String id) {
             return null;
@@ -129,9 +149,16 @@ public class ConverterHelper {
     };
 
 
-    //+++++++++++++++PortfolioPosition++++++++++++++++++++++
+    /**
+     * Konverter für Portfoliopositionen.
+     */
     private StringConverter<Portfolioposition> portfoliopositionConverter = new StringConverter<>() {
-
+        /**
+         * Methode zur Umwandlung von Wertpapieren in Strings.
+         * @param portfolioposition {@link Portfolioposition} zur Konvertierung
+         * @return {@link String} mit Aufbau {@code Aktien 1 )Unternehmen 1 - Aktie) | Kurs: 100.00 €}; im Fehlerfall {@code ''}
+         * @author Raphael Winkler
+         */
         @Override
         public String toString(Portfolioposition portfolioposition) {
             return portfolioposition != null ? portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
@@ -140,13 +167,29 @@ public class ConverterHelper {
                     + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
                     + " Stk.)" : "";
         }
-
+        /**
+         * Methode zur Umwandlung von Strings in Portfoliopositionen.
+         * @param id {link String} zur Konvertierung.
+         * @return {@code null}
+         * @author Raphael Winkler
+         */
         @Override
         public Portfolioposition fromString(String id) {
             return null;
         }
     };
 
+    /**
+     * Hilfsmethode zur Abfrage der aktuellen Periode.
+     *
+     * <p>
+     * Da Perioden fortlaufend erzeugt werden, ist die aktuelle Periode die Periode mit der höchsten Id.
+     * </p>
+     *
+     * @return aktuelle Periode
+     * @throws NoSuchElementException Exception, dass Periode nicht gefunden wurde.
+     * @author Raphael Winkler
+     */
     private Periode findAktuellePeriode() throws NoSuchElementException {
         return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
     }

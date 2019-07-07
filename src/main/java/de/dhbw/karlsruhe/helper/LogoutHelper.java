@@ -16,6 +16,8 @@ public class LogoutHelper {
      * Methode zum Logout des aktuellen Teilnehmers und Weiterleitung auf den Startbildschirm.
      *
      * @param screenController screenController des aufrufenden Screens
+     *
+     * @author Christian Fix
      */
     public static void logout(ScreenController screenController) {
         AktuelleSpieldaten.getInstanz().setBenutzer(null);

@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 public class EncryptionHelper {
 
     /**
-     * Methode zur Verschlüsselung eines Strings mittels MD5-Algorithmus.
+     * Methode zur Verschlüsselung eines {@link String Strings} mittels MD5-Algorithmus.
      *
      * @param input input im Klartext
      * @return Wert im MD5-Format; im Fehlerfall {@code null}.
