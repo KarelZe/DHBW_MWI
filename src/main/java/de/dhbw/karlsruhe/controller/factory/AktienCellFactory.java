@@ -7,11 +7,13 @@ import javafx.scene.control.ListView;
 import javafx.util.Callback;
 
 /**
- * Diese Klasse stellt Methoden für für die Überladung von ListViews mit eigenen {@code AktienCell} bereit.
- * Für Implementierung von CellFactories und eigenen Cell-Implementierungen siehe:
+ * Diese Klasse stellt Methoden für für die Überladung von ListViews mit eigenen {@link AktienCell AktienCells} bereit.
  *
+ * <p>
+ * Für Implementierung von CellFactories und eigenen Cell-Implementierungen siehe:
+ * <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#cell-factories">https://docs.oracle.com/</a>
+ * </p>
  * @author Markus Bilz
- * @see <a href="http://oracle.com">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#cell-factories</a>.
  */
 
 public class AktienCellFactory implements Callback<ListView<Wertpapier>, ListCell<Wertpapier>> {
@@ -19,8 +21,9 @@ public class AktienCellFactory implements Callback<ListView<Wertpapier>, ListCel
     /**
      * Methode zur Erzeugung neuer Cells eines ListViews.
      *
-     * @param param ListView, für das {@code AktienCell} erzeugt wird
+     * @param param ListView, für das {@link AktienCell} erzeugt wird
      * @return AktienCell
+     * @author Markus Bilz
      */
     @Override
     public ListCell<Wertpapier> call(ListView<Wertpapier> param) {

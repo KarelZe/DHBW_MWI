@@ -16,11 +16,11 @@ import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 public interface Bewertungsmodell {
 
     /**
-     * Berechnet den Kurs eines Wertpapiers für eine Periode.
+     * Berechnet den Kurs eines {@link Wertpapier Wertpapiers} für eine {@link Periode}.
      *
      * <p>
-     * Fachliche Grundlage ist das Fachkonzept Bewertung von Finanzanlagen und Verbuchung
-     * von Kapitalerträgen.
+     * Fachliche Grundlage ist das {@code Fachkonzept Bewertung von Finanzanlagen und Verbuchung
+     * von Kapitalerträgen}.
      * </p>
      *
      * <p>

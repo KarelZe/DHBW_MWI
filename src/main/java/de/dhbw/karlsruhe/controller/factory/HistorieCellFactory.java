@@ -7,19 +7,22 @@ import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 
 /**
- * Diese Klasse stellt Methoden für für die Überladung einer Table mit eigener {@code HistorieCell} bereit.
- * Für Implementierung von CellFactories und eigenen Cell-Implementierungen siehe:
+ * Diese Klasse stellt Methoden für für die Überladung einer Table mit eigener {@link HistorieCell HistorieCells} bereit.
  *
- * @author Markus Bilz
- * @see <a href="http://oracle.com">https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#cell-factories</a>.
+ * <p>
+ * Für Implementierung von CellFactories und eigenen Cell-Implementierungen siehe:
+ * <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#cell-factories">https://docs.oracle.com/</a>
+ * </p>
+ * @author Jan Carlos Riecken, Markus Bilz
  */
 public class HistorieCellFactory implements Callback<TableColumn<BenutzerPrintModel, Void>, TableCell<BenutzerPrintModel, Void>> {
 
     /**
      * Methode zur Erzeugung neuer Cells einer Table.
      *
-     * @param param ListView, für das {@code HistorieCell} erzeugt wird
+     * @param param ListView, für das {@link HistorieCell} erzeugt wird
      * @return HistorieCell
+     * @author Jan Carlos Riecken, Markus Bilz
      */
     @Override
     public TableCell<BenutzerPrintModel, Void> call(final TableColumn<BenutzerPrintModel, Void> param) {
