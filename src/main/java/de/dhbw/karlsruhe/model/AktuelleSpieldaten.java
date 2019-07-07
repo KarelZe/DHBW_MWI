@@ -26,16 +26,19 @@ public class AktuelleSpieldaten implements Observable {
      * Privater Konstruktor.
      * Implementierung des Singleton Patterns (GOF).
      *
-     * @author Markus Bilz
+     * @author Christian Fix
      */
     private AktuelleSpieldaten() {
     }
 
     /**
      * Methode gibt Instanz des Modells zurück.
-     * Implementierung als Singleton Pattern.
+     * <p>
+     * Implementierung als Singleton Pattern (GOF).
+     * </p>
      *
      * @return Instanz von {@link AktuelleSpieldaten}
+     * @author Christian Fix
      */
     public static AktuelleSpieldaten getInstanz() {
         if (instanz == null)
@@ -46,7 +49,12 @@ public class AktuelleSpieldaten implements Observable {
     /**
      * Methode zum Registrieren eines Listener.
      *
+     * <p>
+     * Implementierung des Observer Patterns (GOF).
+     * </p>
+     *
      * @param listener Listener zur Benachrichtigung
+     * @author Markus Bilz
      */
     @Override
     public void addListener(InvalidationListener listener) {
@@ -56,7 +64,12 @@ public class AktuelleSpieldaten implements Observable {
     /**
      * Methode zum Entfernen eines Listener.
      *
+     * <p>
+     * Implementierung des Observer Patterns (GOF).
+     * </p>
+     *
      * @param listener Listener zum Entfernen
+     * @author Markus Bilz
      */
     @Override
     public void removeListener(InvalidationListener listener) {
@@ -65,6 +78,12 @@ public class AktuelleSpieldaten implements Observable {
 
     /**
      * Methode zum Benachrichtigen der Listener.
+     *
+     * <p>
+     * Implementierung des Observer Patterns (GOF).
+     * </p>
+     *
+     * @author Markus Bilz
      */
     private void notifyListeners() {
         for (InvalidationListener name : alleListener) {

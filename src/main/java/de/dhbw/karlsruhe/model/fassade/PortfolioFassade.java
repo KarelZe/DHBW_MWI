@@ -18,8 +18,14 @@ import static java.util.stream.Collectors.*;
 /**
  * Die Klasse bietet einen einfachen Zugriff auf das {@link BuchungRepository}, indem {@link Buchung Buchungen}
  * zu {@link Portfolioposition Portfoliopositionen} aggregiert werden.
+ *
+ * <p>
  * Verwendung ist in Verbindung mit {@link Portfolioposition} sinnvoll.
+ * </p>
+ *
+ * <p>
  * Implementierung erfolgt Facade-Patterns (GOF) in Verbindung mit dem Singleton-Patterns (GOF).
+ * </p>
  *
  * @author Markus Bilz, Raphael Winkler
  */
@@ -67,7 +73,7 @@ public class PortfolioFassade {
      *
      * @param teilnehmerId Id des Depotinhabers
      * @return Saldo des Depots
-     * @author Markus Bilz
+     * @author Raphael Winkler
      */
     public double getDepotSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
@@ -79,7 +85,7 @@ public class PortfolioFassade {
      * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
      *
      * @param teilnehmerId Id des Festgeldinhabers
-     * @return Saldo des Depots.
+     * @return Saldo des Festgelds.
      * @author Markus Bilz
      */
     public double getFestgeldSaldo(long teilnehmerId) {
@@ -87,27 +93,14 @@ public class PortfolioFassade {
         return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungFestgeld).sum();
     }
 
-    //Todo kommentieren Raphael
+    // TODO: Raphael
     public double getEtfSaldo(long teilnehmerId, long periodenId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
         return buchungenTeilnehmer.stream()
                 .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF)
                 .mapToDouble(Buchung::getVeraenderungDepot).sum();
-/*        buchungenTeilnehmer = buchungenTeilnehmer.stream().filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF).collect(toList());
-        long vorhandeneStueckzahl = 0;
-        for (Buchung b: buchungenTeilnehmer) {
-            if(b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_KAUFEN) {
-                vorhandeneStueckzahl += b.getStueckzahl();
-            } else if(b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN){
-                vorhandeneStueckzahl -= b.getStueckzahl();
-            }
-        }
-        return vorhandeneStueckzahl *
-                KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId,
-                        WertpapierRepository.getInstanz().findByWertpapierArt(WertpapierArt.WERTPAPIER_ETF).getId())
-                        .orElseThrow(NoSuchElementException::new).getKurs();*/
     }
-
+    // TODO: Raphael
     public double getAktienSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
         buchungenTeilnehmer = buchungenTeilnehmer.stream()
@@ -115,7 +108,7 @@ public class PortfolioFassade {
         return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungDepot).sum();
 
     }
-
+    // TODO: Raphael
     public double getAnleihenSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
         return buchungenTeilnehmer.stream()
@@ -129,7 +122,7 @@ public class PortfolioFassade {
      *
      * @param teilnehmerId Id des Teilnehmers
      * @return Gesamtsaldo des Benutzer Engagements
-     * @author Markus Bilz
+     * @author Raphael Winkler
      */
     public double getGesamtSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
@@ -185,7 +178,7 @@ public class PortfolioFassade {
      * Neben aktiven Festgeld-Positionen werden auch zwischenzeitlich veräußerte Positionen ausgewiesen.
      *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
+     * @param periodenId  Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Festgeld-Positionen
      * @author Markus Bilz
      */
@@ -202,7 +195,7 @@ public class PortfolioFassade {
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Portfolio-Positionen
-     * @author Markus Bilz
+     * @author Markus Bilz, Raphael Winkler
      */
     public List<Portfolioposition> getPortfoliopositionen(long teilnehmerId, long periodenId) {
 
@@ -216,6 +209,7 @@ public class PortfolioFassade {
 
     }
 
+    // TODO: Raphael Winkler
     public List<Portfolioposition> getPortfoliopositionenStueckzahl(long teilnehmerId, long periodenId) {
 
         BuchungRepository buchungRepository = BuchungRepository.getInstanz();
@@ -231,26 +225,6 @@ public class PortfolioFassade {
 
         return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
     }
-
-/*    public List<Portfolioposition> getKaufPortfoliopositionen(long teilnehmerId, long periodenId) {
-        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
-        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        buchungen = buchungen.stream().filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_KAUFEN).collect(toList());
-        Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
-        // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
-        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
-
-    }
-
-    public List<Portfolioposition> getVerkaufPortfoliopositionen(long teilnehmerId, long periodenId) {
-        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
-        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        buchungen = buchungen.stream().filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN).collect(toList());
-        Map<Wertpapier, Double> buchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId).collect(groupingBy(Buchung::getWertpapier, summingDouble(Buchung::getVolumen)));
-        // Konvertiere Map mit Summen je Wertpapier in List vom Typ Portfolioposition
-        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
-
-    }*/
 
     /**
      * // TODO: Raphael kommentieren

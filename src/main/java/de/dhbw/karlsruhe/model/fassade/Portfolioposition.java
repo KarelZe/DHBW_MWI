@@ -3,21 +3,25 @@ package de.dhbw.karlsruhe.model.fassade;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 /**
- * Wrapper um Wertapapierklasse zum vereinfachten Handling von Wertpapier-Objekten für den Handel von Wertpapieren.
+ * Wrapper um {@link Wertpapier} zum vereinfachten Handling von {@link Wertpapier}-Objekten für den Handel.
+ *
+ * <p>
  * Eine Verwendung ist insbesondere in Verbindung mit {@link PortfolioFassade} sinnvoll.
+ * </p>
  *
  * @author Markus Bilz
  */
 public class Portfolioposition {
 
-    Wertpapier wertpapier;
-    double bezugsgroesse;
+    private Wertpapier wertpapier;
+    private double bezugsgroesse;
 
     /**
      * Kontruktor für die Erzeugung einer {@link Portfolioposition}.
      *
      * @param wertpapier    Wertpapier der {@link Portfolioposition}
      * @param bezugsgroesse Stückzahl oder Nennwert der Wertpapierposition
+     * @author Markus Bilz
      */
     public Portfolioposition(Wertpapier wertpapier, double bezugsgroesse) {
         this.wertpapier = wertpapier;
