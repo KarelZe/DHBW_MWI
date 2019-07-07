@@ -13,7 +13,10 @@ import javafx.scene.control.TableView;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ *Klasse ist Controller für die Historien Ansicht
+ * @author Jan Carlos Riecken
+ */
 public class TeilnehmerHistorieController implements ControlledScreen {
     public static Long teilnehmerID;
     @FXML
@@ -30,6 +33,10 @@ public class TeilnehmerHistorieController implements ControlledScreen {
     TableColumn<HistorieViewModel, Double> tblColUnternehmen;
     private ScreenController screenController;
 
+    /**
+     *Initialisierung
+     * @author Jan Carlos Riecken
+     */
     @FXML
     private void initialize() {
         // Wenn ein Spieler angemeldet ist,  setzt ihn als anzuzeigende TeilnehmerID

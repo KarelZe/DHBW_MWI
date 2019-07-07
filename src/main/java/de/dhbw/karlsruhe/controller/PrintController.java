@@ -23,6 +23,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ *Klasse ist Kontroller der Druckansicht
+ * Der Nutzer kann hier den angezeigten Inhalt über den Windows dialog drucken oder
+ * Der Nutzer kann hier den Inhalt der Tabelle als Excel aud den Desktop exportieren
+ * @author Jan Carlos Riecken
+ */
 public class PrintController implements ControlledScreen {
     public GridPane grdTeilnehmer;
     @FXML
@@ -93,7 +99,10 @@ public class PrintController implements ControlledScreen {
         screenController.loadScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE, ScreensFramework.SCREEN_TEILNEHMER_HISTORIE_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
     }
-
+    /**
+     *Methode ist mit Button verknüpft und führt createCSV Methode aus
+     * @author Jan Carlos Riecken
+     */
     public void doCSV(){
         try {
             createCSV();
@@ -110,6 +119,11 @@ public class PrintController implements ControlledScreen {
         TeilnehmerHistorieController.teilnehmerID = id;
         doHistorie();
     }
+
+    /**
+     *Erstellt eine CSV Datei aus einer Arraylist von Benutzerprintmodel und speichert diese auf dem Desktop
+     * @author Jan Carlos Riecken
+     */
     public void createCSV() throws IOException {
         List<Benutzer> benutzer = BenutzerRepository.getInstanz().findAll();
         List<BenutzerPrintModel> benutzerPrintModel = benutzer.stream().map(BenutzerPrintModel::new).collect(Collectors.toList());
