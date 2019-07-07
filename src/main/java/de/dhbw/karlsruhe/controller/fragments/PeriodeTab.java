@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -37,8 +36,6 @@ public class PeriodeTab extends Tab {
     @FXML
     public Button btnBewerten, btnVerbuchen;
     @FXML
-    public Pane grpPeriode;
-    @FXML
     private Label lblAktie, lblAnleihe;
 
     private ObservableList<Kurs> anleiheObserverableList = FXCollections.observableArrayList();
@@ -49,7 +46,7 @@ public class PeriodeTab extends Tab {
     private Periode periode;
 
     /**
-     * Konstruktor für die Erzeugung eines {@code PeriodeTab}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung eines {@link PeriodeTab}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      *
      * @param text    Reitername des Tabs
@@ -103,6 +100,7 @@ public class PeriodeTab extends Tab {
 
     /**
      * Diese Methode implementiert eine Speicherfunktionalität für die Kurse der Periode.
+     * @author Markus Bilz
      */
     private void doBewerten() {
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
@@ -151,6 +149,7 @@ public class PeriodeTab extends Tab {
 
     /**
      * Diese Methode erlaubt die Verbuchung und die Bewertung der Periode.
+     * @author Markus Bilz
      */
     private void doVerbuchen() {
 
@@ -177,6 +176,10 @@ public class PeriodeTab extends Tab {
 
     }
 
+    /**
+     * Methode, um UI Elemente inaktiver Perioden zu deaktiveren / auszugrauen.
+     * @author Markus Bilz
+     */
     private void setContentDisabled() {
         vboxPeriode.setDisable(true);
         lblAktie.setDisable(true);

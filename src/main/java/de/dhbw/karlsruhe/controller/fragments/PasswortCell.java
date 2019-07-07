@@ -40,7 +40,11 @@ public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
             setGraphic(btnPasswort);
         }
     }
-
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     * @author Christian Fix
+     */
     @FXML
     private void initialize() {
         btnPasswort.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt

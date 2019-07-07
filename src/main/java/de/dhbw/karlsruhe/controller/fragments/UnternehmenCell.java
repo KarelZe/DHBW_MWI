@@ -18,7 +18,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     private Button btnLoeschen;
 
     /**
-     * Konstruktor für die Erzeugung einer {@code UnternehmenCell}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung einer {@link UnternehmenCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      */
     public UnternehmenCell() {
@@ -35,7 +35,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     }
 
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Unternehmen}.
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Unternehmen}.
      * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
      * Unternehmensobjekt verändert oder anderweitig das UI atkualisiert werden muss.
      * Sie soll nicht durch den Programmierer aufgerufen werden und wird automatisch durch das System aufgerufen.

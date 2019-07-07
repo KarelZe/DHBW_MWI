@@ -29,7 +29,16 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Void}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
+     * Kursobjekt verändert oder anderweitig das UI aktualisiert werden muss.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     * Sofern das Kursobjekt {@code null} ist, wird ausschließlich eine leere Zeile angezeigt.
+     *
+     * @param item  Functor
+     * @param empty boolean, ob Zeile leer ist.
+     */
     @Override
     public void updateItem(Void item, boolean empty) {
         super.updateItem(item, empty);
@@ -39,7 +48,11 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
             setGraphic(btnHistorie);
         }
     }
-
+    /**
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     * @author Jan Carlos Riecken
+     */
     @FXML
     private void initialize() {
         btnHistorie.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
