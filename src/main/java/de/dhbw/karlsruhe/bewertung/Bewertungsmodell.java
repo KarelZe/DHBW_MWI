@@ -4,20 +4,34 @@ import de.dhbw.karlsruhe.model.jpa.Periode;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 
 /**
- * Factory zur Erzeugung von Bewertungsmodellen. Implementierung des Factory-Patterns (GOF).
+ * Gemeinsame Schnittstelle aller Bewertungsmodelle.
+ *
+ * <p>Bewertungsmodelle werden in der Anwendung benötigt, um den Marktwert und damit die
+ * rechnerischen Kurse von Finanzanlagen wie Anleihen und ETFs zu bestimmen.</p>
+ *
+ * <p>Implementierung folgt dem Factory-Patterns (GOF).</p>
  *
  * @author Markus Bilz
  */
 public interface Bewertungsmodell {
 
     /**
-     * Implementierung des Factory Patterns (GOF).
-     * Methode dient zur Berechnung eines Kurses für eine Periode.
-     * Fachliche Grundlage ist das Fachkonzept Bewertung von Finanzanlagen und Verbuchung von Kapitalerträgen
+     * Berechnet den Kurs eines Wertpapiers für eine Periode.
+     *
+     * <p>
+     * Fachliche Grundlage ist das Fachkonzept Bewertung von Finanzanlagen und Verbuchung
+     * von Kapitalerträgen.
+     * </p>
+     *
+     * <p>
+     * Implementierung folgt dem Factory Patterns (GOF).
+     * </p>
      *
      * @param periode    Periode, für die eine Bewertung erfolgen soll.
      * @param wertpapier Wertpapier, das zu bewerten ist.
      * @return Kurs des Wertpapiers
+     *
+     * @author Markus Bilz
      */
     double bewerte(Periode periode, Wertpapier wertpapier);
 

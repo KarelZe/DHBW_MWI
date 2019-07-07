@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Diese Klasse enthält Methoden zur Verbuchung des Periodenabschlusses.
+ * Diese Klasse enthält Methoden zur Bewertung und Verbuchung des Periodenabschlusses.
  *
  * @author Markus Bilz
  */
@@ -24,7 +24,10 @@ public class Periodenabschluss {
     /**
      * Diese Methode führt einen Periodenabschluss durch. Dies umfasst einerseits die Bewertung aller Wertpapiere und
      * andererseits die Anlage aller Periodenabschluss-Transaktionen.
-     * Siehe hierzu Fachkonzept Bewertung von Finanzanlagen Kap. 3 ff.
+     *
+     * <p>
+     * Siehe hierzu {@code Fachkonzept Bewertung von Finanzanlagen und Verbuchung von Kapitalerträgen}.
+     * </p>
      *
      * @param periode abzuschließende Periode.
      */
@@ -34,10 +37,17 @@ public class Periodenabschluss {
     }
 
     /**
-     * Diese Methode bewertet die Wertpapiere einer Periode. Es werden ausschließlich Wertpapierarten, die eine Bewertung
-     * erfordern, bewertet. Das heißt, kein Festgeld und auch keine Aktien.
-     * Siehe hierzu Fachkonzept Bewertung von Finanzanlagen Kap. 5 und Teilkapitel.
+     * Diese Methode bewertet die Wertpapiere einer Periode. Es werden ausschließlich Wertpapierarten,
+     * die eine Bewertung erfordern, bewertet. Das heißt, kein Festgeld und auch keine Aktien, da hierfür
+     * bereits Kurse vorliegen.
+     *
+     * <p>
+     * Siehe hierzu {@code Fachkonzept Bewertung von Finanzanlagen und Verbuchung von Kapitalerträgen}.
+     * </p>
+     *
+     * <p>
      * Die Umsetzung erfolgt anhand des Factory Patterns (GOF).
+     * </p>
      *
      * @param periode zu bewertende Periode
      */
@@ -60,7 +70,7 @@ public class Periodenabschluss {
 
     /**
      * Diese Methode erstellt alle Transaktionen, die für den Periodenabschluss erforderlich sind.
-     * Diese umfassen die Verbuchung von Zinsen auf Anleihen und Festgelder.
+     * Diese umfassen die Verbuchung von Zinsen auf Anleihen und Festgeldern.
      *
      * @param periode zu verbuchende Periode
      */
