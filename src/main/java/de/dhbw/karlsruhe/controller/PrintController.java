@@ -8,11 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.print.*;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +70,7 @@ public class PrintController implements ControlledScreen {
         // Wird Trotzdem noch verändert
 
         Node node = tvDruckansicht;
+
         /**
          Alle Veränderungen an der Node führen auch dazu, dass die node in der Benutzeroberfläche verändert wird
          *//*
@@ -87,8 +94,62 @@ public class PrintController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_TEILNEHMER_HISTORIE);
     }
 
+    public void doCSV(){
+        try {
+            createCSV();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Excel Datei erstellt");
+            alert.setContentText("Die Datei befindet sich auf dem Desktop");
+            alert.showAndWait();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void showHistoriewithID(long id) {
         TeilnehmerHistorieController.teilnehmerID = id;
         doHistorie();
+    }
+    public void createCSV() throws IOException {
+        List<Benutzer> benutzer = BenutzerRepository.getInstanz().findAll();
+        List<BenutzerPrintModel> benutzerPrintModel = benutzer.stream().map(BenutzerPrintModel::new).collect(Collectors.toList());
+        FileWriter writer;
+        try {
+            writer = new FileWriter(System.getProperty("user.home") + "/Desktop"+"/Bestenliste.csv"); //Speichert immer auf dem Desktop (Achtung bei der verwendung von Onedrive)
+        }catch (FileNotFoundException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Auf Bestenlisete.csv kann nicht zugegriffen werden");
+            alert.setContentText("Bitte schlie\u00dfen sie die Datei Bestenliste.csv");
+            alert.showAndWait();
+            try {
+                createCSV();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+            return;
+        }
+
+        List<String> row = new ArrayList<>();
+
+        //Header
+        row.add("Vorname");
+        row.add("Nachname");
+        row.add("Portfoliowert");
+        String header = row.stream().collect(Collectors.joining(";")); //Delimiter für deutsches CSV format ist ; und nicht ,
+        writer.write(header);
+        writer.write("\n"); // newline
+
+
+        for(BenutzerPrintModel s : benutzerPrintModel) {
+            row.clear();
+            row.add(s.getVorname());
+            row.add(s.getNachname());
+            row.add(String.valueOf(s.getPortfoliowert()));
+            String collect = row.stream().collect(Collectors.joining(";")); //Delimiter für deutsches CSV format ist ; und nicht ,
+            writer.write(collect);
+            System.out.println(collect);
+            writer.write("\n"); // newline
+        }
+        writer.close();
     }
 }
