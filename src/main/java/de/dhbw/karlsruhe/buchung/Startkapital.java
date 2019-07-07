@@ -6,7 +6,11 @@ import de.dhbw.karlsruhe.model.jpa.*;
 
 import java.util.Optional;
 
-
+/**
+ * Konkrete Implementierung der Buchungsart für die Gutschrift von Startkapital.
+ *
+ * @author Christian Fix
+ */
 public class Startkapital implements Buchungsart {
 
     @Override

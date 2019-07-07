@@ -17,6 +17,8 @@ public class BuchungsFactory {
      * @param transaktionsArt TransaktionsArt der Buchung
      * @return Buchungsart abhängig der TransaktionArt
      * @throws NoSuchElementException Exception, falls TransaktionsArt nicht implementiert ist.
+     *
+     * @author Markus Bilz
      */
     public Buchungsart create(final long transaktionsArt) throws NoSuchElementException {
 

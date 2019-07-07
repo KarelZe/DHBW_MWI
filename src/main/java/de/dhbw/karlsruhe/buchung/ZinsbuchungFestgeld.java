@@ -14,8 +14,8 @@ import java.util.Optional;
 public class ZinsbuchungFestgeld implements Buchungsart {
     /**
      * Methode zur Erzeugung von Zinsbuchungen aus Festgeldern.
-     * Die Verbuchung von Zinsgutschriften erfolgt gemäß Fachkonzept Bewertung und Verbuchung
-     * von Kapitelerträgen Kapitel 5.2 beschrieben.
+     * Die Verbuchung von Zinsgutschriften erfolgt gemäß {@code Fachkonzept Bewertung und Verbuchung
+     * von Kapitelerträgen} beschrieben.
      *
      * @param periode       Periode, in der die Transaktion erfolgt
      * @param benutzer      Benutzer, auf dessen Namen die Buchung erfolgt
@@ -30,7 +30,7 @@ public class ZinsbuchungFestgeld implements Buchungsart {
         buchung.setBenutzer(benutzer);
         buchung.setWertpapier(wertpapier);
         double betrag = bezugsgroesse * periode.getKapitalmarktzinssatz();
-        //Zinsbuchung führt zu keiner Veränderung des Bestands an Anleihen
+        //Zinsbuchung führt zu keiner Veränderung des Festgeldguthabens
         buchung.setVolumen(0);
         buchung.setVeraenderungZahlungsmittelkonto(+betrag);
 

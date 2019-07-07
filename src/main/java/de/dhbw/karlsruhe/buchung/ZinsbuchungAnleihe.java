@@ -14,8 +14,8 @@ import java.util.Optional;
 public class ZinsbuchungAnleihe implements Buchungsart {
     /**
      * Methode zur Erzeugung von Zinsbuchungen aus Floating Rate Notes.
-     * Die Verbuchung von Zinsgutschriften erfolgt gemäß Fachkonzept Bewertung und Verbuchung
-     * von Kapitelerträgen Kapitel 5.3 beschrieben.
+     * Die Verbuchung von Zinsgutschriften erfolgt gemäß {@code Fachkonzept Bewertung und Verbuchung
+     * von Kapitelerträgen} Kapitel 5.3 beschrieben.
      *
      * @param periode       Periode, in der die Transaktion erfolgt
      * @param benutzer      Benutzer, auf dessen Namen die Buchung erfolgt

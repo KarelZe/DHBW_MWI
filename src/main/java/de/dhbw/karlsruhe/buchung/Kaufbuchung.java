@@ -6,9 +6,22 @@ import de.dhbw.karlsruhe.model.jpa.*;
 
 import java.util.Optional;
 
-
+/**
+ * Konkrete Implementierung der Buchungsart für den Kauf von Wertpapieren.
+ *
+ * @author Raphael Winkler
+ */
 public class Kaufbuchung implements Buchungsart {
-
+    /**
+     * Methode zur Erzeugung von Kaufbuchungen für Aktien, Anleihen, ETFs und Festgelder.
+     *
+     * @param periode       Periode, in der die Transaktion erfolgt
+     * @param benutzer      Benutzer, auf dessen Namen die Buchung erfolgt
+     * @param wertpapier    Wertpapier, das in Buchung involviert ist.
+     * @param bezugsgroesse Bezugsgroesse, z. B. Nominalvolumen.
+     * @return Kaufbuchung des Wertpapiers
+     * @author Raphael Winkler
+     */
     @Override
     public Buchung create(Periode periode, Benutzer benutzer, Wertpapier wertpapier, double bezugsgroesse) throws UnsupportedOperationException {
         Buchung buchung = new Buchung();
