@@ -12,7 +12,12 @@ import javafx.scene.control.TableView;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller für Passwort zurücksetzen
+ * @author Christian Fix
+ */
 public class TeilnehmerUebersichtController implements ControlledScreen {
+
     @FXML
     TableView<BenutzerViewModel> tvTeilnehmer;
     @FXML
@@ -24,10 +29,19 @@ public class TeilnehmerUebersichtController implements ControlledScreen {
     @FXML
     TableColumn<BenutzerViewModel, Long> tblColPasswort;
 
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
     }
 
+    /**
+     * Initialisierung
+     * @author Christian Fix
+     */
     @FXML
     private void initialize() {
         List<Benutzer> benutzer = BenutzerRepository.getInstanz().findAll();

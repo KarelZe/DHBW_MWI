@@ -20,8 +20,11 @@ import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+/**
+ * Controller für Finanzanlage kaufen
+ * @author Raphael Winkler
+ */
 public class WertpapierKaufenController implements ControlledScreen {
-
 
     private ScreenController screenController;
 
@@ -62,6 +65,10 @@ public class WertpapierKaufenController implements ControlledScreen {
         this.screenController = screenPage;
     }
 
+    /**
+     * Initialisierung
+     * @author Raphael Winkler
+     */
     @FXML
     private void initialize() {
         ArrayList<Wertpapier> wertpapiere = WertpapierRepository.getInstanz().findAll().stream()
@@ -72,23 +79,46 @@ public class WertpapierKaufenController implements ControlledScreen {
         teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
         lbZahlungsmittelSaldo.setText(String.format("%.2f", teilnehmerZahlungsmittelkontoSaldo));
         lblOrderGebuehren.setText("Ordergeb\u00fchren (+ " + findAktuelleOrdergebuehr(findAktuellePeriode()) + " %):");
-
-
     }
 
+    /**
+     * Ermittelt die aktuelle Periode
+     * @return Perioden-Objekt
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private Periode findAktuellePeriode() throws NoSuchElementException {
         return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
-
     }
 
+    /**
+     * Ermittelt die aktuell gültige Ordergebühr
+     * @param aktuellePeriode aktuelle Periode
+     * @return Ordergebühr
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private double findAktuelleOrdergebuehr(Periode aktuellePeriode) throws NoSuchElementException {
         return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr() * 100;
     }
 
+    /**
+     * Ermittelt den Kurs eines übergebenen Wertpapiers
+     * @param aktuellePeriode aktuelle Periode
+     * @param selectedWertpapier Wertpapier, für das der Kurs ermittelt werden soll
+     * @return Kurs
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private double findWertpapierKursValue(Periode aktuellePeriode, Wertpapier selectedWertpapier) throws NoSuchElementException {
         return KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(aktuellePeriode.getId(), selectedWertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs();
     }
 
+    /**
+     * Event-Handler für Kaufen-Button
+     * @param event Event
+     * @author Raphael Winkler
+     */
     @FXML
     private void doWertpapierKaufen(ActionEvent event) {
         Wertpapier selectedWertpapier;
@@ -166,6 +196,10 @@ public class WertpapierKaufenController implements ControlledScreen {
 
     }
 
+    /**
+     * Berechnet die Kosten einer Order
+     * @author Raphael Winkler
+     */
     @FXML
     private void doBerechneKosten() {
         Wertpapier selectedWertpapier;

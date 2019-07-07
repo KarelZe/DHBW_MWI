@@ -82,6 +82,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     /**
      * Methode zur Initialisierung der ListView mit Unternehmen, sofern vorhanden.
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {
@@ -96,6 +97,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
      * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
      *
      * @param screenPage Controller des Screens
+     * @author Markus Bilz
      */
     @Override
     public void setScreenParent(ScreenController screenPage) {
@@ -104,6 +106,7 @@ public class UnternehmenAnlegenController implements ControlledScreen {
 
     /**
      * Methode zur Anlage neuer Unternehmen.
+     * @author Markus Bilz
      */
     public void doHinzufuegen() {
         unternehmenObserverableList.add(new Unternehmen());

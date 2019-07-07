@@ -16,6 +16,10 @@ import javafx.scene.control.TextField;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller für Spiel verwalten (Spiel laden + löschen)
+ * @author Maximilian Schwaab
+ */
 public class SpielVerwaltenController implements ControlledScreen {
 
     @FXML
@@ -30,6 +34,10 @@ public class SpielVerwaltenController implements ControlledScreen {
 
     private SpielRepository spielRepository = SpielRepository.getInstanz();
 
+    /**
+     * Initialisierung
+     * @author Maximilian Schwaab
+     */
     @FXML
     private void initialize() {
         List<Spiel> alleSpiele = spielRepository.findAll();
@@ -39,6 +47,11 @@ public class SpielVerwaltenController implements ControlledScreen {
         cmbSpiele.setConverter(new ConverterHelper().getSpieleConverter());
     }
 
+    /**
+     * Eventhandler für Speichern-Button
+     * @param event Event
+     * @author Maximilian Schwaab
+     */
     @FXML
     private void doSelektiertesSpielSpeichern(ActionEvent event) {
         Spiel altesSpiel = AktuelleSpieldaten.getInstanz().getSpiel();
@@ -54,11 +67,10 @@ public class SpielVerwaltenController implements ControlledScreen {
         }
     }
 
-    //ToDo: Nach Löschvorgang aktivies Spiel automatisch neu setzen?
-
     /**
      * Löscht das vom Spielleiter ausgewählt Spiel aus der Datenbank
      * Die dazugehörigen Einträge, wie Benutzer und Unternehmen des entsprechenden Spiels werden ebenfalls gelöscht
+     * @author Maximilian Schwaab
      */
     @FXML
     private void doSelektiertesSpielLoeschen() {

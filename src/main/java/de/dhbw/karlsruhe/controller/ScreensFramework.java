@@ -311,7 +311,7 @@ public class ScreensFramework extends Application implements InvalidationListene
     }
 
     /**
-     * Methode zum Durchführen eines Log-Outs.
+     * Methode zum Durchführen eines Logouts.
      */
     private void doLogout() {
         AktuelleSpieldaten.getInstanz().setBenutzer(null);

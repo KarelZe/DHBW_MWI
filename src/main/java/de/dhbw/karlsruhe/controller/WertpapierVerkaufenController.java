@@ -24,8 +24,11 @@ import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+/**
+ * Controller für Finanzanlagen verkaufen
+ * @author Raphael Winkler
+ */
 public class WertpapierVerkaufenController implements ControlledScreen {
-
 
     private ScreenController screenController;
 
@@ -61,11 +64,20 @@ public class WertpapierVerkaufenController implements ControlledScreen {
 
     private double teilnehmerZahlungsmittelkontoSaldo;
 
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
+    /**
+     * Initialisierung
+     * @author Raphael Winkler
+     */
     @FXML
     private void initialize() {
         ArrayList<Portfolioposition> portfoliopositionen = PortfolioFassade.getInstanz().getPortfoliopositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId()).stream()
@@ -80,19 +92,45 @@ public class WertpapierVerkaufenController implements ControlledScreen {
 
     }
 
+    /**
+     * Ermittelt die aktuelle Periode
+     * @return Perioden-Objekt
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private Periode findAktuellePeriode() throws NoSuchElementException {
         return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
     }
 
+    /**
+     * Ermittelt die aktuell gültige Ordergebühr
+     * @param aktuellePeriode aktuelle Periode
+     * @return Ordergebühr
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private double findAktuelleOrdergebuehr(Periode aktuellePeriode) throws NoSuchElementException {
         return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr() * 100;
     }
 
+    /**
+     * Ermittelt den Kurs eines übergebenen Wertpapiers
+     * @param aktuellePeriode aktuelle Periode
+     * @param selectedWertpapier Wertpapier, für das der Kurs ermittelt werden soll
+     * @return Kurs
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private double findWertpapierKursValue(Periode aktuellePeriode, Wertpapier selectedWertpapier) throws NoSuchElementException {
         return KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(aktuellePeriode.getId(), selectedWertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs();
     }
 
+    /**
+     * Event-Handler für Verkaufen-Button
+     * @param event Event
+     * @author Raphael Winkler
+     */
     @FXML
     private void doWertpapierVerkaufen(ActionEvent event) {
         Wertpapier selectedWertpapier;
@@ -161,6 +199,10 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         }
     }
 
+    /**
+     * Berechnet den Erlös einer Order
+     * @author Raphael Winkler
+     */
     @FXML
     private void doBerechneErloes() {
         Wertpapier selectedWertpapier;
@@ -201,8 +243,5 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         lblOrdervolumenDisplay.setText(String.format("%.2f", orderVolumen) + "\u20ac");
         lblOrderGebuehrenDisplay.setText(String.format("%.2f", orderVolumen * aktuelleOrderGebuehr / 100) + "\u20ac");
         lblGesamtErloesDisplay.setText(String.format("%.2f", orderGesamtErloes) + "\u20ac");
-
     }
-
-
 }

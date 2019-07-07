@@ -17,6 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller für das Anlegen eines Spiels
+ * @author Christian Fix
+ */
 public class SpielAnlegenController implements ControlledScreen {
 
     @FXML
@@ -37,7 +41,6 @@ public class SpielAnlegenController implements ControlledScreen {
 
     private TransaktionsArtRepository transaktionsArtRepository = TransaktionsArtRepository.getInstanz();
 
-
     /**
      * Eventhandler für Spiel-Anlagen-Button
      *
@@ -53,8 +56,6 @@ public class SpielAnlegenController implements ControlledScreen {
             if (startkapital > 0.0) {
                 this.neuesSpiel.setStartkapital(startkapital);
 
-                //Methode macht noch nicht das was es soll
-                this.textAnzeigen();
             } else { //Startkapital <= 0.0
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Spiel anlegen");
@@ -85,11 +86,13 @@ public class SpielAnlegenController implements ControlledScreen {
             alert.setContentText("Bitte geben Sie eine Zahl ein.");
             alert.showAndWait();
         }
-
-
     }
 
-
+    /**
+     * Setzt den screenController
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
@@ -112,12 +115,6 @@ public class SpielAnlegenController implements ControlledScreen {
         insertWertpapiereInDB();
         insertFirstPeriodeInDB();
     }
-
-    private void textAnzeigen() {
-        labelTxt.setVisible(true);
-        labelTxt.setText("Das Spiel wird erstellt...");
-    }
-
 
     /**
      * Legt Rollen in der Datenbank an, wenn sie noch nicht existieren (z.B. bei Neuaufsetzung der Datenbank)
@@ -245,8 +242,6 @@ public class SpielAnlegenController implements ControlledScreen {
         }
     }
 
-    //TODO: UnternehmensID von Benutzer ist Null, gibt das eventuell irgendwo NullpointerExceptions?
-
     /**
      * Fügt einen Spielleiteraccount in der Datenbank ein
      *
@@ -343,6 +338,10 @@ public class SpielAnlegenController implements ControlledScreen {
         KursRepository.getInstanz().save(kurse);*/
     }
 
+    /**
+     * Initialisierung
+     * @author Markus Bilz
+     */
     @FXML
     private void initialize() {
         txtStartkapital.setTextFormatter(TextFormatHandler.currencyFormatter());

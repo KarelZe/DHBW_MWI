@@ -23,7 +23,6 @@ import java.util.ArrayList;
  *
  * @author Max Schwaab
  */
-
 public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     @FXML
@@ -42,6 +41,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
      * Vorraussetzung: Bestimmte Kriterien sind erfüllt
      *
      * @param event Event des aufrufenden Buttons
+     * @author Max Schwaab
      */
     @FXML
     private void aktualisieren(ActionEvent event) {
@@ -116,6 +116,7 @@ public class TeilnehmerBearbeitenController implements ControlledScreen {
 
     /**
      * Initialisiert die Bearbeitung
+     * @author Max Schwaab
      */
     @FXML
     private void initialize() {

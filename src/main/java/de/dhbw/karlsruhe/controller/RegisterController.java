@@ -23,10 +23,9 @@ import java.util.Optional;
 /**
  * Ermöglicht die selbstständige Registrierung eines Teilnehmers
  * Für die Registrierung müssen Vor-, Nachname, Unternehmen und Passwort durch den Benutzer eingegeben werden
+ * @author Maximilian Schwaab
  */
-
 public class RegisterController implements ControlledScreen {
-
 
     @FXML
     private TextField txtBenutzername, txtPasswort, txtPasswortCheck, txtVorname, txtNachname;
@@ -41,6 +40,7 @@ public class RegisterController implements ControlledScreen {
      * Der Benutzer wird über seinen Benutzernamen informiert, der sich aus <Vorname>.<Nachname> zusammensetzt
      *
      * @param event Event des aufrufenden Buttons
+     * @author Maximilian Schwaab
      */
     @FXML
     private void doRegister(ActionEvent event) {
@@ -148,6 +148,7 @@ public class RegisterController implements ControlledScreen {
 
     /**
      * Initialisiert die Registrierung
+     * @author Maximilian Schwaab
      */
     @FXML
     private void initialize() {

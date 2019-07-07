@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
  *
  * @author Markus Bilz
  */
-
 public class WertpapierAnlegenController implements ControlledScreen {
 
     @FXML
@@ -105,6 +104,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
     /**
      * Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen für die
      * spätere Verwendung. Sie erzeugt dynamisch alle Einträge ein
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {
@@ -138,6 +138,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
     /**
      * Methode zum Hinzfügen einer neuen Anleiheposition in die ListView.
      * Das ListView, dem die Anleihe hinzugefügt wird, wird dann automatisch aktualisiert.
+     * @author Markus Bilz
      */
     public void doHinzufuegenAnleihe() {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_ANLEIHE, WertpapierArt.WERTPAPIER_ANLEIHE_NAME);
@@ -150,6 +151,7 @@ public class WertpapierAnlegenController implements ControlledScreen {
     /**
      * Methode zum Hinzufügen einer neuen Aktienposition in die ListView.
      * Das ListView, dem die Aktie hinzugefügt wird, wird dann automatisch aktualisiert.
+     * @author Markus Bilz
      */
     public void doHinzufuegenAktie() {
         WertpapierArt wpA = new WertpapierArt(WertpapierArt.WERTPAPIER_AKTIE, WertpapierArt.WERTPAPIER_AKTIE_NAME);
