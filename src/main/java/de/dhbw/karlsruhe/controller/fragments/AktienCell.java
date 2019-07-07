@@ -29,7 +29,7 @@ public class AktienCell extends ListCell<Wertpapier> {
     private Button btnLoeschen;
 
     /**
-     * Konstruktor für die Erzeugung einer {@code AktienCell}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung einer {@link AktienCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      * @author Markus Bilz
      */
@@ -46,7 +46,7 @@ public class AktienCell extends ListCell<Wertpapier> {
     }
 
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Wertpapier}.
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Wertpapier}.
      * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
      * Wertpapierobjekt verändert oder anderweitig das UI aktualisiert werden muss.
      * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
@@ -54,6 +54,7 @@ public class AktienCell extends ListCell<Wertpapier> {
      *
      * @param wertpapier Wertpapier, das in der Zeile angezeigt wird.
      * @param empty      boolean, ob Zeile leer ist.
+     * @author Markus Bilz
      */
     @Override
     public void updateItem(Wertpapier wertpapier, boolean empty) {

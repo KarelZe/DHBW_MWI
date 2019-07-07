@@ -14,17 +14,18 @@ import javafx.scene.control.TableCell;
 
 import java.io.IOException;
 import java.util.Optional;
-
 /**
- * Diese Klasse stellt eine Cell für Passwörter zur Überladung eines ListViews zur Verfügung.
+ * Diese Klasse stellt eine Cell für Passwortrücksetzung zur Überladung eines TableView zur Verfügung.
+ *
+ * @author Christian Fix
  */
 public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
-
     @FXML
     private Button btnPasswort;
-
     /**
-     * Konstruktur
+     * Konstruktor für die Erzeugung einer {@link PasswortCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Christian Fix
      */
     public PasswortCell() {
         super();
@@ -37,11 +38,14 @@ public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
             throw new RuntimeException(e);
         }
     }
-
     /**
-     * Aktualisiert einen Eintrag.
-     * @param item Eintrag, der aktialisiert werden soll
-     * @param empty Gibt an, ob Zelle einen Wert hat
+     * Diese Funktion aktualisiert eine Cell einer TableView mit dem Inhalt des {@link Void}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     *
+     * @param item  Funktion zum Aufruf.
+     * @param empty boolean, ob Zeile leer ist.
+     * @author Christian Fix
      */
     @Override
     public void updateItem(Void item, boolean empty) {
@@ -52,9 +56,10 @@ public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
             setGraphic(btnPasswort);
         }
     }
-
     /**
-     * Initialisierung
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     * @author Christian Fix
      */
     @FXML
     private void initialize() {

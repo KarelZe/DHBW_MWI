@@ -25,7 +25,7 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
 
 
     /**
-     * Konstruktor für die Erzeugung einer {@code AktienPeriodenCell}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung einer {@link AktienPeriodeCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      * @author Markus Bilz
      */
@@ -43,7 +43,7 @@ public class AktienPeriodeCell extends ListCell<Kurs> {
     }
 
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Kurs}.
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Kurs}.
      * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
      * Kursobjekt verändert oder anderweitig das UI aktualsiert werden muss.
      * Sie soll ausschließlich automatisch durch das System aufgerufen werden.

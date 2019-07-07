@@ -49,7 +49,7 @@ public class PeriodeTab extends Tab {
     private Periode periode;
 
     /**
-     * Konstruktor für die Erzeugung eines {@code PeriodeTab}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung eines {@link PeriodeTab}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      *
      * @param text    Reitername des Tabs
@@ -182,7 +182,8 @@ public class PeriodeTab extends Tab {
     }
 
     /**
-     * Blendet JAVAFX-Elemente aus.
+     * Methode, um UI Elemente inaktiver Perioden zu deaktiveren / auszugrauen.
+     * @author Markus Bilz
      */
     private void setContentDisabled() {
         vboxPeriode.setDisable(true);

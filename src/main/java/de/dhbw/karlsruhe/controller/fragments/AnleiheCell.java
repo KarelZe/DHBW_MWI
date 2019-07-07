@@ -32,7 +32,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     private Button btnLoeschen;
 
     /**
-     * Konstruktor für die Erzeugung einer {@code AnleiheCell}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung einer {@link AnleiheCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      * @author Markus Bilz
      */
@@ -50,7 +50,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     }
 
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Wertpapier}.
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Wertpapier}.
      * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
      * Wertpapierobjekt verändert oder anderweitig das UI aktualisiert werden muss.
      * Sie soll ausschließlich automatisch durch das System aufgerufen werden.

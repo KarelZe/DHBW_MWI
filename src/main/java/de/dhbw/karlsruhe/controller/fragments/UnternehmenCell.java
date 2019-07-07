@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-
 /**
  * Diese Klasse stellt eine Cell für Unternehmen zur Überladung eines ListViews zur Verfügung.
  *
@@ -23,7 +22,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     private Button btnLoeschen;
 
     /**
-     * Konstruktor für die Erzeugung einer {@code UnternehmenCell}. Der Konstruktor lädt die verbundene FXML und
+     * Konstruktor für die Erzeugung einer {@link UnternehmenCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
      * @author Markus Bilz
      */
@@ -41,7 +40,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     }
 
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@code Unternehmen}.
+     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Unternehmen}.
      * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
      * Unternehmensobjekt verändert oder anderweitig das UI atkualisiert werden muss.
      * Sie soll nicht durch den Programmierer aufgerufen werden und wird automatisch durch das System aufgerufen.
@@ -69,6 +68,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     /**
      * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
      * für die spätere Verwendung.
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {

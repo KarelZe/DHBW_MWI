@@ -12,25 +12,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Implementierung von Formattern zur
- * TODO: Markus Sauber kommentieren und anpassen auf deutsches Format
- * Adaptiert von
- * https://github.com/shanakaperera/CourtWelfareLoanSystem/blob/master/src/com/court/controller/LoanCalculatorFxmlController.java
+ * Klasse mit Formatiereren zur Verwendung im UI.
+ *
+ * <p>
+ * Implementierung ist adaptiert von <a href="https://github.com/shanakaperera/CourtWelfareLoanSystem/blob/master/src/com/court/controller/LoanCalculatorFxmlController.java">github.com</a>.
+ * </p>
+ *
+ * @author Markus Bilz
  */
 public class TextFormatHandler {
 
-    private static final double DEFAULT_VALUE = 0.00d;
-    private static final String CURRENCY_SYMBOL = "\u20ac"; // Währung €
-    private static final String PERCENTAGE_SYMBOL = "%";
-    private static final DecimalFormatSymbols GERMANY = new DecimalFormatSymbols(Locale.GERMANY);
+    private static final double STANDARD_WERT = 0.00d;
+    private static final String WAEHRUNGS_SYMBOL = "\u20ac"; // Währung €
+    private static final String PROZENT_SYMBOL = "%";
+    private static final DecimalFormatSymbols DEUTSCHLAND = new DecimalFormatSymbols(Locale.GERMANY);
     public static final DecimalFormat CURRENCY_DECIMAL_FORMAT
-            = new DecimalFormat("###,##0.00" + CURRENCY_SYMBOL, GERMANY);
+            = new DecimalFormat("###,##0.00" + WAEHRUNGS_SYMBOL, DEUTSCHLAND);
 
-    public static final DecimalFormat PERCENTAGE_DECIMAL_FORMAT = new DecimalFormat("##0.00" + PERCENTAGE_SYMBOL, GERMANY);
+    public static final DecimalFormat PERCENTAGE_DECIMAL_FORMAT = new DecimalFormat("##0.00" + PROZENT_SYMBOL, DEUTSCHLAND);
 
     public static TextFormatter<Double> currencyFormatter() {
         /**
-         *
+         * Gibt die Instanz eines {@link TextFormatter} zurück zur Formatierung von Währungsbetragen als
+         * formatierte {@link String Strings}.
+         * @return TextFormatter
+         * @author Markus Bilz
          */
         return new TextFormatter<>(new StringConverter<>() {
             @Override
@@ -46,7 +52,7 @@ public class TextFormatHandler {
                     return Double.NaN;
                 }
             }
-        }, DEFAULT_VALUE,
+        }, STANDARD_WERT,
                 change -> {
                     try {
                         CURRENCY_DECIMAL_FORMAT.parse(change.getControlNewText());
@@ -59,9 +65,10 @@ public class TextFormatHandler {
     }
 
     /**
-     *
-     * @param textField
-     * @return
+     * Methode zur Konvertierung einess Währungsbetrags eines {@link TextField TextFields} in einen {@link Double}.
+     * @param textField zu konvertierendes {@link TextField}
+     * @return {@link Double} z. B. {@code 1.0}; im Fehlerfall {@code 0.0}
+     * @author Markus Bilz
      */
     public static Double getCurrencyFieldValue(TextField textField) {
         try {
@@ -73,9 +80,10 @@ public class TextFormatHandler {
     }
 
     /**
-     *
-     * @param value
-     * @return
+     * Methode zur Konvertierung des Inhalts eines Währungsbetrags als {@link String} in einen {@link Double}.
+     * @param value Währungsbetrag zur Konvertierung
+     * @return {@link Double} z. B. {@code 1.0}; im Fehlerfall {@code 0.0}
+     * @author Markus Bilz
      */
     public static Double getCurrencyFieldValue(String value) {
         try {
@@ -87,9 +95,10 @@ public class TextFormatHandler {
     }
 
     /**
-     *
-     * @param value
-     * @return
+     * Methode zur Konvertierung des Inhalts einer Prozenzahl als {@link String} in einen {@link Double}.
+     * @param value Prozentzahl zur Konvertierung
+     * @return {@link Double} z. B. {@code 1.0}; im Fehlerfall {@code 0.0}
+     * @author Markus Bilz
      */
     public static Double getPercentageFieldValue(String value) {
         try {
@@ -101,11 +110,13 @@ public class TextFormatHandler {
     }
 
     /**
-     *
-     * @return
+     * Gibt die Instanz eines {@link TextFormatter} zurück zur Konvertierung von Prozentzahlen als
+     * {@link String Strings} in {@link Double} und umgekehrt.
+     * @return TextFormatter
+     * @author Markus Bilz
      */
     public static TextFormatter<Double> percentageFormatter() {
-        return new TextFormatter<Double>(new StringConverter<Double>() {
+        return new TextFormatter<>(new StringConverter<>() {
             @Override
             public String toString(Double value) {
                 return PERCENTAGE_DECIMAL_FORMAT.format(value);
@@ -119,7 +130,7 @@ public class TextFormatHandler {
                     return Double.NaN;
                 }
             }
-        }, DEFAULT_VALUE, change -> {
+        }, STANDARD_WERT, change -> {
             try {
                 PERCENTAGE_DECIMAL_FORMAT.parse(change.getControlNewText());
                 return change;
@@ -130,9 +141,10 @@ public class TextFormatHandler {
     }
 
     /**
-     * Methode zur Konvertierung des Inhalts eines {@link TextField TextFields} in einen {@link Double}.
+     * Methode zur Konvertierung einer Prozentzahl eines {@link TextField TextFields} in einen {@link Double}.
      * @param textField zu konvertierendes {@link TextField}
      * @return {@link Double} z. B. {@code 1.0}; im Fehlerfall {@code 0.0}
+     * @author Markus Bilz
      */
     public static Double getPercentageFieldValue(TextField textField) {
         try {

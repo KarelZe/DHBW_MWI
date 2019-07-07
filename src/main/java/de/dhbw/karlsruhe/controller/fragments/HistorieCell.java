@@ -13,17 +13,19 @@ import javafx.scene.control.TableCell;
 
 import java.io.IOException;
 import java.util.Optional;
-
 /**
- * Diese Klasse stellt eine Cell für die Historie zur Überladung eines ListViews zur Verfügung.
+ * Diese Klasse stellt eine Cell für die Transaktionshistorie zur Überladung eines TableView zur Verfügung.
+ *
+ * @author Jan Carlos Riecken
  */
 public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
 
     @FXML
     private Button btnHistorie;
-
     /**
-     * Konstruktor
+     * Konstruktor für die Erzeugung einer {@link HistorieCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Markus Bilz
      */
     public HistorieCell() {
         super();
@@ -36,11 +38,14 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
             throw new RuntimeException(e);
         }
     }
-
     /**
-     * Aktualisiert einen Eintrag.
-     * @param item Eintrag, der aktialisiert werden soll
-     * @param empty Gibt an, ob Zelle einen Wert hat
+     * Diese Funktion aktualisiert eine Cell einer TableView mit dem Inhalt des {@link Void}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     *
+     * @param item  Funktion zum Aufruf.
+     * @param empty boolean, ob Zeile leer ist.
+     * @author Jan Carlos Riecken
      */
     @Override
     public void updateItem(Void item, boolean empty) {
@@ -51,9 +56,10 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
             setGraphic(btnHistorie);
         }
     }
-
     /**
-     * Initialisierung
+     * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
+     * für die spätere Verwendung.
+     * @author Jan Carlos Riecken
      */
     @FXML
     private void initialize() {
