@@ -14,6 +14,10 @@ import javafx.scene.control.TableView;
 
 import java.util.*;
 
+/**
+ * Controller für die Finanzübersicht des Teilnehmers
+ * @author Raphael Winkler
+ */
 public class BenutzerDepotController implements ControlledScreen {
 
     private ScreenController screenController;
@@ -22,20 +26,34 @@ public class BenutzerDepotController implements ControlledScreen {
     private List<Portfolioposition> depotETF;
     private List<Portfolioposition> depotFestgeld;
     private ArrayList<Periode> perioden;
+
     @FXML
     private TableView<ObservableList<String>> table;
 
-
+    /**
+     * Methode für den Zugriff auf den {@code ScreenController} des übergeordneten Screens.
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         screenController = screenPage;
     }
 
+    /**
+     * Gibt die aktulle Periode als Objekt zurück
+     * @return Periode als Objekt
+     * @throws NoSuchElementException
+     * @author Raphael Winkler
+     */
     private Periode findAktuellePeriode() throws NoSuchElementException {
         return PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new);
 
     }
 
+    /**
+     * Initialisierung
+     */
     @FXML
     private void initialize() {
         long teilnehmerID = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
@@ -51,6 +69,10 @@ public class BenutzerDepotController implements ControlledScreen {
 
     }
 
+    /**
+     * Befüllt die Tabelle mit Werten
+     * @author Raphael Winkler
+     */
     private void populateTable() {
         // Create Columns
         perioden = new ArrayList<>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()));
@@ -88,12 +110,27 @@ public class BenutzerDepotController implements ControlledScreen {
 
     }
 
+    /**
+     * Erzeugt eine Zeile
+     * @param finanzanlage Finanzanlage
+     * @param saldo Saldo
+     * @param rendite Rendite
+     * @param renditeInPerioden Liste von Renditen (je Periode ein Eintrag)
+     * @return
+     * @author Raphael Winkler
+     */
     private ObservableList<String> createRow(String finanzanlage, String saldo, String rendite, ArrayList<String> renditeInPerioden) {
         ObservableList<String> row = FXCollections.observableList(new ArrayList<>(Arrays.asList(finanzanlage, saldo, rendite)));
         row.addAll(renditeInPerioden);
         return row;
     }
 
+    /**
+     * Castet eine Liste von Double-Objekten in eine Liste von String-Objekten (inkl. %)
+     * @param doubles Liste von Double-Objekten
+     * @return Liste von String-Objekten
+     * @author Raphael Winkler
+     */
     private ArrayList<String> castDoubleListToStringList(ArrayList<Double> doubles) {
         ArrayList<String> strings = new ArrayList<>();
         for (Double d : doubles) {
@@ -102,14 +139,22 @@ public class BenutzerDepotController implements ControlledScreen {
         return strings;
     }
 
+    /**
+     * Erzeugt eine Zeile, die den Gesamtdepotwert angibt
+     * @param renditeinPerioden Liste von Double-Objekten
+     * @author Raphael Winkler
+     */
     private void createGesamdepotwertRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
 
-
         table.getItems().add(createRow("Gesamtdepotwert", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
-
     }
 
+    /**
+     * Erzeugt eine Zeile, die den Saldo des Zahlungsmittelkontos angibt
+     * @param periodenAnzahl Anzahl der Perioden
+     * @author Raphael Winkler
+     */
     private void createZahlungsmittelkontoRow(int periodenAnzahl) {
         ArrayList<String> renditeInPeriodenPlaceholder = new ArrayList<>();
         for (int i = 1; i <= periodenAnzahl; i++) {
@@ -117,20 +162,35 @@ public class BenutzerDepotController implements ControlledScreen {
         }
         double saldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
 
-
         table.getItems().add(createRow("Zahlungsmittelkonto", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPeriodenPlaceholder));
     }
 
+    /**
+     * Erzeugt eine Zeile, die den Saldo des Festgeldes angibt
+     * @param renditeinPerioden Liste von Double-Objekten
+     * @author Raphael Winkler
+     */
     private void createFestgeldRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getFestgeldSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
         table.getItems().add(createRow("Festgeld", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
+    /**
+     * Erzeugt eine Zeile, die den Saldo des ETFs angibt
+     * @param renditeinPerioden Liste von Double-Objekten
+     * @author Raphael Winkler
+     */
     private void createEtfRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getEtfSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId());
+
         table.getItems().add(createRow("ETF", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
+    /**
+     * Erzeugt eine Zeile, die den Saldo der Aktien angibt
+     * @param renditeinPerioden Liste von Double-Objekten
+     * @author Raphael Winkler
+     */
     private void createAktienGesamtRow(ArrayList<Double> renditeinPerioden) {
         long benutzerId = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
         double saldo = PortfolioFassade.getInstanz().getAktienSaldo(benutzerId);
@@ -139,29 +199,14 @@ public class BenutzerDepotController implements ControlledScreen {
         table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", rendite + " %", castDoubleListToStringList(renditeinPerioden)));
     }
 
+    /**
+     * Erzeugt eine Zeile, die den Saldo der Anleihen angibt
+     * @param renditeinPerioden Liste von Double-Objekten
+     * @author Raphael Winkler
+     */
     private void createAnleihenGesamtRow(ArrayList<Double> renditeinPerioden) {
         double saldo = PortfolioFassade.getInstanz().getAnleihenSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
         table.getItems().add(createRow("Anleihen", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
     }
-
-
-    private double calcRendite(long teilnehmerID, long periodeID, Portfolioposition portfolioposition) {
-/*        List<Buchung> buchungen = BuchungRepository.getInstanz().findByTeilnehmerId(teilnehmerID);
-        buchungen = buchungen.stream().filter(b -> b.getWertpapier().getId() == portfolioposition.getWertpapier()
-                .filter(b ->)
-                .getId()).collect(Collectors.toList());
-        Kurs aktuellerKurs = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodeID, portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new);
-
-        for (Buchung b : buchungen) {
-            long buchungPeriodeId = b.getPeriode().getId();
-            Kurs buchungKurs = KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(buchungPeriodeId, b.getWertpapier().getId()).orElseThrow(NoSuchElementException::new);
-
-        }*/
-
-
-        return 0;
-    }
-
-
 }
 

@@ -34,6 +34,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     /**
      * Konstruktor für die Erzeugung einer {@code AnleiheCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Markus Bilz
      */
     public AnleiheCell() {
         super();
@@ -57,6 +58,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
      *
      * @param wertpapier Wertpapier, das in der Zeile angezeigt wird.
      * @param empty      boolean, ob Zeile leer ist.
+     * @author Markus Bilz
      */
     @Override
     public void updateItem(Wertpapier wertpapier, boolean empty) {
@@ -77,6 +79,7 @@ public class AnleiheCell extends ListCell<Wertpapier> {
     /**
      * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
      * für die spätere Verwendung.
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {

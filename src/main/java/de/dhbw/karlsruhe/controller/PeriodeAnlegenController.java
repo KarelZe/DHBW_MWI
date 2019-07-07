@@ -22,6 +22,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+/**
+ * Controller für das Anlegen einer Periode
+ * @author Jan Carlos Riecken
+ */
 public class PeriodeAnlegenController implements ControlledScreen {
     @FXML
     private Button btnAnlegen;
@@ -38,11 +42,21 @@ public class PeriodeAnlegenController implements ControlledScreen {
 
     private NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.GERMANY);
 
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
+    /**
+     * Event-Handler für Periode anlegen
+     * @param event Event
+     * @author Jan Carlos Riecken
+     */
     @FXML
     private void doPeriodeAnlegen(ActionEvent event) {
         double ordergebuehr, kapitalmarktzins;
@@ -83,6 +97,10 @@ public class PeriodeAnlegenController implements ControlledScreen {
         screenController.setScreen(ScreensFramework.SCREEN_PERIODEN_DETAIL);
     }
 
+    /**
+     * Initialisierung
+     * @author Jan Carlos Riecken
+     */
     @FXML
     private void initialize() {
         BooleanBinding booleanBind = Bindings.or(txtKapitalmarktzins.textProperty().isEmpty(),
@@ -91,8 +109,5 @@ public class PeriodeAnlegenController implements ControlledScreen {
         // Formatiere Eingabewerte
         txtOrdergebuehr.setTextFormatter(TextFormatHandler.percentageFormatter());
         txtKapitalmarktzins.setTextFormatter(TextFormatHandler.percentageFormatter());
-
     }
-
-
 }

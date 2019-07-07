@@ -15,10 +15,17 @@ import javafx.scene.control.TableCell;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt eine Cell für Passwörter zur Überladung eines ListViews zur Verfügung.
+ */
 public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
+
     @FXML
     private Button btnPasswort;
 
+    /**
+     * Konstruktur
+     */
     public PasswortCell() {
         super();
         try {
@@ -31,6 +38,11 @@ public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
         }
     }
 
+    /**
+     * Aktualisiert einen Eintrag.
+     * @param item Eintrag, der aktialisiert werden soll
+     * @param empty Gibt an, ob Zelle einen Wert hat
+     */
     @Override
     public void updateItem(Void item, boolean empty) {
         super.updateItem(item, empty);
@@ -41,6 +53,9 @@ public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
         }
     }
 
+    /**
+     * Initialisierung
+     */
     @FXML
     private void initialize() {
         btnPasswort.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt

@@ -54,6 +54,7 @@ public class PeriodeTab extends Tab {
      *
      * @param text    Reitername des Tabs
      * @param periode Periode zur Anzeige im Tab
+     * @author Markus Bilz
      */
     public PeriodeTab(String text, Periode periode) {
         super();
@@ -72,6 +73,7 @@ public class PeriodeTab extends Tab {
     /**
      * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen des Tabs
      * für die spätere Verwendung. Sie erzeugt für alle Wertpapiere einer Periode dynamisch Einträge zur Pflege.
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {
@@ -103,6 +105,7 @@ public class PeriodeTab extends Tab {
 
     /**
      * Diese Methode implementiert eine Speicherfunktionalität für die Kurse der Periode.
+     * @author Markus Bilz
      */
     private void doBewerten() {
         ArrayList<Kurs> aktieNachAenderung = new ArrayList<>(aktieObserverableList);
@@ -151,6 +154,7 @@ public class PeriodeTab extends Tab {
 
     /**
      * Diese Methode erlaubt die Verbuchung und die Bewertung der Periode.
+     * @author Markus Bilz
      */
     private void doVerbuchen() {
 
@@ -177,6 +181,9 @@ public class PeriodeTab extends Tab {
 
     }
 
+    /**
+     * Blendet JAVAFX-Elemente aus.
+     */
     private void setContentDisabled() {
         vboxPeriode.setDisable(true);
         lblAktie.setDisable(true);

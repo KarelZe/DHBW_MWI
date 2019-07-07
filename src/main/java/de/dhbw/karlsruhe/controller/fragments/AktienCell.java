@@ -31,6 +31,7 @@ public class AktienCell extends ListCell<Wertpapier> {
     /**
      * Konstruktor für die Erzeugung einer {@code AktienCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Markus Bilz
      */
     public AktienCell() {
         super();
@@ -72,6 +73,7 @@ public class AktienCell extends ListCell<Wertpapier> {
     /**
      * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
      * für die spätere Verwendung.
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {

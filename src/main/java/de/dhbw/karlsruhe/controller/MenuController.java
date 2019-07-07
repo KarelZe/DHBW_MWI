@@ -13,6 +13,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+/**
+ * Controller für das Menü
+ * @author Markus Bilz
+ */
 public class MenuController implements ControlledScreen, InvalidationListener {
     @FXML
     private MenuBar menuBar;
@@ -25,17 +29,30 @@ public class MenuController implements ControlledScreen, InvalidationListener {
 
     private ScreenController screenController;
 
+    /**
+     * Event-Handler für den Logout-Button
+     * @param actionEvent Event
+     */
     public void doLogout(ActionEvent actionEvent) {
         AktuelleSpieldaten.getInstanz().setBenutzer(null);
         screenController.loadScreen(ScreensFramework.SCREEN_LOGIN, ScreensFramework.SCREEN_LOGIN_FILE);
         screenController.setScreen(ScreensFramework.SCREEN_LOGIN);
     }
 
+    /**
+     * Konkrete Implementierung für den Zugriff auf den Controller des übergeordneten Screens
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
+    /**
+     * Initialisierung
+     * @author Markus Bilz
+     */
     @FXML
     private void initialize() {
         AktuelleSpieldaten aktuelleSpieldaten = AktuelleSpieldaten.getInstanz();
@@ -119,10 +136,11 @@ public class MenuController implements ControlledScreen, InvalidationListener {
     }
 
     /**
-     * Methode passt Menü in Abhängigkeit der Rechte des angemeldeten Users und des aktuellen Siels an.
+     * Methode passt Menü in Abhängigkeit der Rechte des angemeldeten Users und des aktuellen Spiels an.
      * Implementierung des Observer-Patterns (GOF).
      *
      * @param observable Observable zur Verarbeitung
+     * @author Markus Bilz
      */
     @Override
     public void invalidated(Observable observable) {
@@ -131,6 +149,7 @@ public class MenuController implements ControlledScreen, InvalidationListener {
 
     /**
      * Methode zur Konfiguration des Menüs. Rollen-basiert werden Menüs aktiviert oder deaktiviert.
+     * @author Markus Bilz
      */
     private void konfiguriereMenu() {
         Benutzer benutzer = AktuelleSpieldaten.getInstanz().getBenutzer();

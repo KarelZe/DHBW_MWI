@@ -15,6 +15,10 @@ import javafx.scene.control.TableView;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * ACHTUNG: CODE WIRD NICHT BENUTZT UND FUNKTIONIERT NICHT. SOLLTE DIESE FUNKTIONALITÄT SPÄTER EINGEBAUT WERDEN, KANN DIESE KLASSE ALS IDEE DIENEN.
+ * Controller, um eine Übersicht anzuzeigen, wie die Anlagevolumina der Unternehmensmitglieder auf das eigene und fremde Unternehmen verteilt sind.
+ */
 public class InvestmentUebersichtController implements ControlledScreen {
 
     private ScreenController screenController;
@@ -28,17 +32,24 @@ public class InvestmentUebersichtController implements ControlledScreen {
     private TableView<TabellenInhalt> tvInvestmentUebersicht;
     private List<TableColumn<TabellenInhalt, String>> tabellenZeilen = new ArrayList<>();
 
+    /**
+     * Methode für den Zugriff auf den {@code ScreenController} des übergeordneten Screens.
+     *
+     * @param screenPage Controller des Screens
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
+    /**
+     * Initialisierung
+     */
     @FXML
     public void initialize() {
         cbPeriodenAuswahl.setItems(FXCollections.observableArrayList(new ArrayList<Periode>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()))));
         cbPeriodenAuswahl.setValue(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new)); //setze aktuelle Periode
         cbPeriodenAuswahl.setConverter(new ConverterHelper().getPeriodenConverter());
-
 
         tvInvestmentUebersicht.setEditable(true);
         //tabellenZeilen.add(new TableColumn<TabellenInhalt, String>());
@@ -46,10 +57,14 @@ public class InvestmentUebersichtController implements ControlledScreen {
         for (Unternehmen u : unternehmenListe) {
             tvInvestmentUebersicht.getColumns().addAll(new TableColumn(u.getName()));
         }
-
-
     }
 
+    /**
+     * Gibt die Investments eines Unternehmen in einer angegebenen Periode zurück
+     * @param unternehmensId Unternehmen
+     * @param periodenId Periode
+     * @return Map
+     */
     private Map<Long, Double> getInvestmentsOfAUnternehmenInEachUnternehmenByUnternehmenAndPeriode(long unternehmensId, long periodenId) {
         class Tupel {
             private long unternehmensId;
@@ -96,7 +111,12 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
     }
 
-    // Hole Positionen eines Unternehmens in einer Periode
+    /**
+     * Gibt die Summe der Investitionen eines Unternehmen zurück
+     * @param unternehmensId Unternehmen
+     * @param periodenId Periode
+     * @return Map
+     */
     private Map<Long, Double> getSummeDerInvestitionenByUnternehmen(long unternehmensId, long periodenId) {
         // Anonyme Klasse, um Investitionen in die Unternehmen zu speichern
         class InvestitionenTupel {
@@ -166,12 +186,8 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
     }
 
-    //TODO: was ist mit den Unternehmen, die keine Investition bekommen haben (niemand hat was von denen gekauft)
-
     class TabellenInhalt {
         SimpleStringProperty unternehmen;
-
-
     }
 
 

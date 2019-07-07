@@ -16,9 +16,14 @@ import javafx.scene.control.TextField;
 import java.util.Optional;
 
 
+/**
+ * Controller für Login
+ * @author Christian Fix
+ */
 public class LoginController implements ControlledScreen {
 
     public Button btnTeilnehmerBearbeiten;
+
     @FXML
     private TextField txtBenutzername, txtPasswort;
 
@@ -26,8 +31,8 @@ public class LoginController implements ControlledScreen {
 
     /**
      * Eventhandler für den Login-Button
-     *
-     * @param event
+     * @param event Event
+     * @author Christian Fix
      */
     @FXML
     private void doLogin(ActionEvent event) {
@@ -60,11 +65,9 @@ public class LoginController implements ControlledScreen {
                 });
     }
 
-    // Zur Erklärung https://stackoverflow.com/a/51392331
-    // Zur Erklärung https://javabeginners.de/Frameworks/JavaFX/FXML.php
-
     /**
      * Initialisierung des Logins
+     * @author Christian Fix
      */
     @FXML
     private void initialize() {
@@ -83,6 +86,7 @@ public class LoginController implements ControlledScreen {
 
     /**
      * Initialisiert das aktuelle Spiel
+     * @author Christian Fix
      */
     private void initializeAktuellesSpiel() {
         Spiel aktuellesSpiel = SpielRepository.getInstanz().getAktivesSpiel();

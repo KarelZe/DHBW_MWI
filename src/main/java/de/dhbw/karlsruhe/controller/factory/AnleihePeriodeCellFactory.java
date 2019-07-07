@@ -13,7 +13,6 @@ import javafx.util.Callback;
  * Für Implementierung von CellFactories und eigenen Cell-Implementierungen siehe:
  * <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#cell-factories">https://docs.oracle.com/</a>
  * </p>
- *
  * @author Markus Bilz
  */
 public class AnleihePeriodeCellFactory implements Callback<ListView<Kurs>, ListCell<Kurs>> {

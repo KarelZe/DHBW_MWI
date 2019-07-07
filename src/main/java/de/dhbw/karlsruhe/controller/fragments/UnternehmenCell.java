@@ -8,6 +8,11 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 
+/**
+ * Diese Klasse stellt eine Cell für Unternehmen zur Überladung eines ListViews zur Verfügung.
+ *
+ * @author Markus Bilz
+ */
 public class UnternehmenCell extends ListCell<Unternehmen> {
 
     @FXML
@@ -20,6 +25,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
     /**
      * Konstruktor für die Erzeugung einer {@code UnternehmenCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Markus Bilz
      */
     public UnternehmenCell() {
         super();
@@ -43,6 +49,7 @@ public class UnternehmenCell extends ListCell<Unternehmen> {
      *
      * @param unternehmen Unternehmen, das in der Zeile angezeigt wird.
      * @param empty       boolean, ob Zeile leer ist.
+     * @author Markus Bilz
      */
     @Override
     protected void updateItem(Unternehmen unternehmen, boolean empty) {

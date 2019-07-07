@@ -14,10 +14,17 @@ import javafx.scene.control.TableCell;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Diese Klasse stellt eine Cell für die Historie zur Überladung eines ListViews zur Verfügung.
+ */
 public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
+
     @FXML
     private Button btnHistorie;
 
+    /**
+     * Konstruktor
+     */
     public HistorieCell() {
         super();
         try {
@@ -30,6 +37,11 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
         }
     }
 
+    /**
+     * Aktualisiert einen Eintrag.
+     * @param item Eintrag, der aktialisiert werden soll
+     * @param empty Gibt an, ob Zelle einen Wert hat
+     */
     @Override
     public void updateItem(Void item, boolean empty) {
         super.updateItem(item, empty);
@@ -40,6 +52,9 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
         }
     }
 
+    /**
+     * Initialisierung
+     */
     @FXML
     private void initialize() {
         btnHistorie.setOnAction((ActionEvent event) -> { //wird bei Button click ausgeführt
