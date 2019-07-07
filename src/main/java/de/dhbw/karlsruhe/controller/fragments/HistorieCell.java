@@ -13,11 +13,19 @@ import javafx.scene.control.TableCell;
 
 import java.io.IOException;
 import java.util.Optional;
-
+/**
+ * Diese Klasse stellt eine Cell für die Transaktionshistorie zur Überladung eines TableView zur Verfügung.
+ *
+ * @author Jan Carlos Riecken
+ */
 public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
     @FXML
     private Button btnHistorie;
-
+    /**
+     * Konstruktor für die Erzeugung einer {@link HistorieCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Markus Bilz
+     */
     public HistorieCell() {
         super();
         try {
@@ -30,14 +38,13 @@ public class HistorieCell extends TableCell<BenutzerPrintModel, Void> {
         }
     }
     /**
-     * Diese Funktion aktualisiert eine Zeile einer ListView mit dem Inhalt des {@link Void}.
-     * Sie wird durch die UI-Steuerung automatisch aufgerufen, sofern sich beispielsweise das
-     * Kursobjekt verändert oder anderweitig das UI aktualisiert werden muss.
+     * Diese Funktion aktualisiert eine Cell einer TableView mit dem Inhalt des {@link Void}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen.
      * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
-     * Sofern das Kursobjekt {@code null} ist, wird ausschließlich eine leere Zeile angezeigt.
      *
-     * @param item  Functor
+     * @param item  Funktion zum Aufruf.
      * @param empty boolean, ob Zeile leer ist.
+     * @author Jan Carlos Riecken
      */
     @Override
     public void updateItem(Void item, boolean empty) {

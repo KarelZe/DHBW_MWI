@@ -14,11 +14,19 @@ import javafx.scene.control.TableCell;
 
 import java.io.IOException;
 import java.util.Optional;
-
+/**
+ * Diese Klasse stellt eine Cell für Passwortrücksetzung zur Überladung eines TableView zur Verfügung.
+ *
+ * @author Christian Fix
+ */
 public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
     @FXML
     private Button btnPasswort;
-
+    /**
+     * Konstruktor für die Erzeugung einer {@link PasswortCell}. Der Konstruktor lädt die verbundene FXML und
+     * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Christian Fix
+     */
     public PasswortCell() {
         super();
         try {
@@ -30,7 +38,15 @@ public class PasswortCell extends TableCell<BenutzerViewModel, Void> {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Diese Funktion aktualisiert eine Cell einer TableView mit dem Inhalt des {@link Void}.
+     * Sie wird durch die UI-Steuerung automatisch aufgerufen.
+     * Sie soll ausschließlich automatisch durch das System aufgerufen werden.
+     *
+     * @param item  Funktion zum Aufruf.
+     * @param empty boolean, ob Zeile leer ist.
+     * @author Christian Fix
+     */
     @Override
     public void updateItem(Void item, boolean empty) {
         super.updateItem(item, empty);

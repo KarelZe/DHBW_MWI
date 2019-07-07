@@ -29,6 +29,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
     /**
      * Konstruktor für die Erzeugung einer {@link AnleihePeriodeCell}. Der Konstruktor lädt die verbundene FXML und
      * initialisiert die enthaltenen UI-Elemente für einen späteren Zugriff.
+     * @author Markus Bilz
      */
     public AnleihePeriodeCell() {
         super();
@@ -52,6 +53,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
      *
      * @param kurs  Kurs, das in der Zeile angezeigt wird.
      * @param empty boolean, ob Zeile leer ist.
+     * @author Markus Bilz
      */
     @Override
     public void updateItem(Kurs kurs, boolean empty) {
@@ -72,6 +74,7 @@ public class AnleihePeriodeCell extends ListCell<Kurs> {
     /**
      * Diese Methode ist Bestandteil des Lifecycles von JavaFX und initialisiert die Listener von UI-Elementen der Cell
      * für die spätere Verwendung.
+     * @author Markus Bilz
      */
     @FXML
     private void initialize() {
