@@ -30,7 +30,7 @@
           <PropertyValueFactory property="kaufart" />
         </cellValueFactory>
       </TableColumn>
-        <TableColumn fx:id="tblColVolume" prefWidth="69.0" text="Volumen">
+      <TableColumn fx:id="tblColVolume" prefWidth="69.0" text="Betrag">
         <cellValueFactory>
           <PropertyValueFactory property="volume" />
         </cellValueFactory>

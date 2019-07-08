@@ -17,7 +17,7 @@ public class HistorieViewModel {
 
     public HistorieViewModel(Buchung buchung) {
         this(buchung.getId(), buchung.getTransaktionsArt().getBeschreibung(), buchung.getWertpapier().getWertpapierArt().getName(), buchung.getWertpapier().getUnternehmen().getName(), buchung.getVolumen());
-        System.out.println("ID: " + buchung.getId() + "; Transaktionsart: " + buchung.getTransaktionsArt().getBeschreibung() + " ; Wertpaierart: " + buchung.getWertpapier().getWertpapierArt().getName());
+        System.out.println("ID: " + buchung.getId() + "; Transaktionsart: " + buchung.getTransaktionsArt().getBeschreibung() + " ; Wertpapierart: " + buchung.getWertpapier().getWertpapierArt().getName());
     }
 
     public HistorieViewModel(long id, String kaufart, String wertpapierart, String unternehmen, Double volume) {
