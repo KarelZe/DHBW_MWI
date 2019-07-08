@@ -1,13 +1,13 @@
 package de.dhbw.karlsruhe.model.fassade;
 
 import de.dhbw.karlsruhe.model.BuchungRepository;
+import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.WertpapierRepository;
 import de.dhbw.karlsruhe.model.jpa.Buchung;
 import de.dhbw.karlsruhe.model.jpa.TransaktionsArt;
 import de.dhbw.karlsruhe.model.jpa.Wertpapier;
 import de.dhbw.karlsruhe.model.jpa.WertpapierArt;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -56,6 +56,21 @@ public class PortfolioFassade {
         return instanz;
     }
 
+
+    /**
+     * Methode gibt den aktuellen Saldo eines Depots eines Teilnehmers zurück.
+     *
+     * @param teilnehmerId Id des Depotinhabers
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden.
+     * @return Saldo des Depots
+     * @author Raphael Winkler
+     */
+    public double getDepotSaldo(long teilnehmerId, long periodenId) {
+        return getEtfSaldo(teilnehmerId, periodenId)
+                + getAktienSaldo(teilnehmerId, periodenId)
+                + getAnleihenSaldo(teilnehmerId, periodenId);
+    }
+
     /**
      * Methode gibt den aktuellen Saldo eines Zahlungsmittelkontos eines Teilnehmers zurück.
      *
@@ -66,18 +81,6 @@ public class PortfolioFassade {
     public double getZahlungsmittelkontoSaldo(long teilnehmerId) {
         List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
         return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungZahlungsmittelkonto).sum();
-    }
-
-    /**
-     * Methode gibt den aktuellen Saldo eines Depots eines Teilnehmers zurück.
-     *
-     * @param teilnehmerId Id des Depotinhabers
-     * @return Saldo des Depots
-     * @author Raphael Winkler
-     */
-    public double getDepotSaldo(long teilnehmerId) {
-        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungDepot).sum();
     }
 
     /**
@@ -93,27 +96,59 @@ public class PortfolioFassade {
         return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungFestgeld).sum();
     }
 
-    // TODO: Raphael
+    /**
+     * Methode gibt den aktuellen Saldo des ETF-Bestands für einen Benutzer zurück.
+     * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
+     *
+     * @param teilnehmerId Id des Festgeldinhabers
+     * @param periodenId   Id der aktuellen Periode
+     * @return Saldo des Depots.
+     * @author Raphael Winkler
+     */
     public double getEtfSaldo(long teilnehmerId, long periodenId) {
-        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream()
-                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF)
-                .mapToDouble(Buchung::getVeraenderungDepot).sum();
+        double etfSaldo = 0;
+        List<Portfolioposition> etfPositionen = getEtfPositionen(teilnehmerId, periodenId);
+        for (Portfolioposition p : etfPositionen) {
+            etfSaldo += p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs();
+        }
+        return etfSaldo;
     }
-    // TODO: Raphael
-    public double getAktienSaldo(long teilnehmerId) {
-        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        buchungenTeilnehmer = buchungenTeilnehmer.stream()
-                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE).collect(Collectors.toList());
-        return buchungenTeilnehmer.stream().mapToDouble(Buchung::getVeraenderungDepot).sum();
+
+    /**
+     * Methode gibt den aktuellen Saldo des Aktien-Bestands für einen Benutzer zurück.
+     * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
+     *
+     * @param teilnehmerId Id des Festgeldinhabers
+     * @param periodenId   Id der aktuellen Periode
+     * @return Saldo des Depots.
+     * @author Raphael Winkler
+     */
+    public double getAktienSaldo(long teilnehmerId, long periodenId) {
+        double aktienSaldo = 0;
+        List<Portfolioposition> etfPositionen = getAktienPositionen(teilnehmerId, periodenId);
+        for (Portfolioposition p : etfPositionen) {
+            aktienSaldo += p.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs();
+        }
+        return aktienSaldo;
 
     }
-    // TODO: Raphael
-    public double getAnleihenSaldo(long teilnehmerId) {
-        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream()
-                .filter(b -> b.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE)
-                .mapToDouble(Buchung::getVeraenderungDepot).sum();
+
+    /**
+     * Methode gibt den aktuellen Saldo des Anleihen-Bestands für einen Benutzer zurück.
+     * Hierbei werden alle Buchungen aller Perioden addiert, um den aktuellen Saldo zu erhalten.
+     *
+     * @param teilnehmerId Id des Festgeldinhabers
+     * @param periodenId   Id der aktuellen Periode
+     * @return Saldo des Depots.
+     * @author Raphael Winkler
+     */
+    public double getAnleihenSaldo(long teilnehmerId, long periodenId) {
+        double anleihenSaldo = 0;
+        List<Portfolioposition> etfPositionen = getAnleihePositionen(teilnehmerId, periodenId);
+        for (Portfolioposition p : etfPositionen) {
+            anleihenSaldo += p.getBezugsgroesse() * (KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(periodenId, p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs() / 100);
+        }
+        return anleihenSaldo;
     }
 
 
@@ -121,12 +156,16 @@ public class PortfolioFassade {
      * Methode gibt den aktuellen Saldo eines Teilnehmers bestehend aus Zahlungsmittelkonto-, Festgeld- und Depotguthaben zurück.
      *
      * @param teilnehmerId Id des Teilnehmers
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden.
      * @return Gesamtsaldo des Benutzer Engagements
      * @author Raphael Winkler
      */
-    public double getGesamtSaldo(long teilnehmerId) {
-        List<Buchung> buchungenTeilnehmer = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        return buchungenTeilnehmer.stream().mapToDouble(b -> b.getVeraenderungZahlungsmittelkonto() + b.getVeraenderungDepot() + b.getVeraenderungFestgeld()).sum();
+    public double getGesamtSaldo(long teilnehmerId, long periodenId) {
+        return getZahlungsmittelkontoSaldo(teilnehmerId)
+                + getFestgeldSaldo(teilnehmerId)
+                + getEtfSaldo(teilnehmerId, periodenId)
+                + getAktienSaldo(teilnehmerId, periodenId)
+                + getAnleihenSaldo(teilnehmerId, periodenId);
     }
 
     /**
@@ -178,7 +217,7 @@ public class PortfolioFassade {
      * Neben aktiven Festgeld-Positionen werden auch zwischenzeitlich veräußerte Positionen ausgewiesen.
      *
      * @param teilnehmerId Id des Teilnehmers
-     * @param periodenId  Periode, bis zu der Buchungen berücksichtigt werden
+     * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
      * @return Liste mit Festgeld-Positionen
      * @author Markus Bilz
      */
@@ -209,25 +248,9 @@ public class PortfolioFassade {
 
     }
 
-    // TODO: Raphael Winkler
-    public List<Portfolioposition> getPortfoliopositionenStueckzahl(long teilnehmerId, long periodenId) {
-
-        BuchungRepository buchungRepository = BuchungRepository.getInstanz();
-        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId)
-                .forEach(b -> {
-                    if (b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN) {
-                        b.setStueckzahl(b.getStueckzahl() * (-1));
-                    }
-                });
-        Map<Wertpapier, Long> buchungenMap = buchungen.stream().collect(groupingBy(Buchung::getWertpapier, summingLong(Buchung::getStueckzahl)));
-
-
-        return buchungenMap.entrySet().stream().map(w -> new Portfolioposition(w.getKey(), w.getValue())).collect(Collectors.toList());
-    }
 
     /**
-     * // TODO: Raphael kommentieren
+     * Die Methode gibt die Stückzahl eines Wertpapieres im Depot eines Teilnehmers zurück
      *
      * @param teilnehmerId Id des Teilnehmers
      * @param periodenId   Periode, bis zu der Buchungen berücksichtigt werden
@@ -235,19 +258,24 @@ public class PortfolioFassade {
      * @return Anzahl der {@link Portfolioposition Portfoliopositionen}
      * @author Raphael Winkler
      */
-    // TODO: Raphael warum so kompliziert? Ich würde einfach get ETFPositionen ... machen und dann addieren.
+
     public long getCountOfPositionen(long teilnehmerId, long periodenId, long wertpapierId) {
         List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
+
+        // Sammeln aller Kaufbuchungen eines Teilnehmes für ein Wertpapier
         Map<Wertpapier, Long> kaufBuchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId)
                 .filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_KAUFEN)
                 .filter(b -> b.getWertpapier().getId() == wertpapierId)
                 .collect(groupingBy(Buchung::getWertpapier, summingLong(Buchung::getStueckzahl)));
 
+        // Sammeln aller Verkaufbuchungen eines Teilnehmes für ein Wertpapier
         Map<Wertpapier, Long> verkaufBuchungenMap = buchungen.stream().filter(b -> b.getPeriode().getId() <= periodenId)
                 .filter(b -> b.getTransaktionsArt().getId() == TransaktionsArt.TRANSAKTIONSART_VERKAUFEN)
                 .filter(b -> b.getWertpapier().getId() == wertpapierId)
                 .collect(groupingBy(Buchung::getWertpapier, summingLong(Buchung::getStueckzahl)));
 
+
+        // Verrechnen der Kauf- und Verkaufbuchungen
         if (kaufBuchungenMap.size() <= 0)
             return 0;
         else if (verkaufBuchungenMap.size() <= 0)
@@ -257,52 +285,6 @@ public class PortfolioFassade {
                     - verkaufBuchungenMap.get(WertpapierRepository.getInstanz().findById(wertpapierId).orElseThrow(NoSuchElementException::new));
     }
 
-    public double getRenditeDepot(long teilnehmerId, long periodenId, long wertpapierId) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public double getRenditeFestgeld(long teilnehmerId, long periodenId, long wertpapierId) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public double getRenditeEtf(long teilnehmerId, long periodenId, long wertpapierId) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public double getRenditeAnleihenGesamt(long teilnehmerId, long periodenId, long wertpapierId) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public double getRenditeAktienGesamt(long teilnehmerId, long periodenId) {
-        double rendite = 0;
-        ArrayList<Portfolioposition> portfoliopositionen = new ArrayList<>(getAktienPositionen(teilnehmerId, periodenId));
-
-        for (Portfolioposition p : portfoliopositionen) {
-            rendite += getRenditeAktie(teilnehmerId, periodenId, p.getWertpapier().getId());
-        }
-
-        return rendite;
-
-    }
-
-    public double getRenditeAnleihe(long teilnehmerId, long periodenId, long wertpapierId) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    public double getRenditeAktie(long teilnehmerId, long periodenId, long wertpapierId) {
-        double gezahlt = 0;
-        double depotstand = 0;
-        List<Buchung> buchungen = buchungRepository.findByTeilnehmerId(teilnehmerId);
-        buchungen = buchungen.stream().filter(b -> b.getWertpapier().getId() == wertpapierId)
-                .filter(b -> b.getPeriode().getId() <= periodenId)
-                .collect(toList());
-        for (Buchung b : buchungen) {
-            gezahlt += b.getVeraenderungZahlungsmittelkonto();
-            depotstand += b.getVeraenderungDepot();
-        }
-        return gezahlt + depotstand;
-
-    }
 
 
 }

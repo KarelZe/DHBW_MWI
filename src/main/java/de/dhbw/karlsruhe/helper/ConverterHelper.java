@@ -5,10 +5,7 @@ import de.dhbw.karlsruhe.model.KursRepository;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
 import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
 import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
-import de.dhbw.karlsruhe.model.jpa.Periode;
-import de.dhbw.karlsruhe.model.jpa.Spiel;
-import de.dhbw.karlsruhe.model.jpa.Unternehmen;
-import de.dhbw.karlsruhe.model.jpa.Wertpapier;
+import de.dhbw.karlsruhe.model.jpa.*;
 import javafx.util.StringConverter;
 
 import java.text.SimpleDateFormat;
@@ -133,8 +130,15 @@ public class ConverterHelper {
          */
         @Override
         public String toString(Wertpapier wertpapier) {
-            return wertpapier != null ? wertpapier.getName() + " (" + wertpapier.getUnternehmen().getName() + " - " + wertpapier.getWertpapierArt().getName() + ")"
-                    + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "\u20ac" : "";
+            if (wertpapier == null) {
+                return "";
+            } else if (wertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE) {
+                return wertpapier.getName() + " (" + wertpapier.getUnternehmen().getName() + " - " + wertpapier.getWertpapierArt().getName() + ")"
+                        + " | Nennwert : 1000\u20ac, " + " Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "%";
+            } else {
+                return wertpapier.getName() + " (" + wertpapier.getUnternehmen().getName() + " - " + wertpapier.getWertpapierArt().getName() + ")"
+                        + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), wertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "\u20ac";
+            }
         }
         /**
          * Methode zur Umwandlung von Strings in Periodenobjekte.
@@ -161,11 +165,28 @@ public class ConverterHelper {
          */
         @Override
         public String toString(Portfolioposition portfolioposition) {
-            return portfolioposition != null ? portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
-                    + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "\u20ac"
-                    + " | Positionsgr\u00f6\u00dfe: " + String.format("%.2f", portfolioposition.getBezugsgroesse()) + "\u20ac"
-                    + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
-                    + " Stk.)" : "";
+            if (portfolioposition == null) {
+                return "";
+            } else if (portfolioposition.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ANLEIHE) {
+                return portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
+                        + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "%"
+                        + " | Nominalvolumen: " + String.format("%.2f", portfolioposition.getBezugsgroesse()) + "\u20ac"
+                        + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
+                        + " Stk.)";
+            } else if (portfolioposition.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE || portfolioposition.getWertpapier().getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF) {
+                return portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
+                        + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "\u20ac"
+                        + " | Positionssaldo: " + String.format("%.2f",
+                        (portfolioposition.getBezugsgroesse() * KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs())) + "\u20ac"
+                        + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
+                        + " Stk.)";
+            } else {
+                return portfolioposition.getWertpapier().getName() + " (" + portfolioposition.getWertpapier().getUnternehmen().getName() + " - " + portfolioposition.getWertpapier().getWertpapierArt().getName() + ")"
+                        + " | Kurs: " + String.format("%.2f", KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs()) + "\u20ac"
+                        + " | Positionssaldo: " + String.format("%.2f", portfolioposition.getBezugsgroesse()) + "\u20ac"
+                        + " (" + PortfolioFassade.getInstanz().getCountOfPositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId(), portfolioposition.getWertpapier().getId())
+                        + " Stk.)";
+            }
         }
         /**
          * Methode zur Umwandlung von Strings in Portfoliopositionen.

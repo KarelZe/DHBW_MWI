@@ -2,8 +2,8 @@ package de.dhbw.karlsruhe.controller;
 
 import de.dhbw.karlsruhe.model.AktuelleSpieldaten;
 import de.dhbw.karlsruhe.model.PeriodenRepository;
+import de.dhbw.karlsruhe.model.SpielRepository;
 import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
-import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
 import de.dhbw.karlsruhe.model.jpa.Periode;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -12,7 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+
 
 /**
  * Controller für die Finanzübersicht des Teilnehmers
@@ -21,12 +25,7 @@ import java.util.*;
 public class BenutzerDepotController implements ControlledScreen {
 
     private ScreenController screenController;
-    private List<Portfolioposition> depotAktien;
-    private List<Portfolioposition> depotAnleihen;
-    private List<Portfolioposition> depotETF;
-    private List<Portfolioposition> depotFestgeld;
     private ArrayList<Periode> perioden;
-
     @FXML
     private TableView<ObservableList<String>> table;
 
@@ -58,14 +57,10 @@ public class BenutzerDepotController implements ControlledScreen {
     private void initialize() {
         long teilnehmerID = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
         long periodeID = findAktuellePeriode().getId();
-        depotAktien = PortfolioFassade.getInstanz().getAktienPositionen(teilnehmerID, periodeID);
-        depotAnleihen = PortfolioFassade.getInstanz().getAnleihePositionen(teilnehmerID, periodeID);
-        depotETF = PortfolioFassade.getInstanz().getEtfPositionen(teilnehmerID, periodeID);
-        depotFestgeld = PortfolioFassade.getInstanz().getFestgeldPositionen(teilnehmerID, periodeID);
+
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setEditable(false);
         populateTable();
-
 
     }
 
@@ -91,32 +86,31 @@ public class BenutzerDepotController implements ControlledScreen {
             table.getColumns().add(column);
         }
 
-        // PoC
-        ArrayList<Double> renditeinPerioden = new ArrayList<>(Arrays.asList(0.0, 0.0, 0.0));
 
         // Erste Reihe
-        createGesamdepotwertRow(renditeinPerioden);
+        createGesamdepotwertRow(createRenditeInPeriodenPlaceholder());
         //Zweite Reihe
-        createZahlungsmittelkontoRow(perioden.size() - 1);
+        createZahlungsmittelkontoRow(createRenditeInPeriodenPlaceholder());
         //Dritte Reihe
-        createFestgeldRow(renditeinPerioden);
+        createFestgeldRow(createRenditeInPeriodenPlaceholder());
         //Vierte Reihe
-        createEtfRow(renditeinPerioden);
+        createEtfRow(createRenditeInPeriodenPlaceholder());
         //Fünfte Reihe
-        createAktienGesamtRow(renditeinPerioden);
+        createAktienGesamtRow(createRenditeInPeriodenPlaceholder());
         //Sechste Reihe
-        createAnleihenGesamtRow(renditeinPerioden);
+        createAnleihenGesamtRow(createRenditeInPeriodenPlaceholder());
 
 
     }
 
     /**
-     * Erzeugt eine Zeile
-     * @param finanzanlage Finanzanlage
-     * @param saldo Saldo
-     * @param rendite Rendite
-     * @param renditeInPerioden Liste von Renditen (je Periode ein Eintrag)
-     * @return
+     * Diese Methode erzeugt eine Reihe in der Tabelle
+     *
+     * @param finanzanlage      String der Finanzanlagebezeichnung
+     * @param saldo             Saldo der Finanzanlage
+     * @param rendite           Rendite der Finanzanlage in aktueller Periode
+     * @param renditeInPerioden Renditen der Finanzanlage in den vergangenen Perioden inkl. aktueller Periode
+     * @return Reihe für die TableView
      * @author Raphael Winkler
      */
     private ObservableList<String> createRow(String finanzanlage, String saldo, String rendite, ArrayList<String> renditeInPerioden) {
@@ -140,73 +134,82 @@ public class BenutzerDepotController implements ControlledScreen {
     }
 
     /**
-     * Erzeugt eine Zeile, die den Gesamtdepotwert angibt
-     * @param renditeinPerioden Liste von Double-Objekten
+     * Diese Methode erzeugt die Reihe des Gesamtdepots
+     *
+     * @param renditeInPerioden Renditen der Finanzanlage in den vergangenen Perioden inkl. aktueller Periode
      * @author Raphael Winkler
      */
-    private void createGesamdepotwertRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+    private void createGesamdepotwertRow(ArrayList<String> renditeInPerioden) {
+        double startkapital = SpielRepository.getInstanz().getAktivesSpiel().getStartkapital();
+        double saldo = PortfolioFassade.getInstanz().getGesamtSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId());
+        double rendite = (saldo - startkapital) / startkapital * 100;
 
-        table.getItems().add(createRow("Gesamtdepotwert", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
+        table.getItems().add(createRow("Gesamtdepotwert", String.format("%.2f", saldo) + " \u20AC", String.format("%.2f", rendite) + "\u0025", renditeInPerioden));
     }
 
     /**
-     * Erzeugt eine Zeile, die den Saldo des Zahlungsmittelkontos angibt
-     * @param periodenAnzahl Anzahl der Perioden
+     * Diese Methode erzeugt die Reihe des Zahlungsmittelkontos
      * @author Raphael Winkler
      */
-    private void createZahlungsmittelkontoRow(int periodenAnzahl) {
+    private void createZahlungsmittelkontoRow(ArrayList<String> renditeInPerioden) {
+        double saldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+        table.getItems().add(createRow("Zahlungsmittelkonto", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPerioden));
+    }
+
+    /**
+     * Diese Methode erzeugt die Reihe des Festgeldbestands
+     * @param renditeInPerioden Renditen der Finanzanlage in den vergangenen Perioden inkl. aktueller Periode
+     * @author Raphael Winkler
+     */
+    private void createFestgeldRow(ArrayList<String> renditeInPerioden) {
+        double saldo = PortfolioFassade.getInstanz().getFestgeldSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
+        table.getItems().add(createRow("Festgeld", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPerioden));
+    }
+
+    /**
+     * Diese Methode erzeugt die Reihe des ETF-Bestands
+     * @param renditeInPerioden Renditen der Finanzanlage in den vergangenen Perioden inkl. aktueller Periode
+     * @author Raphael Winkler
+     */
+    private void createEtfRow(ArrayList<String> renditeInPerioden) {
+        double saldo = PortfolioFassade.getInstanz().getEtfSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId());
+        table.getItems().add(createRow("ETF", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPerioden));
+    }
+
+    /**
+     * Diese Methode erzeugt die Reihe des Aktien-Bestands
+     * @param renditeInPerioden Renditen der Finanzanlage in den vergangenen Perioden inkl. aktueller Periode
+     * @author Raphael Winkler
+     */
+    private void createAktienGesamtRow(ArrayList<String> renditeInPerioden) {
+        long benutzerId = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
+        double saldo = PortfolioFassade.getInstanz().getAktienSaldo(benutzerId, findAktuellePeriode().getId());
+        table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPerioden));
+    }
+
+    /**
+     * Diese Methode erzeugt die Reihe des Anleihen-Bestands
+     * @param renditeInPerioden Renditen der Finanzanlage in den vergangenen Perioden inkl. aktueller Periode
+     * @author Raphael Winkler
+     */
+    private void createAnleihenGesamtRow(ArrayList<String> renditeInPerioden) {
+        double saldo = PortfolioFassade.getInstanz().getAnleihenSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId());
+        table.getItems().add(createRow("Anleihen", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPerioden));
+    }
+
+    /**
+     * Diese Methode erzeugt Platzhalter für die Rendite der Vergangenen Perioden
+     *
+     * @return Platzhalter für RenditeInPerioden
+     * @author Raphael Winkler
+     */
+    private ArrayList<String> createRenditeInPeriodenPlaceholder() {
         ArrayList<String> renditeInPeriodenPlaceholder = new ArrayList<>();
-        for (int i = 1; i <= periodenAnzahl; i++) {
+        for (int i = 1; i <= perioden.size() - 1; i++) {
             renditeInPeriodenPlaceholder.add("-");
         }
-        double saldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-
-        table.getItems().add(createRow("Zahlungsmittelkonto", String.format("%.2f", saldo) + " \u20AC", "-", renditeInPeriodenPlaceholder));
+        return renditeInPeriodenPlaceholder;
     }
 
-    /**
-     * Erzeugt eine Zeile, die den Saldo des Festgeldes angibt
-     * @param renditeinPerioden Liste von Double-Objekten
-     * @author Raphael Winkler
-     */
-    private void createFestgeldRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getFestgeldSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("Festgeld", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
-    }
-
-    /**
-     * Erzeugt eine Zeile, die den Saldo des ETFs angibt
-     * @param renditeinPerioden Liste von Double-Objekten
-     * @author Raphael Winkler
-     */
-    private void createEtfRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getEtfSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId());
-
-        table.getItems().add(createRow("ETF", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
-    }
-
-    /**
-     * Erzeugt eine Zeile, die den Saldo der Aktien angibt
-     * @param renditeinPerioden Liste von Double-Objekten
-     * @author Raphael Winkler
-     */
-    private void createAktienGesamtRow(ArrayList<Double> renditeinPerioden) {
-        long benutzerId = AktuelleSpieldaten.getInstanz().getBenutzer().getId();
-        double saldo = PortfolioFassade.getInstanz().getAktienSaldo(benutzerId);
-        double rendite = PortfolioFassade.getInstanz().getRenditeAktienGesamt(benutzerId, findAktuellePeriode().getId());
-
-        table.getItems().add(createRow("Aktien", String.format("%.2f", saldo) + " \u20AC", rendite + " %", castDoubleListToStringList(renditeinPerioden)));
-    }
-
-    /**
-     * Erzeugt eine Zeile, die den Saldo der Anleihen angibt
-     * @param renditeinPerioden Liste von Double-Objekten
-     * @author Raphael Winkler
-     */
-    private void createAnleihenGesamtRow(ArrayList<Double> renditeinPerioden) {
-        double saldo = PortfolioFassade.getInstanz().getAnleihenSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
-        table.getItems().add(createRow("Anleihen", String.format("%.2f", saldo) + " \u20AC", 0 + " %", castDoubleListToStringList(renditeinPerioden)));
-    }
 }
 

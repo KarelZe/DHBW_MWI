@@ -1,27 +1,15 @@
 package de.dhbw.karlsruhe.controller;
 
-import de.dhbw.karlsruhe.helper.ConverterHelper;
-import de.dhbw.karlsruhe.model.*;
-import de.dhbw.karlsruhe.model.fassade.PortfolioFassade;
-import de.dhbw.karlsruhe.model.fassade.Portfolioposition;
-import de.dhbw.karlsruhe.model.jpa.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+public class InvestmentUebersichtController {
 
-import java.util.*;
-import java.util.stream.Collectors;
+    //public class InvestmentUebersichtController implements ControlledScreen {
 
-/**
- * ACHTUNG: CODE WIRD NICHT BENUTZT UND FUNKTIONIERT NICHT. SOLLTE DIESE FUNKTIONALITÄT SPÄTER EINGEBAUT WERDEN, KANN DIESE KLASSE ALS IDEE DIENEN.
- * Controller, um eine Übersicht anzuzeigen, wie die Anlagevolumina der Unternehmensmitglieder auf das eigene und fremde Unternehmen verteilt sind.
- */
-public class InvestmentUebersichtController implements ControlledScreen {
 
-    private ScreenController screenController;
+    // *Under Construction* Diese Klasse sollte die Fremd- und Eigeninvestitionen in die Wertpapiere eines Unternehmens der Mitarbeiter darstellen. Aufgrund von mehrerer Hindernisse, wurde die Weiterentwicklung stillgelegt.
+    // author: Raphael Winkler und Maximilian Schwaab
+
+
+    /*private ScreenController screenController;
     private List<Unternehmen> unternehmenListe = UnternehmenRepository.getInstanz().findAllPlanspielUnternehmen();
     //private UnternehmenRepository unternehmenRepo;
 
@@ -32,24 +20,17 @@ public class InvestmentUebersichtController implements ControlledScreen {
     private TableView<TabellenInhalt> tvInvestmentUebersicht;
     private List<TableColumn<TabellenInhalt, String>> tabellenZeilen = new ArrayList<>();
 
-    /**
-     * Methode für den Zugriff auf den {@code ScreenController} des übergeordneten Screens.
-     *
-     * @param screenPage Controller des Screens
-     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         this.screenController = screenPage;
     }
 
-    /**
-     * Initialisierung
-     */
     @FXML
     public void initialize() {
         cbPeriodenAuswahl.setItems(FXCollections.observableArrayList(new ArrayList<Periode>(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()))));
         cbPeriodenAuswahl.setValue(PeriodenRepository.getInstanz().findAllBySpieleId(AktuelleSpieldaten.getInstanz().getSpiel().getId()).stream().max(Comparator.comparing(Periode::getId)).orElseThrow(NoSuchElementException::new)); //setze aktuelle Periode
         cbPeriodenAuswahl.setConverter(new ConverterHelper().getPeriodenConverter());
+
 
         tvInvestmentUebersicht.setEditable(true);
         //tabellenZeilen.add(new TableColumn<TabellenInhalt, String>());
@@ -57,14 +38,10 @@ public class InvestmentUebersichtController implements ControlledScreen {
         for (Unternehmen u : unternehmenListe) {
             tvInvestmentUebersicht.getColumns().addAll(new TableColumn(u.getName()));
         }
+
+
     }
 
-    /**
-     * Gibt die Investments eines Unternehmen in einer angegebenen Periode zurück
-     * @param unternehmensId Unternehmen
-     * @param periodenId Periode
-     * @return Map
-     */
     private Map<Long, Double> getInvestmentsOfAUnternehmenInEachUnternehmenByUnternehmenAndPeriode(long unternehmensId, long periodenId) {
         class Tupel {
             private long unternehmensId;
@@ -111,12 +88,7 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
     }
 
-    /**
-     * Gibt die Summe der Investitionen eines Unternehmen zurück
-     * @param unternehmensId Unternehmen
-     * @param periodenId Periode
-     * @return Map
-     */
+    // Hole Positionen eines Unternehmens in einer Periode
     private Map<Long, Double> getSummeDerInvestitionenByUnternehmen(long unternehmensId, long periodenId) {
         // Anonyme Klasse, um Investitionen in die Unternehmen zu speichern
         class InvestitionenTupel {
@@ -186,9 +158,11 @@ public class InvestmentUebersichtController implements ControlledScreen {
 
     }
 
+
     class TabellenInhalt {
         SimpleStringProperty unternehmen;
+
     }
 
-
+*/
 }

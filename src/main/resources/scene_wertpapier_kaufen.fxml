@@ -11,17 +11,17 @@
                   minWidth="-Infinity" prefHeight="380.0" prefWidth="435.0">
             <children>
                 <Label fx:id="lblAuswahl" text="Auswahl Wertpapier:" GridPane.rowIndex="1"/>
-                <ComboBox fx:id="cbWertpapierAuswahl" prefHeight="31.0" prefWidth="124.0" GridPane.columnIndex="1"
-                          GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cbWertpapierAuswahl" onAction="#doBerechneKosten" prefHeight="31.0" prefWidth="124.0"
+                          GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
                 <Label fx:id="lbAnzahl" text="Anzahl:" GridPane.rowIndex="2"/>
-                <TextField fx:id="txtAnzahl" maxWidth="125.0" onAction="#doBerechneKosten" prefHeight="25.0"
+                <TextField fx:id="txtAnzahl" maxWidth="125.0" onKeyTyped="#doBerechneKosten" prefHeight="25.0"
                            prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <Label fx:id="lblGesamtKosten" text="Gesamtkosten:" GridPane.rowIndex="5"/>
                 <Label fx:id="lblGesamtKostenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                 <Label fx:id="lbZahlungsmittelSaldo" text="0" GridPane.columnIndex="1"/>
                 <Label fx:id="lbZahlungsmittelkonto" text="Zahlungsmittelkonto:"/>
-                <Label fx:id="lblOrdervolumen" text="Ordervolumen:" GridPane.rowIndex="3"/>
-                <Label fx:id="lblOrdervolumenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label fx:id="lblZwischensumme" text="Zwischensumme:" GridPane.rowIndex="3"/>
+                <Label fx:id="lblZwischensummeDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                 <Label fx:id="lblOrderGebuehren" text="Ordergebühren:" GridPane.rowIndex="4"/>
                 <Label fx:id="lblOrderGebuehrenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             </children>

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="de.dhbw.karlsruhe.controller.TeilnehmerHistorieController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+          fx:controller="de.dhbw.karlsruhe.controller.TeilnehmerHistorieController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -22,27 +20,27 @@
       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
     </columnResizePolicy>
     <columns>
-      <TableColumn prefWidth="75.0" text="BuchungsId" fx:id="tblColBuchungId">
+        <TableColumn fx:id="tblColBuchungId" prefWidth="75.0" text="BuchungsId">
         <cellValueFactory>
           <PropertyValueFactory property="Id" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="75.0" text="kaufen / verkaufen" fx:id="tblColBuySell">
+        <TableColumn fx:id="tblColBuySell" prefWidth="170.0" text="kaufen / verkaufen">
         <cellValueFactory>
           <PropertyValueFactory property="kaufart" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="75.0" text="Volumen" fx:id="tblColVolume">
+        <TableColumn fx:id="tblColVolume" prefWidth="69.0" text="Volumen">
         <cellValueFactory>
           <PropertyValueFactory property="volume" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="75.0" text="Art" fx:id="tblColType">
+        <TableColumn fx:id="tblColType" prefWidth="75.0" text="Art">
         <cellValueFactory>
           <PropertyValueFactory property="wertpapierart" />
         </cellValueFactory>
       </TableColumn>
-      <TableColumn prefWidth="75.0" text="Unternehmen" fx:id="tblColUnternehmen">
+        <TableColumn fx:id="tblColUnternehmen" prefWidth="75.0" text="Unternehmen">
         <cellValueFactory>
           <PropertyValueFactory property="unternehmen" />
         </cellValueFactory>

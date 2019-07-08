@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  */
 public class WertpapierVerkaufenController implements ControlledScreen {
 
+
     private ScreenController screenController;
 
     @FXML
@@ -53,9 +54,9 @@ public class WertpapierVerkaufenController implements ControlledScreen {
     @FXML
     private Button btnVerkaufen;
     @FXML
-    private Label lblOrdervolumen;
+    private Label lblZwischensumme;
     @FXML
-    private Label lblOrdervolumenDisplay;
+    private Label lblZwischensummeDisplay;
     @FXML
     private Label lblOrderGebuehren;
     @FXML
@@ -82,12 +83,16 @@ public class WertpapierVerkaufenController implements ControlledScreen {
     private void initialize() {
         ArrayList<Portfolioposition> portfoliopositionen = PortfolioFassade.getInstanz().getPortfoliopositionen(AktuelleSpieldaten.getInstanz().getBenutzer().getId(), findAktuellePeriode().getId()).stream()
                 .filter(p -> p.getWertpapier().getWertpapierArt().getId() != WertpapierArt.WERTPAPIER_STARTKAPITAL).collect(Collectors.toCollection(ArrayList::new));
+
+        // Checken ob Wertpapier Kurs = 0 hat
+        portfoliopositionen.removeIf(p -> KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(findAktuellePeriode().getId(), p.getWertpapier().getId()).orElseThrow(NoSuchElementException::new).getKurs() == 0);
+
         ObservableList<Portfolioposition> portfoliopositionenComboBox = FXCollections.observableArrayList(portfoliopositionen);
         cbPortfoliopositionAuswahl.setItems(portfoliopositionenComboBox);
         cbPortfoliopositionAuswahl.setConverter(new ConverterHelper().getPortfoliopositionConverter());
         teilnehmerZahlungsmittelkontoSaldo = PortfolioFassade.getInstanz().getZahlungsmittelkontoSaldo(AktuelleSpieldaten.getInstanz().getBenutzer().getId());
         lbZahlungsmittelSaldo.setText(String.format("%.2f", teilnehmerZahlungsmittelkontoSaldo));
-        lblOrderGebuehren.setText("Ordergeb\u00fchren (- " + findAktuelleOrdergebuehr(findAktuellePeriode()) + " %):");
+        lblOrderGebuehren.setText("Ordergeb\u00fchren (- " + (findAktuelleOrdergebuehr(findAktuellePeriode()) * 100) + " %):");
 
 
     }
@@ -111,25 +116,17 @@ public class WertpapierVerkaufenController implements ControlledScreen {
      * @author Raphael Winkler
      */
     private double findAktuelleOrdergebuehr(Periode aktuellePeriode) throws NoSuchElementException {
-        return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr() * 100;
+        return PeriodenRepository.getInstanz().findById(aktuellePeriode.getId()).orElseThrow(NoSuchElementException::new).getOrdergebuehr();
     }
 
-    /**
-     * Ermittelt den Kurs eines übergebenen Wertpapiers
-     * @param aktuellePeriode aktuelle Periode
-     * @param selectedWertpapier Wertpapier, für das der Kurs ermittelt werden soll
-     * @return Kurs
-     * @throws NoSuchElementException
-     * @author Raphael Winkler
-     */
     private double findWertpapierKursValue(Periode aktuellePeriode, Wertpapier selectedWertpapier) throws NoSuchElementException {
         return KursRepository.getInstanz().findByPeriodenIdAndWertpapierId(aktuellePeriode.getId(), selectedWertpapier.getId()).orElseThrow(NoSuchElementException::new).getKurs();
     }
 
     /**
-     * Event-Handler für Verkaufen-Button
-     * @param event Event
-     * @author Raphael Winkler
+     * Methode zur Speicherung der Verkaufbuchung.
+     *
+     * @param event Event des aufrufenden Buttons
      */
     @FXML
     private void doWertpapierVerkaufen(ActionEvent event) {
@@ -147,13 +144,6 @@ public class WertpapierVerkaufenController implements ControlledScreen {
             return;
         }
         try {
-            aktuelleOrderGebuehr = findAktuelleOrdergebuehr(aktuellePeriode);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        try {
             selectedWertpapier = cbPortfoliopositionAuswahl.getValue().getWertpapier();
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -165,11 +155,16 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         }
         try {
             anzahlZuVerkaufen = Double.valueOf(txtAnzahl.getText());
+            if (anzahlZuVerkaufen <= 0) { // keine negative Anzahl
+                throw new NumberFormatException();
+            } else if ((anzahlZuVerkaufen != Math.floor(anzahlZuVerkaufen)) || Double.isInfinite(anzahlZuVerkaufen)) { // Keine Zahl mit Nachkommastellen
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fehler!");
-            alert.setContentText("Bitte geben Sie eine Zahl in das Anzahlfeld ein.");
+            alert.setContentText("Bitte geben Sie eine ganze positive Zahl in das Anzahlfeld ein.");
             alert.showAndWait();
             return;
         }
@@ -200,15 +195,14 @@ public class WertpapierVerkaufenController implements ControlledScreen {
     }
 
     /**
-     * Berechnet den Erlös einer Order
-     * @author Raphael Winkler
+     * Methode zur Berechnung und Aktualisierung der Anzeigen Zwischensumme, Gebuehren und Gesamterloes
      */
     @FXML
     private void doBerechneErloes() {
         Wertpapier selectedWertpapier;
         double anzahlZuVerkaufen;
         double wertpapierKursValue;
-        double orderVolumen;
+        double zwischensumme;
         double aktuelleOrderGebuehr;
         double orderGesamtErloes;
         Periode aktuellePeriode;
@@ -225,11 +219,23 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         }
         try {
             anzahlZuVerkaufen = Double.valueOf(txtAnzahl.getText());
+            if (anzahlZuVerkaufen <= 0) { // keine negative Anzahl
+                throw new NumberFormatException("Negative Zahl eingetragen");
+            } else if ((anzahlZuVerkaufen != Math.floor(anzahlZuVerkaufen)) || Double.isInfinite(anzahlZuVerkaufen)) { // Keine Zahl mit Nachkommastellen
+                throw new NumberFormatException("Kommazahl eingetragen");
+            }
         } catch (NumberFormatException e) {
+            if (e.getMessage().equals("empty String")) {
+                lblZwischensummeDisplay.setText(0 + "\u20ac");
+                lblOrderGebuehrenDisplay.setText(0 + "\u20ac");
+                lblGesamtErloesDisplay.setText(0 + "\u20ac");
+
+                return;
+            }
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fehler!");
-            alert.setContentText("Bitte geben Sie eine Zahl in das Anzahlfeld ein.");
+            alert.setContentText("Bitte geben Sie eine ganze positive Zahl in das Anzahlfeld ein.");
             alert.showAndWait();
             return;
         }
@@ -238,10 +244,25 @@ public class WertpapierVerkaufenController implements ControlledScreen {
         aktuellePeriode = findAktuellePeriode();
         aktuelleOrderGebuehr = findAktuelleOrdergebuehr(aktuellePeriode);
         wertpapierKursValue = findWertpapierKursValue(aktuellePeriode, selectedWertpapier);
-        orderVolumen = wertpapierKursValue * anzahlZuVerkaufen;
-        orderGesamtErloes = orderVolumen * (1 - (aktuelleOrderGebuehr / 100));     //todo fix raphael
-        lblOrdervolumenDisplay.setText(String.format("%.2f", orderVolumen) + "\u20ac");
-        lblOrderGebuehrenDisplay.setText(String.format("%.2f", orderVolumen * aktuelleOrderGebuehr / 100) + "\u20ac");
+
+
+        if (selectedWertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_AKTIE || selectedWertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_ETF) {
+            zwischensumme = anzahlZuVerkaufen * wertpapierKursValue;
+            orderGesamtErloes = zwischensumme * (1 - aktuelleOrderGebuehr);
+
+        } else if (selectedWertpapier.getWertpapierArt().getId() == WertpapierArt.WERTPAPIER_FESTGELD) {
+            zwischensumme = anzahlZuVerkaufen * wertpapierKursValue;
+            orderGesamtErloes = zwischensumme * (1 - aktuelleOrderGebuehr);
+        } else { // Anleihe
+            zwischensumme = anzahlZuVerkaufen * 1000 * (wertpapierKursValue / 100);
+            orderGesamtErloes = zwischensumme * (1 - aktuelleOrderGebuehr);
+        }
+
+        lblZwischensummeDisplay.setText(String.format("%.2f", zwischensumme) + "\u20ac");
+        lblOrderGebuehrenDisplay.setText(String.format("%.2f", zwischensumme * aktuelleOrderGebuehr) + "\u20ac");
         lblGesamtErloesDisplay.setText(String.format("%.2f", orderGesamtErloes) + "\u20ac");
+
     }
+
+
 }

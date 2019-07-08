@@ -15,15 +15,15 @@
                   <Insets bottom="5.0"/>
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="cbPortfoliopositionAuswahl" prefHeight="31.0" prefWidth="216.0" GridPane.columnIndex="1"
-                      GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
+             <ComboBox fx:id="cbPortfoliopositionAuswahl" onAction="#doBerechneErloes" prefHeight="31.0"
+                       prefWidth="216.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
             <Label fx:id="lbAnzahl" text="Anzahl:" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0"/>
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtAnzahl" maxWidth="206.0" onAction="#doBerechneErloes" prefHeight="31.0"
-                       prefWidth="206.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+             <TextField fx:id="txtAnzahl" maxWidth="206.0" onKeyTyped="#doBerechneErloes" prefHeight="31.0"
+                        prefWidth="206.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <Label fx:id="lblGesamtErloes" text="Gesamterlös:" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="5.0"/>
@@ -40,12 +40,12 @@
                   <Insets bottom="5.0"/>
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblOrdervolumen" text="Ordervolumen:" GridPane.rowIndex="3">
+             <Label fx:id="lblZwischensumme" text="Zwischensumme:" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="5.0"/>
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblOrdervolumenDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+             <Label fx:id="lblZwischensummeDisplay" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="5.0"/>
                </GridPane.margin>
