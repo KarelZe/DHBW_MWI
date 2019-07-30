@@ -35,3 +35,12 @@ javafx {
 }
 
 mainClassName = "de.dhbw.karlsruhe.controller.ScreensFramework"
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.dhbw.karlsruhe.controller.Launcher'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
